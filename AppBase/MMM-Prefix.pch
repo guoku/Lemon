@@ -1,0 +1,77 @@
+#import <Availability.h>
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#endif
+#else
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+// AFNetworking
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#endif
+#endif
+#ifdef kLabelAlignmentCenter // iOS6 and later
+#   define kLabelAlignmentCenter    kLabelAlignmentCenter
+#   define kLabelAlignmentLeft      kLabelAlignmentLeft
+#   define kLabelAlignmentRight     kLabelAlignmentRight
+#   define kLabelTruncationTail     NSLineBreakByTruncatingTail
+#   define kLabelTruncationMiddle   NSLineBreakByTruncatingMiddle
+#else // older versions
+#   define kLabelAlignmentCenter    kLabelAlignmentCenter
+#   define kLabelAlignmentLeft      kLabelAlignmentLeft
+#   define kLabelAlignmentRight     kLabelAlignmentRight
+#   define kLabelTruncationTail     UILineBreakModeTailTruncation
+#   define kLabelTruncationMiddle   UILineBreakModeMiddleTruncation
+#endif
+#ifdef __OBJC__
+#import "UIImageView+WebCache.h"
+#import "GKDevice.h"
+#import "NSDate+GKHelper.h"
+#import "NSDictionary+GKHelp.h"
+#import "NSString+GKHelper.h"
+#import "UIView+GKHelper.h"
+
+#import "GKMessageBoard.h"
+
+#import "GKConfig.h"
+#import "GKAPICode.h"
+#import "GKAppDotNetAPIClient.h"
+
+#import "GKDetail.h"
+#import "GKEntity.h"
+#import "GKUser.h"
+#import "GKCreator.h"
+#import "GKUserBase.h"
+#import "GKNote.h"
+#import "GKTags.h"
+
+#import "GKNavigationController.h"
+#import "GKBaseViewController.h"
+
+#import "GKTitleView.h"
+#import "GKNoteLabel.h"
+#import "GKUserButton.h"
+#import "GKLikeButton.h"
+#import "GKItemButton.h"
+#import "GAI.h"
+
+#endif
+
+
+
+// Logging
+//#define kGKLogEnabled
+#ifdef kGKLogEnabled
+#define GKLog(fmt, ...) NSLog((@"%s/%d " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define GKLog(...)
+#endif
