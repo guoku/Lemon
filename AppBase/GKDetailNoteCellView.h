@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NoteCellDelegate.h"
 #import "GKNoteLabel.h"
+#import "RatingView.h"
 @class GKNote;
 @interface GKDetailNoteCellView : UITableViewCell
 
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) UILabel *nickname;
 @property (nonatomic, strong) GKNoteLabel * note;
 @property (strong, nonatomic) UIButton *time;
+@property (strong, nonatomic) RatingView *ratingView;
 
 @property (weak,nonatomic) id<NoteCellDelegate> notedelegate;
 @property (weak,nonatomic) id<GKDelegate> delegate;

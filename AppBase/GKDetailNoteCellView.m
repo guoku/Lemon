@@ -29,12 +29,13 @@
 @synthesize avatarButton = _avatarButton;
 @synthesize delegate = _delegate;
 @synthesize notedelegate = _notedelegate;
+@synthesize ratingView = _ratingView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.avatar = [[GKUserButton alloc ] initWithFrame:CGRectZero];
+        self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
         [_avatar setFrame:CGRectMake(10, 13, 35, 35)];
         [self addSubview:_avatar];
         
@@ -45,6 +46,13 @@
         [self addSubview:_nickname];
         
         y = _nickname.frame.origin.y + _nickname.frame.size.height;
+        
+        _ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
+        [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
+        _ratingView.center = CGPointMake(_ratingView.center.x, 20);
+        _ratingView.userInteractionEnabled = NO;
+        [_ratingView displayRating:8/2];
+        [self addSubview:_ratingView];
         
         self.note = [[GKNoteLabel alloc]initWithFrame:CGRectMake(53,y+2,240,400)];
         UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
@@ -83,8 +91,8 @@
         [_hootButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [_hootButton setImageEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 0)];
         [_hootButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-        [self addSubview:_hootButton];
-        _hootButton.hidden = YES;
+        //[self addSubview:_hootButton];
+        //_hootButton.hidden = YES;
         
         
         self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -97,7 +105,7 @@
         _commentButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_commentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
         _commentButton.userInteractionEnabled = NO;
-        [self addSubview:_commentButton];
+        //[self addSubview:_commentButton];
 
         self.time = [[UIButton alloc]initWithFrame:CGRectZero];
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
@@ -110,7 +118,9 @@
         [self addSubview:_time];
         
         _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
+        //[_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
+        _seperatorLineImageView.backgroundColor = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0 / 255.0f alpha:1.0f]
+;
         [self addSubview:_seperatorLineImageView];
         
     }
@@ -141,10 +151,16 @@
     
     self.avatar.creator = _noteData.creator;
     
-    [self.nickname setText:_noteData.creator.nickname];
-
-    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-    CGSize size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+    [self.nickname setText:[NSString stringWithFormat:@"%@ :",_noteData.creator.nickname]];
+    
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+    CGSize size = [self.nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+    self.nickname.frame = CGRectMake(53, 13, size.width, size.height);
+    
+    _ratingView.frame = CGRectMake(53+size.width, 13,80 ,size.height);
+    
+    font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
     GKLog(@"%@",NSStringFromCGSize(size));
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 250, size.height+10)];
     _note.note = _noteData;
@@ -153,11 +169,11 @@
     
     NSString * poke_count = [NSString stringWithFormat:@"%u", _noteData.poker_count];
     [_pokeButton setTitle:poke_count forState:UIControlStateNormal];
-    [_pokeButton setFrame:CGRectMake(53., _note.frame.origin.y + _note.frame.size.height + 10, 40, 25)];
+    [_pokeButton setFrame:CGRectMake(53., _note.frame.origin.y + _note.frame.size.height + 5, 40, 25)];
     
     NSString * _hoot_count = [NSString stringWithFormat:@"%u", _noteData.hooter_count];
     [_hootButton setTitle:_hoot_count forState:UIControlStateNormal];
-    _hootButton.frame = CGRectMake(_pokeButton.frame.origin.x + _pokeButton.frame.size.width,  _note.frame.origin.y + _note.frame.size.height + 5, 40., 25);
+    _hootButton.frame = CGRectMake(_pokeButton.frame.origin.x + _pokeButton.frame.size.width,  _note.frame.origin.y + _note.frame.size.height+5, 40., 25);
 
 //    GKLog(@"%@", _noteData.note_poke);
     switch (_noteData.note_poke.poked_or_hooted) {
@@ -189,7 +205,7 @@
     
     NSString * comment_count = [NSString stringWithFormat:@"%u", _noteData.comment_count];
     [_commentButton setTitle:comment_count forState:UIControlStateNormal];
-    [_commentButton setFrame:CGRectMake(_pokeButton.frame.origin.x + _pokeButton.frame.size.width+15, _note.frame.origin.y+_note.frame.size.height+10, 40, 25)];
+    [_commentButton setFrame:CGRectMake(_pokeButton.frame.origin.x + _pokeButton.frame.size.width+15, _note.frame.origin.y+_note.frame.size.height, 40, 25)];
     _commentButton.userInteractionEnabled = YES;
 
     
@@ -197,7 +213,7 @@
     [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:yy"] forState:UIControlStateNormal];
     [_time setFrame:CGRectMake(190, _note.frame.origin.y+_note.frame.size.height+12, 120, 30)];
     
-    [_seperatorLineImageView setFrame:CGRectMake(0, self.frame.size.height-2, kScreenWidth, 2)];
+    [_seperatorLineImageView setFrame:CGRectMake(0, self.frame.size.height-1, kScreenWidth, 1)];
 }
 
 
@@ -254,6 +270,6 @@
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
     
-    return size.height + 85; // 10即消息上下的空间，可自由调整
+    return size.height + 75; // 10即消息上下的空间，可自由调整
 }
 @end

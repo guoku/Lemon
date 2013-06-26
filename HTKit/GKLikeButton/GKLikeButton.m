@@ -23,12 +23,14 @@
     if (self) {
         self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectZero;
-        [_likeButton setImage:[UIImage imageNamed:@"icon_like.png"] forState:UIControlStateNormal];
-        [_likeButton setImage:[UIImage imageNamed:@"icon_like.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [_likeButton setImage:[UIImage imageNamed:@"icon_like_press.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
-        [_likeButton setImage:[UIImage imageNamed:@"icon_like_press.png"] forState:UIControlStateSelected];
-        [_likeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_likeButton setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateSelected];
+        [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted];
+        [_likeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
+        [_likeButton setTitleColor:[UIColor colorWithRed:253.0f / 255.0f green:62.0f / 255.0f blue:55.0 / 255.0f alpha:1.0f] forState:UIControlStateNormal];
         [_likeButton addTarget:self action:@selector(likeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_likeButton];
         
@@ -69,8 +71,7 @@
     _likeButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [_likeButton.titleLabel setTextAlignment:UITextAlignmentLeft];
     _likeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(-2, -2, 0, 0)];
-    NSString * _liked_count = [NSString stringWithFormat:@"喜爱 %u", _data.liked_count];
+    NSString * _liked_count = [NSString stringWithFormat:@"收藏 %u", _data.liked_count];
     [_likeButton setTitle:_liked_count forState:UIControlStateNormal];
 }
 

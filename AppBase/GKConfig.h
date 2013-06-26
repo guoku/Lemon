@@ -81,6 +81,10 @@
 #define kColorb6ada6 [UIColor colorWithRed:182.0f / 255.0f green:173.0f / 255.0f blue:166.0 / 255.0f alpha:1.0f]
 #endif
 
+#ifndef kColorf5f4f4
+#define kColorf5f4f4 [UIColor colorWithRed:245.0f / 255.0f green:244.0f / 255.0f blue:244.0 / 255.0f alpha:1.0f]
+#endif
+
 #ifndef kColorfecbc4
 #define kColorfecbc4 [UIColor colorWithRed:254.0f / 255.0f green:203.0f / 255.0f blue:196.0 / 255.0f alpha:1.0f]
 #endif
@@ -117,6 +121,11 @@
 #ifndef kColorc6c6c6
 #define kColorc6c6c6 [UIColor colorWithRed:198.0f / 255.0f green:198.0f / 255.0f blue:198.0 / 255.0f alpha:1.0f]
 #endif
+
+#ifndef kColor999999
+#define kColor999999 [UIColor colorWithRed:153.0f / 255.0f green:153.0f / 255.0f blue:153.0 / 255.0f alpha:1.0f]
+#endif
+
 
 #ifndef kColor666666
 #define kColor666666 [UIColor colorWithRed:102.0f / 255.0f green:102.0f / 255.0f blue:102.0 / 255.0f alpha:1.0f]

@@ -31,10 +31,13 @@
     NSMutableArray * _dataArray;
     SMPageControl * pageControl;
     UIView *HeaderView;
+    UILabel *sectionTip;
     NSIndexPath *indexPathTmp;
-    BOOL headerChange;
-    float y;
     GKUser *user;
+    UIButton *mask;
+    UIView *TimeLineMenu;
+    BOOL flag;
+    float historyOffsetY;
 }
 
 @synthesize table = _table;
@@ -44,9 +47,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        flag = 0;
         indexPathTmp = [[NSIndexPath alloc]initWithIndex:0];
         NSLog(@"%d",indexPathTmp.section);
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = kColorebe7e4;
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"我的"];
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -75,9 +79,12 @@
     [super viewDidLoad];
         
     //数据
-    TMLStage *stage1 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备孕",@"name",@"NO",@"on", nil]];
+    TMLStage *stage1 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备孕",@"name",@"YES",@"on", nil]];
     TMLStage *stage2 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"YES",@"on", nil]];
     TMLStage *stage3 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"NO",@"on", nil]];
+    TMLStage *stage4 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"NO",@"on", nil]];
+    TMLStage *stage5 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"待产",@"name",@"NO",@"on", nil]];
+    TMLStage *stage6 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"0-4周",@"name",@"NO",@"on", nil]];
     
     TMLCate *cate1 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"清洁",@"name",nil]];
     TMLCate *cate2 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"饮食",@"name",nil]];
@@ -85,10 +92,6 @@
     TMLKeyWord *keyword1 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"婴儿摇篮",@"name",@"NO",@"open",@"YES",@"necessary",@"10",@"count",nil]];
     TMLKeyWord *keyword2 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备纸尿布",@"name",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
     TMLKeyWord *keyword3 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"湿疹防护",@"name",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
-    
-    TMLEntity *entity1 = [[TMLEntity alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"xxx",@"name",nil]];
-     TMLEntity *entity2 = [[TMLEntity alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"yyy",@"name",nil]];
-     TMLEntity *entity3 = [[TMLEntity alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"zzz",@"name",nil]];
     
     NSMutableDictionary * argsDict = [NSMutableDictionary dictionaryWithCapacity:13];
     [argsDict setValue:[NSString stringWithFormat:@"%u", 83099] forKey:@"entity_id"];
@@ -110,7 +113,10 @@
     NSDictionary *two = [NSDictionary dictionaryWithObjectsAndKeys:stage2,@"section",[NSArray arrayWithObjects:cate1,keyword1,cate1,keyword1,entity,entity,keyword2,entity,cate1,keyword1,keyword2,keyword3,entity,entity,nil],@"row",nil];
     
     NSDictionary *three = [NSDictionary dictionaryWithObjectsAndKeys:stage3,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,keyword1,cate1,keyword2,keyword3,nil],@"row",nil];
-
+    
+        NSDictionary *four = [NSDictionary dictionaryWithObjectsAndKeys:stage4,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,keyword1,cate1,keyword2,keyword3,nil],@"row",nil];
+        NSDictionary *fifth = [NSDictionary dictionaryWithObjectsAndKeys:stage5,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,keyword1,cate1,keyword2,keyword3,nil],@"row",nil];
+            NSDictionary *sixth = [NSDictionary dictionaryWithObjectsAndKeys:stage6,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,keyword1,cate1,keyword2,keyword3,nil],@"row",nil];
     //NSDictionary *three = [NSDictionary dictionaryWithObjectsAndKeys:stage3,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,cate2,keyword1,entity1,entity2,keyword2,entity3,nil],@"row",nil];
 
    
@@ -118,25 +124,23 @@
     [_dataArray addObject:one];
     [_dataArray addObject:two];
     [_dataArray addObject:three];
-
+    [_dataArray addObject:four];
+    [_dataArray addObject:fifth];
+    [_dataArray addObject:sixth];
     
     HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];
-    HeaderView.backgroundColor = kColorf2f2f2;
+    HeaderView.backgroundColor = kColorf9f9f9;
     
     UIView * timelineBG = [[UIView alloc]initWithFrame:CGRectMake(0,0,40,HeaderView.frame.size.height)];
     timelineBG.backgroundColor = kColorebe7e4;
     [HeaderView addSubview:timelineBG];
-    
-    UIView * H = [[UIView alloc]initWithFrame:CGRectMake(40, HeaderView.frame.size.height-1,kScreenWidth-40, 1)];
-    H.backgroundColor = kColorc8c8c8;
-    [HeaderView addSubview:H];
-    
+        
     MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     calendar.center = CGPointMake(20, 30);
     calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
     [HeaderView addSubview:calendar];
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 48, 2, 300)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 52, 2, 300)];
     line.center = CGPointMake(20, line.center.y);
     line.backgroundColor = kColore2ddd9;
     [HeaderView addSubview:line];
@@ -164,33 +168,41 @@
     description.text = @"宝宝3个月零5天，预计要花费￥22,727";
     [HeaderView addSubview:description];
     
-
-    
+    sectionTip = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 16, 16)];
+    sectionTip.center = CGPointMake(20, 60);
+    sectionTip.layer.masksToBounds = YES;
+    sectionTip.layer.cornerRadius = 8.0;
+    sectionTip.textAlignment = UITextAlignmentCenter;
+    sectionTip.backgroundColor = kColored5c49;
+    sectionTip.textColor = [UIColor whiteColor];
+    sectionTip.text = @"0";
+    sectionTip.alpha = 0;
+    sectionTip.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
+    [HeaderView addSubview:sectionTip];
     
     [self.view addSubview:HeaderView];
     
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, kScreenHeight-44-100) style:UITableViewStylePlain];
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, kScreenHeight-44-80) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.separatorColor = kColorf9f9f9;
     _table.backgroundColor = kColorf9f9f9;
-
+    _table.bounces =YES;
     _table.allowsSelection = NO;
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self setTableHeaderView];
-   // [self setTableFooterView];
+    [self setTableFooterView];
     [self.view addSubview:_table];
-    y = self.table.contentOffset.y;
+    
+    mask = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40 ,kScreenHeight)];
+    [mask addTarget:self action:@selector(showTimeLineMenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:mask];
    
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    //[self showDetailWithEntityID:75635];
-    //[self showNotePostView];
-    //[self showEDCSettingView];
-   
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -249,6 +261,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(flag)
+        return 0;
     NSUInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
     CGFloat height;
@@ -336,6 +350,13 @@
     [view addSubview:label];
     [view addSubview:image];
     [view addSubview:arrow];
+    
+    UIButton * button = [[UIButton alloc]initWithFrame:CGRectZero];
+    button.tag = section;
+    [button addTarget:self action:@selector(goSection:) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    [view addSubview:button];
+    
     return view;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -346,7 +367,7 @@
 	NSIndexPath * tmp = [_table indexPathForRowAtPoint:CGPointMake(160,scrollView.contentOffset.y)];
     if(tmp.section != indexPathTmp.section)
     {
-    //    [self sectionChange:indexPathTmp and:tmp];
+        [self sectionChange:indexPathTmp and:tmp];
     }
     indexPathTmp = tmp;
 
@@ -390,38 +411,25 @@
 - (void)sectionChange:(NSIndexPath *)indexPath1 and:(NSIndexPath *)indexPath2
 {
     [[HeaderView viewWithTag:1]removeFromSuperview];
-    UIView * view = [[UIView alloc]init];
-  
-    if(indexPath1.section < indexPath2.section)
+    sectionTip.text = [NSString stringWithFormat:@"%d",indexPath2.section];
+    if(indexPath2.section ==0)
     {
-        view = [self tableView:_table viewForHeaderInSection:indexPath1.section];
-        view.frame = CGRectMake(HeaderView.frame.origin.x, HeaderView.frame.origin.y+HeaderView.frame.size.height-30, kScreenWidth, 30);
-        view.tag = 1;
-        view.alpha = 0;
-        [HeaderView addSubview: view];
         [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        view.alpha=0.8;
-        [UIView commitAnimations];
+		[UIView setAnimationDuration:0.2];
+        sectionTip.alpha = 0;
+		[UIView commitAnimations];
+    }
+    else if(indexPath1.section ==0)
+    {
+        [UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:0.2];
+        sectionTip.alpha = 1;
+		[UIView commitAnimations];
     }
     else
     {
-        if(indexPath1.section >= 2)
-        {
-            view = [self tableView:_table viewForHeaderInSection:indexPath1.section-2];
-            view.frame = CGRectMake(HeaderView.frame.origin.x, HeaderView.frame.origin.y+HeaderView.frame.size.height-30, kScreenWidth, 30);
-            view.tag = 1;
-            view.alpha = 0;
-            [HeaderView addSubview: view];
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDuration:0.3];
-            view.alpha=0.8;
-            [UIView commitAnimations];
-    
-        }
+         sectionTip.alpha = 1;
     }
-
-
 }
 - (void)showNotePostView
 {
@@ -454,5 +462,34 @@
 - (void)showRightMenu
 {
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
+}
+- (void)showTimeLineMenu
+{
+    if(flag == 0)
+    {
+            flag = 1;
+            historyOffsetY = _table.contentOffset.y;
+            [_table setContentOffset:CGPointMake(0, 0) animated:NO];
+            [_table reloadData];
+    }
+    else
+    {
+        flag = 0;
+        [_table setContentOffset:CGPointMake(0, historyOffsetY) animated:NO];
+        [_table reloadData];
+        
+    }
+    
+}
+- (void)goSection:(id)sender
+{
+    [TimeLineMenu removeFromSuperview];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:0 inSection:0];
+
+        flag = 0;
+        [_table reloadData];
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:(((UIButton *)sender).tag)];
+        [self sectionChange:(NSIndexPath *)indexPath2 and:(NSIndexPath *)indexPath];
+        [self.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 @end

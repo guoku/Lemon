@@ -11,6 +11,8 @@
 #import "GKDetailNoteCellView.h"
 #import "GKAppDelegate.h"
 #import "HMSegmentedControl.h"
+#import "RatingView.h"
+#import "DPCardWebViewController.h"
 
 @interface GKDetailViewController ()
 
@@ -24,6 +26,8 @@
     UIView *tableheaderview;
     NSMutableArray *_friendarray;
     BOOL friendonly;
+    UIImageView *tabArrow;
+    UIView * store;
 }
 
 @synthesize data = _data;
@@ -36,8 +40,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        friendonly = YES;
-        self.detailHeaderView = [[GKDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 410)];
+        friendonly = NO;
+        self.detailHeaderView = [[GKDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
         self.detailHeaderView.delegate =self;
     }
     return self;
@@ -75,6 +79,9 @@
 {
     [super viewWillAppear:animated];
     self.detailHeaderView.detailData = _entity;
+    [self.detailHeaderView.shareButton addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.detailHeaderView.buyInfoButton addTarget:self action:@selector(buyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -158,7 +165,7 @@
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
-    _table.backgroundColor = kColorf9f9f9;
+    _table.backgroundColor = [UIColor whiteColor];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
     [_table setDelegate:self];
@@ -166,20 +173,11 @@
     [self.view addSubview:_table];
     
     
-    tableheaderview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 447)];
-    UIImageView *_bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 447)];
-    [_bgImageView setImage:[[UIImage imageNamed:@"detail_cell_top"]stretchableImageWithLeftCapWidth:10 topCapHeight:1]];
-    [tableheaderview addSubview:_bgImageView];
-    UIImageView  *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 446, kScreenWidth,2)];
-    [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
-    [tableheaderview addSubview:_seperatorLineImageView];
+    tableheaderview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
     [tableheaderview addSubview:self.detailHeaderView];
     _table.tableHeaderView = tableheaderview;
     
-    
-    
-
-    
+        
     UIView *tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];    
     _table.tableFooterView = tableFooterView;
     _table.tableFooterView.hidden = YES;
@@ -248,7 +246,6 @@
         
     }
     cell.delegate = self;
-    cell.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"detail_cell_top"]];
     if(friendonly == NO)
     {
     cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
@@ -266,29 +263,83 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"总体评价",@"好友评价"]];
-    segmentedControl.frame =CGRectMake(0, 0, kScreenWidth, 40);
-    [segmentedControl setSelectedIndex:!friendonly];
-    [segmentedControl setIndexChangeBlock:^(NSUInteger index) {
-        if(index ==1)
-        {
-            friendonly = NO;
-        }
-        else
-        {
-            friendonly = YES;
-        }
-        [self.table reloadData];
-    }];
-    [segmentedControl setSelectionIndicatorHeight:4.0f];
-    [segmentedControl setBackgroundColor:kColorf2f2f2];
-    [segmentedControl setTextColor:[UIColor whiteColor]];
-    [segmentedControl setSelectionIndicatorColor:[UIColor redColor]];
-    [segmentedControl setSelectionIndicatorMode:HMSelectionIndicatorFillsSegment];
-    [segmentedControl setSegmentEdgeInset:UIEdgeInsetsMake(0, 6, 0, 6)];
-    [segmentedControl setTag:2];
+    UIView *f5f4f4bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    f5f4f4bg.backgroundColor = kColorf5f4f4;
     
-    return segmentedControl;
+    UILabel *allnotelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-80, 40)];
+    allnotelabel.textAlignment = NSTextAlignmentLeft;
+    allnotelabel.textColor = kColor999999;
+    allnotelabel.backgroundColor = [UIColor clearColor];
+    allnotelabel.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
+    allnotelabel.text = @"  总体评价";
+    [f5f4f4bg addSubview:allnotelabel];
+    
+    RatingView *_ratingView = [[RatingView alloc]initWithFrame:CGRectMake(60, 0, 80, 40)];
+    [_ratingView setImagesDeselected:@"star_m.png" partlySelected:@"star_m_half.png" fullSelected:@"star_m_full.png" andDelegate:nil];
+    _ratingView.center = CGPointMake(_ratingView.center.x, 20);
+    _ratingView.userInteractionEnabled = NO;
+    [_ratingView displayRating:8/2];
+    [f5f4f4bg addSubview:_ratingView];
+    
+    UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 20, 40)];
+    score.textAlignment = NSTextAlignmentLeft;
+    score.backgroundColor = [UIColor clearColor];
+    score.textColor = kColor999999;
+    score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
+    score.text = @"8.0";
+    [f5f4f4bg addSubview:score];
+    
+    
+    
+    if(1)
+    {
+        tabArrow.hidden = NO;
+        UILabel *friendtab = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 80, 40)];
+        friendtab.textAlignment = NSTextAlignmentCenter;
+        friendtab.backgroundColor = [UIColor clearColor];
+        friendtab.textColor = kColor999999;
+        friendtab.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
+        friendtab.text = @"好友推荐 3";
+        [f5f4f4bg addSubview:friendtab];
+        friendtab.backgroundColor = kColorf1f1f1;
+        
+        UIView * V = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 1, 40)];
+        V.backgroundColor = [UIColor colorWithRed:220.0f / 255.0f green:219.0f / 255.0f blue:219.0 / 255.0f alpha:1.0f];
+        [f5f4f4bg addSubview:V];
+        
+        UIButton * button1 = [[UIButton alloc]initWithFrame:CGRectZero];
+        button1.frame = allnotelabel.frame;
+        button1.tag = 4001;
+        
+        UIButton * button2 = [[UIButton alloc]initWithFrame:CGRectZero];
+        button2.frame = friendtab.frame;
+        button2.tag = 4002;
+        [button1 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [button2 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [f5f4f4bg addSubview:button1];
+        [f5f4f4bg addSubview:button2];
+    }
+    else
+    {
+        //tabArrow.hidden = YES;
+    }
+    
+    tabArrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
+    tabArrow.frame = CGRectMake(0, 33, 12, 7);
+    if(friendonly)
+    {
+        tabArrow.center = CGPointMake(kScreenWidth-40, tabArrow.center.y);
+    }
+    else
+    {
+        tabArrow.center = CGPointMake(36, tabArrow.center.y); 
+    }
+    [f5f4f4bg addSubview:tabArrow];
+
+    
+    
+    return f5f4f4bg;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -379,6 +430,24 @@
 
 
 #pragma mark - button action
+- (void)TapButtonAction:(id)sender
+{
+    switch (((UIButton *)sender).tag) {
+        case 4001:
+        {
+            friendonly = NO;
+        }
+            break;
+        case 4002:
+        {
+            friendonly = YES;
+        }
+            break;
+        default:
+            break;
+    }
+    [_table reloadData];
+}
 - (void)moreButtonAction:(id)sender
 {
     UIActionSheet * shareOptionSheet = nil;
@@ -393,7 +462,70 @@
     [shareOptionSheet showInView:self.view];
     [shareOptionSheet setActionSheetStyle:UIActionSheetStyleDefault];
 }
+- (void)buyButtonAction:(id)sender
+{
+    store = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight+20, kScreenWidth, 200)];
+    store.backgroundColor = [UIColor whiteColor];
+    int i =0;
+    for (i=1; i<3; i++) {
 
+        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 10+i*50, kScreenWidth-20, 40)];
+        button.backgroundColor = [UIColor redColor];
+        button.tag = i;
+        [button addTarget:self action:@selector(shopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [store addSubview:button];
+    }
+    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.window addSubview:store];
+    [UIView animateWithDuration:0.3 animations:^{
+        store.frame = CGRectMake(0, kScreenHeight-200+20, kScreenWidth, 200);
+    }completion:^(BOOL finished) {
+
+    }];
+}
+- (void)shopButtonAction:(id)sender
+{
+    //NSUInteger *shopIndex = ((UIButton *)sender).tag;
+    [UIView animateWithDuration:0.3 animations:^{
+        store.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        for (UIView *view in store.subviews) {
+            view.alpha = 0;
+        }
+    }completion:^(BOOL finished) {
+        [self showWebViewWithTaobaoUrl:_detailHeaderView.detailData.urlString];
+    }];
+
+}
+- (void)showWebViewWithTaobaoUrl:(NSString *)taobao_url
+{
+    [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"ItemAction"
+                                                    withAction:@"go_taobao"
+                                                     withLabel:nil
+                                                     withValue:nil];
+    [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:NO];
+    NSString * TTID = [NSString stringWithFormat:@"%@_%@",kTTID_IPHONE,[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    NSString *sid = @"";
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginTaobaoUserInfo"] objectForKey:@"sid"])
+    {
+        sid = [NSString stringWithFormat:@"%@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginTaobaoUserInfo"] objectForKey:@"sid"]];
+    }
+    taobao_url = [taobao_url stringByReplacingOccurrencesOfString:@"&type=mobile" withString:@""];
+    NSString *url = [NSString stringWithFormat:@"%@&ttid=%@&sid=%@&type=mobile&outer_code=IPE",taobao_url, TTID,sid];
+    GKUser *user = [[GKUser alloc ]initFromSQLite];
+    if(user.user_id !=0)
+    {
+        url = [NSString stringWithFormat:@"%@%u",url,user.user_id];
+    }
+    NSLog(@"%@",url);
+    DPCardWebViewController * _webVC = [DPCardWebViewController linksWebViewControllerWithURL:[NSURL URLWithString:url]];
+    
+    _webVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    UINavigationController * _navi = [[UINavigationController alloc] initWithRootViewController:_webVC] ;
+    [self presentViewController:_navi animated:NO completion:^{
+        [store removeFromSuperview];
+    }];
+    
+}
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     BOOL wxShare = NO;
@@ -429,7 +561,6 @@
     if ([delegate.sinaweibo isAuthValid]) {
         GKSinaShareViewController *sinaShareVc = [[GKSinaShareViewController alloc]initWithDetailData:_entity];
         sinaShareVc.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:sinaShareVc animated:YES];
     }
     else

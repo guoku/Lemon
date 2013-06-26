@@ -18,12 +18,15 @@
 
 @property (nonatomic, strong) GKEntity * detailData;
 
-@property (strong, nonatomic) UILabel *title;
+@property (nonatomic, strong) UILabel * brand;
+@property (nonatomic, strong) UILabel * title;
+@property (nonatomic, strong) UILabel * price;
 @property (nonatomic, strong) GKItemButton *entityImageView;
 @property (strong, nonatomic)  GKLikeButton *likeButton;
 
 @property (strong, nonatomic) UIButton *buyInfoButton;
 @property (strong, nonatomic) UIButton *usedButton;
+@property (strong, nonatomic) UIButton *shareButton;
 @property (strong, nonatomic) UILabel * buyInfoLabel;
 
 @property (strong, nonatomic) UIButton *noteButton;

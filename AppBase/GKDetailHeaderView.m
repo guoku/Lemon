@@ -29,26 +29,46 @@
 @synthesize buyInfoLabel = _buyInfoLabel;
 @synthesize noteButton = _noteButton;
 @synthesize usedButton = _usedButton;
+@synthesize shareButton = _shareButton;
 @synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = kColorf9f9f9;
+        self.backgroundColor = kColorf2f2f2;
         
         //商品TITLE
         bg = [[UIView alloc]initWithFrame:CGRectZero];
         bg.backgroundColor = kColorf2f2f2;
         [self addSubview:bg];
         
+        self.brand = [[UILabel alloc]initWithFrame:CGRectZero];
+        _brand.backgroundColor = [UIColor clearColor];
+        _brand.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _brand.textAlignment = NSTextAlignmentLeft;
+        _brand.textColor = kColor555555;
+        [self addSubview:_brand];
+        
+        
+        
         self.title = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.title.frame = CGRectMake(145, 10, 300, 30);
-        _title.numberOfLines = 1;
-        _title.textColor = kColor666666;
-        _title.font = [UIFont fontWithName:@"Helvetica" size:13];
-        _title.textAlignment = UITextAlignmentLeft;
         _title.backgroundColor = [UIColor clearColor];
+        
+        _title.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _title.textAlignment = NSTextAlignmentLeft;
+        _title.textColor = kColor555555;
+        [self addSubview:_title];
+        
+        
+        
+        self.price = [[UILabel alloc]initWithFrame:CGRectZero];
+        _price.backgroundColor = [UIColor clearColor];
+        
+        _price.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _price.textAlignment = NSTextAlignmentLeft;
+        _price.textColor = kColor666666;
+        [self addSubview:_price];
     
         [self addSubview:_title];
         y = self.title.frame.origin.y+self.title.frame.size.height;
@@ -62,34 +82,50 @@
         UIButton *showTaobao = [[UIButton alloc]initWithFrame:_entityImageView.frame];
         [showTaobao addTarget:self action:@selector(buyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:showTaobao];
+        
+        self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectMake(220, 100, 80, 26)];
+        UIEdgeInsets insets = UIEdgeInsetsMake(5, 15, 5, 5);
+        [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy.png"]resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
+        [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy_press.png"]resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
+        [_buyInfoButton.titleLabel setFont:[UIFont fontWithName:@"Georgia" size:18]];
+        [_buyInfoButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [self addSubview:_buyInfoButton];
+        
         y = _entityImageView.frame.origin.y + _entityImageView.frame.size.height;
 
-        self.likeButton = [[GKLikeButton alloc]initWithFrame:CGRectMake(15, y+14, 105,25)];
+        y = y+10;
+        UIView *f9f9f9bg = [[UIView alloc]initWithFrame:CGRectMake(0, y, kScreenWidth, 60)];
+        f9f9f9bg.backgroundColor =kColorf9f9f9;
+        [self addSubview:f9f9f9bg];
+        
+        self.likeButton = [[GKLikeButton alloc]initWithFrame:CGRectMake(8, y+14, 85,32)];
         [self addSubview:_likeButton];
         
-        self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(130, y+14, 100, 25)];
+        self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(100, y+14, 75, 32)];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"detail_icon_add.png"] forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"detail_icon_add.png"] forState:UIControlStateHighlighted];
-        [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 0)];
+        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal];
+        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateHighlighted];
+        [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_usedButton addTarget:self action:@selector(showNotePostView) forControlEvents:UIControlEventTouchUpInside];
-        [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15.0f]];
-        [_usedButton setTitleColor:kColor666666 forState:UIControlStateNormal];
-        [_usedButton setTitleColor:kColor666666 forState:UIControlStateHighlighted];
-        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"detail_cell_bottom"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
-        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"detail_cell_bottom"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+        [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
+        [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
         
         [self addSubview:_usedButton];
         
-        //Buy button
-        self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectMake(200, y + 10, 110, 30)];
-        UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
-        [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"green_btn_bg.png"]resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
-        [_buyInfoButton.titleLabel setFont:[UIFont fontWithName:@"Georgia" size:18]];
-        [_buyInfoButton.titleLabel setTextAlignment:UITextAlignmentLeft];
-        [_buyInfoButton addTarget:self action:@selector(buyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_buyInfoButton];
+        self.shareButton = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-60, y+14, 50, 32)];
+        [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
+        [_shareButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
+        [_shareButton setTitleColor:kColor999999 forState:UIControlStateNormal];
+        [_shareButton setTitleColor:kColor999999 forState:UIControlStateHighlighted];
+        [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+        [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+        
+        [self addSubview:_shareButton];
+        
         
         y = self.likeButton.frame.origin.y + self.likeButton.frame.size.height;
         
@@ -111,28 +147,32 @@
     _delegate = delegate;
     _entityImageView.delegate = _delegate;    
 }
-#pragma mark - button action
-- (void)buyButtonAction:(id)sender
-{
-    if (_delegate && [_delegate respondsToSelector:@selector(showWebViewWithTaobaoUrl:)]) {
-        [_delegate showWebViewWithTaobaoUrl:_detailData.urlString];
-    }
-}
-
 #pragma mark -
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    bg.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-5);
-    self.title.text = _detailData.title;
+    bg.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    y =10;
+    if( !([_detailData.brand isEqualToString:@""])) {
+        _brand.frame = CGRectMake(145, y, 145, 20);
+        y = _brand.frame.origin.y+_brand.frame.size.height;
+    }
+    _title.frame = CGRectMake(145, y, 145, 20);
+    y = _title.frame.origin.y+_title.frame.size.height;
+    _price.frame = CGRectMake(145, 100, 145, 20);
+    
+    _likeButton.data = _detailData;
+
+    _brand.text = _detailData.brand;
+    _title.text = _detailData.title;
+    NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _detailData.price];
+    _price.text = priceTitle ;
     _likeButton.data = _detailData;
     _entityImageView.entity = _detailData;
 
-
-    NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _detailData.price];
     NSString * liked_count = [NSString stringWithFormat:@"%u 个喜爱", _detailData.liked_count];
     [_likeButton.likeButton setTitle:liked_count forState:UIControlStateNormal];
-    [_buyInfoButton setTitle:priceTitle forState:UIControlStateNormal];
+    [_buyInfoButton setTitle:@"去购买" forState:UIControlStateNormal];
     _buyInfoButton.userInteractionEnabled = YES;
 }
 
@@ -149,8 +189,9 @@
 {
     GKNotePostViewController *VC = [[GKNotePostViewController alloc] init];
     VC.hidesBottomBarWhenPushed = YES;
+    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
+        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentModalViewController:nav animated:YES];
     }];
 }
 @end
