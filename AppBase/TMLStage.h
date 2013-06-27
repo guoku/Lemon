@@ -10,6 +10,6 @@
 
 @interface TMLStage : NSObject
 @property (readonly) NSString *name;
-@property (assign) BOOL on;
+@property (readonly) NSUInteger sid;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

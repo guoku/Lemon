@@ -435,18 +435,28 @@
     switch (((UIButton *)sender).tag) {
         case 4001:
         {
-            friendonly = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                tabArrow.center = CGPointMake(36, tabArrow.center.y);
+            }completion:^(BOOL finished) {
+                friendonly = NO;
+                [_table reloadData];
+            }];
         }
             break;
         case 4002:
         {
-            friendonly = YES;
+            [UIView animateWithDuration:0.3 animations:^{
+                tabArrow.center = CGPointMake(kScreenWidth-40, tabArrow.center.y);
+            }completion:^(BOOL finished) {
+                friendonly = YES;
+                [_table reloadData];
+            }];
         }
             break;
         default:
             break;
     }
-    [_table reloadData];
+
 }
 - (void)moreButtonAction:(id)sender
 {

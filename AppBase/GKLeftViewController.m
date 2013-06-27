@@ -14,7 +14,10 @@
 @implementation GKLeftViewController
 {
 @private
+    NSMutableArray * _dataArray;
     NSMutableDictionary *dictionary;
+    UIView *tableHeaderView;
+    GKUser *user;
 }
 @synthesize table = _table;
 
@@ -24,6 +27,9 @@
     if (self) {
         // Custom initialization
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
+        self.view.backgroundColor= UIColorFromRGB(363131);
+
+
     }
     return self;
 }
@@ -33,49 +39,44 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor= [UIColor colorWithPatternImage:[UIImage imageNamed:@"1.png"]];
+    _dataArray = [[NSMutableArray alloc]init];
+    NSDictionary *one = [NSDictionary dictionaryWithObjectsAndKeys:@"icon-star.png",@"icon",@"备孕",@"text",nil];
 
     
+    user =[[GKUser alloc ]initFromSQLite];
     
-    //个人信息
-    UIView *UserInfo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 70)];
-    //头像
-    UIButton *avatar = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
-    [avatar setImage:[UIImage imageNamed:@"Icon.png"] forState:UIControlStateNormal];
-    [UserInfo addSubview:avatar];
-    [avatar addTarget:self action:@selector(buttonclick) forControlEvents:UIControlEventTouchUpInside];
-    //昵称
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 100, 50)];
-    name.font = [UIFont boldSystemFontOfSize:16.0f];
-    name.textColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+    GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
+    avatar.center = CGPointMake(80, 40);
+    avatar.user = user;
+    [tableHeaderView addSubview:avatar];
+    
+    UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(120, 15, kScreenWidth-150, 25)];
     name.backgroundColor = [UIColor clearColor];
-    [name setText: @"huiter"];
-    [UserInfo addSubview:name];
-    //设置button
-    UIButton *setting =[[UIButton alloc] initWithFrame:CGRectMake(200, 10, 50, 50)];
-    [setting setImage:[UIImage imageNamed:@"tabbar_icon_setting.png"] forState:UIControlStateNormal];
-    [UserInfo addSubview:setting];
+    name.textAlignment = NSTextAlignmentLeft;
+    [name setFont:[UIFont fontWithName:@"Helvetica" size:20.0f]];
+    name.textColor = [UIColor blackColor];
+    name.text = user.nickname;
+    [tableHeaderView addSubview:name];
     
-    //菜单列表
-    NSDictionary *one = [NSDictionary dictionaryWithObjectsAndKeys:@"icon-star.png",@"icon",@"我喜爱的(635)",@"text",nil];
-    NSDictionary *two = [NSDictionary dictionaryWithObjectsAndKeys:@"icon-star.png",@"icon",@"我添加的(54)",@"text",nil];
-    NSDictionary *three = [NSDictionary dictionaryWithObjectsAndKeys:@"icon-star.png",@"icon",@"我关注的清单(4)",@"text",nil];
-    NSDictionary *four = [NSDictionary dictionaryWithObjectsAndKeys:@"icon-star.png",@"icon",@"我关注的人",@"text",nil];
-    dictionary = [[NSMutableDictionary alloc]initWithCapacity:0];
-    [dictionary setObject:[[NSArray alloc] initWithObjects:one,two,three,four,nil] forKey:@(0)];
+    UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(120, 40, kScreenWidth-100, 15)];
+    description.backgroundColor = [UIColor clearColor];
+    description.textAlignment = NSTextAlignmentLeft;
+    [description setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+    description.textColor = kColor555555;
+    description.text = @"宝宝3个月零5天，预计要花费￥22,727";
+    [tableHeaderView addSubview:description];
+
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
     _table.backgroundColor = kColorf9f9f9;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.separatorColor = kColorf9f9f9;
     _table.allowsSelection = NO;
+    _table.tableHeaderView = tableHeaderView;
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self.view addSubview:_table];
-    
-    
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,20 +102,20 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
-    NSUInteger row = [indexPath row];
-    NSUInteger section = [indexPath section];
-    switch (section) {
-        case 0:
-            cell.imageView.image = [UIImage imageNamed:[[[dictionary objectForKey:@(section)] objectAtIndex:row] objectForKey:@"icon"]];
-            cell.textLabel.text = [[[dictionary objectForKey:@(section)] objectAtIndex:row] objectForKey:@"text"];
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:13.0f];
-            cell.textLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-        default:
-            cell = nil;
-            break;
-    }
+            NSUInteger row = [indexPath row];
+            NSUInteger section = [indexPath section];
+    
+            UIButton *label = [[UIButton alloc]initWithFrame:CGRectZero];
+            [label setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
+            [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
+            [label setTitleColor:kColor666666 forState:UIControlStateNormal];
+            [label.titleLabel setTextAlignment:UITextAlignmentLeft];
+            [label setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+            label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+            label.userInteractionEnabled = NO;
+            [label setTitle:@"孕早期" forState:UIControlStateNormal];
+            [cell addSubview:label];
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,12 +133,12 @@
             switch (row) {
                 case 0:
                 {
-                    //[self performSelector:@selector() withObject:nil afterDelay:0.3];
+                    
                 }
                     break;
                 case 1:
                 {
-                    //[self performSelector:@selector() withObject:nil afterDelay:0.3];
+            
                 }
                     break;
                     

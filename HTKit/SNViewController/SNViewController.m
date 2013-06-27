@@ -10,6 +10,7 @@
 #import "NSDate+GKHelper.h"
 #import "GKUser.h"
 #import "GKAppDelegate.h"
+#import "GKStateChooseViewController.h"
 
 @interface SNViewController ()
 
@@ -103,9 +104,14 @@
                                                                  withLabel:nil
                                                                  withValue:nil];
                 GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:NULL];
-                [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2]; 
-
+                [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:^{
+                    if(1)
+                    {
+                        GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
+                        [delegate.window.rootViewController presentViewController: VC animated:NO completion:NULL];
+                    }
+                }];
+                [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             }
         }];
         [paramters setValue:[data valueForKeyPath:@"profile_image_url"] forKey:@"avatar"];

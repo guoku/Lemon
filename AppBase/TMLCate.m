@@ -14,7 +14,8 @@
     self = [super init];
     if (self)
     {
-        _name = [attributes valueForKeyPath:@"name"];
+        _name = [attributes valueForKeyPath:@"gtt"];
+        _cid = [[attributes valueForKeyPath:@"gid"]intValue];
     }
     return self;
 }

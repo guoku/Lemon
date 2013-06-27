@@ -10,7 +10,7 @@
 
 @interface TMLKeyWord : NSObject
 @property (readonly) NSString *name;
-@property (assign) BOOL open;
+@property (readonly) NSUInteger kid;
 @property (assign) BOOL necessary;
 @property (assign) NSInteger count;
 - (id)initWithAttributes:(NSDictionary *)attributes;

@@ -14,8 +14,8 @@
     self = [super init];
     if (self)
     {
-        _name = [attributes valueForKeyPath:@"name"];
-        _on = [[attributes valueForKeyPath:@"on"]boolValue];
+        _name = [attributes valueForKeyPath:@"ptt"];
+        _sid = [[attributes valueForKeyPath:@"pid"]intValue];
     }
     return self;
 }

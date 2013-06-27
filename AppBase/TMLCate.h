@@ -10,5 +10,6 @@
 
 @interface TMLCate : NSObject
 @property (readonly) NSString *name;
+@property (readonly) NSUInteger cid;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

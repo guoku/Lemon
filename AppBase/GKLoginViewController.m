@@ -40,7 +40,7 @@
     [_sinaBtn setTitle:@"新浪微博登录" forState:UIControlStateNormal];
     [_sinaBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15]];
     [_sinaBtn setImage:[UIImage imageNamed:@"icon_sina.png" ]forState:UIControlStateNormal];
-    [_sinaBtn setBackgroundImage:[UIImage imageNamed:@"button_green.png"] forState:UIControlStateNormal];
+    [_sinaBtn setBackgroundImage:[[UIImage imageNamed:@"button_green.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateNormal];
     [_sinaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_sinaBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
     _sinaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;

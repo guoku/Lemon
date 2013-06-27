@@ -77,6 +77,8 @@
 #define kScreenWidth CGRectGetWidth([UIScreen mainScreen].applicationFrame)
 #endif
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 #ifndef kColorb6ada6
 #define kColorb6ada6 [UIColor colorWithRed:182.0f / 255.0f green:173.0f / 255.0f blue:166.0 / 255.0f alpha:1.0f]
 #endif
