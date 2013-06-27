@@ -142,12 +142,12 @@
                                                     initWithCenterViewController:navigationController
                                                     leftDrawerViewController:leftSideDrawerViewController
                                                     rightDrawerViewController:rightSideDrawerViewController];
-        [_drawerController setMaximumLeftDrawerWidth:160.0];
+        [_drawerController setMaximumLeftDrawerWidth:260.0];
         [_drawerController setMaximumRightDrawerWidth:260.0];
         [_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
         [_drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
         [_drawerController setShouldStretchDrawer:NO];
-        [_drawerController setShowsShadow:NO];
+        [_drawerController setShowsShadow:YES];
         [_drawerController
          setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
              MMDrawerControllerDrawerVisualStateBlock block;

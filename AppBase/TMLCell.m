@@ -70,7 +70,7 @@
     [super layoutSubviews];
     if ([_object isKindOfClass:[TMLKeyWord class]])
     {
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(50, 0, kScreenWidth-60, 40)];
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(50, 6, kScreenWidth-60, 44)];
         [button setImage:[UIImage imageNamed:@"arrow.png"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"arrow_press.png"] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
@@ -86,7 +86,7 @@
         
         if(((TMLKeyWord *)_object).necessary == YES)
         {
-               UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(button.frame.size.width-55,13, 25, 15)];
+               UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(button.frame.size.width-55,12, 25, 15)];
                necessary.layer.masksToBounds = YES;
                necessary.layer.cornerRadius = 2.0;
                necessary.textAlignment = UITextAlignmentCenter;
@@ -114,22 +114,7 @@
         UIImageView * check = [[UIImageView alloc]initWithFrame:CGRectMake(entitybg.frame.size.width-21, 0,20, 20)];
         check.image = [UIImage imageNamed:@"done.png"];
         [entitybg addSubview:check];
-    }
-    else if([_object isKindOfClass:[TMLCate class]])
-    {
-        UIButton * label = [[UIButton alloc]initWithFrame:CGRectMake(50, 0,kScreenWidth-60,20)];
-        [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
-        [label setTitleColor:kColor555555 forState:UIControlStateNormal];
-        label.backgroundColor = kColorf9f9f9;
-        [label.titleLabel setTextAlignment:UITextAlignmentLeft];
-        label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [label setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        [label setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        label.userInteractionEnabled = NO;
-        [label setTitle:((TMLCate *)_object).name forState:UIControlStateNormal];
-        [self addSubview:label];
-    }
-    
+    }    
 }
 - (void)goKeyWord
 {

@@ -79,16 +79,12 @@
     TMLStage *stage2 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"YES",@"on", nil]];
     TMLStage *stage3 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"NO",@"on", nil]];
     
-    TMLCate *cate1 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"清洁",@"name",nil]];
-    TMLCate *cate2 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"饮食",@"name",nil]];
+    TMLCate *cate1 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"清洁",@"gtt",@"1",@"gid",nil]];
+    TMLCate *cate2 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"饮食",@"gtt",@"2",@"gid",nil]];
     
-    TMLKeyWord *keyword1 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"婴儿摇篮",@"name",@"NO",@"open",@"YES",@"necessary",@"10",@"count",nil]];
-    TMLKeyWord *keyword2 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备纸尿布",@"name",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
-    TMLKeyWord *keyword3 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"湿疹防护",@"name",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
-    
-    TMLEntity *entity1 = [[TMLEntity alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"xxx",@"name",nil]];
-     TMLEntity *entity2 = [[TMLEntity alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"yyy",@"name",nil]];
-     TMLEntity *entity3 = [[TMLEntity alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"zzz",@"name",nil]];
+    TMLKeyWord *keyword1 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"婴儿摇篮",@"ctt",@"121",@"cid",@"NO",@"open",@"YES",@"necessary",@"10",@"count",nil]];
+    TMLKeyWord *keyword2 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备纸尿布",@"ctt",@"122",@"cid",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
+    TMLKeyWord *keyword3 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"湿疹防护",@"ctt",@"123",@"cid",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
     
     NSMutableDictionary * argsDict = [NSMutableDictionary dictionaryWithCapacity:13];
     [argsDict setValue:[NSString stringWithFormat:@"%u", 83099] forKey:@"entity_id"];
@@ -106,70 +102,16 @@
     [argsDict setValue:[NSNumber numberWithInteger:1] forKey:@"popularity"];
     GKEntity *entity = [[GKEntity alloc]initWithAttributes:argsDict];
     
-    NSDictionary *one = [NSDictionary dictionaryWithObjectsAndKeys:stage1,@"section",[NSArray arrayWithObjects:cate2,keyword1,keyword2,cate1,keyword1,keyword2,keyword3,nil],@"row",nil];
-    NSDictionary *two = [NSDictionary dictionaryWithObjectsAndKeys:stage2,@"section",[NSArray arrayWithObjects:cate1,keyword1,cate1,keyword1,entity,entity,keyword2,entity,cate1,keyword1,keyword2,keyword3,entity,entity,nil],@"row",nil];
-    
-    NSDictionary *three = [NSDictionary dictionaryWithObjectsAndKeys:stage3,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,keyword1,cate1,keyword2,keyword3,nil],@"row",nil];
-
-    //NSDictionary *three = [NSDictionary dictionaryWithObjectsAndKeys:stage3,@"section",[NSArray arrayWithObjects:cate1,keyword1,keyword2,cate2,keyword1,entity1,entity2,keyword2,entity3,nil],@"row",nil];
-
-   
+    NSDictionary *one = [NSDictionary dictionaryWithObjectsAndKeys:cate1,@"section",[NSArray arrayWithObjects:keyword1,keyword2,keyword3,entity,entity,keyword1,entity,entity,entity,nil],@"row",nil];
+    NSDictionary *two = [NSDictionary dictionaryWithObjectsAndKeys:cate2,@"section",[NSArray arrayWithObjects:keyword1,keyword2,keyword3,entity,entity,keyword1,entity,entity,entity,nil],@"row",nil];
+       
     _dataArray = [[NSMutableArray alloc]init];
     [_dataArray addObject:one];
     [_dataArray addObject:two];
-    [_dataArray addObject:three];
-
-    
-    HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];
-    HeaderView.backgroundColor = kColorf2f2f2;
-    
-    UIView * timelineBG = [[UIView alloc]initWithFrame:CGRectMake(0,0,40,HeaderView.frame.size.height)];
-    timelineBG.backgroundColor = kColorebe7e4;
-    [HeaderView addSubview:timelineBG];
-    
-    UIView * H = [[UIView alloc]initWithFrame:CGRectMake(40, HeaderView.frame.size.height-1,kScreenWidth-40, 1)];
-    H.backgroundColor = kColorc8c8c8;
-    [HeaderView addSubview:H];
-    
-    MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    calendar.center = CGPointMake(20, 30);
-    calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
-    [HeaderView addSubview:calendar];
-    
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 48, 2, 300)];
-    line.center = CGPointMake(20, line.center.y);
-    line.backgroundColor = kColore2ddd9;
-    [HeaderView addSubview:line];
-
-    user =[[GKUser alloc ]initFromSQLite];
-    
-    GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
-    avatar.center = CGPointMake(80, 40);
-    avatar.user = user;
-    [HeaderView addSubview:avatar];
-    
-    UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(120, 15, kScreenWidth-150, 25)];
-    name.backgroundColor = [UIColor clearColor];
-    name.textAlignment = NSTextAlignmentLeft;
-    [name setFont:[UIFont fontWithName:@"Helvetica" size:20.0f]];
-    name.textColor = [UIColor blackColor];
-    name.text = user.nickname;
-    [HeaderView addSubview:name];
-    
-    UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(120, 40, kScreenWidth-100, 15)];
-    description.backgroundColor = [UIColor clearColor];
-    description.textAlignment = NSTextAlignmentLeft;
-    [description setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
-    description.textColor = kColor555555;
-    description.text = @"宝宝3个月零5天，预计要花费￥22,727";
-    [HeaderView addSubview:description];
-    
 
     
     
-    [self.view addSubview:HeaderView];
-    
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, kScreenHeight-44-100) style:UITableViewStylePlain];
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.separatorColor = kColorf9f9f9;
     _table.backgroundColor = kColorf9f9f9;
@@ -177,11 +119,28 @@
     _table.allowsSelection = NO;
     [_table setDelegate:self];
     [_table setDataSource:self];
+
     [self setTableHeaderView];
-   // [self setTableFooterView];
+    //[self setTableFooterView];
     [self.view addSubview:_table];
+    
     y = self.table.contentOffset.y;
-   
+    
+    UIImageView * icon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 20, 20)];
+    icon.backgroundColor = [UIColor clearColor];
+    icon.image = [UIImage imageNamed:@"timeline_dot_done.png"];
+    [self.view addSubview:icon];
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,40, 10)];
+    view.backgroundColor = kColorebe7e4;
+    
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,10)];
+    line.center = CGPointMake(20, line.center.y);
+    line.backgroundColor = kColore2ddd9;
+    [view addSubview:line];
+    
+    [self.view addSubview:view];
+    
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -236,10 +195,6 @@
             {
                 cell.object = object;
             }
-            else if ([object isKindOfClass:[TMLCate class]])
-            {
-                cell.object = ((TMLCate *)object);
-            }
             else
             {
                 cell = nil;
@@ -268,19 +223,15 @@
     }
     else if ([object isKindOfClass:[TMLKeyWord class]])
     {
-        height = 45;
+        height = 50;
         if([[[_dataArray objectAtIndex:section]objectForKey:@"row" ]count]>(row+1))
         {
             NSObject *next = [[[_dataArray objectAtIndex:section]objectForKey:@"row" ]objectAtIndex:row+1];
             if([next isKindOfClass:[GKEntity class]])
             {
-                height = 36;
+                height = 48;
             }
         }
-    }
-    else if ([object isKindOfClass:[TMLCate class]])
-    {
-        height = 20;
     }
     else
     {
@@ -290,47 +241,45 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 40;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    TMLStage * stage = [[_dataArray objectAtIndex:section]objectForKey:@"section"];
+    TMLCate * stage = [[_dataArray objectAtIndex:section]objectForKey:@"section"];
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     view.backgroundColor = kColorebe7e4;
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,30)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,40)];
     line.center = CGPointMake(20, line.center.y);
     line.backgroundColor = kColore2ddd9;
     [view addSubview:line];
     
-    UIImageView * labelbg = [[UIImageView alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,30)];
+    UIImageView * labelbg = [[UIImageView alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,40)];
     labelbg.image = [UIImage imageNamed:@"categorybar.png"];
     [view addSubview:labelbg];
     
-    UIButton * label = [[UIButton alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,30)];
+    UIButton * label = [[UIButton alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,40)];
     [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    [label setImage:[UIImage imageNamed:@"clock.png"] forState:UIControlStateNormal];
     [label setTitleColor:kColor555555 forState:UIControlStateNormal];
     label.backgroundColor = [UIColor clearColor];
     [label.titleLabel setTextAlignment:UITextAlignmentLeft];
     label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [label setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [label setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
     label.userInteractionEnabled = NO;
+    NSLog(@"%@",stage.name);
     [label setTitle:stage.name forState:UIControlStateNormal];
     
-    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 8, 14, 14)];
+    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 13, 14, 14)];
     image.center = CGPointMake(20, image.center.y);
-    if(1)
+    if(0)
     {
-  
         image.image =[UIImage imageNamed:@"timeline_dot_done.png"];
     }
     else
     {
         image.image = [UIImage imageNamed:@"timeline_dot.png"];
     }
-    UIImageView * arrow = [[UIImageView alloc]initWithFrame:CGRectMake(35,11, 5, 8)];
+    UIImageView * arrow = [[UIImageView alloc]initWithFrame:CGRectMake(35,16, 5, 8)];
     arrow.image = [UIImage imageNamed:@"timeline_arrow.png"];
     
     [view addSubview:label];
@@ -343,6 +292,11 @@
     NSLog(@"%@",indexPath);
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if(scrollView.contentOffset.y <0)
+    {
+      //  scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x,0);
+    }
 	NSIndexPath * tmp = [_table indexPathForRowAtPoint:CGPointMake(160,scrollView.contentOffset.y)];
     if(tmp.section != indexPathTmp.section)
     {
@@ -381,7 +335,7 @@
     UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
     colorf9f9f9.backgroundColor = kColorf9f9f9;
     [view addSubview:colorf9f9f9];
-    //_table.tableFooterView = view;
+   [_table addSubview:view];
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     GKLog(@"offset:%f",scrollView.contentOffset.y);
@@ -449,10 +403,23 @@
 }
 - (void)showLeftMenu
 {
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"navigation_bar_button_enable"]) {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
+    }
+    else
+    {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:NULL];
+    }
+
 }
 - (void)showRightMenu
 {
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"navigation_bar_button_enable"]) {
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
+    }
+    else
+    {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:NULL];
+    }
 }
 @end

@@ -11,5 +11,6 @@
 @interface TMLStage : NSObject
 @property (readonly) NSString *name;
 @property (readonly) NSUInteger sid;
+
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

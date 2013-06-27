@@ -46,7 +46,7 @@
         _loadMoreflag = NO;
         YoffsetForFan = 0;
         YoffsetForFollow = 0;
-
+        
     }
     return self;
 }
@@ -150,6 +150,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"navigation_bar_button_enable"];
     self.trackedViewName = @"关注页";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:@"UserFollowChange" object:nil];
 	// Do any additional setup after loading the view.
@@ -168,6 +169,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"navigation_bar_button_enable"];
     if(([[_dataArrayDic objectForKey:_group] count] == 0)&&(!_reloading))
     {
         [self refresh];
@@ -176,7 +178,8 @@
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:YES];
+    [super viewDidDisappear:animated];
+    [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"navigation_bar_button_enable"];
 }
 - (void)viewDidUnload
 {
