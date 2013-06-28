@@ -69,7 +69,7 @@
                 
                 if(hasNewVersion)
                 {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"留几口有新版本啦\U0001F603" message:_versionmessage delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去升级留几口", nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本啦\U0001F603" message:_versionmessage delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去升级", nil];
                     [alertView show];
                 }
             }
@@ -100,6 +100,11 @@
     
     //设置状态栏为黑色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"stage"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"stage"];
+    }
     
     //如果是第一次启动则开启引导页，否则进入rootViewController
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {

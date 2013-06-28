@@ -28,7 +28,7 @@
 
         [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15.0f]];
         [label.titleLabel setTextAlignment:UITextAlignmentLeft];
-        [label setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [label setImageEdgeInsets:UIEdgeInsetsMake(1, 10, 0, 0)];
         [label setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         label.userInteractionEnabled = NO;
@@ -93,12 +93,12 @@
     
     if([[_data objectForKey:@"open"]boolValue])
     {
-        [label setImage:[UIImage imageNamed:@"clock.png"] forState:UIControlStateNormal];
+        [label setImage:[UIImage imageNamed:[NSString stringWithFormat:@"stage_%@.png",[_data objectForKey:@"pid"]]] forState:UIControlStateNormal];
         [label setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
     }
     else
     {
-        [label setImage:[UIImage imageNamed:@"clock.png"] forState:UIControlStateNormal];
+        [label setImage:[UIImage imageNamed:[NSString stringWithFormat:@"stage_comp_%@.png",[_data objectForKey:@"pid"]]] forState:UIControlStateNormal];
         [label setTitleColor:UIColorFromRGB(0x777777) forState:UIControlStateNormal];
     }
     

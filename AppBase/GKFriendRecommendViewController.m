@@ -9,6 +9,7 @@
 #import "GKFriendRecommendViewController.h"
 #import "GKRecommendFriend.h"
 #import "FollowUserCell.h"
+#import "GKAppDelegate.h"
 @interface GKFriendRecommendViewController ()
 
 @end
@@ -58,7 +59,7 @@
     
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"好友推荐"];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 40) style:UITableViewStylePlain];
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
     _table.backgroundColor = kColorf2f2f2;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
@@ -330,5 +331,27 @@
 
 
 }
-
+- (void)backButtonAction:(id)sender
+{ 
+    
+    GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
+    UIGraphicsBeginImageContext(delegate.window.bounds.size);
+    
+    [delegate.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+    imageView.tag = 10086;
+    
+    delegate.window.rootViewController = delegate.drawerController;
+    [delegate.window addSubview:imageView];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        imageView.frame = CGRectMake(320, 0, 320, kScreenHeight);
+    } completion:^(BOOL finished) {
+        [imageView removeFromSuperview];
+    }];
+}
 @end

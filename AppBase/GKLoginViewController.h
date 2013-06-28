@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GKLoginViewController : GKBaseViewController
+@interface GKLoginViewController : GKBaseViewController<UIScrollViewDelegate>
 
 @end

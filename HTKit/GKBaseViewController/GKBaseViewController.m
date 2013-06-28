@@ -32,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.wantsFullScreenLayout = NO;
 	// Do any additional setup after loading the view.
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -59,19 +60,24 @@
     
     GKDetailViewController *VC = [[GKDetailViewController alloc] initWithEntityID:entity_id];
     VC.hidesBottomBarWhenPushed = YES;
-
+    [self.navigationController pushViewController:VC animated:YES];
+/*
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
     }];
+ */
 }
 - (void)showDetailWithData:(GKEntity*)data
 {
     
     GKDetailViewController *VC = [[GKDetailViewController alloc] initWithDate:data];
     VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+    /*
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
     }];
+     */
 
 }
 
@@ -79,9 +85,12 @@
 {
     GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user_id];
     VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+    /*
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
     }];
+     */
 
 }
 - (void)showUserWithUserID:(NSUInteger)user_id WithTab:(NSUInteger)tab_id
@@ -89,9 +98,12 @@
     //GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user_id WithTab:tab_id];
     GKUserViewController *VC = [[GKUserViewController alloc] init];
     VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+    /*
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
     }];
+     */
 
 }
 

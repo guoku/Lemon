@@ -104,6 +104,7 @@
         UIImageView * entitybg = [[UIImageView alloc]initWithFrame:CGRectMake(50, 0, kScreenWidth-60, 98)];
         entitybg.image = [UIImage imageNamed:@"tables_bottom.png"];
         [self addSubview:entitybg];
+        GKEntity * _entity = (GKEntity*)_object;
         
         GKItemButton *_entityImageView = [[GKItemButton alloc] initWithFrame:CGRectZero];
         _entityImageView.entity = (GKEntity*)_object;
@@ -114,6 +115,46 @@
         UIImageView * check = [[UIImageView alloc]initWithFrame:CGRectMake(entitybg.frame.size.width-21, 0,20, 20)];
         check.image = [UIImage imageNamed:@"done.png"];
         [entitybg addSubview:check];
+        
+        UILabel * _brand = [[UILabel alloc]initWithFrame:CGRectZero];
+        _brand.backgroundColor = [UIColor clearColor];
+        
+        _brand.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+        _brand.textAlignment = NSTextAlignmentLeft;
+        _brand.textColor = kColor666666;
+        [self addSubview:_brand];
+        
+        UILabel *_title = [[UILabel alloc]initWithFrame:CGRectZero];
+        _title.backgroundColor = [UIColor clearColor];
+        
+        _title.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+        _title.textAlignment = NSTextAlignmentLeft;
+        _title.textColor = kColor666666;
+        [self addSubview:_title];
+        
+        UILabel *_price = [[UILabel alloc]initWithFrame:CGRectZero];
+        _price.backgroundColor = [UIColor clearColor];
+        
+        _price.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+        _price.textAlignment = NSTextAlignmentLeft;
+        _price.textColor = kColor666666;
+        [self addSubview:_price];
+        
+        CGFloat y = 10;
+        if( !([_entity.brand isEqualToString:@""])) {
+            _brand.frame = CGRectMake(150, y, 145, 15);
+            y = _brand.frame.origin.y+_brand.frame.size.height;
+        }
+        _title.frame = CGRectMake(150, y, 145, 15);
+        y = _title.frame.origin.y+_title.frame.size.height+10;
+        _price.frame = CGRectMake(150, y, 145, 20);
+        
+        _brand.text = _entity.brand;
+        _title.text = _entity.title;
+        NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _entity.price];
+        _price.text = priceTitle ;
+
+
     }    
 }
 - (void)goKeyWord

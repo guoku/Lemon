@@ -9,5 +9,6 @@
 #import "GKBaseViewController.h"
 
 @interface GKLeftViewController : GKBaseViewController<UITableViewDelegate, UITableViewDataSource>
-@property UITableView *table;
+@property (strong,nonatomic) UITableView *table;
+
 @end

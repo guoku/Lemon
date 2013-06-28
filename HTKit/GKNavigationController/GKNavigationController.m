@@ -32,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
+    self.wantsFullScreenLayout = NO;
 	// Do any additional setup after loading the view.
 }
 - (void)viewDidAppear:(BOOL)animated

@@ -9,6 +9,9 @@
 #import "GKLeftViewController.h"
 #import "MMMCalendar.h"
 #import "MMMLeftCell.h"
+#import "UIViewController+MMDrawerController.h"
+#import "GKLoginViewController.h"
+#import "GKAppDelegate.h"
 
 @interface GKLeftViewController ()
 
@@ -135,6 +138,7 @@
     [setting setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [setting setTitle:@"设置" forState:UIControlStateNormal];
     [setting.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
+    [setting addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
     [setting.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [tableFooterView addSubview:setting];
     
@@ -154,7 +158,8 @@
     [_table setDataSource:self];
     [self.view addSubview:_table];
     
-    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    int i =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:i-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -179,7 +184,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [_dataArray count];
 
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -220,7 +225,11 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"shouldrestoreViewLocation" object:nil];
+    [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row+1) forKey:@"stage"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stageChange" object:nil userInfo:nil];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+       
+    }];
     NSInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
     switch (section) {
@@ -246,6 +255,12 @@
             break;
     }
     
+}
+- (void)logout
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
+    GKLoginViewController *loginVC = [[GKLoginViewController alloc] init];
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
 }
 
 @end

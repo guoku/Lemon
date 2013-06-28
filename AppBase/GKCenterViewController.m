@@ -36,8 +36,8 @@
     float y;
     GKUser *user;
 }
-
 @synthesize table = _table;
+@synthesize icon = _icon;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,7 +73,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIcon) name:@"stageChange" object:nil];
     //数据
     TMLStage *stage1 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备孕",@"name",@"NO",@"on", nil]];
     TMLStage *stage2 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"YES",@"on", nil]];
@@ -121,20 +121,26 @@
     [_table setDataSource:self];
 
     [self setTableHeaderView];
-    //[self setTableFooterView];
+    [self setTableFooterView];
     [self.view addSubview:_table];
     
     y = self.table.contentOffset.y;
     
-    UIImageView * icon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 20, 20)];
-    icon.backgroundColor = [UIColor clearColor];
-    icon.image = [UIImage imageNamed:@"timeline_dot_done.png"];
-    [self.view addSubview:icon];
+    _icon = [[UIImageView alloc]initWithFrame:CGRectMake(7, 4, 26, 26)];
+    _icon.backgroundColor = UIColorFromRGB(0xebe7e4);
+    [self.view addSubview:_icon];
+    [self changeIcon];
     
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,40, 10)];
+    UIView *mask = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mask.png"]];
+    mask.backgroundColor = [UIColor clearColor];
+    mask.center =  CGPointMake(20, 45);
+    //[self.view addSubview:mask];
+    
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,40, 2)];
     view.backgroundColor = kColorebe7e4;
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,10)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,2)];
     line.center = CGPointMake(20, line.center.y);
     line.backgroundColor = kColore2ddd9;
     [view addSubview:line];
@@ -229,7 +235,7 @@
             NSObject *next = [[[_dataArray objectAtIndex:section]objectForKey:@"row" ]objectAtIndex:row+1];
             if([next isKindOfClass:[GKEntity class]])
             {
-                height = 48;
+                height = 44;
             }
         }
     }
@@ -241,7 +247,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 40;
+    return 30;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -249,16 +255,16 @@
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     view.backgroundColor = kColorebe7e4;
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,40)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,30)];
     line.center = CGPointMake(20, line.center.y);
     line.backgroundColor = kColore2ddd9;
     [view addSubview:line];
     
-    UIImageView * labelbg = [[UIImageView alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,40)];
-    labelbg.image = [UIImage imageNamed:@"categorybar.png"];
+    UIImageView * labelbg = [[UIImageView alloc]initWithFrame:CGRectMake(33, 0,kScreenWidth-33,30)];
+    labelbg.image = [[UIImage imageNamed:@"timeline_arrow.png"]stretchableImageWithLeftCapWidth:20 topCapHeight:5];
     [view addSubview:labelbg];
     
-    UIButton * label = [[UIButton alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,40)];
+    UIButton * label = [[UIButton alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,30)];
     [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [label setTitleColor:kColor555555 forState:UIControlStateNormal];
     label.backgroundColor = [UIColor clearColor];
@@ -266,11 +272,11 @@
     label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [label setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
     label.userInteractionEnabled = NO;
-    NSLog(@"%@",stage.name);
     [label setTitle:stage.name forState:UIControlStateNormal];
     
-    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 13, 14, 14)];
+    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 8, 14, 14)];
     image.center = CGPointMake(20, image.center.y);
+    image.tag = 2;
     if(0)
     {
         image.image =[UIImage imageNamed:@"timeline_dot_done.png"];
@@ -278,13 +284,10 @@
     else
     {
         image.image = [UIImage imageNamed:@"timeline_dot.png"];
-    }
-    UIImageView * arrow = [[UIImageView alloc]initWithFrame:CGRectMake(35,16, 5, 8)];
-    arrow.image = [UIImage imageNamed:@"timeline_arrow.png"];
-    
+    }    
     [view addSubview:label];
     [view addSubview:image];
-    [view addSubview:arrow];
+    view.tag = 1400+section;
     return view;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -293,11 +296,15 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
+    NSIndexPath * tmp = [_table indexPathForRowAtPoint:CGPointMake(160,scrollView.contentOffset.y+60)];
+    UIView * view = [[_table viewWithTag:(1400+tmp.section)]viewWithTag:2];
+    NSLog(@"%@",NSStringFromCGRect([_table viewWithTag:(1400+tmp.section)].frame));
+    view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 0.9);
+    
     if(scrollView.contentOffset.y <0)
     {
       //  scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x,0);
     }
-	NSIndexPath * tmp = [_table indexPathForRowAtPoint:CGPointMake(160,scrollView.contentOffset.y)];
     if(tmp.section != indexPathTmp.section)
     {
     //    [self sectionChange:indexPathTmp and:tmp];
@@ -319,12 +326,12 @@
     UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
     colorf9f9f9.backgroundColor = kColorf9f9f9;
     [view addSubview:colorf9f9f9];
-    
     [_table addSubview:view];
 }
 - (void)setTableFooterView
 {
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,self.view.frame.size.width, self.view.bounds.size.height)];
+    UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0,self.view.frame.size.width, self.view.bounds.size.height)];
     view.backgroundColor = kColorebe7e4;
     
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,view.frame.size.height)];
@@ -335,7 +342,10 @@
     UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
     colorf9f9f9.backgroundColor = kColorf9f9f9;
     [view addSubview:colorf9f9f9];
-   [_table addSubview:view];
+    
+    footerview.layer.masksToBounds = NO;
+    [footerview addSubview:view];
+    _table.tableFooterView = footerview;
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     GKLog(@"offset:%f",scrollView.contentOffset.y);
@@ -421,5 +431,9 @@
     {
         [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:NULL];
     }
+}
+- (void)changeIcon
+{
+    _icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"stage_list_%@.png",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]];
 }
 @end

@@ -540,10 +540,36 @@
 {
     GKFriendRecommendViewController *VC = [[GKFriendRecommendViewController alloc]init];
     VC .hidesBottomBarWhenPushed = YES;
+    GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
+    UIGraphicsBeginImageContext(delegate.window.bounds.size);
     
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+    [delegate.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+    imageView.tag = 10086;
+    [delegate.window addSubview:imageView];
+
+    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+  
+    delegate.window.rootViewController = nav;
+    nav.view.frame = CGRectMake(320, nav.view.frame.origin.y,320, kScreenHeight);
+    
+
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        imageView.frame = CGRectMake(-320, 0, 320, kScreenHeight);
+        nav.view.frame = CGRectMake(0, nav.view.frame.origin.y, 320, kScreenHeight);
+    } completion:^(BOOL finished) {
+        [imageView removeFromSuperview];
+    }];
+    
+    /*
+    [delegate.drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
     }];
+     */
 
 
 }
