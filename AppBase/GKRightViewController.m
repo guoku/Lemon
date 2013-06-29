@@ -219,9 +219,6 @@
     }
     cell.delegate = self;
     cell.user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
-    UIView *bg =[[UIView alloc]initWithFrame:CGRectZero];
-    [bg setBackgroundColor:kColorf2f2f2];
-    cell.selectedBackgroundView =bg;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -549,21 +546,33 @@
     UIGraphicsEndImageContext();
     
     UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-    imageView.tag = 10086;
-    [delegate.window addSubview:imageView];
+   
 
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
   
     delegate.window.rootViewController = nav;
-    [delegate.window setNeedsLayout];
-    nav.view.frame = CGRectMake(320, nav.view.frame.origin.y,320, kScreenHeight);
+    UIGraphicsBeginImageContext(delegate.window.bounds.size);
     
-
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        imageView.frame = CGRectMake(-320, 0, 320, kScreenHeight);
-        nav.view.frame = CGRectMake(0, nav.view.frame.origin.y, 320, kScreenHeight);
+    [delegate.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *imageView2 = [[UIImageView alloc]initWithImage:image2];
+    
+    imageView.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
+    imageView2.frame = CGRectMake(320, 0, imageView2.frame.size.width, imageView2.frame.size.height);
+    [delegate.window addSubview:imageView];
+    [delegate.window addSubview:imageView2];
+    
+    //[[NSUserDefaults standardUserDefaults] setObject:image forKey:@"view_cache"];
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        imageView.frame = CGRectMake(-320, 0, imageView.frame.size.width, imageView.frame.size.height);
+        imageView2.frame = CGRectMake(0, 0, imageView2.frame.size.width, imageView2.frame.size.height);
     } completion:^(BOOL finished) {
         [imageView removeFromSuperview];
+        [imageView2 removeFromSuperview];
     }];
     
     /*

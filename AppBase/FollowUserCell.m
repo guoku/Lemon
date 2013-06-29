@@ -59,7 +59,6 @@
     }
     return self;
 }
-
 - (void)setData:(GKUser *)user
 {
     _user  = user;
@@ -80,6 +79,7 @@
     [_followBTN setFrame:CGRectMake(self.frame.size.width-85,15, 70, 30)];
     self.avatar.user =_user;
     self.followBTN.data = _user;
+    //self.followBTN.hidden = YES;
     
     self.nickname.text = _user.nickname;
     if((NSNull *)_user.bio != [NSNull null])

@@ -45,7 +45,7 @@
     self.view.backgroundColor = kColorf2f2f2;
     
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    //[backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [backBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithCustomView:backBTN];
@@ -343,15 +343,29 @@
     UIGraphicsEndImageContext();
     
     UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-    imageView.tag = 10086;
-    
     delegate.window.rootViewController = delegate.drawerController;
-    [delegate.window addSubview:imageView];
+    UIGraphicsBeginImageContext(delegate.window.bounds.size);
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        imageView.frame = CGRectMake(320, 0, 320, kScreenHeight);
+    [delegate.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *imageView2 = [[UIImageView alloc]initWithImage:image2];
+
+    
+    imageView.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
+    imageView2.frame = CGRectMake(-320, 0, imageView2.frame.size.width, imageView2.frame.size.height);
+    
+    [delegate.window addSubview:imageView];
+    [delegate.window addSubview:imageView2];
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        imageView.frame = CGRectMake(320, 0, imageView.frame.size.width, imageView.frame.size.height);
+        imageView2.frame = CGRectMake(0, 0, imageView2.frame.size.width, imageView2.frame.size.height);
     } completion:^(BOOL finished) {
         [imageView removeFromSuperview];
+        [imageView2 removeFromSuperview];
     }];
 }
 @end
