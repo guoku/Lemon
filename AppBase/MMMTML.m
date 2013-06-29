@@ -43,7 +43,7 @@
             case SUCCESS:
             {
                 NSArray *Response = [[JSON valueForKeyPath:@"results"] valueForKey:@"data"];
-                NSLog(@"selection %@", Response);
+
                 NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:0];
                 for(NSDictionary * Sattributes in Response){
                     TMLStage * stage = [[TMLStage alloc]initWithAttributes:Sattributes];

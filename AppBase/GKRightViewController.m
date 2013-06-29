@@ -555,6 +555,7 @@
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
   
     delegate.window.rootViewController = nav;
+    [delegate.window setNeedsLayout];
     nav.view.frame = CGRectMake(320, nav.view.frame.origin.y,320, kScreenHeight);
     
 
