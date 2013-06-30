@@ -38,17 +38,17 @@
         [self setDefaultProperty];
         self.backgroundColor = [UIColor clearColor];
         
-        one = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_1"]];
-        two= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_2"]];
-        three= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_3"]];
-        four= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_4"]];
-        five = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_5"]];
+        one = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_6.png"]];
+        two= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_7.png"]];
+        three= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_8.png"]];
+        four= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_9.png"]];
+        five = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_10.png"]];
 
-        one.center = CGPointMake(self.frame.size.width/10, self.frame.size.height/2);
-        two.center = CGPointMake(3*self.frame.size.width/10, self.frame.size.height/2);
+        one.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
+        two.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
         three.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
-        four.center = CGPointMake(7*self.frame.size.width/10, self.frame.size.height/2);
-        five.center = CGPointMake(9*self.frame.size.width/10, self.frame.size.height/2);
+        four.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
+        five.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
         
         [self addSubview:one];
         [self addSubview:two];
@@ -72,7 +72,8 @@
     if (_isAnimating) {
         return;
     }
-    
+    _currentStep = 0;
+    one.alpha = 1;
     _timer = [NSTimer scheduledTimerWithTimeInterval:_duration
                                               target:self
                                             selector:@selector(repeatAnimation)
@@ -94,11 +95,12 @@
     }
     
     _isAnimating = NO;
-    
+   
     if (_hidesWhenStopped) {
         self.hidden = YES;
     }
     [self reset];
+     one.alpha = 1;
 }
 
 - (BOOL)isAnimating
@@ -112,8 +114,8 @@
     switch (_currentStep) {
         case 0:
         {
-            one.image = [UIImage imageNamed:@"icon_1_press"];
-            one.alpha = 0.0;
+            one.image = [UIImage imageNamed:@"stage_comp_6.png"];
+            one.alpha = 1.0;
             [UIView animateWithDuration:_duration
                              animations:^{
                                  one.alpha = 1.0;
@@ -122,8 +124,8 @@
             break;
         case 1:
         {
-            two.image = [UIImage imageNamed:@"icon_2_press"];
-            two.alpha = 0.0;
+            two.image = [UIImage imageNamed:@"stage_comp_7.png"];
+            two.alpha = 1.0;
             [UIView animateWithDuration:_duration
                              animations:^{
                                  two.alpha = 1.0;
@@ -132,8 +134,8 @@
             break;
         case 2:
         {
-            three.image = [UIImage imageNamed:@"icon_3_press"];
-            three.alpha = 0.0;
+            three.image = [UIImage imageNamed:@"stage_comp_8.png"];
+            three.alpha = 1.0;
             [UIView animateWithDuration:_duration
                              animations:^{
                                  three.alpha = 1.0;
@@ -142,8 +144,8 @@
             break;
         case 3:
         {
-            four.image = [UIImage imageNamed:@"icon_4_press"];
-            four.alpha = 0.0;
+            four.image = [UIImage imageNamed:@"stage_comp_9.png"];
+            four.alpha = 1.0;
             [UIView animateWithDuration:_duration
                              animations:^{
                                  four.alpha = 1.0;
@@ -152,8 +154,8 @@
             break;
         case 4:
         {
-            five.image = [UIImage imageNamed:@"icon_5_press"];
-            five.alpha = 0.0;
+            five.image = [UIImage imageNamed:@"stage_comp_10.png"];
+            five.alpha = 1.0;
             [UIView animateWithDuration:_duration
                              animations:^{
                                  five.alpha = 1.0;
@@ -167,15 +169,15 @@
 }
 - (void)reset
 {
-    one.alpha = 1;
-    two.alpha = 1;
-    three.alpha = 1;
-    four.alpha = 1;
-    five.alpha = 1;
-    one.image = [UIImage imageNamed:@"icon_1"];
-    two.image= [UIImage imageNamed:@"icon_2"];
-    three.image= [UIImage imageNamed:@"icon_3"];
-    four.image = [UIImage imageNamed:@"icon_4"];
-    five.image = [UIImage imageNamed:@"icon_5"];
+    one.alpha = 0;
+    two.alpha = 0;
+    three.alpha = 0;
+    four.alpha = 0;
+    five.alpha = 0;
+    one.image = [UIImage imageNamed:@"stage_6.png"];
+    two.image= [UIImage imageNamed:@"stage_7.png"];
+    three.image= [UIImage imageNamed:@"stage_8.png"];
+    four.image = [UIImage imageNamed:@"stage_9.png"];
+    five.image = [UIImage imageNamed:@"stage_10.png"];
 }
 @end

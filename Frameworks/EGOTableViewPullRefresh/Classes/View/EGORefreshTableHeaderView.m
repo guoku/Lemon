@@ -44,11 +44,12 @@
     if((self = [super initWithFrame:frame])) {
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"refresh_bg_patter.png"]];
+        self.backgroundColor = UIColorFromRGB(0xffffff);
+		//self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"refresh_bg_patter.png"]];
         
         UIImageView *bg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refresh_bg.png"]];
         bg.frame = CGRectMake(0.0f, frame.size.height-8.0f, self.frame.size.width, 8.0f);
-        [self addSubview:bg];
+        //[self addSubview:bg];
 
       
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 15.0f, self.frame.size.width, 10.0f)];
@@ -103,9 +104,14 @@
         _gkLoadingView = gkLoadingView;
         [gkLoadingView release];
          */
+        /*
          loadView= [[YLActivityIndicatorView alloc] init];
         loadView.center = CGPointMake(frame.size.width/2, frame.size.height - 35.0f);
         [self addSubview:loadView];
+         */
+        itemLoadingView = [[GKItemLoadingView alloc]init];
+        itemLoadingView.center =  CGPointMake(frame.size.width/2, frame.size.height - 35.0f);
+        [self addSubview:itemLoadingView];
         
 		[self setState:EGOOPullRefreshNormal];
 		
@@ -169,7 +175,8 @@
 			//_statusLabel.text = NSLocalizedString(@"下拉刷新", @"Pull down to refresh status");
             //[_gkLoadingView stopAnimating];
 			//[_activityView stopAnimating];
-            [loadView stopAnimating];
+            //[loadView stopAnimating];
+            [itemLoadingView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = NO;
@@ -184,8 +191,9 @@
 			
 			_statusLabel.text = NSLocalizedString(@"", @"Loading Status");
             //[_gkLoadingView startAnimating];
-            [loadView startAnimating];
+            //[loadView startAnimating];
 			//[_activityView startAnimating];
+            [itemLoadingView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = YES;

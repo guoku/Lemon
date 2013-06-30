@@ -27,6 +27,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "YLActivityIndicatorView.h"
+#import "GKItemLoadingView.h"
 
 typedef enum{
 	EGOOPullRefreshPulling = 0,
@@ -45,6 +46,7 @@ typedef enum{
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
     YLActivityIndicatorView *loadView;
+    GKItemLoadingView * itemLoadingView;
 	
 
 }
