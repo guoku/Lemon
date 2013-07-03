@@ -52,8 +52,8 @@
     UIButton *refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
     [refreshBtn addTarget:self action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
     [refreshBtn setShowsTouchWhenHighlighted:YES];
-    [refreshBtn setImage:[UIImage imageNamed:@"webview_button_refresh.png"] forState:UIControlStateNormal];
-    [refreshBtn setImage:[UIImage imageNamed:@"webview_button_refresh_disable.png"] forState:UIControlStateDisabled];
+    [refreshBtn setImage:[UIImage imageNamed:@"webview_refresh.png"] forState:UIControlStateNormal];
+    [refreshBtn setImage:[UIImage imageNamed:@"webview_refresh_press.png"] forState:UIControlStateHighlighted];
     UIBarButtonItem *refreshWebview = [[UIBarButtonItem alloc] initWithCustomView:refreshBtn];
     
     // previous page button

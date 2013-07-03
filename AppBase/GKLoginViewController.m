@@ -159,7 +159,7 @@
     content1.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content1];
     
-    UILabel * content2 = [[UILabel alloc]initWithFrame:CGRectMake(320+30, y4+20, kScreenWidth-60, 30)];
+    UILabel * content2 = [[UILabel alloc]initWithFrame:CGRectMake(320+35, y4+20, kScreenWidth-65, 30)];
     content2.numberOfLines = 0;
     content2.textAlignment = NSTextAlignmentCenter;
     content2.text = @"从准备怀孕到宝宝 3 岁，每个阶段的购物清单专业细致，一目了然。";
@@ -168,7 +168,7 @@
     content2.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content2];
     
-    UILabel * content3 = [[UILabel alloc]initWithFrame:CGRectMake(640+30, y4+20, kScreenWidth-60, 30)];
+    UILabel * content3 = [[UILabel alloc]initWithFrame:CGRectMake(640+35, y4+20, kScreenWidth-65, 30)];
     content3.numberOfLines = 0;
     content3.textAlignment = NSTextAlignmentCenter;
     content3.text = @"东西一多就不知道买什么，先看看朋友们怎么选，贴心又放心。";
@@ -177,7 +177,7 @@
     content3.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content3];
     
-    UILabel * content4 = [[UILabel alloc]initWithFrame:CGRectMake(960+30, y4+20, kScreenWidth-60, 30)];
+    UILabel * content4 = [[UILabel alloc]initWithFrame:CGRectMake(960+35, y4+20, kScreenWidth-65, 30)];
     content4.numberOfLines = 0;
     content4.textAlignment = NSTextAlignmentCenter;
     content4.text = @"东西好不好，安全不安全，用过的妈妈来评价。看看选选心中有数。";
@@ -186,7 +186,7 @@
     content4.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content4];
     
-    UILabel * content5 = [[UILabel alloc]initWithFrame:CGRectMake(1280+30, y4+20, kScreenWidth-60, 30)];
+    UILabel * content5 = [[UILabel alloc]initWithFrame:CGRectMake(1280+35, y4+20, kScreenWidth-65, 30)];
     content5.numberOfLines = 0;
     content5.textAlignment = NSTextAlignmentCenter;
     content5.text = @"找到心仪商品，不一定第一时间出手，提前收藏，省钱更省心！";
@@ -195,8 +195,8 @@
     content5.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content5];
     
-    //pageControl.center = CGPointMake(pageControl.center.x ,content5.frame.origin.y+content5.frame.size.height+y5+scrollView.frame.origin.y);
-    pageControl.center = CGPointMake(pageControl.center.x ,content5.frame.origin.y+content5.frame.size.height+y5+10);
+    pageControl.center = CGPointMake(pageControl.center.x ,content5.frame.origin.y+content5.frame.size.height+y5+scrollView.frame.origin.y);
+    //pageControl.center = CGPointMake(pageControl.center.x ,content5.frame.origin.y+content5.frame.size.height+y5+10);
 
     UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.frame.size.height-190, kScreenWidth, 190)];
     [imageview1 setCenter:CGPointMake(160.0f,imageview1.center.y)];

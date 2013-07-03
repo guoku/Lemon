@@ -28,7 +28,8 @@
               
         [_followBTN setTitle:@"关注" forState:UIControlStateNormal];
         [_followBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
-        [_followBTN setBackgroundImage:[[UIImage imageNamed:@"green_btn_bg.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [_followBTN setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [_followBTN setBackgroundImage:[[UIImage imageNamed:@"button_red_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [_followBTN addTarget:self action:@selector(followButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_followBTN setHidden:NO];
         [self addSubview:_followBTN];
@@ -38,8 +39,8 @@
         [_unfollowBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
         [_unfollowBTN setTitleColor:kColor666666 forState:UIControlStateNormal];
         [_unfollowBTN setTitleColor:kColor666666 forState:UIControlStateHighlighted];
-        [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"remove.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
-        [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"remove_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [_unfollowBTN addTarget:self action:@selector(unfollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_unfollowBTN setHidden:NO];
         [self addSubview:_unfollowBTN];

@@ -32,7 +32,7 @@
 
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"第一步"];
+    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"欢迎加入"];
     self.view.backgroundColor = UIColorFromRGB(0xf2f2f2);
     UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,145)];
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
@@ -115,10 +115,9 @@
             [userDefault setObject:@"prepare" forKey:@"state"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"stage"];
-            GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-            [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:^{
-        
-            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段，偷偷告诉你生孩子老费钱了!!!\uE411" delegate:self cancelButtonTitle:@"重新选择" otherButtonTitles:@"妈妈清单，GO！", nil];
+            [alertView show];
         }
             break;
         case 2:
@@ -149,5 +148,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1)
+    {
+        
+        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    
+}
 @end

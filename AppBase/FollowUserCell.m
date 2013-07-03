@@ -21,7 +21,7 @@
 @synthesize avatarButton = _avatarButton;
 @synthesize nickname = _nickname;
 @synthesize bio = _bio;
-@synthesize followBTN = _followBTN;
+@synthesize invite = _invite;
 @synthesize delegate = _delegate;
 
 
@@ -30,35 +30,44 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(15, 10, 40, 40)];
+        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(15, 4, 36, 36)];
         [self addSubview:_avatar];
         
         
-        self.nickname = [[UILabel alloc]initWithFrame:CGRectZero];
+        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 160, 20)];
         _nickname.textColor = kColor666666;
         _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
         self.bio = [[UILabel alloc]initWithFrame:CGRectZero];
-
-        _bio.textColor = kColor666666;
+        [_bio setFrame:CGRectMake(60, 25, 160, 15)];
+        _bio.textColor = UIColorFromRGB(0x999999);
         _bio.lineBreakMode = NSLineBreakByTruncatingTail;
         _bio.font = [UIFont fontWithName:@"Helvetica" size:10];
         [_bio setBackgroundColor:[UIColor clearColor]];
-        //[self addSubview:_bio];
+        [self addSubview:_bio];
         
-        _followBTN = [[GKFollowButton alloc]initWithFrame:CGRectZero];
-        [self addSubview:_followBTN];
-
-        UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 58, self.frame.size.width, 2)];
+        _invite= [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-60, 6, 50, 30)];
+        [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
+        [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10) ] forState:UIControlStateHighlighted];
+        [_invite setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [_invite setTitle:@"邀请" forState:UIControlStateNormal];
+        [_invite.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
+        [_invite addTarget:self action:@selector(showFriendRecommend) forControlEvents:UIControlEventTouchUpInside];
+        [_invite.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_invite];
+        
+        UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, kScreenWidth, 1)];
         [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
+        _seperatorLineImageView.backgroundColor = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0 / 255.0f alpha:1.0f];
         [self addSubview:_seperatorLineImageView];
         
         _message = [[NSMutableDictionary alloc]init];
     }
     return self;
 }
+
 - (void)setData:(GKUser *)user
 {
     _user  = user;
@@ -73,13 +82,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    NSLog(@"%f",self.frame.size.width);
-    self.backgroundView.frame = CGRectMake(8, 0, self.frame.size.width, self.backgroundView.frame.size.height);
-    [_nickname setFrame:CGRectMake(60, 25, 100, 15)];
-    [_followBTN setFrame:CGRectMake(self.frame.size.width-85,15, 70, 30)];
+    
+    self.backgroundView.frame = CGRectMake(8, 0, kScreenWidth-16, self.backgroundView.frame.size.height);
+    
     self.avatar.user =_user;
-    self.followBTN.data = _user;
-    //self.followBTN.hidden = YES;
     
     self.nickname.text = _user.nickname;
     if((NSNull *)_user.bio != [NSNull null])

@@ -152,6 +152,9 @@
         }
         [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您目前正处于预产阶段-孕中期\U0001F603" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"妈妈清单，GO！", nil];
+        [alertView show];
     }
     else if([[userDefault objectForKey:@"state"]isEqualToString:@"born"])
     {
@@ -163,14 +166,12 @@
         }
         [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"stage"];
         [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"userstage"];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您的宝宝已经3个月啦\U0001F603" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"妈妈清单，GO！", nil];
+        [alertView show];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
-    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:^{
-                
-    }];
+
 }
 - (void)change
 {
@@ -181,5 +182,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1)
+    {
 
+        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    
+}
 @end

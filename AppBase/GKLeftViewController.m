@@ -36,7 +36,7 @@
     if (self) {
         // Custom initialization
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-        self.view.backgroundColor= UIColorFromRGB(0x363131);
+        self.view.backgroundColor= UIColorFromRGB(0x403b3b);
     }
     return self;
 }
@@ -106,7 +106,7 @@
     tipView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, 260, 40)];
     tipView.backgroundColor = UIColorFromRGB(0x363131);
     
-    UIImageView *H1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,tipView.frame.size.width, 3)];
+    UIImageView *H1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,tipView.frame.size.width, 2)];
     [H1 setImage:[UIImage imageNamed:@"sidebar_shadow.png"]];
     [tipView addSubview:H1];
     
@@ -125,7 +125,7 @@
     tip.text = @"宝宝现在3个月零5天，预计要花费￥22,727";
     [tipView addSubview:tip];
     
-    UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 37, tipView.frame.size.width, 3)];
+    UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 38, tipView.frame.size.width, 2)];
     [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_shadow_down@2x.png"]];
     [tipView addSubview:_seperatorLineImageView];
     
@@ -294,7 +294,7 @@
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
     GKLoginViewController *loginVC = [[GKLoginViewController alloc] init];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController presentViewController: loginVC animated:YES completion:NULL];
 }
 - (void)profileChange
 {

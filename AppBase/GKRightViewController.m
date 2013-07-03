@@ -8,7 +8,7 @@
 
 #import "GKRightViewController.h"
 #import "GKUser.h"
-#import "FollowUserCell.h"
+#import "MMMRightCell.h"
 #import "GKUserViewController.h"
 #import "GKAppDotNetAPIClient.h"
 #import "GKFriendRecommendViewController.h"
@@ -31,6 +31,9 @@
     CGFloat YoffsetForFan;
     GKUser *me;
     NSUInteger _user_id;
+    UIView *tableFooterView;
+    UIButton * findFriend;
+    UILabel * tip;
 }
 @synthesize segmentedControl = _segmentedControl;
 @synthesize table = _table;
@@ -120,8 +123,8 @@
 - (void)loadView
 {
     [super loadView];
-    self.view.frame = CGRectMake(0, 0, 260,kScreenHeight);
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.frame = CGRectMake(0, 0, 220,kScreenHeight);
+    self.view.backgroundColor = UIColorFromRGB(0x403b3b);
     
     _segmentedControl = [[AKSegmentedControl alloc] initWithFrame:CGRectMake(0.0,0, 181.0, 28.0)];
     [_segmentedControl setDelegate:self];
@@ -129,8 +132,8 @@
     _segmentedControl.center = CGPointMake(self.view.frame.size.width/2, 22);
     [self.view addSubview:_segmentedControl];
     
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0,44, self.view.frame.size.width, kScreenHeight-44-50) style:UITableViewStylePlain];
-    _table.backgroundColor = kColorf2f2f2;
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0,44, self.view.frame.size.width, kScreenHeight-44-44) style:UITableViewStylePlain];
+    _table.backgroundColor = UIColorFromRGB(0x403b3b);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = YES;
     [_table setDelegate:self];
@@ -139,6 +142,7 @@
     if(_refreshHeaderView == nil)
     {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
+        view.backgroundColor = UIColorFromRGB(0x403b3b);
         view.delegate = self;
         _refreshHeaderView = view;
         [self.table addSubview:_refreshHeaderView];
@@ -212,18 +216,26 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *FollowTableIdentifier = @"Follow";
     
-    FollowUserCell *cell = [tableView dequeueReusableCellWithIdentifier:
+    MMMRightCell *cell = [tableView dequeueReusableCellWithIdentifier:
                             FollowTableIdentifier];
     if (cell == nil) {
-        cell = [[FollowUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: FollowTableIdentifier];
+        cell = [[MMMRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: FollowTableIdentifier];
     }
     cell.delegate = self;
     cell.user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
+    [[cell viewWithTag:4003]removeFromSuperview];
+    NSUInteger row = [indexPath row];
+
+        UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 42, 260, 2)];
+        _seperatorLineImageView.tag = 4003;
+        [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
+        [cell addSubview:_seperatorLineImageView];
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 44;
 }
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -231,6 +243,36 @@
     GKUser *user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
     [self showUserWithUserID:user.user_id];
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0,220, 30)];
+    view.backgroundColor = UIColorFromRGB(0x363131);
+    
+    UIImageView *H1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,view.frame.size.width, 2)];
+    [H1 setImage:[UIImage imageNamed:@"sidebar_shadow.png"]];
+    [view addSubview:H1];
+    
+    tip = [[UILabel alloc]initWithFrame:CGRectMake(10,0,view.frame.size.width,20)];
+    tip.center = CGPointMake(tip.center.x,view.frame.size.height/2);
+    tip.backgroundColor = [UIColor clearColor];
+    tip.numberOfLines = 0;
+    tip.textAlignment = NSTextAlignmentLeft;
+    [tip setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
+    tip.textColor = UIColorFromRGB(0x777777);
+    tip.text = @"共10个人";
+    [view addSubview:tip];
+    
+    UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, view.frame.size.width, 2)];
+    [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_shadow_down@2x.png"]];
+    [view addSubview:_seperatorLineImageView];
+    
+    return view;
+}
+
 //以下部分不用管。
 
 - (void)refresh
@@ -319,28 +361,27 @@
 }
 - (void)setupSegmentedControl
 {
-    UIImage *backgroundImage = [[UIImage imageNamed:@"segment_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)];
+    UIImage *backgroundImage = [[UIImage imageNamed:@"sidebar_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)];
     [_segmentedControl setBackgroundImage:backgroundImage];
     [_segmentedControl setSegmentedControlMode:AKSegmentedControlModeSticky];
     [_segmentedControl setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin];
-    UIImage *buttonBackgroundImagePressedLeft = [[UIImage imageNamed:@"segment_press_L.png"]
-                                                 resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
-    UIImage *buttonBackgroundImagePressedRight = [[UIImage imageNamed:@"segment_press_R.png"]
-                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
+    UIImage *buttonBackgroundImagePressedLeft = [[UIImage imageNamed:@"sidebar_tab_button_left.png"]
+                                                 stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    UIImage *buttonBackgroundImagePressedRight = [[UIImage imageNamed:@"sidebar_tab_button_right.png"]
+                                                  stretchableImageWithLeftCapWidth:10 topCapHeight:10];
     
     // Button 1
     UIButton *buttonForFollow = [[UIButton alloc] init];
-    buttonForFollow.frame = CGRectMake(0, 0, 90, 28);
+    buttonForFollow.frame = CGRectMake(0, 0, 90, 30);
     [buttonForFollow setTitle:@"关注" forState:UIControlStateNormal];
     [buttonForFollow setTitleColor:kColor666666 forState:UIControlStateNormal];
     [buttonForFollow.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
-    [buttonForFollow setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 5.0)];
     [buttonForFollow setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateHighlighted];
     [buttonForFollow setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateSelected];
     [buttonForFollow setBackgroundImage:buttonBackgroundImagePressedLeft forState:(UIControlStateHighlighted|UIControlStateSelected)];
     
     UIButton *buttonForFans = [[UIButton alloc] init];
-    buttonForFans.frame = CGRectMake(0, 0, 90, 28);
+    buttonForFans.frame = CGRectMake(0, 0, 90, 30);
     [buttonForFans setTitle:@"粉丝" forState:UIControlStateNormal];
     [buttonForFans setTitleColor:kColor666666 forState:UIControlStateNormal];
     [buttonForFans.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
@@ -350,6 +391,11 @@
     
     [_segmentedControl setButtonsArray:@[buttonForFollow, buttonForFans]];
     [self.view addSubview:_segmentedControl];
+    
+    UIImageView *H2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 220, 1)];
+    [H2 setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
+    
+    [self.view addSubview:H2];
 }
 - (void)segmentedViewController:(AKSegmentedControl *)segmentedControl touchedAtIndex:(NSUInteger)index
 {
@@ -412,9 +458,9 @@
 - (void)setFooterView:(BOOL)yes
 {
     if (yes) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320.0f, 44.0f)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 220.0f, 44.0f)];
         UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        LoadMoreBtn.frame = CGRectMake(0, 0, 320.0f, 44.0f);
+        LoadMoreBtn.frame = CGRectMake(0, 0, 220.0f, 44.0f);
         [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
         [LoadMoreBtn setUserInteractionEnabled:YES];
         [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
@@ -437,9 +483,9 @@
 {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
-    indicator.backgroundColor = kColorf2f2f2;
-    indicator.center = CGPointMake(self.view.frame.size.width/2, 22.0f);
+    indicator.frame = CGRectMake(0, 0, 220, 44);
+    indicator.backgroundColor = UIColorFromRGB(0x403b3b);
+    indicator.center = CGPointMake(220/2, 22.0f);
     indicator.hidesWhenStopped = YES;
     [indicator startAnimating];
     [self.table.tableFooterView addSubview:indicator];
@@ -512,25 +558,26 @@
 
 - (void)setFindFriendView
 {
-    UIButton * bigButton = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-50, self.view.frame.size.width, 50) ];
-    GKLog(@"%@", NSStringFromCGRect(bigButton.frame));
-    [bigButton setBackgroundImage:[[UIImage imageNamed:@"findfriend_bg.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:4] forState:UIControlStateNormal];
-    [bigButton setBackgroundImage:[[UIImage imageNamed:@"findfriend_bg.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:4] forState:UIControlStateHighlighted];
-    [bigButton addTarget:self action:@selector(showFriendRecommend) forControlEvents:UIControlEventTouchUpInside];
-    UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(14,11,90,30)];
-    [button setTitle:@"查找好友" forState:UIControlStateNormal];
-    [button setTitleColor:kColor666666 forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-    [button setImage:[UIImage imageNamed: @"findfriend_sreach.png"] forState:UIControlStateNormal];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 5)];
-    [button setBackgroundImage:[[UIImage imageNamed:@"findfriend_btn_bg.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1] forState:UIControlStateNormal];
-    button.userInteractionEnabled = NO;
-    [bigButton addSubview:button];
+    tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, 220, 44)];
+    tableFooterView.backgroundColor = UIColorFromRGB(0x403B3B);
     
-    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"findfriend_arrow"]];
-    arrow.center = CGPointMake(kScreenWidth-30, 26);
-    [bigButton addSubview:arrow];
-    [self.view addSubview:bigButton];
+    findFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 200, 34)];
+    findFriend.center = CGPointMake(tableFooterView.frame.size.width/2, 23);
+    [findFriend setBackgroundImage:[[UIImage imageNamed:@"sidebar_button.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
+    [findFriend setBackgroundImage:[[UIImage imageNamed:@"sidebar_button_press.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10) ] forState:UIControlStateHighlighted];
+    [findFriend setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [findFriend setTitle:@"邀请好友" forState:UIControlStateNormal];
+    [findFriend.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
+    [findFriend addTarget:self action:@selector(showFriendRecommend) forControlEvents:UIControlEventTouchUpInside];
+    [findFriend.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [tableFooterView addSubview:findFriend];
+    
+    UIImageView *H2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 220, 2)];
+    [H2 setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
+    
+    [tableFooterView addSubview:H2];
+    
+    [self.view addSubview:tableFooterView];
     
 }
 - (void)showFriendRecommend

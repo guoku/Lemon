@@ -20,6 +20,7 @@
     NSUInteger page;
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
+    UIImageView *cate_arrow;
 }
 @synthesize dataArray = _dataArray;
 @synthesize table = _table;
@@ -39,10 +40,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.trackedViewName = @"好友推荐";
+    self.trackedViewName = @"邀请好友";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:@"UserFollowChange" object:nil];
     
     self.view.backgroundColor = kColorf2f2f2;
+    
+
     
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
@@ -59,9 +62,66 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:refreshBTN];
     
-    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"好友推荐"];
+    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"邀请好友"];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
+    view.backgroundColor = [UIColor clearColor];
+    
+    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    bg.backgroundColor = kColorf1f1f1;
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 160, 40)];
+    [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateHighlighted];
+    
+    [button.titleLabel setTextAlignment:UITextAlignmentLeft];
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [button setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    [button setTitle:@"邀请微博好友" forState:UIControlStateNormal];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    button.tag = 4001;
+    
+    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(160, 0, 160, 40)];
+    [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateNormal];
+    [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateHighlighted];
+    [button2.titleLabel setTextAlignment:UITextAlignmentLeft];
+    button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [button2 setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    [button2 setTitle:@"邀请微信好友" forState:UIControlStateNormal];
+    [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [button2 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    button2.tag = 4002;
+        
+    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
+    arrow.frame = CGRectMake(300, 13, 8, 14);
+    arrow.backgroundColor = [UIColor clearColor];
+    [bg addSubview:button];
+    [bg addSubview:button2];
+    [bg addSubview:arrow];
+    
+    UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(160, 0, 1, 40)];
+    V1.backgroundColor = kColore4e4e4;
+    UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
+    H1.backgroundColor = kColore4e4e4;
+    
+    [bg addSubview:H1];
+    [bg addSubview:V1];
+    
+    cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
+    cate_arrow.frame = CGRectMake(0,39, 15,8);
+    cate_arrow.center = CGPointMake(80, cate_arrow.center.y);
+    cate_arrow.backgroundColor = [UIColor clearColor];
+         [view addSubview:cate_arrow];
+    [view addSubview:bg];
+    [view addSubview:cate_arrow];
+
+    
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-44-40) style:UITableViewStylePlain];
     _table.backgroundColor = kColorf2f2f2;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
@@ -79,6 +139,8 @@
     }
     [_refreshHeaderView refreshLastUpdatedDate];
 	// Do any additional setup after loading the view.
+    [self.view addSubview:view];
+
 }
 - (void)viewDidUnload
 {
@@ -245,7 +307,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 44;
 }
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -278,7 +340,7 @@
         [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
         [LoadMoreBtn setUserInteractionEnabled:YES];
         [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
-        [LoadMoreBtn setTitleColor:kColorf2f2f2 forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:kColor666666 forState:UIControlStateNormal];
         [LoadMoreBtn setTitleColor:kColor666666 forState:UIControlStateHighlighted];
         LoadMoreBtn.titleLabel.textAlignment = UITextAlignmentCenter;
         LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
@@ -370,4 +432,47 @@
         [imageView2 removeFromSuperview];
     }];
 }
+- (void)TapButtonAction:(id)sender
+{
+    NSLog(@"%d",((UIButton *)sender).tag);
+    switch (((UIButton *)sender).tag) {
+        case 4001:
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                cate_arrow.center = CGPointMake(80, cate_arrow.center.y);
+            }completion:^(BOOL finished) {
+                
+            }];
+            
+        }
+            break;
+        case 4002:
+        {
+            [self wxShare:0];
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)wxShare:(int)scene;
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"分享「妈妈清单」应用";
+    message.description= @"「妈妈清单」，养孩子必备。";
+    [message setThumbImage:[UIImage imageNamed:@"wxshare.png"]];
+        
+    WXAppExtendObject *ext = [WXAppExtendObject object];
+    ext.Url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];;
+    
+    message.mediaObject = ext;
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = scene;
+    
+    [WXApi sendReq:req];
+}
+
+
 @end

@@ -111,75 +111,6 @@
 - (void)loadView
 {
     [super loadView];
-    
-    
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStylePlain];
-    _table.backgroundColor = kColorf9f9f9;
-    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.separatorColor = kColorf9f9f9;
-    _table.allowsSelection = NO;
-    [_table setDelegate:self];
-    [_table setDataSource:self];
-    [self.view addSubview:_table];
-    
-    
-    if(_refreshHeaderView == nil)
-    {
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
-        view.delegate = self;
-        _refreshHeaderView = view;
-        [self.table addSubview:_refreshHeaderView];
-    }
-    [_refreshHeaderView refreshLastUpdatedDate];
-}
-#pragma mark 重载tableview必选方法
-//返回一共有多少个Section
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-//返回每个Section有多少Row
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section == 0)
-    {
-        return [_dataArray count] / 2;
-    }
-    return 0;
-}
-
-//定义每个Row
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *PopularTableIdentifier = @"Popular";
-    
-    TableViewCellForTwo *cell = [tableView dequeueReusableCellWithIdentifier:
-                                 PopularTableIdentifier];
-    if (cell == nil) {
-        cell = [[TableViewCellForTwo alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: PopularTableIdentifier];
-    }
-    cell.delegate = self;
-    cell.dataArray =[NSMutableArray arrayWithObjects:[_dataArray objectAtIndex:(indexPath.row*2)], [_dataArray objectAtIndex:(indexPath.row*2+1)],nil];
-    
-    return cell;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 240;
-}
-- (void)refresh
-{
-    _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    self.table.tableFooterView.hidden = YES;
-    [self makeHearderReloading];
-    [self performSelector:@selector(reload:) withObject:nil afterDelay:0.3];
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 48;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
     view.backgroundColor = [UIColor clearColor];
     
@@ -250,7 +181,70 @@
     
     [view addSubview:bg];
     [view addSubview:cate_arrow];
-    return view;
+
+    
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight - 44-40) style:UITableViewStylePlain];
+    _table.backgroundColor = kColorf9f9f9;
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _table.separatorColor = kColorf9f9f9;
+    _table.allowsSelection = NO;
+    [_table setDelegate:self];
+    [_table setDataSource:self];
+    [self.view addSubview:_table];
+    
+    
+    if(_refreshHeaderView == nil)
+    {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
+        view.delegate = self;
+        _refreshHeaderView = view;
+        [self.table addSubview:_refreshHeaderView];
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];
+    
+    [self.view addSubview:view];
+}
+#pragma mark 重载tableview必选方法
+//返回一共有多少个Section
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+//返回每个Section有多少Row
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(section == 0)
+    {
+        return [_dataArray count] / 2;
+    }
+    return 0;
+}
+
+//定义每个Row
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *PopularTableIdentifier = @"Popular";
+    
+    TableViewCellForTwo *cell = [tableView dequeueReusableCellWithIdentifier:
+                                 PopularTableIdentifier];
+    if (cell == nil) {
+        cell = [[TableViewCellForTwo alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: PopularTableIdentifier];
+    }
+    cell.delegate = self;
+    cell.dataArray =[NSMutableArray arrayWithObjects:[_dataArray objectAtIndex:(indexPath.row*2)], [_dataArray objectAtIndex:(indexPath.row*2+1)],nil];
+    
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 240;
+}
+- (void)refresh
+{
+    _reloading = YES;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.table.tableFooterView.hidden = YES;
+    [self makeHearderReloading];
+    [self performSelector:@selector(reload:) withObject:nil afterDelay:0.3];
 }
 
 - (void)makeHearderReloading

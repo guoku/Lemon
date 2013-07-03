@@ -10,14 +10,14 @@
 #import "GKFollowButton.h"
 @class GKUser;
 
-@interface FollowUserCell : UITableViewCell
+@interface MMMRightCell : UITableViewCell
 
 @property (nonatomic, strong) GKUser * user;
 @property (strong, nonatomic) UIButton *avatarButton;
 @property (strong, nonatomic) GKUserButton *avatar;
 @property (strong, nonatomic) UILabel *nickname;
 @property (strong, nonatomic) UILabel *bio;
-@property (strong, nonatomic) UIButton *invite;
+@property (strong, nonatomic) GKFollowButton *followBTN;
 
 @property (weak,nonatomic) id<GKDelegate> delegate;
 
