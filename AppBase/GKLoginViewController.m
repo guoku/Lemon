@@ -14,11 +14,14 @@
     @private UIButton * _sinaBtn;
         UIScrollView *scrollView;
         SMPageControl *pageControl;
+    UIImageView * logo;
+    UILabel * slogan;
     CGFloat y1;
     CGFloat y2;
     CGFloat y3;
     CGFloat y4;
     CGFloat y5;
+    CGFloat yoffest;
     
 }
 
@@ -50,6 +53,7 @@
         y3 = 37;
         y4 = 62;
         y5 = 17;
+        yoffest = 170;
     }
     else
     {
@@ -58,24 +62,25 @@
         y3 = 23;
         y4 = 40;
         y5 = 17;
+        yoffest = 135;
     }
     
-    UIImageView *logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_logo.png"]];
+    logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_logo.png"]];
     NSLog(@"y1%f",y1);
-    logo.frame = CGRectMake(0, y1, 136, 31);
+    logo.frame = CGRectMake(0, y1, 132, 50);
     logo.center = CGPointMake(kScreenWidth/2,logo.center.y);
     [self.view addSubview:logo];
     
-    UILabel * slogan = [[UILabel alloc]initWithFrame:CGRectMake(0, logo.frame.origin.y+logo.frame.size.height+y2, kScreenWidth, 14)];
-    slogan.textAlignment = NSTextAlignmentCenter;
-    slogan.text = @"记录点点滴滴";
-    slogan.font = [UIFont fontWithName:@"Helvetica" size:14];
-    slogan.textColor = UIColorFromRGB(0x666666);
-    slogan.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:slogan];
+    //slogan = [[UILabel alloc]initWithFrame:CGRectMake(0, logo.frame.origin.y+logo.frame.size.height+y2, kScreenWidth, 14)];
+    //slogan.textAlignment = NSTextAlignmentCenter;
+    //slogan.text = @"最贴心的母婴购物指南";
+    //slogan.font = [UIFont fontWithName:@"Helvetica" size:14];
+    //slogan.textColor = UIColorFromRGB(0x666666);
+    //slogan.backgroundColor = [UIColor clearColor];
+    //[self.view addSubview:slogan];
     
 	// Do any additional setup after loading the view.
-    _sinaBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, slogan.frame.origin.y+slogan.frame.size.height+y3,285, 42)];
+    _sinaBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, logo.frame.origin.y+logo.frame.size.height+y3,285, 42)];
     _sinaBtn.center = CGPointMake(kScreenWidth/2, _sinaBtn.center.y);
     [_sinaBtn setTitle:@"请使用新浪微博登录" forState:UIControlStateNormal];
     [_sinaBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15]];
@@ -232,15 +237,59 @@
     
     [scrollView addSubview:imageview5];
     
- 
-    
-    
-    
-    
     [self.view addSubview:scrollView];
     
     [self.view addSubview:pageControl];
+    [self HideSomething];
+    
 
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    logo.center = CGPointMake(logo.center.x, yoffest+25);
+    
+    [self performSelector:@selector(work) withObject:nil afterDelay:3];
+    
+}
+- (void)work
+{
+    [UIView animateWithDuration:1.2 animations:^{
+        logo.center = CGPointMake(kScreenWidth/2,y1+25);
+    } completion:^(BOOL finished) {
+        [self showEverything];
+    }];
+
+}
+- (void)HideSomething
+{
+    _sinaBtn.hidden = YES;
+    pageControl.hidden = YES;
+    scrollView.hidden = YES;
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-190, kScreenWidth, 190)];
+    [imageview setImage:[UIImage imageNamed:@"login_Introduction_1.png"]];
+    imageview.userInteractionEnabled = YES;
+    imageview.tag = 2008;
+    [self.view addSubview:imageview];
+
+}
+- (void)showEverything
+{
+
+    
+    _sinaBtn.alpha = 0;
+    pageControl.hidden = 0;
+    scrollView.hidden = 0;
+    [UIView animateWithDuration:1 animations:^{
+        _sinaBtn.alpha = 1;
+        pageControl.hidden = 1;
+        scrollView.hidden = 1;
+    }];
+    
+    _sinaBtn.hidden = NO;
+    pageControl.hidden = NO;
+    scrollView.hidden = NO;
+    [[self.view viewWithTag:2008]removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning

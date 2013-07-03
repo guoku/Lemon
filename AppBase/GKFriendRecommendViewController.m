@@ -10,6 +10,9 @@
 #import "GKRecommendFriend.h"
 #import "FollowUserCell.h"
 #import "GKAppDelegate.h"
+#import "GKFileManager.h"
+#import "PinyinTools.h"
+#define kSearchString @"abcdefghijklmnopqrstuvwxyz#"
 @interface GKFriendRecommendViewController ()
 
 @end
@@ -21,18 +24,24 @@
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
     UIImageView *cate_arrow;
+
+    NSInteger _cursor;
+    BOOL _recieveData;
 }
-@synthesize dataArray = _dataArray;
 @synthesize table = _table;
+@synthesize searchBar = _searchBar;
+@synthesize searchDC = _searchDC;
+@synthesize allFriends = _allFriends;
+@synthesize filteredArray = _filteredArray;
+@synthesize sectionDic = _sectionDic;
+@synthesize allKeys = _allKeys;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _dataArray = [[NSMutableArray alloc]init];
-        page  = 1;
-        _loadMoreflag = NO;
     }
     return self;
 }
@@ -44,6 +53,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:@"UserFollowChange" object:nil];
     
     self.view.backgroundColor = kColorf2f2f2;
+	// Do any additional setup after loading the view.
+    self.sectionDic = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.allFriends = [NSMutableArray arrayWithCapacity:5];
+    self.filteredArray = [NSMutableArray arrayWithCapacity:5];
+    _cursor = 1;
     
 
     
@@ -130,15 +144,17 @@
     
     [self.view addSubview:_table];
     
-    if(_refreshHeaderView == nil)
-    {
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
-        view.delegate = self;
-        _refreshHeaderView = view;
-        [self.table addSubview:_refreshHeaderView];
-    }
-    [_refreshHeaderView refreshLastUpdatedDate];
-	// Do any additional setup after loading the view.
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 215.0f, 44.0f)];
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _searchBar.keyboardType = UIKeyboardTypeDefault;
+    _searchBar.showsSearchResultsButton = NO;
+    //self.table.tableHeaderView = _searchBar;
+    
+    self.searchDC = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    _searchDC.searchResultsDataSource = self;
+    _searchDC.searchResultsDelegate = self;
+    
     [self.view addSubview:view];
 
 }
@@ -147,12 +163,20 @@
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UserFollowChange" object:nil];
 }
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if([_dataArray count]==0)
-    {
-        [self refresh];
+    [self performSelector:@selector(loadData) withObject:self afterDelay:0.3];
+}
+- (void)loadData
+{
+    NSArray *friendsArray = [NSKeyedUnarchiver unarchiveObjectWithFile:[GKFileManager getFullFileNameWithName:[NSString stringWithFormat:@"friends_%@", [self sinaweibo].userID]]];
+    if (!friendsArray || (0 == [friendsArray count])) {
+        [self reload:nil];
+    } else {
+        [_allFriends addObjectsFromArray:friendsArray];
+        [self loadAllFriends];
     }
 }
 
@@ -162,239 +186,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)reload:(id)sender
-{
-    page = 1;
-    [GKRecommendFriend RecommendFriendWithPage:page Block:^(NSArray *friendList, NSError *error){
-        if (!error)
-        {
-            [_dataArray removeAllObjects];
-            [_dataArray addObjectsFromArray:friendList];
-            [self.table reloadData];
-            if([_dataArray count]!=0)
-            {
-                [self setFooterView:YES];
-            }
-            page += 1;
-        }
-        else
-        {
-            switch (error.code) {
-                case -999:
-                    [GKMessageBoard hideMB];
-                    break;
-                default:
-                {
-                    NSString * errorMsg = [error localizedDescription];
-                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
-                }
-                    break;
-            }
-        }
-        [self doneLoadingTableViewData];
-    }];
-}
-- (void)loadView
-{
-    [super loadView];
-
-}
-- (void)refresh
-{
-    _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    [self makeHearderReloading];
-    [self performSelector:@selector(reload:) withObject:nil afterDelay:0.3];
-}
--(void)reloadTableViewDataSource
-{
-    _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    [self reload:nil];
-    
-}
-- (void)doneLoadingTableViewData{
-    _reloading = NO;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-    CGPoint offset = self.table.contentOffset;
-    offset.y = 0.0;
-    [UIView animateWithDuration:0.3 animations:^{
-        self.table.contentOffset = offset;
-    }completion:^(BOOL finished) {
-        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.table];
-    }];
-}
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	
-	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
-        if(!_loadMoreflag&&!_reloading)
-        {
-            _loadMoreflag = YES;
-            [self loadMore];
-        }
-	}
-}
-#pragma mark -
-#pragma mark 重载EGORefreshTableHeaderView必选方法
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
-{
-    [self reloadTableViewDataSource];
-    //[self performSelector:@selector(reloadTableViewDataSource) withObject:nil afterDelay:3.0];
-}
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
-{
-    return _reloading;
-}
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-	
-	return [NSDate date]; // should return date data source was last changed
-}
-- (void)makeHearderReloading
-{
-    [_refreshHeaderView setState:EGOOPullRefreshNormal];
-    if (self.table.isDecelerating) {
-        [self.table setContentOffset:self.table.contentOffset animated:NO];
-    }
-    CGPoint offset = self.table.contentOffset;
-    if (offset.y >= 0.0) {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.table.contentOffset = CGPointMake(offset.x, -65.);
-        }completion:^(BOOL finished) {
-            [_refreshHeaderView setState:EGOOPullRefreshLoading];
-        }];
-    }
-}
-
-#pragma mark 重载tableview必选方法
-//返回一共有多少个Section
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-//返回每个Section有多少Row
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section == 0)
-    {
-        return [_dataArray count];
-    }
-    return 0;
-}
-
-//定义每个Row
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *FollowTableIdentifier = @"FindFriend";
-    
-    FollowUserCell *cell = [tableView dequeueReusableCellWithIdentifier:
-                            FollowTableIdentifier];
-    if (cell == nil) {
-        cell = [[FollowUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: FollowTableIdentifier];
-    }
-    cell.delegate = self;
-    cell.user = [_dataArray objectAtIndex:indexPath.row];
-    UIView *bg =[[UIView alloc]initWithFrame:CGRectZero];
-    [bg setBackgroundColor:kColorf2f2f2];
-    cell.selectedBackgroundView =bg;
-    return cell;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
-}
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
-    GKUser *user = [_dataArray objectAtIndex:indexPath.row];
-    [self showUserWithUserID:user.user_id];
-}
-- (void)userFollowChange:(NSNotification *)noti
-{
-    NSDictionary *data = [noti userInfo];
-    NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
-    GKUserRelation *relation = [data objectForKey:@"relation"];
-    for (GKUser * user in _dataArray ) {
-        
-        if (user_id == user.user_id) {
-            user.relation = relation;
-            [self.table reloadData];
-            break;
-        }
-    }
-    
-}
-
-- (void)setFooterView:(BOOL)yes
-{
-    if (yes) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320.0f, 44.0f)];
-        UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        LoadMoreBtn.frame = CGRectMake(0, 0, 320.0f, 44.0f);
-        [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
-        [LoadMoreBtn setUserInteractionEnabled:YES];
-        [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
-        [LoadMoreBtn setTitleColor:kColor666666 forState:UIControlStateNormal];
-        [LoadMoreBtn setTitleColor:kColor666666 forState:UIControlStateHighlighted];
-        LoadMoreBtn.titleLabel.textAlignment = UITextAlignmentCenter;
-        LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-        
-        [LoadMoreBtn addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventTouchUpInside];
-        [footerView addSubview:LoadMoreBtn];
-        
-        self.table.tableFooterView = footerView;
-    }
-    else {
-        self.table.tableFooterView = nil;
-    }
-}
-
-- (void)loadMore
-{
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.frame = CGRectMake(0, 0, kScreenWidth, 44);
-    indicator.backgroundColor = kColorf2f2f2;
-    indicator.center = CGPointMake(kScreenWidth/2, 22.0f);
-    indicator.hidesWhenStopped = YES;
-    [indicator startAnimating];
-    [self.table.tableFooterView addSubview:indicator];
-    [GKRecommendFriend RecommendFriendWithPage:page Block:^(NSArray *friendList, NSError *error){
-        if (!error)
-        {
-
-            [_dataArray addObjectsFromArray: [NSMutableArray arrayWithArray:friendList]];
-            page += 1;
-            [self.table reloadData];
-        }
-        else
-        {
-            switch (error.code) {
-                case -999:
-                    [GKMessageBoard hideMB];
-                    break;
-                default:
-                {
-                    NSString * errorMsg = [error localizedDescription];
-                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
-                }
-                    break;
-            }
-        }
-        [indicator stopAnimating];
-        _loadMoreflag = NO;
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    
-    }];
-
-
-}
 - (void)backButtonAction:(id)sender
 { 
     
@@ -473,6 +264,273 @@
     
     [WXApi sendReq:req];
 }
+
+- (SinaWeibo *)sinaweibo
+{
+    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+    return delegate.sinaweibo;
+}
+- (void)refresh
+{
+    _cursor = 1;
+    [GKFileManager removeFileWithName:[NSString stringWithFormat:@"friends_%@", [self sinaweibo].userID]];
+    [self.sectionDic removeAllObjects];
+    [self.filteredArray removeAllObjects];
+    [self.allFriends removeAllObjects];
+    
+    
+    [self reload:nil];
+}
+- (void)reload:(id)sender
+{
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [GKMessageBoard showActivity];
+    SinaWeibo *sinaweibo = [self sinaweibo];
+    [sinaweibo requestWithURL:@"friendships/friends.json"
+                       params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                               [self sinaweibo].userID, @"uid",[NSString stringWithFormat:@"%u",_cursor],@"cursor",@"200",@"count", nil]
+                   httpMethod:@"GET"
+                     delegate:self];
+}
+
+- (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error
+{
+    [GKMessageBoard hideActivity];
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+    if(error.code ==21315)
+    {
+        SinaWeibo *sinaweibo = [self sinaweibo];
+        [sinaweibo logIn];
+    }
+    else
+    {
+        [GKMessageBoard showMBWithText:[NSString  stringWithFormat:@"网络错误,错误代码%u",error.code]customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    }
+}
+- (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result
+{
+    GKLog(@"%@",result);
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *data = (NSDictionary *)result;
+        
+        _cursor = [[data objectForKey:@"next_cursor"] intValue];
+        [_allFriends addObjectsFromArray:[data objectForKey:@"users"]];
+        
+        int next_cursor = [[data objectForKey:@"next_cursor"] intValue];
+        if (next_cursor == 0) {
+            _cursor = -1;
+            [NSKeyedArchiver archiveRootObject:_allFriends toFile:[GKFileManager getFullFileNameWithName:[NSString stringWithFormat:@"friends_%@",[self sinaweibo].userID]]];
+            [self loadAllFriends];
+            _recieveData = NO;
+            [GKMessageBoard hideActivity];
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            return;
+        }
+        else {
+            [self reload:nil];
+        }
+    }
+}
+
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *selectedUser = nil;
+    
+    if (tableView == self.table) {
+        NSDictionary *dic = [_sectionDic objectForKey:[_allKeys objectAtIndex:indexPath.section]];
+        NSArray *data = [dic objectForKey:@"data"];
+        selectedUser = [data objectAtIndex:indexPath.row];
+    } else {
+        selectedUser = [_filteredArray objectAtIndex:indexPath.row];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addWeiboFriend" object:nil userInfo:selectedUser];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (tableView == self.table) {
+        return [_allKeys count];
+    }
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger count = 0;
+    if (tableView == self.table) {
+        NSDictionary *dic = [_sectionDic objectForKey:[_allKeys objectAtIndex:section]];
+        NSArray *array = [dic objectForKey:@"data"];
+        count = [array count];
+        if (section == [_allKeys count] - 1) {
+        }
+    } else {
+        if ([_filteredArray count] > 0) {
+            [_filteredArray removeAllObjects];
+        }
+        [self searchBar:_searchBar textDidChange:_searchBar.text];
+        count = [_filteredArray count];
+    }
+    
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (tableView == self.table) {
+        return 20.0f;
+    }
+    return 0.0f;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if (title == UITableViewIndexSearch) {
+        [self.table scrollRectToVisible:_searchBar.frame animated:NO];
+        return -1;
+    }
+    
+    return [kSearchString rangeOfString:title].location;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    if (tableView == self.table) {
+        NSMutableArray *index = [NSMutableArray arrayWithObject:UITableViewIndexSearch];
+        for (int i = 0; i < 27; i++) {
+            [index addObject:[kSearchString substringWithRange:NSMakeRange(i, 1)]];
+        }
+        return index;
+    } else return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *title = nil;
+    
+    if (tableView == self.table) {
+        title = [[_allKeys objectAtIndex:section] lowercaseString];
+    }
+    
+    return title;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"WeiboFriendsCell";
+    
+    UIImageView * userAvatar;
+    UILabel * screenName;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    } else {
+        for (UIView * view in cell.contentView.subviews)
+        {
+            [view removeFromSuperview];
+        }
+        [[SDImageCache sharedImageCache] clearMemory];
+    }
+    // Configure the cell...
+    cell.backgroundColor = kColorf9f9f9;
+    userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 4.0f, 32.0f, 32.0f)];
+    userAvatar.layer.cornerRadius = 3.0f;
+    userAvatar.layer.masksToBounds = YES;
+    [cell.contentView addSubview:userAvatar];
+    
+    screenName = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 0.0f, 150.0f, 42.0f)];
+    [screenName setBackgroundColor:[UIColor clearColor]];
+    [screenName setTextAlignment:UITextAlignmentLeft];
+    [screenName setFont:[UIFont systemFontOfSize:15.0f]];
+    [cell.contentView addSubview:screenName];
+    
+    NSDictionary *user = nil;
+    if (tableView == self.table) {
+        NSDictionary *dic = [_sectionDic objectForKey:[_allKeys objectAtIndex:indexPath.section]];
+        NSArray *data = [dic objectForKey:@"data"];
+        user = [data objectAtIndex:indexPath.row];
+        [userAvatar setImageWithURL:[NSURL URLWithString:[user valueForKey:@"profile_image_url"]]];
+        [screenName setText:[user valueForKey:@"screen_name"]];
+    } else {
+        user = [_filteredArray objectAtIndex:indexPath.row];
+    }
+    [userAvatar setImageWithURL:[NSURL URLWithString:[user valueForKey:@"profile_image_url"]]];
+    [screenName setText:[user valueForKey:@"screen_name"]];
+    
+    UIButton *_invite= [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 6, 50, 30)];
+    [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
+    [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10) ] forState:UIControlStateHighlighted];
+    [_invite setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [_invite setTitle:@"邀请" forState:UIControlStateNormal];
+    [_invite.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
+    //[_invite addTarget:self action:@selector(invite) forControlEvents:UIControlEventTouchUpInside];
+    [_invite.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [cell.contentView addSubview:_invite];
+    
+    return cell;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if ([searchText length] == 0) {
+        return;
+    }
+    [self handleSearchText:searchText];
+}
+
+- (void)handleSearchText:(NSString *)searchText
+{
+    for (NSDictionary *friend in _allFriends) {
+        NSString *screenName = [friend objectForKey:@"screen_name"];
+        if ([PinyinTools ifNameString:screenName SearchString:searchText]) {
+            [_filteredArray addObject:friend];
+        }
+    }
+}
+
+
+- (void)loadAllFriends
+{
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+    
+    for (NSDictionary *user in _allFriends) {
+        NSString *screenName = [user objectForKey:@"screen_name"];
+        NSString *firstLetter = nil;
+        
+        if ([screenName length] > 0) {
+            firstLetter = [[NSString stringWithFormat:@"%c", pinyinFirstLetter([screenName characterAtIndex:0])] lowercaseString];
+            if ([kSearchString rangeOfString:firstLetter].location == NSNotFound) {
+                firstLetter = @"#";
+            }
+        }
+        if (firstLetter != nil) {
+            NSMutableDictionary *dic = [_sectionDic objectForKey:firstLetter];
+            if (!dic || (0 == [dic count])) {
+                dic = [NSMutableDictionary dictionaryWithCapacity:1];
+                [dic setObject:[NSMutableArray arrayWithCapacity:1] forKey:@"data"];
+            }
+            NSMutableArray *arr = [dic objectForKey:@"data"];
+            [arr addObject:user];
+            [_sectionDic setObject:dic forKey:firstLetter];
+        }
+    }
+    self.allKeys = [NSMutableArray arrayWithArray:[[_sectionDic allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]];
+    if (([_allKeys count] > 0) && ([[_allKeys objectAtIndex:0] isEqualToString:@"#"])) {
+        [_allKeys removeObjectAtIndex:0];
+        [_allKeys addObject:@"#"];
+    }
+    
+    [self.table reloadData];
+}
+
 
 
 @end

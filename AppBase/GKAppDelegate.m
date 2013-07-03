@@ -169,7 +169,7 @@
                                                     withAction:nil
                                                      withLabel:nil
                                                      withValue:nil];
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor blackColor];
     [self customizeAppearance];
     
     [self.window makeKeyAndVisible];

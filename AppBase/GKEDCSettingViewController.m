@@ -90,6 +90,7 @@
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateDisabled];
     button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
     [button.titleLabel setTextAlignment:UITextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -123,6 +124,8 @@
     tip.textColor = UIColorFromRGB(0x999999);
     
     [button addSubview:tip];
+    
+    button.enabled = NO;
 
     [self.view addSubview:button];
 
@@ -176,6 +179,7 @@
 - (void)change
 {
     tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
+    button.enabled = YES;
 }
 - (void)didReceiveMemoryWarning
 {

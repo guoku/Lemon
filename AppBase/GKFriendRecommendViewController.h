@@ -8,16 +8,15 @@
 
 #import "GKBaseViewController.h"
 #import "EGORefreshTableHeaderView.h"
+#import "SinaWeibo.h"
 
-@interface GKFriendRecommendViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,EGORefreshTableHeaderDelegate>
-{
-    BOOL _reloading;
-    EGORefreshTableHeaderView *_refreshHeaderView;
-}
+@interface GKFriendRecommendViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,SinaWeiboDelegate,SinaWeiboRequestDelegate>
 @property (strong, nonatomic) UITableView *table;
-@property (strong, nonatomic) NSMutableArray *dataArray;
-
--(void)reloadTableViewDataSource;
-- (void)doneLoadingTableViewData;
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchDisplayController *searchDC;
+@property (strong, nonatomic) NSMutableArray *allFriends;
+@property (strong, nonatomic) NSMutableArray *filteredArray;
+@property (strong, nonatomic) NSMutableDictionary *sectionDic;
+@property (strong, nonatomic) NSMutableArray *allKeys;
 
 @end

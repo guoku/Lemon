@@ -234,11 +234,11 @@
     }
     if(row == ([[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue]-1))
     {
-        UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 14, 14)];
+        UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 18, 14)];
         UIFont *font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         CGSize size = [[data objectForKey:@"name"] sizeWithFont:font constrainedToSize:CGSizeMake(260, 44) lineBreakMode:NSLineBreakByWordWrapping];
-        image.center = CGPointMake(45+size.width, cell.frame.size.height/2);
-        image.image = [UIImage imageNamed:@"timeline_dot.png"];
+        image.center = CGPointMake(50+size.width, cell.frame.size.height/2);
+        image.image = [UIImage imageNamed:@"sidebar_dot@2x.png"];
         image.tag = 4004;
     
         [cell addSubview:image];

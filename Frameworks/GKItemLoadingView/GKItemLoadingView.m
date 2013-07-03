@@ -38,11 +38,11 @@
         [self setDefaultProperty];
         self.backgroundColor = [UIColor clearColor];
         
-        one = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_6.png"]];
-        two= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_7.png"]];
-        three= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_8.png"]];
-        four= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_9.png"]];
-        five = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_10.png"]];
+        one = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_comp_6.png"]];
+        two= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_comp_7.png"]];
+        three= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_comp_8.png"]];
+        four= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_comp_9.png"]];
+        five = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stage_comp_10.png"]];
 
         one.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
         two.center = CGPointMake(5*self.frame.size.width/10, self.frame.size.height/2);
@@ -174,10 +174,10 @@
     three.alpha = 0;
     four.alpha = 0;
     five.alpha = 0;
-    one.image = [UIImage imageNamed:@"stage_6.png"];
-    two.image= [UIImage imageNamed:@"stage_7.png"];
-    three.image= [UIImage imageNamed:@"stage_8.png"];
-    four.image = [UIImage imageNamed:@"stage_9.png"];
-    five.image = [UIImage imageNamed:@"stage_10.png"];
+    one.image = [UIImage imageNamed:@"stage_comp_6.png"];
+    two.image= [UIImage imageNamed:@"stage_comp_7.png"];
+    three.image= [UIImage imageNamed:@"stage_comp_8.png"];
+    four.image = [UIImage imageNamed:@"stage_comp_9.png"];
+    five.image = [UIImage imageNamed:@"stage_comp_10.png"];
 }
 @end
