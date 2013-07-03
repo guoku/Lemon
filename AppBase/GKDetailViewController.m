@@ -43,6 +43,7 @@
         friendonly = NO;
         self.detailHeaderView = [[GKDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
         self.detailHeaderView.delegate =self;
+        self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"详情"];
     }
     return self;
 }
@@ -150,12 +151,14 @@
     [super loadView];
     
     
-    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
+    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithCustomView:backBTN];
-    [self.navigationItem setLeftBarButtonItem:back animated:YES];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     
     UIButton *moreBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [moreBTN setImage:[UIImage imageNamed:@"icon_more.png"] forState:UIControlStateNormal];

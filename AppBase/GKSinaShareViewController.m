@@ -85,14 +85,15 @@
     
     self.view.backgroundColor = kColorf9f9f9;
     
-    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
+    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithCustomView:backBTN];
-    [self.navigationItem setLeftBarButtonItem:back animated:YES];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     
-    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
     UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [sendBTN setTitle:@"发送" forState:UIControlStateNormal];
     [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];

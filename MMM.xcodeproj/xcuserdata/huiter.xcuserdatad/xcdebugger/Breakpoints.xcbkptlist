@@ -59,26 +59,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/main.m"
-         timestampString = "394113857.501606"
+         filePath = "AppBase/GKLeftViewController.m"
+         timestampString = "394479284.810739"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "18"
-         endingLineNumber = "18"
-         landmarkName = "main()"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "HTKit/GKBaseViewController/GKBaseViewController.m"
-         timestampString = "394178513.32911"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "164"
-         endingLineNumber = "164"
-         landmarkName = "-backButtonAction:"
+         startingLineNumber = "315"
+         endingLineNumber = "315"
+         landmarkName = "-profileChange"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

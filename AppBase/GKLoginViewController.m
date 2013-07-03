@@ -18,6 +18,7 @@
     CGFloat y2;
     CGFloat y3;
     CGFloat y4;
+    CGFloat y5;
     
 }
 
@@ -30,6 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -37,24 +39,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.view.backgroundColor = [UIColor whiteColor];
+    
     NSLog(@"%f",kScreenHeight);
     if(kScreenHeight == 548)
     {
         y1 = 67;
         y2 = 13;
         y3 = 37;
-        y4 = 32;
+        y4 = 62;
+        y5 = 17;
     }
     else
     {
         y1 = 35;
         y2 = 9;
         y3 = 23;
-        y4 = 27;
+        y4 = 40;
+        y5 = 17;
     }
     
-    UIImageView *logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
+    UIImageView *logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_logo.png"]];
     NSLog(@"y1%f",y1);
     logo.frame = CGRectMake(0, y1, 136, 31);
     logo.center = CGPointMake(kScreenWidth/2,logo.center.y);
@@ -71,21 +77,22 @@
 	// Do any additional setup after loading the view.
     _sinaBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, slogan.frame.origin.y+slogan.frame.size.height+y3,285, 42)];
     _sinaBtn.center = CGPointMake(kScreenWidth/2, _sinaBtn.center.y);
-    [_sinaBtn setTitle:@"新浪微博登录" forState:UIControlStateNormal];
+    [_sinaBtn setTitle:@"请使用新浪微博登录" forState:UIControlStateNormal];
     [_sinaBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15]];
-    [_sinaBtn setImage:[UIImage imageNamed:@"icon_sina.png" ]forState:UIControlStateNormal];
-    [_sinaBtn setImage:[UIImage imageNamed:@"icon_sina.png" ]forState:UIControlStateHighlighted];
-    [_sinaBtn setBackgroundImage:[[UIImage imageNamed:@"red_button.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateNormal];
-    [_sinaBtn setBackgroundImage:[[UIImage imageNamed:@"red_button_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateHighlighted];
+    [_sinaBtn setImage:[UIImage imageNamed:@"login_icon_sina.png" ]forState:UIControlStateNormal];
+    [_sinaBtn setImage:[UIImage imageNamed:@"login_icon_sina.png" ]forState:UIControlStateHighlighted];
+    [_sinaBtn setBackgroundImage:[[UIImage imageNamed:@"login_button.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateNormal];
+    [_sinaBtn setBackgroundImage:[[UIImage imageNamed:@"login_button_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateHighlighted];
     [_sinaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_sinaBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [_sinaBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
     [_sinaBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
-    _sinaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _sinaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_sinaBtn addTarget:self action:@selector(sinaBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sinaBtn];
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,_sinaBtn.frame.size.height+_sinaBtn.frame.origin.y, 320,kScreenHeight- (_sinaBtn.frame.size.height+_sinaBtn.frame.origin.y))];
-    [scrollView setContentSize:CGSizeMake(1280, 200)];
-    //scrollView.backgroundColor = [UIColor colorWithRed:39.0f / 255.0f green:39.0f / 255.0f blue:39.0/ 255.0f alpha:1.0f];
+    [scrollView setContentSize:CGSizeMake(1600, 200)];
     scrollView.backgroundColor = [UIColor clearColor];
     [scrollView setPagingEnabled:YES];
     [scrollView setBounces:YES];
@@ -95,25 +102,25 @@
     scrollView.minimumZoomScale = 0.5f;
     
     pageControl = [[SMPageControl alloc] init];
-    pageControl.frame = CGRectMake(100,kScreenHeight-40, 120, 20);
-    pageControl.numberOfPages = 4;
+    pageControl.frame = CGRectMake(100,kScreenHeight-210, 120, 20);
+    pageControl.numberOfPages = 5;
     pageControl.currentPage = 0;
-    pageControl.currentPageIndicatorImage = [UIImage imageNamed:@"pageControl_press.png"];
-    pageControl.pageIndicatorImage = [UIImage imageNamed:@"pageControl.png"];
+    pageControl.currentPageIndicatorImage = [UIImage imageNamed:@"login_icon_press.png"];
+    pageControl.pageIndicatorImage = [UIImage imageNamed:@"login_icon.png"];
     
     [pageControl addTarget:self action:@selector(changePage:)forControlEvents:UIControlEventValueChanged];
     
     UILabel * title1 = [[UILabel alloc]initWithFrame:CGRectMake(0,y4, kScreenWidth, 14)];
     title1.textAlignment = NSTextAlignmentCenter;
-    title1.text = @"记录点点滴滴";
+    title1.text = @"欢迎使用妈妈清单";
     title1.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     title1.textColor = UIColorFromRGB(0x898989);
     title1.backgroundColor = [UIColor clearColor];
-    //[scrollView addSubview:title1];
+    [scrollView addSubview:title1];
     
     UILabel * title2 = [[UILabel alloc]initWithFrame:CGRectMake(320,y4, kScreenWidth, 14)];
     title2.textAlignment = NSTextAlignmentCenter;
-    title2.text = @"各个阶段该买什么，一目了然";
+    title2.text = @"明确各阶段需求";
     title2.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     title2.textColor = UIColorFromRGB(0x898989);
     title2.backgroundColor = [UIColor clearColor];
@@ -135,35 +142,42 @@
     title4.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:title4];
     
-    UILabel * content1 = [[UILabel alloc]initWithFrame:CGRectMake(0+30, y4+24, kScreenWidth-60, 40)];
-    content1.center = CGPointMake(kScreenWidth/2, 140);
+    UILabel * title5 = [[UILabel alloc]initWithFrame:CGRectMake(1280, y4, kScreenWidth, 14)];
+    title5.textAlignment = NSTextAlignmentCenter;
+    title5.text = @"一键收藏心仪商品，为你追踪价格";
+    title5.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    title5.textColor = UIColorFromRGB(0x898989);
+    title5.backgroundColor = [UIColor clearColor];
+    [scrollView addSubview:title5];
+    
+    UILabel * content1 = [[UILabel alloc]initWithFrame:CGRectMake(0+30, y4+20, kScreenWidth-60, 15)];
     content1.numberOfLines = 0;
     content1.textAlignment = NSTextAlignmentCenter;
-    content1.text = @"记录点点滴滴";
+    content1.text = @"买东西不再困惑，给自己与宝贝最恰当的宠爱。";
     content1.font = [UIFont fontWithName:@"Helvetica" size:12];
     content1.textColor = UIColorFromRGB(0xbbbbbb);
     content1.backgroundColor = [UIColor clearColor];
-    //[scrollView addSubview:content1];
+    [scrollView addSubview:content1];
     
-    UILabel * content2 = [[UILabel alloc]initWithFrame:CGRectMake(320+30, y4+24, kScreenWidth-60, 40)];
+    UILabel * content2 = [[UILabel alloc]initWithFrame:CGRectMake(320+30, y4+20, kScreenWidth-60, 30)];
     content2.numberOfLines = 0;
     content2.textAlignment = NSTextAlignmentCenter;
-    content2.text = @"从准备怀孕到宝宝3岁，每个阶段细致专业的购物清单，一目了然。";
+    content2.text = @"从准备怀孕到宝宝 3 岁，每个阶段的购物清单专业细致，一目了然。";
     content2.font = [UIFont fontWithName:@"Helvetica" size:12];
     content2.textColor = UIColorFromRGB(0xbbbbbb);
     content2.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content2];
     
-    UILabel * content3 = [[UILabel alloc]initWithFrame:CGRectMake(640+30, y4+24, kScreenWidth-60, 40)];
+    UILabel * content3 = [[UILabel alloc]initWithFrame:CGRectMake(640+30, y4+20, kScreenWidth-60, 30)];
     content3.numberOfLines = 0;
     content3.textAlignment = NSTextAlignmentCenter;
-    content3.text = @"东西一多就不知道买什么，先看看朋友们选什么，贴心又放心。";
+    content3.text = @"东西一多就不知道买什么，先看看朋友们怎么选，贴心又放心。";
     content3.font = [UIFont fontWithName:@"Helvetica" size:12];
     content3.textColor = UIColorFromRGB(0xbbbbbb);
     content3.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content3];
     
-    UILabel * content4 = [[UILabel alloc]initWithFrame:CGRectMake(960+30, y4+24, kScreenWidth-60, 40)];
+    UILabel * content4 = [[UILabel alloc]initWithFrame:CGRectMake(960+30, y4+20, kScreenWidth-60, 30)];
     content4.numberOfLines = 0;
     content4.textAlignment = NSTextAlignmentCenter;
     content4.text = @"东西好不好，安全不安全，用过的妈妈来评价。看看选选心中有数。";
@@ -172,35 +186,51 @@
     content4.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:content4];
     
+    UILabel * content5 = [[UILabel alloc]initWithFrame:CGRectMake(1280+30, y4+20, kScreenWidth-60, 30)];
+    content5.numberOfLines = 0;
+    content5.textAlignment = NSTextAlignmentCenter;
+    content5.text = @"找到心仪商品，不一定第一时间出手，提前收藏，省钱更省心！";
+    content5.font = [UIFont fontWithName:@"Helvetica" size:12];
+    content5.textColor = UIColorFromRGB(0xbbbbbb);
+    content5.backgroundColor = [UIColor clearColor];
+    [scrollView addSubview:content5];
     
-    pageControl.center = CGPointMake(160, _sinaBtn.frame.origin.y+_sinaBtn.frame.size.height+85);
-    
-    UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.frame.size.height-200, kScreenWidth, 200)];
+    //pageControl.center = CGPointMake(pageControl.center.x ,content5.frame.origin.y+content5.frame.size.height+y5+scrollView.frame.origin.y);
+    pageControl.center = CGPointMake(pageControl.center.x ,content5.frame.origin.y+content5.frame.size.height+y5+10);
+
+    UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.frame.size.height-190, kScreenWidth, 190)];
     [imageview1 setCenter:CGPointMake(160.0f,imageview1.center.y)];
-    [imageview1 setImage:[[UIImage imageNamed:@"1.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
+    [imageview1 setImage:[[UIImage imageNamed:@"login_Introduction_1.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
     imageview1.userInteractionEnabled = YES;
     [scrollView addSubview:imageview1];
 
-    UIImageView *imageview2 = [[UIImageView alloc] initWithFrame:CGRectMake(320, scrollView.frame.size.height-200, kScreenWidth, 200)];
+    UIImageView *imageview2 = [[UIImageView alloc] initWithFrame:CGRectMake(320, scrollView.frame.size.height-190, kScreenWidth, 190)];
 
     [imageview2 setCenter:CGPointMake(160.0f+320.0f,imageview2.center.y)];
-    [imageview2 setImage:[[UIImage imageNamed:@"2.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
+    [imageview2 setImage:[[UIImage imageNamed:@"login_Introduction_2.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
     imageview2.userInteractionEnabled = YES;
     [scrollView addSubview:imageview2];
 
-    UIImageView *imageview3 = [[UIImageView alloc] initWithFrame:CGRectMake(640, scrollView.frame.size.height-200, kScreenWidth, 200)];
+    UIImageView *imageview3 = [[UIImageView alloc] initWithFrame:CGRectMake(640, scrollView.frame.size.height-190, kScreenWidth, 190)];
 
     [imageview3 setCenter:CGPointMake(160.0f+320.0f+320.0f,imageview3.center.y)];
-    [imageview3 setImage:[[UIImage imageNamed:@"3.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
+    [imageview3 setImage:[[UIImage imageNamed:@"login_Introduction_3.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
     imageview3.userInteractionEnabled = YES;
     [scrollView addSubview:imageview3];
 
-    UIImageView *imageview4 = [[UIImageView alloc] initWithFrame:CGRectMake(960, scrollView.frame.size.height-200, kScreenWidth, 200)];
+    UIImageView *imageview4 = [[UIImageView alloc] initWithFrame:CGRectMake(960, scrollView.frame.size.height-190, kScreenWidth, 190)];
     [imageview4 setCenter:CGPointMake(160.0f+320.0f+320.0f+320.0f,imageview4.center.y)];
-    [imageview4 setImage:[[UIImage imageNamed:@"4.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
+    [imageview4 setImage:[[UIImage imageNamed:@"login_Introduction_4.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
     imageview4.userInteractionEnabled = YES;
     
     [scrollView addSubview:imageview4];
+    
+    UIImageView *imageview5 = [[UIImageView alloc] initWithFrame:CGRectMake(960, scrollView.frame.size.height-190, kScreenWidth, 190)];
+    [imageview5 setCenter:CGPointMake(160.0f+320.0f+320.0f+320.0f+320.f,imageview4.center.y)];
+    [imageview5 setImage:[[UIImage imageNamed:@"login_Introduction_5.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(230, 10, 150, 10)]];
+    imageview5.userInteractionEnabled = YES;
+    
+    [scrollView addSubview:imageview5];
     
  
     
@@ -209,7 +239,7 @@
     
     [self.view addSubview:scrollView];
     
-    //[self.view addSubview:pageControl];
+    [self.view addSubview:pageControl];
 
 }
 

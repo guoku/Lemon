@@ -47,20 +47,35 @@
 
     // Do any additional setup after loading the view from its nib.
     _dataArray = [[NSMutableArray alloc]init];
-    
+
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileChange) name:@"UserProfileChange" object:nil];
     _dataArray = [NSMutableArray arrayWithObjects:
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"NO",@"open",@"YES",@"necessary",@"10",@"count",@"1",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"2",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"YES",@"open",@"YES",@"necessary",@"20",@"count",@"3",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"4",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"5",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"初生",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"6",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"7",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"8",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"9",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"10",@"pid",nil],
-                  [NSDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"YES",@"open",@"YES",@"necessary",@"0",@"count",@"11",@"pid",nil]
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"NO",@"open",@"YES",@"necessary",@"10",@"count",@"1",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"2",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"NO",@"open",@"YES",@"necessary",@"20",@"count",@"3",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"4",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"5",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"初生",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"6",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"7",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"8",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"9",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"10",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"NO",@"open",@"YES",@"necessary",@"0",@"count",@"11",@"pid",nil]
                   , nil];
+    
+    NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
+    for (NSMutableDictionary *dic in _dataArray) {
+        
+        if([[dic objectForKey:@"pid"] intValue]<i)
+        {
+            [dic setObject:@"NO" forKey:@"open"];
+        }
+        else
+        {
+            [dic setObject:@"YES" forKey:@"open"];
+        }
+        
+    }
     user =[[GKUser alloc ]initFromSQLite];
     
     tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 260, 120)];
@@ -158,8 +173,8 @@
     [_table setDataSource:self];
     [self.view addSubview:_table];
     
-    int i =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
-    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:i-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -208,6 +223,8 @@
     cell.data = data;
     
     [[cell viewWithTag:4003]removeFromSuperview];
+    [[cell viewWithTag:4004]removeFromSuperview];
+    
     if(row != 0)
     {
         UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 260, 2)];
@@ -215,7 +232,19 @@
         [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
         [cell addSubview:_seperatorLineImageView];
     }
-
+    if(row == ([[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue]-1))
+    {
+        UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 14, 14)];
+        UIFont *font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        CGSize size = [[data objectForKey:@"name"] sizeWithFont:font constrainedToSize:CGSizeMake(260, 44) lineBreakMode:NSLineBreakByWordWrapping];
+        image.center = CGPointMake(45+size.width, cell.frame.size.height/2);
+        image.image = [UIImage imageNamed:@"timeline_dot.png"];
+        image.tag = 4004;
+    
+        [cell addSubview:image];
+    }
+    
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -227,9 +256,8 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row+1) forKey:@"stage"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"stageChange" object:nil userInfo:nil];
-    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-       
-    }];
+    [self performSelector:@selector(work) withObject:self afterDelay:0.25];
+
     NSInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
     switch (section) {
@@ -256,11 +284,37 @@
     }
     
 }
+- (void)work
+{
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        
+    }];
+}
 - (void)logout
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
     GKLoginViewController *loginVC = [[GKLoginViewController alloc] init];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
+}
+- (void)profileChange
+{
+
+    NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
+    for (NSMutableDictionary *dic in _dataArray) {
+        
+        if([[dic objectForKey:@"pid"] intValue]<i)
+        {
+            [dic setObject:@"NO" forKey:@"open"];
+        }
+        else
+        {
+            [dic setObject:@"YES" forKey:@"open"];
+        }
+        
+    }
+    [self.table reloadData];
+    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 @end
