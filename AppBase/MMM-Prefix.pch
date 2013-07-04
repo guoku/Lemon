@@ -29,7 +29,7 @@
 #   define kLabelAlignmentCenter    kLabelAlignmentCenter
 #   define kLabelAlignmentLeft      kLabelAlignmentLeft
 #   define kLabelAlignmentRight     kLabelAlignmentRight
-#   define kLabelTruncationTail     UILineBreakModeTailTruncation
+#   define kLabelTruncationTail     NSLineBreakByTruncatingTail
 #   define kLabelTruncationMiddle   UILineBreakModeMiddleTruncation
 #endif
 #ifdef __OBJC__

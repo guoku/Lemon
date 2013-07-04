@@ -92,7 +92,7 @@
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateDisabled];
     button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
-    [button.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [button setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateDisabled];
     [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];

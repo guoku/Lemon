@@ -42,7 +42,7 @@
         [_time setImage:[UIImage imageNamed:@"icon_clock.png"] forState:UIControlStateNormal];
         [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
         [_time setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_time.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_time.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _time.userInteractionEnabled = NO;
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 3)];
@@ -64,8 +64,8 @@
         [_authoruser setAdjustsFontSizeToFitWidth:NO];
         [_authoruser setNumberOfLines:1];
         [_authoruser setBackgroundColor:[UIColor clearColor]];
-        [_authoruser setLineBreakMode:UILineBreakModeTailTruncation];
-        [_authoruser setTextAlignment:UITextAlignmentLeft];
+        [_authoruser setLineBreakMode:NSLineBreakByTruncatingTail];
+        [_authoruser setTextAlignment:NSTextAlignmentLeft];
         [_authoruser setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
         [_authoruser setTextColor:UIColorFromRGB(0x666666)];
         [self addSubview:_authoruser];
@@ -82,7 +82,7 @@
         [_notetime.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
         [_notetime setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
         [_notetime setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_notetime.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_notetime.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _notetime.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _notetime.userInteractionEnabled = NO;
         [self addSubview:_notetime];
@@ -104,7 +104,7 @@
         [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_noteButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_noteButton setImage:[UIImage imageNamed:@"icon_note.png"] forState:UIControlStateNormal];
-        [_noteButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_noteButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _noteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [_noteButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
         [_noteButton addTarget:self action:@selector(itemCardWithDataButtonAction:) forControlEvents:UIControlEventTouchUpInside];

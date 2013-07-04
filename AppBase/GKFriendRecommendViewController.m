@@ -88,7 +88,7 @@
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateHighlighted];
     
-    [button.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -101,7 +101,7 @@
     UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(160, 0, 160, 40)];
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateHighlighted];
-    [button2.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -448,7 +448,7 @@
     
     screenName = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 0.0f, 150.0f, 42.0f)];
     [screenName setBackgroundColor:[UIColor clearColor]];
-    [screenName setTextAlignment:UITextAlignmentLeft];
+    [screenName setTextAlignment:NSTextAlignmentLeft];
     [screenName setFont:[UIFont systemFontOfSize:15.0f]];
     [cell.contentView addSubview:screenName];
     

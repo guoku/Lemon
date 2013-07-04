@@ -60,7 +60,7 @@
         [_note setFontsize:13];
         _note.content.numberOfLines = 0;
         _note.content.leading = 2;
-        _note.content.lineBreakMode = UILineBreakModeWordWrap;
+        _note.content.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_note];
         
         self.avatarButton = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -76,7 +76,7 @@
         [_pokeButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button_press.png"]  forState:UIControlStateSelected];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_pokeButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _pokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_pokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
         [self addSubview:_pokeButton];
@@ -87,7 +87,7 @@
         [_hootButton setImage:[UIImage imageNamed:@"icon_mai_press.png"] forState:UIControlStateSelected];
         [_hootButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_hootButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_hootButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_hootButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [_hootButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [_hootButton setImageEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 0)];
         [_hootButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
@@ -101,7 +101,7 @@
         [_commentButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button.png"]  forState:UIControlStateNormal];
         [_commentButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_commentButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_commentButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_commentButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _commentButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_commentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
         _commentButton.userInteractionEnabled = NO;
@@ -111,7 +111,7 @@
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
         [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
         [_time setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_time.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_time.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
         _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _time.userInteractionEnabled = NO;
@@ -154,13 +154,13 @@
     [self.nickname setText:[NSString stringWithFormat:@"%@ :",_noteData.creator.nickname]];
     
     UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
-    CGSize size = [self.nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [self.nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     self.nickname.frame = CGRectMake(53, 13, size.width, size.height);
     
     _ratingView.frame = CGRectMake(53+size.width, 13,80 ,size.height);
     
     font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     GKLog(@"%@",NSStringFromCGSize(size));
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 250, size.height+10)];
     _note.note = _noteData;
@@ -268,7 +268,7 @@
 {
     UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
     
-    CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
     return size.height + 75; // 10即消息上下的空间，可自由调整
 }

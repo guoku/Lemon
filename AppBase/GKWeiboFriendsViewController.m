@@ -303,7 +303,7 @@
     
     screenName = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 0.0f, 150.0f, 42.0f)];
     [screenName setBackgroundColor:[UIColor clearColor]];
-    [screenName setTextAlignment:UITextAlignmentLeft];
+    [screenName setTextAlignment:NSTextAlignmentLeft];
     [screenName setFont:[UIFont systemFontOfSize:15.0f]];
     [cell.contentView addSubview:screenName];
     

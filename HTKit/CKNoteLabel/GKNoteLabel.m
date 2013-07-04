@@ -46,8 +46,8 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [_content setAdjustsFontSizeToFitWidth:NO];
         [_content setNumberOfLines:3];
         [_content setBackgroundColor:[UIColor clearColor]];
-        [_content setLineBreakMode:UILineBreakModeTailTruncation];
-        [_content setTextAlignment:UITextAlignmentLeft];
+        [_content setLineBreakMode:NSLineBreakByTruncatingTail];
+        [_content setTextAlignment:NSTextAlignmentLeft];
         [_content setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
         [_content setLeading:4];
         

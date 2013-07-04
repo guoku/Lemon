@@ -25,11 +25,10 @@
     UILabel *tableViewTitleL = [[UILabel alloc] initWithFrame:titleV.frame];
     tableViewTitleL.backgroundColor = [UIColor clearColor];
     tableViewTitleL.text = title;
-    tableViewTitleL.minimumFontSize = 18.0f;
     tableViewTitleL.textColor = [UIColor whiteColor];
     tableViewTitleL.shadowColor = [UIColor blackColor];
     tableViewTitleL.shadowOffset = CGSizeMake(0.0f,1.0f);
-    tableViewTitleL.textAlignment = UITextAlignmentCenter;
+    tableViewTitleL.textAlignment = NSTextAlignmentCenter;
     tableViewTitleL.adjustsFontSizeToFitWidth = YES;
     tableViewTitleL.font =  [UIFont fontWithName:@"STHeitiTC-Medium" size:22];
     [titleV addSubview:tableViewTitleL];

@@ -92,7 +92,7 @@
     [_sinaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_sinaBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
     [_sinaBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 48, 0, 0)];
-    [_sinaBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [_sinaBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
     _sinaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_sinaBtn addTarget:self action:@selector(sinaBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sinaBtn];

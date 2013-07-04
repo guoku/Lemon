@@ -72,7 +72,7 @@
         [titleString drawInRect:rect
                        withFont:self.font
                   lineBreakMode:UILineBreakModeClip
-                      alignment:UITextAlignmentCenter];
+                      alignment:NSTextAlignmentCenter];
 #else
         [titleString drawInRect:rect
                        withFont:self.font

@@ -76,7 +76,7 @@
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
         button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
-        [button.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [button setImageEdgeInsets:UIEdgeInsetsMake(0, kScreenWidth-60-20, 0, 0)];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
@@ -89,7 +89,7 @@
                UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(button.frame.size.width-55,12, 25, 15)];
                necessary.layer.masksToBounds = YES;
                necessary.layer.cornerRadius = 2.0;
-               necessary.textAlignment = UITextAlignmentCenter;
+               necessary.textAlignment = NSTextAlignmentCenter;
                necessary.backgroundColor =UIColorFromRGB(0xed5c49);
                necessary.textColor = [UIColor whiteColor];
                 necessary.text = @"必备";

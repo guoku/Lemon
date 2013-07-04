@@ -75,7 +75,7 @@
     if(_firstLabel == nil) {
         _firstLabel = [[UILabel alloc] initWithFrame:self.bounds];
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-		_firstLabel.textAlignment = UITextAlignmentLeft;
+		_firstLabel.textAlignment = NSTextAlignmentLeft;
 #else
         _firstLabel.textAlignment = NSTextAlignmentLeft;
 #endif
@@ -92,7 +92,7 @@
     if(_secondLabel == nil) {
 		_secondLabel = [[UILabel alloc] initWithFrame:self.bounds];
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-		_secondLabel.textAlignment = UITextAlignmentLeft;
+		_secondLabel.textAlignment = NSTextAlignmentLeft;
 #else
         _secondLabel.textAlignment = NSTextAlignmentLeft;
 #endif

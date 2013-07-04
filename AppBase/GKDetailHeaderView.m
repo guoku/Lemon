@@ -88,7 +88,7 @@
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy.png"]resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy_press.png"]resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
         [_buyInfoButton.titleLabel setFont:[UIFont fontWithName:@"Georgia" size:18]];
-        [_buyInfoButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [_buyInfoButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [self addSubview:_buyInfoButton];
         
         y = _entityImageView.frame.origin.y + _entityImageView.frame.size.height;
@@ -191,7 +191,7 @@
     VC.hidesBottomBarWhenPushed = YES;
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentModalViewController:nav animated:YES];
+        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
     }];
 }
 @end

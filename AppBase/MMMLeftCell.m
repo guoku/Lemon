@@ -27,7 +27,7 @@
         label.tag = 4001;
 
         [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15.0f]];
-        [label.titleLabel setTextAlignment:UITextAlignmentLeft];
+        [label.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [label setImageEdgeInsets:UIEdgeInsetsMake(1, 10, 0, 0)];
         [label setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -39,7 +39,7 @@
         count.tag = 4002;
         count.layer.masksToBounds = YES;
         count.layer.cornerRadius = 2.0;
-        count.textAlignment = UITextAlignmentCenter;
+        count.textAlignment = NSTextAlignmentCenter;
         count.backgroundColor = UIColorFromRGB(0x5E5757);
         count.textColor = [UIColor whiteColor];
         count.font = [UIFont fontWithName:@"Helvetica" size:12.0f];

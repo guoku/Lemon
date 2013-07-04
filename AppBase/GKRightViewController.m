@@ -465,7 +465,7 @@
         [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
         [LoadMoreBtn setTitleColor:UIColorFromRGB(0xf2f2f2) forState:UIControlStateNormal];
         [LoadMoreBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
-        LoadMoreBtn.titleLabel.textAlignment = UITextAlignmentCenter;
+        LoadMoreBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
         
         [LoadMoreBtn addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventTouchUpInside];

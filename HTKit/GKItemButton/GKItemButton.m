@@ -188,7 +188,7 @@
                 progress.backgroundColor = [UIColor clearColor];
                 progress.tag = 30326;
                 progress.center = _img.center;
-                progress.textAlignment = UITextAlignmentCenter;
+                progress.textAlignment = NSTextAlignmentCenter;
                 progress.textColor = UIColorFromRGB(0x666666);
                 progress.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
             }

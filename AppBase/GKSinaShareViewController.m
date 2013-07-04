@@ -132,8 +132,8 @@
    UILabel *noteL = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, BgImg.frame.size.height-15, self.view.frame.size.width - 40.0f, 20.0f)];
     [noteL setBackgroundColor:[UIColor clearColor]];
     [noteL setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
-    [noteL setTextAlignment:UITextAlignmentLeft];
-    [noteL setLineBreakMode:UILineBreakModeWordWrap];
+    [noteL setTextAlignment:NSTextAlignmentLeft];
+    [noteL setLineBreakMode:NSLineBreakByWordWrapping];
     [noteL setNumberOfLines:2];
     [noteL setTextColor:UIColorFromRGB(0x666666)];
     //noteL.text = _detailData.description;
@@ -171,7 +171,7 @@
     
     self.textLengthLabel = [[UILabel alloc] initWithFrame:CGRectMake(75.0f, textNumLeftL_text1.frame.origin.y, 35.0f, 15.0f)];
     [_textLengthLabel setBackgroundColor:[UIColor clearColor]];
-    [_textLengthLabel setTextAlignment:UITextAlignmentCenter];
+    [_textLengthLabel setTextAlignment:NSTextAlignmentCenter];
     [_textLengthLabel setTextColor:UIColorFromRGB(0x666666)];
     [_textLengthLabel setFont:[UIFont fontWithName:@"Georgia" size:14.0f]];
     [_textLengthLabel setShadowColor:[UIColor whiteColor]];

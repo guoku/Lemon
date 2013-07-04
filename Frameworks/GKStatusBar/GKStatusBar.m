@@ -25,7 +25,7 @@
         _statusLabel.font = [UIFont boldSystemFontOfSize:12.0f];
         [_statusLabel setAdjustsFontSizeToFitWidth:NO];
         [_statusLabel setNumberOfLines:1];
-        _statusLabel.textAlignment = UITextAlignmentLeft;
+        _statusLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_statusLabel];
         
         self.alpha = 0.0f;

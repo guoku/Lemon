@@ -120,7 +120,7 @@
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateHighlighted];
     
-    [button.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -133,7 +133,7 @@
     UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(90, 0, 90, 40)];
     [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateHighlighted];
-    [button2.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -146,7 +146,7 @@
     UIButton *button3 = [[UIButton alloc]initWithFrame:CGRectMake(180, 0, 140, 40)];
     [button3 setImage:[UIImage imageNamed:@"category_icon_friends.png"] forState:UIControlStateNormal];
     [button3 setImage:[UIImage imageNamed:@"category_icon_friends.png"] forState:UIControlStateHighlighted];
-    [button3.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [button3.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button3.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button3 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];

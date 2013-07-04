@@ -69,7 +69,7 @@
     }
     
     _likeButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    [_likeButton.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [_likeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
     _likeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     NSString * _liked_count = [NSString stringWithFormat:@"收藏 %u", _data.liked_count];
     [_likeButton setTitle:_liked_count forState:UIControlStateNormal];

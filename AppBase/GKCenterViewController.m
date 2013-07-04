@@ -265,7 +265,7 @@
     [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [label setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     label.backgroundColor = [UIColor clearColor];
-    [label.titleLabel setTextAlignment:UITextAlignmentLeft];
+    [label.titleLabel setTextAlignment:NSTextAlignmentLeft];
     label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [label setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
     label.userInteractionEnabled = NO;

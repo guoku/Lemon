@@ -33,7 +33,7 @@
         [_tagLabel setAdjustsFontSizeToFitWidth:NO];
         [_tagLabel setNumberOfLines:1];
         [_tagLabel setBackgroundColor:[UIColor clearColor]];
-        [_tagLabel setLineBreakMode:UILineBreakModeTailTruncation];
+        [_tagLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [_tagLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13.0f]];
         [_tagLabel setTextColor:UIColorFromRGB(0x666666)];
         [_tagLabel setTextAlignment:NSTextAlignmentLeft];
@@ -44,7 +44,7 @@
         [_tagNum setAdjustsFontSizeToFitWidth:NO];
         [_tagNum setNumberOfLines:1];
         [_tagNum setBackgroundColor:[UIColor clearColor]];
-        [_tagNum setLineBreakMode:UILineBreakModeTailTruncation];
+        [_tagNum setLineBreakMode:NSLineBreakByTruncatingTail];
         [_tagNum setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_tagNum setTextColor:UIColorFromRGB(0x666666)];
         [_tagNum setTextAlignment:NSTextAlignmentLeft];
