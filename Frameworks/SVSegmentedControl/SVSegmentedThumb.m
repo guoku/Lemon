@@ -50,7 +50,7 @@
 		self.userInteractionEnabled = NO;
         self.clipsToBounds = YES;
 		self.backgroundColor = [UIColor clearColor];
-		self.textColor = kColor666666;
+		self.textColor = UIColorFromRGB(0x666666);
 		//self.textShadowColor = [UIColor blackColor];
 		//self.textShadowOffset = CGSizeMake(0, -1);
 		self.tintColor = [UIColor whiteColor];

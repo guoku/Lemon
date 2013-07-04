@@ -75,9 +75,6 @@
     [super viewDidLoad];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIcon) name:@"stageChange" object:nil];
     //数据
-    TMLStage *stage1 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备孕",@"name",@"NO",@"on", nil]];
-    TMLStage *stage2 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"YES",@"on", nil]];
-    TMLStage *stage3 = [[TMLStage alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"NO",@"on", nil]];
     
     TMLCate *cate1 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"清洁",@"gtt",@"1",@"gid",nil]];
     TMLCate *cate2 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"饮食",@"gtt",@"2",@"gid",nil]];
@@ -113,8 +110,8 @@
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.separatorColor = kColorf9f9f9;
-    _table.backgroundColor = kColorf9f9f9;
+    _table.separatorColor =UIColorFromRGB(0xf9f9f9);
+    _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
 
     _table.allowsSelection = NO;
     [_table setDelegate:self];
@@ -138,11 +135,11 @@
     
     
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,40, 2)];
-    view.backgroundColor = kColorebe7e4;
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
     
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,2)];
     line.center = CGPointMake(20, line.center.y);
-    line.backgroundColor = kColore2ddd9;
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
     [view addSubview:line];
     
     [self.view addSubview:view];
@@ -253,11 +250,11 @@
 {
     TMLCate * stage = [[_dataArray objectAtIndex:section]objectForKey:@"section"];
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
-    view.backgroundColor = kColorebe7e4;
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
     
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,30)];
     line.center = CGPointMake(20, line.center.y);
-    line.backgroundColor = kColore2ddd9;
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
     [view addSubview:line];
     
     UIImageView * labelbg = [[UIImageView alloc]initWithFrame:CGRectMake(33, 0,kScreenWidth-33,30)];
@@ -266,7 +263,7 @@
     
     UIButton * label = [[UIButton alloc]initWithFrame:CGRectMake(40, 0,kScreenWidth-30,30)];
     [label.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    [label setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [label setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     label.backgroundColor = [UIColor clearColor];
     [label.titleLabel setTextAlignment:UITextAlignmentLeft];
     label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -316,15 +313,15 @@
 - (void)setTableHeaderView
 {
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
-    view.backgroundColor = kColorebe7e4;
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
     
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,view.frame.size.height)];
     line.center = CGPointMake(20, line.center.y);
-    line.backgroundColor = kColore2ddd9;
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
     [view addSubview:line];
     
     UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
-    colorf9f9f9.backgroundColor = kColorf9f9f9;
+    colorf9f9f9.backgroundColor =UIColorFromRGB(0xf9f9f9);
     [view addSubview:colorf9f9f9];
     [_table addSubview:view];
 }
@@ -332,15 +329,15 @@
 {
     UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0,self.view.frame.size.width, self.view.bounds.size.height)];
-    view.backgroundColor = kColorebe7e4;
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
     
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,view.frame.size.height)];
     line.center = CGPointMake(20, line.center.y);
-    line.backgroundColor = kColore2ddd9;
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
     [view addSubview:line];
     
     UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
-    colorf9f9f9.backgroundColor = kColorf9f9f9;
+    colorf9f9f9.backgroundColor =UIColorFromRGB(0xf9f9f9);
     [view addSubview:colorf9f9f9];
     
     footerview.layer.masksToBounds = NO;

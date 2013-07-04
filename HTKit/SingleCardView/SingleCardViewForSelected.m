@@ -41,7 +41,7 @@
         self.time = [[UIButton alloc]initWithFrame:CGRectMake(0,10,kScreenWidth-10,9)];
         [_time setImage:[UIImage imageNamed:@"icon_clock.png"] forState:UIControlStateNormal];
         [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
-        [_time setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_time setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_time.titleLabel setTextAlignment:UITextAlignmentLeft];
         _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _time.userInteractionEnabled = NO;
@@ -67,7 +67,7 @@
         [_authoruser setLineBreakMode:UILineBreakModeTailTruncation];
         [_authoruser setTextAlignment:UITextAlignmentLeft];
         [_authoruser setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
-        [_authoruser setTextColor:kColor666666];
+        [_authoruser setTextColor:UIColorFromRGB(0x666666)];
         [self addSubview:_authoruser];
         
         _avatarButton = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -81,7 +81,7 @@
         [_notetime setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5, y+26, kScreenWidth-_avatar.frame.origin.x-_avatar.frame.origin.x-_avatar.frame.size.width-9,12)];
         [_notetime.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
         [_notetime setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
-        [_notetime setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_notetime setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_notetime.titleLabel setTextAlignment:UITextAlignmentLeft];
         _notetime.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _notetime.userInteractionEnabled = NO;
@@ -102,7 +102,7 @@
         
         self.noteButton = [[UIButton alloc]initWithFrame:CGRectMake(160, y, 160-_avatar.frame.origin.x, 30)];
         [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_noteButton setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_noteButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_noteButton setImage:[UIImage imageNamed:@"icon_note.png"] forState:UIControlStateNormal];
         [_noteButton.titleLabel setTextAlignment:UITextAlignmentLeft];
         _noteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;

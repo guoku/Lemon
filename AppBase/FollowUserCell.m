@@ -35,7 +35,7 @@
         
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 160, 20)];
-        _nickname.textColor = kColor666666;
+        _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];

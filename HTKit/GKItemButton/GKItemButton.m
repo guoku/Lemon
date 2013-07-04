@@ -168,7 +168,7 @@
             activityIndicator.center = _img.center;
             activityIndicator.hidesWhenStopped = YES;
             activityIndicator.tag = 30325;
-            activityIndicator.color = kColor666666;
+            activityIndicator.color = UIColorFromRGB(0x666666);
             [self insertSubview:activityIndicator belowSubview:_img];
             
             [activityIndicator startAnimating];
@@ -189,7 +189,7 @@
                 progress.tag = 30326;
                 progress.center = _img.center;
                 progress.textAlignment = UITextAlignmentCenter;
-                progress.textColor = kColor666666;
+                progress.textColor = UIColorFromRGB(0x666666);
                 progress.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
             }
             [self addSubview:progress];

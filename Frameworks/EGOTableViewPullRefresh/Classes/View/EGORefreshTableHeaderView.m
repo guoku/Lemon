@@ -122,7 +122,7 @@
 }
 
 - (id)initWithFrame:(CGRect)frame  {
-  return [self initWithFrame:frame arrowImageName:@"grayArrow.png" textColor:kColor666666];
+    return [self initWithFrame:frame arrowImageName:@"grayArrow.png" textColor:UIColorFromRGB(0x666666)];
 }
 
 #pragma mark -

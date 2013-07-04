@@ -115,14 +115,14 @@
     view.backgroundColor = [UIColor clearColor];
     
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    bg.backgroundColor = kColorf1f1f1;
+    bg.backgroundColor =UIColorFromRGB(0xf1f1f1);
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateHighlighted];
     
     [button.titleLabel setTextAlignment:UITextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button setTitle:@"高评价" forState:UIControlStateNormal];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -135,7 +135,7 @@
     [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateHighlighted];
     [button2.titleLabel setTextAlignment:UITextAlignmentLeft];
     button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button2 setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button2 setTitle:@"新上架" forState:UIControlStateNormal];
     [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -149,7 +149,7 @@
     [button3.titleLabel setTextAlignment:UITextAlignmentLeft];
     button3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button3.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    [button3 setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button3 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button3 setTitle:@"好友的精选" forState:UIControlStateNormal];
     [button3 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button3 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -164,11 +164,11 @@
     [bg addSubview:arrow];
     
     UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(90, 0, 1, 40)];
-    V1.backgroundColor = kColore4e4e4;
+    V1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     UIView *V2 = [[UIView alloc]initWithFrame:CGRectMake(180, 0, 1, 40)];
-    V2.backgroundColor = kColore4e4e4;
+    V2.backgroundColor =UIColorFromRGB(0xe4e4e4);
     UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
-    H1.backgroundColor = kColore4e4e4;
+    H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     
     [bg addSubview:H1];
     [bg addSubview:V1];
@@ -184,9 +184,9 @@
 
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight - 44-40) style:UITableViewStylePlain];
-    _table.backgroundColor = kColorf9f9f9;
+    _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.separatorColor = kColorf9f9f9;
+    _table.separatorColor =UIColorFromRGB(0xf9f9f9);
     _table.allowsSelection = NO;
     [_table setDelegate:self];
     [_table setDataSource:self];

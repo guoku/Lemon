@@ -49,7 +49,7 @@
     }
     else
     {
-        y1 = 20;
+        y1 = 30;
     }
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
@@ -94,7 +94,8 @@
     button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
     [button.titleLabel setTextAlignment:UITextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [button setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateDisabled];
+    [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -129,7 +130,7 @@
 
     [self.view addSubview:button];
 
-    datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, kScreenHeight-250, kScreenWidth, 200)];
+    datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, kScreenHeight-260, kScreenWidth, 200)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [self.view addSubview:datePicker];
     NSDate *now = [[NSDate alloc] init];

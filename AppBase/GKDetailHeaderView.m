@@ -36,18 +36,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = kColorf2f2f2;
+        self.backgroundColor =UIColorFromRGB(0xf2f2f2);
         
         //商品TITLE
         bg = [[UIView alloc]initWithFrame:CGRectZero];
-        bg.backgroundColor = kColorf2f2f2;
+        bg.backgroundColor =UIColorFromRGB(0xf2f2f2);
         [self addSubview:bg];
         
         self.brand = [[UILabel alloc]initWithFrame:CGRectZero];
         _brand.backgroundColor = [UIColor clearColor];
         _brand.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         _brand.textAlignment = NSTextAlignmentLeft;
-        _brand.textColor = kColor555555;
+        _brand.textColor =UIColorFromRGB(0x555555);
         [self addSubview:_brand];
         
         
@@ -57,7 +57,7 @@
         
         _title.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         _title.textAlignment = NSTextAlignmentLeft;
-        _title.textColor = kColor555555;
+        _title.textColor =UIColorFromRGB(0x555555);
         [self addSubview:_title];
         
         
@@ -67,7 +67,7 @@
         
         _price.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         _price.textAlignment = NSTextAlignmentLeft;
-        _price.textColor = kColor666666;
+        _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];
     
         [self addSubview:_title];
@@ -95,7 +95,7 @@
 
         y = y+10;
         UIView *f9f9f9bg = [[UIView alloc]initWithFrame:CGRectMake(0, y, kScreenWidth, 60)];
-        f9f9f9bg.backgroundColor =kColorf9f9f9;
+        f9f9f9bg.backgroundColor = UIColorFromRGB(0xf9f9f9);
         [self addSubview:f9f9f9bg];
         
         self.likeButton = [[GKLikeButton alloc]initWithFrame:CGRectMake(8, y+14, 85,32)];
@@ -119,8 +119,8 @@
         self.shareButton = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-60, y+14, 50, 32)];
         [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
         [_shareButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
-        [_shareButton setTitleColor:kColor999999 forState:UIControlStateNormal];
-        [_shareButton setTitleColor:kColor999999 forState:UIControlStateHighlighted];
+        [_shareButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [_shareButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
         [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
         [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
         

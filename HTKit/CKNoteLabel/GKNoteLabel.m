@@ -51,7 +51,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [_content setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
         [_content setLeading:4];
         
-        [_content setTextColor:kColor666666];
+        [_content setTextColor:UIColorFromRGB(0x666666)];
         _content.delegate = self;
         
         [self addSubview:_content];

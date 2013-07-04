@@ -79,69 +79,6 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#ifndef kColorb6ada6
-#define kColorb6ada6 [UIColor colorWithRed:182.0f / 255.0f green:173.0f / 255.0f blue:166.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorf5f4f4
-#define kColorf5f4f4 [UIColor colorWithRed:245.0f / 255.0f green:244.0f / 255.0f blue:244.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorfecbc4
-#define kColorfecbc4 [UIColor colorWithRed:254.0f / 255.0f green:203.0f / 255.0f blue:196.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColore2ddd9
-#define kColore2ddd9 [UIColor colorWithRed:226.0f / 255.0f green:221.0f / 255.0f blue:217.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorebe7e4
-#define kColorebe7e4 [UIColor colorWithRed:235.0f / 255.0f green:231.0f / 255.0f blue:228.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColored5c49
-#define kColored5c49 [UIColor colorWithRed:237.0f / 255.0f green:92.0f / 255.0f blue:73.0 / 255.0f alpha:1.0f]
-#endif
-
-//灰色
-#ifndef kColorf9f9f9
-#define kColorf9f9f9 [UIColor colorWithRed:249.0f / 255.0f green:249.0f / 255.0f blue:249.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorf2f2f2
-#define kColorf2f2f2 [UIColor colorWithRed:242.0f / 255.0f green:242.0f / 255.0f blue:242.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorf1f1f1
-#define kColorf1f1f1 [UIColor colorWithRed:241.0f / 255.0f green:241.0f / 255.0f blue:241.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColore4e4e4
-#define kColore4e4e4 [UIColor colorWithRed:228.0f / 255.0f green:228.0f / 255.0f blue:228.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorc6c6c6
-#define kColorc6c6c6 [UIColor colorWithRed:198.0f / 255.0f green:198.0f / 255.0f blue:198.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColor999999
-#define kColor999999 [UIColor colorWithRed:153.0f / 255.0f green:153.0f / 255.0f blue:153.0 / 255.0f alpha:1.0f]
-#endif
-
-
-#ifndef kColor666666
-#define kColor666666 [UIColor colorWithRed:102.0f / 255.0f green:102.0f / 255.0f blue:102.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColor555555
-#define kColor555555 [UIColor colorWithRed:85.0f / 255.0f green:85.0f / 255.0f blue:85.0 / 255.0f alpha:1.0f]
-#endif
-
-#ifndef kColorc8c8c8
-#define kColorc8c8c8 [UIColor colorWithRed:200.0f / 255.0f green:200.0f / 255.0f blue:200.0 / 255.0f alpha:1.0f]
-#endif
-
-
 
 #ifndef smile
 #define smile @"\U0001F603"

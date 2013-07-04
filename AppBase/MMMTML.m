@@ -51,7 +51,7 @@
                     for (NSDictionary * Gattributes in [Sattributes objectForKey:@"g_list"]) {
                         TMLCate *cate = [[TMLCate alloc]initWithAttributes:Gattributes];
                         [clist addObject:cate];
-                        NSMutableArray * klist = [NSMutableArray arrayWithCapacity:0];
+                        //NSMutableArray * klist = [NSMutableArray arrayWithCapacity:0];
                         for (NSDictionary * Kattributes in [Gattributes objectForKey:@"c_list"])
                         {
                             TMLKeyWord * keyword = [[TMLKeyWord alloc]initWithAttributes:Kattributes];

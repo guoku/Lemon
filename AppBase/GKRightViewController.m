@@ -224,7 +224,6 @@
     cell.delegate = self;
     cell.user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
     [[cell viewWithTag:4003]removeFromSuperview];
-    NSUInteger row = [indexPath row];
 
         UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 42, 260, 2)];
         _seperatorLineImageView.tag = 4003;
@@ -374,7 +373,7 @@
     UIButton *buttonForFollow = [[UIButton alloc] init];
     buttonForFollow.frame = CGRectMake(0, 0, 90, 30);
     [buttonForFollow setTitle:@"关注" forState:UIControlStateNormal];
-    [buttonForFollow setTitleColor:kColor666666 forState:UIControlStateNormal];
+    [buttonForFollow setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     [buttonForFollow.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
     [buttonForFollow setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateHighlighted];
     [buttonForFollow setBackgroundImage:buttonBackgroundImagePressedLeft forState:UIControlStateSelected];
@@ -383,7 +382,7 @@
     UIButton *buttonForFans = [[UIButton alloc] init];
     buttonForFans.frame = CGRectMake(0, 0, 90, 30);
     [buttonForFans setTitle:@"粉丝" forState:UIControlStateNormal];
-    [buttonForFans setTitleColor:kColor666666 forState:UIControlStateNormal];
+    [buttonForFans setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     [buttonForFans.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
     [buttonForFans setBackgroundImage:buttonBackgroundImagePressedRight forState:UIControlStateHighlighted];
     [buttonForFans setBackgroundImage:buttonBackgroundImagePressedRight forState:UIControlStateSelected];
@@ -464,8 +463,8 @@
         [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
         [LoadMoreBtn setUserInteractionEnabled:YES];
         [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
-        [LoadMoreBtn setTitleColor:kColorf2f2f2 forState:UIControlStateNormal];
-        [LoadMoreBtn setTitleColor:kColor666666 forState:UIControlStateHighlighted];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0xf2f2f2) forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
         LoadMoreBtn.titleLabel.textAlignment = UITextAlignmentCenter;
         LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
         

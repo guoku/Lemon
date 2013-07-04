@@ -37,8 +37,8 @@
         self.unfollowBTN = [[UIButton alloc]initWithFrame:CGRectZero];
         [_unfollowBTN setTitle:@"取消关注" forState:UIControlStateNormal];
         [_unfollowBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
-        [_unfollowBTN setTitleColor:kColor666666 forState:UIControlStateNormal];
-        [_unfollowBTN setTitleColor:kColor666666 forState:UIControlStateHighlighted];
+        [_unfollowBTN setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+        [_unfollowBTN setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
         [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
         [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [_unfollowBTN addTarget:self action:@selector(unfollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];

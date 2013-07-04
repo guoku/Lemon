@@ -83,7 +83,7 @@
 {
     [super loadView];
     
-    self.view.backgroundColor = kColorf9f9f9;
+    self.view.backgroundColor =UIColorFromRGB(0xf9f9f9);
     
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
@@ -119,7 +119,7 @@
     [_textView becomeFirstResponder];
     [_textView setBounces:NO];
     _textView.delegate = self;
-    _textView.textColor = kColor666666;
+    _textView.textColor = UIColorFromRGB(0x666666);
     _textView.spellCheckingType = UITextSpellCheckingTypeNo;
     _textView.autocorrectionType = UITextAutocorrectionTypeNo;
     _textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -135,7 +135,7 @@
     [noteL setTextAlignment:UITextAlignmentLeft];
     [noteL setLineBreakMode:UILineBreakModeWordWrap];
     [noteL setNumberOfLines:2];
-    [noteL setTextColor:kColor666666];
+    [noteL setTextColor:UIColorFromRGB(0x666666)];
     //noteL.text = _detailData.description;
     [self.view addSubview:noteL];
     
@@ -153,7 +153,7 @@
     
     UILabel *textNumLeftL_text1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, BgImg.frame.size.height-14, 90.0f, 15.0f)];
     [textNumLeftL_text1 setBackgroundColor:[UIColor clearColor]];
-    [textNumLeftL_text1 setTextColor:kColor666666];
+    [textNumLeftL_text1 setTextColor:UIColorFromRGB(0x666666)];
     [textNumLeftL_text1 setText:@"还可以输入"];
     [textNumLeftL_text1 setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [textNumLeftL_text1 setShadowColor:[UIColor whiteColor]];
@@ -162,7 +162,7 @@
     
     UILabel *textNumLeftL_text2 = [[UILabel alloc] initWithFrame:CGRectMake(110.0f, textNumLeftL_text1.frame.origin.y, 120.0f, 15.0f)];
     [textNumLeftL_text2 setBackgroundColor:[UIColor clearColor]];
-    [textNumLeftL_text2 setTextColor:kColor666666];
+    [textNumLeftL_text2 setTextColor:UIColorFromRGB(0x666666)];
     [textNumLeftL_text2 setText:@"字"];
     [textNumLeftL_text2 setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [textNumLeftL_text2 setShadowColor:[UIColor whiteColor]];
@@ -172,7 +172,7 @@
     self.textLengthLabel = [[UILabel alloc] initWithFrame:CGRectMake(75.0f, textNumLeftL_text1.frame.origin.y, 35.0f, 15.0f)];
     [_textLengthLabel setBackgroundColor:[UIColor clearColor]];
     [_textLengthLabel setTextAlignment:UITextAlignmentCenter];
-    [_textLengthLabel setTextColor:kColor666666];
+    [_textLengthLabel setTextColor:UIColorFromRGB(0x666666)];
     [_textLengthLabel setFont:[UIFont fontWithName:@"Georgia" size:14.0f]];
     [_textLengthLabel setShadowColor:[UIColor whiteColor]];
     [_textLengthLabel setShadowOffset:CGSizeMake(0.5f, 0.5f)];
@@ -183,7 +183,7 @@
     [weiboFriendsBtn setBackgroundImage:[UIImage imageNamed:@"share_at_f.png"] forState:UIControlStateNormal];
     [weiboFriendsBtn setBackgroundImage:[UIImage imageNamed:@"share_at_f_press.png"] forState:UIControlStateHighlighted];
     [weiboFriendsBtn setTitle:@"@好友" forState:UIControlStateNormal];
-    [weiboFriendsBtn setTitleColor:kColor666666 forState:UIControlStateNormal];
+    [weiboFriendsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     [weiboFriendsBtn setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [weiboFriendsBtn.titleLabel setShadowOffset:CGSizeMake(0.5f, 0.5f)];
     [weiboFriendsBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];

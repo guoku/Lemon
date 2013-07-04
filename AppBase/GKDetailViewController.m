@@ -267,11 +267,11 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *f5f4f4bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    f5f4f4bg.backgroundColor = kColorf5f4f4;
+    f5f4f4bg.backgroundColor =UIColorFromRGB(0xf5f4f4);
     
     UILabel *allnotelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-80, 40)];
     allnotelabel.textAlignment = NSTextAlignmentLeft;
-    allnotelabel.textColor = kColor999999;
+    allnotelabel.textColor =UIColorFromRGB(0x999999);
     allnotelabel.backgroundColor = [UIColor clearColor];
     allnotelabel.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
     allnotelabel.text = @"  总体评价";
@@ -287,7 +287,7 @@
     UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 20, 40)];
     score.textAlignment = NSTextAlignmentLeft;
     score.backgroundColor = [UIColor clearColor];
-    score.textColor = kColor999999;
+    score.textColor =UIColorFromRGB(0x999999);
     score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
     score.text = @"8.0";
     [f5f4f4bg addSubview:score];
@@ -300,11 +300,11 @@
         UILabel *friendtab = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 80, 40)];
         friendtab.textAlignment = NSTextAlignmentCenter;
         friendtab.backgroundColor = [UIColor clearColor];
-        friendtab.textColor = kColor999999;
+        friendtab.textColor =UIColorFromRGB(0x999999);
         friendtab.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
         friendtab.text = @"好友推荐 3";
         [f5f4f4bg addSubview:friendtab];
-        friendtab.backgroundColor = kColorf1f1f1;
+        friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
         
         UIView * V = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 1, 40)];
         V.backgroundColor = [UIColor colorWithRed:220.0f / 255.0f green:219.0f / 255.0f blue:219.0 / 255.0f alpha:1.0f];

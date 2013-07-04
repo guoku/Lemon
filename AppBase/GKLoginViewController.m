@@ -67,8 +67,9 @@
     
     logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_logo.png"]];
     NSLog(@"y1%f",y1);
-    logo.frame = CGRectMake(0, y1, 132, 50);
-    logo.center = CGPointMake(kScreenWidth/2,logo.center.y);
+    logo.frame = CGRectMake(0, y1, 140, 55);
+    logo.center = CGPointMake(kScreenWidth/2-0.5,logo.center.y);
+    logo.hidden = YES;
     [self.view addSubview:logo];
     
     //slogan = [[UILabel alloc]initWithFrame:CGRectMake(0, logo.frame.origin.y+logo.frame.size.height+y2, kScreenWidth, 14)];
@@ -90,7 +91,7 @@
     [_sinaBtn setBackgroundImage:[[UIImage imageNamed:@"login_button_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateHighlighted];
     [_sinaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_sinaBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    [_sinaBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
+    [_sinaBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 48, 0, 0)];
     [_sinaBtn.titleLabel setTextAlignment:UITextAlignmentLeft];
     _sinaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_sinaBtn addTarget:self action:@selector(sinaBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -247,19 +248,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    logo.center = CGPointMake(logo.center.x, yoffest+25);
+    logo.center = CGPointMake(logo.center.x, yoffest+55/2);
     
-    [self performSelector:@selector(work) withObject:nil afterDelay:3];
+    logo.hidden = NO;
     
-}
-- (void)work
-{
-    [UIView animateWithDuration:1.2 animations:^{
-        logo.center = CGPointMake(kScreenWidth/2,y1+25);
-    } completion:^(BOOL finished) {
-        [self showEverything];
-    }];
-
+    [self performSelector:@selector(showEverything) withObject:nil afterDelay:1];
+    
 }
 - (void)HideSomething
 {
@@ -278,18 +272,23 @@
 
     
     _sinaBtn.alpha = 0;
-    pageControl.hidden = 0;
-    scrollView.hidden = 0;
-    [UIView animateWithDuration:1 animations:^{
-        _sinaBtn.alpha = 1;
-        pageControl.hidden = 1;
-        scrollView.hidden = 1;
-    }];
-    
+    pageControl.alpha = 0;
+    scrollView.alpha = 0;
     _sinaBtn.hidden = NO;
     pageControl.hidden = NO;
     scrollView.hidden = NO;
-    [[self.view viewWithTag:2008]removeFromSuperview];
+
+    [UIView animateWithDuration:1 animations:^{
+        logo.center = CGPointMake(logo.center.x,y1+55/2);
+        pageControl.alpha = 1;
+        scrollView.alpha = 1;
+    } completion:^(BOOL finished) {
+          _sinaBtn.alpha = 1;
+        [[self.view viewWithTag:2008]removeFromSuperview];
+    }];
+
+
+ 
 }
 
 - (void)didReceiveMemoryWarning

@@ -46,7 +46,7 @@
 
         _brand.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _brand.textAlignment = NSTextAlignmentCenter;
-        _brand.textColor = kColor666666;
+        _brand.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_brand];
         
 
@@ -56,7 +56,7 @@
 
         _title.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _title.textAlignment = NSTextAlignmentCenter;
-        _title.textColor = kColor666666;
+        _title.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_title];
 
 
@@ -66,7 +66,7 @@
      
         _price.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _price.textAlignment = NSTextAlignmentCenter;
-        _price.textColor = kColor666666;
+        _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];        
     }
     return self;

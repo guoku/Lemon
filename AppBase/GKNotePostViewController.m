@@ -44,7 +44,7 @@
 {
     [super loadView];
     
-    self.view.backgroundColor = kColorf9f9f9;
+    self.view.backgroundColor =UIColorFromRGB(0xf9f9f9);
     
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
@@ -75,7 +75,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
     [label setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    label.textColor = kColor666666;
+    label.textColor = UIColorFromRGB(0x666666);
     label.text = @"轻点星形来评分";
     [self.view addSubview:label];
     
@@ -91,7 +91,7 @@
     [_textView setEditable:YES];
     [_textView becomeFirstResponder];
     [_textView setBounces:NO];
-    _textView.textColor = kColor666666;
+    _textView.textColor = UIColorFromRGB(0x666666);
     _textView.spellCheckingType = UITextSpellCheckingTypeNo;
     _textView.autocorrectionType = UITextAutocorrectionTypeNo;
     _textView.autocapitalizationType = UITextAutocapitalizationTypeNone;

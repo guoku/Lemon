@@ -34,7 +34,7 @@
     if (self) {
         // Custom initialization
         self.navigationItem.titleView = [GKTitleView setTitleLabel:@"你的好友"];
-        self.view.backgroundColor = kColorf9f9f9;
+        self.view.backgroundColor =UIColorFromRGB(0xf9f9f9);
         self.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         
         UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
@@ -78,9 +78,9 @@
     [super loadView];
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStylePlain];
-    _table.backgroundColor = kColorf9f9f9;
+    _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.separatorColor = kColorf9f9f9;
+    _table.separatorColor =UIColorFromRGB(0xf9f9f9);
     _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
@@ -295,7 +295,7 @@
         [[SDImageCache sharedImageCache] clearMemory];
     }
     // Configure the cell...
-    cell.backgroundColor = kColorf9f9f9;
+    cell.backgroundColor =UIColorFromRGB(0xf9f9f9);
     userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 4.0f, 32.0f, 32.0f)];
     userAvatar.layer.cornerRadius = 3.0f;
     userAvatar.layer.masksToBounds = YES;

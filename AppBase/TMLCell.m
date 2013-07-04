@@ -30,17 +30,17 @@
         // Initialization code
         self.layer.masksToBounds = YES;
         bg = [[UIView alloc]initWithFrame:CGRectZero];
-        bg.backgroundColor = kColorebe7e4;
+        bg.backgroundColor =UIColorFromRGB(0xebe7e4);
         bg.tag = 4001;
         [self addSubview:bg];
         
         line = [[UIView alloc]initWithFrame:CGRectZero];
-        line.backgroundColor = kColore2ddd9;
+        line.backgroundColor =UIColorFromRGB(0xe2ddd9);
         line.tag = 4002;
         [self addSubview:line];
         
         colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectZero];
-        colorf9f9f9.backgroundColor = kColorf9f9f9;
+        colorf9f9f9.backgroundColor =UIColorFromRGB(0xf9f9f9);
         colorf9f9f9.tag = 4003;
         [self addSubview:colorf9f9f9];
         
@@ -80,7 +80,7 @@
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [button setImageEdgeInsets:UIEdgeInsetsMake(0, kScreenWidth-60-20, 0, 0)];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        [button setTitleColor:kColor555555 forState:UIControlStateNormal];
+        [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
         [button setTitle:((TMLKeyWord *)_object).name forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goKeyWord) forControlEvents:UIControlEventTouchUpInside];
         
@@ -90,7 +90,7 @@
                necessary.layer.masksToBounds = YES;
                necessary.layer.cornerRadius = 2.0;
                necessary.textAlignment = UITextAlignmentCenter;
-               necessary.backgroundColor = kColored5c49;
+               necessary.backgroundColor =UIColorFromRGB(0xed5c49);
                necessary.textColor = [UIColor whiteColor];
                 necessary.text = @"必备";
                necessary.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
@@ -121,7 +121,7 @@
         
         _brand.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _brand.textAlignment = NSTextAlignmentLeft;
-        _brand.textColor = kColor666666;
+        _brand.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_brand];
         
         UILabel *_title = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -129,7 +129,7 @@
         
         _title.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _title.textAlignment = NSTextAlignmentLeft;
-        _title.textColor = kColor666666;
+        _title.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_title];
         
         UILabel *_price = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -137,7 +137,7 @@
         
         _price.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _price.textAlignment = NSTextAlignmentLeft;
-        _price.textColor = kColor666666;
+        _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];
         
         CGFloat y = 10;

@@ -78,7 +78,7 @@
         self.minimumOverlapToChange = 0.66;
         
         self.font = [UIFont boldSystemFontOfSize:15];
-        self.textColor = kColor666666;
+        self.textColor = UIColorFromRGB(0x666666);
         //self.textColor = [UIColor grayColor];
         //self.textShadowColor = [UIColor blackColor];
         //self.textShadowOffset = CGSizeMake(0, -1);

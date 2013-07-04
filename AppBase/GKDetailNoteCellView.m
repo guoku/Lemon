@@ -40,7 +40,7 @@
         [self addSubview:_avatar];
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(53, 13, 240, 15)];
-        _nickname.textColor = kColor666666;
+        _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
@@ -75,7 +75,7 @@
         [_pokeButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button.png"]  forState:UIControlStateNormal];
         [_pokeButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button_press.png"]  forState:UIControlStateSelected];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_pokeButton setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_pokeButton.titleLabel setTextAlignment:UITextAlignmentLeft];
         _pokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_pokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
@@ -86,7 +86,7 @@
         [_hootButton setImage:[UIImage imageNamed:@"icon_mai.png"] forState:UIControlStateNormal];
         [_hootButton setImage:[UIImage imageNamed:@"icon_mai_press.png"] forState:UIControlStateSelected];
         [_hootButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_hootButton setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_hootButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_hootButton.titleLabel setTextAlignment:UITextAlignmentLeft];
         [_hootButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [_hootButton setImageEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 0)];
@@ -100,7 +100,7 @@
         [_commentButton setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
         [_commentButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button.png"]  forState:UIControlStateNormal];
         [_commentButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_commentButton setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_commentButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_commentButton.titleLabel setTextAlignment:UITextAlignmentLeft];
         _commentButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_commentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
@@ -110,7 +110,7 @@
         self.time = [[UIButton alloc]initWithFrame:CGRectZero];
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
         [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
-        [_time setTitleColor:kColor666666 forState:UIControlStateNormal];
+        [_time setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_time.titleLabel setTextAlignment:UITextAlignmentLeft];
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
         _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;

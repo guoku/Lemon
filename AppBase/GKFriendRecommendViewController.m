@@ -52,7 +52,7 @@
     self.trackedViewName = @"邀请好友";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:@"UserFollowChange" object:nil];
     
-    self.view.backgroundColor = kColorf2f2f2;
+    self.view.backgroundColor =UIColorFromRGB(0xf2f2f2);
 	// Do any additional setup after loading the view.
     self.sectionDic = [NSMutableDictionary dictionaryWithCapacity:10];
     self.allFriends = [NSMutableArray arrayWithCapacity:5];
@@ -83,14 +83,14 @@
     view.backgroundColor = [UIColor clearColor];
     
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    bg.backgroundColor = kColorf1f1f1;
+    bg.backgroundColor =UIColorFromRGB(0xf1f1f1);
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 160, 40)];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateHighlighted];
     
     [button.titleLabel setTextAlignment:UITextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button setTitle:@"邀请微博好友" forState:UIControlStateNormal];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -103,7 +103,7 @@
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateHighlighted];
     [button2.titleLabel setTextAlignment:UITextAlignmentLeft];
     button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button2 setTitleColor:kColor555555 forState:UIControlStateNormal];
+    [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button2 setTitle:@"邀请微信好友" forState:UIControlStateNormal];
     [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -119,9 +119,9 @@
     [bg addSubview:arrow];
     
     UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(160, 0, 1, 40)];
-    V1.backgroundColor = kColore4e4e4;
+    V1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
-    H1.backgroundColor = kColore4e4e4;
+    H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     
     [bg addSubview:H1];
     [bg addSubview:V1];
@@ -136,7 +136,7 @@
 
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-44-40) style:UITableViewStylePlain];
-    _table.backgroundColor = kColorf2f2f2;
+    _table.backgroundColor =UIColorFromRGB(0xf2f2f2);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
     [_table setDelegate:self];
@@ -440,7 +440,7 @@
         [[SDImageCache sharedImageCache] clearMemory];
     }
     // Configure the cell...
-    cell.backgroundColor = kColorf9f9f9;
+    cell.backgroundColor =UIColorFromRGB(0xf9f9f9);
     userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 4.0f, 32.0f, 32.0f)];
     userAvatar.layer.cornerRadius = 3.0f;
     userAvatar.layer.masksToBounds = YES;

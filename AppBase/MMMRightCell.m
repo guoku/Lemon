@@ -35,14 +35,14 @@
         
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectZero];
-        _nickname.textColor = kColor999999;
+        _nickname.textColor =UIColorFromRGB(0x999999);
         _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
         //self.bio = [[UILabel alloc]initWithFrame:CGRectZero];
 
-        //_bio.textColor = kColor666666;
+        //_bio.textColor = UIColorFromRGB(0x666666);
         //_bio.lineBreakMode = NSLineBreakByTruncatingTail;
         //_bio.font = [UIFont fontWithName:@"Helvetica" size:10];
         //[_bio setBackgroundColor:[UIColor clearColor]];
@@ -50,10 +50,6 @@
         
         //_followBTN = [[GKFollowButton alloc]initWithFrame:CGRectZero];
         //[self addSubview:_followBTN];
-
-        UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 58, self.frame.size.width, 2)];
-        [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
-        [self addSubview:_seperatorLineImageView];
         
         _message = [[NSMutableDictionary alloc]init];
     }
