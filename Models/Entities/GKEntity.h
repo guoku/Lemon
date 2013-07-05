@@ -15,24 +15,19 @@
 @interface GKEntity : NSObject
 
 @property (readonly) NSUInteger entity_id;
-@property (readonly) NSString * taobao_id;
-@property (readonly) NSString * entity_hash;
-@property (readonly) NSString * title;
-@property (readonly) NSString * urlString;
-@property (unsafe_unretained, readonly) NSURL * imageURL;
+@property (readonly) NSUInteger pid;
 @property (readonly) NSString * brand;
-@property (readonly) NSString * stuff_status;
-@property (readonly) float price;
-@property (readonly) NSUInteger category_id;
+@property (nonatomic,strong) NSMutableArray * remark_list;
+@property (readonly) float avg_score;
+@property (nonatomic,strong) NSMutableArray * purchase_list;
+@property (readonly) NSUInteger cid;
+@property (readonly) NSString * title;
+@property (unsafe_unretained, readonly) NSURL * imageURL;
+@property (readwrite) NSUInteger used_count;
 @property (readwrite) NSUInteger liked_count;
+@property (readonly) float price;
 @property (readonly) NSDate * created_time;
-@property (readonly) NSUInteger popularity;
 @property (nonatomic, strong) GKEntityLike * entitylike;
 
-@property (nonatomic, strong) NSMutableArray * notes_list;
-
 - (id)initWithAttributes:(NSDictionary *)attributes;
-- (id)initFromSQLiteWithRsSet:(FMResultSet *)rs;
-//- (id)initAndSaveWithAttributes:(NSDictionary *)attributes;
-- (GKEntity *)save;
 @end

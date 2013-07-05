@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface TMLCate : NSObject
-@property (readonly) NSString *name;
-@property (readonly) NSUInteger cid;
+@property (readwrite) NSString *name;
+@property (readwrite) NSUInteger cid;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

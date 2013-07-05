@@ -22,12 +22,10 @@
 		4E07E1E11763695F0060AFCD /* TableViewCellForHomeTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E1DE1763695F0060AFCD /* TableViewCellForHomeTag.m */; };
 		4E07E1E917636A390060AFCD /* SimpleCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E1E417636A390060AFCD /* SimpleCardView.m */; };
 		4E07E1EA17636A390060AFCD /* SingleCardViewForPopular.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E1E617636A390060AFCD /* SingleCardViewForPopular.m */; };
-		4E07E1EB17636A390060AFCD /* SingleCardViewForSelected.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E1E817636A390060AFCD /* SingleCardViewForSelected.m */; };
 		4E2DC86F17703DA80050658D /* MMMTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DC86E17703DA80050658D /* MMMTML.m */; };
 		4E2DC87217703DE80050658D /* TMLCate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DC87117703DE80050658D /* TMLCate.m */; };
 		4E2DC87517703E060050658D /* TMLKeyWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DC87417703E060050658D /* TMLKeyWord.m */; };
 		4E2DC87F177040B70050658D /* TMLStage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DC87E177040B60050658D /* TMLStage.m */; };
-		4E2DC8821770491D0050658D /* TMLEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DC8811770491D0050658D /* TMLEntity.m */; };
 		4E387A7A17607A38005DA2EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A7917607A38005DA2EC /* UIKit.framework */; };
 		4E387A7C17607A38005DA2EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A7B17607A38005DA2EC /* Foundation.framework */; };
 		4E387A7E17607A38005DA2EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A7D17607A38005DA2EC /* CoreGraphics.framework */; };
@@ -130,7 +128,6 @@
 		4E387C2B176085FC005DA2EC /* GKNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BDC176085FC005DA2EC /* GKNotification.m */; };
 		4E387C2C176085FC005DA2EC /* GKPopular.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BDF176085FC005DA2EC /* GKPopular.m */; };
 		4E387C2D176085FC005DA2EC /* GKRecommendFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BE2176085FC005DA2EC /* GKRecommendFriend.m */; };
-		4E387C2E176085FC005DA2EC /* GKSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BE5176085FC005DA2EC /* GKSelection.m */; };
 		4E387C2F176085FC005DA2EC /* GKTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BE8176085FC005DA2EC /* GKTags.m */; };
 		4E387C30176085FC005DA2EC /* GKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BEB176085FC005DA2EC /* GKUser.m */; };
 		4E387C31176085FC005DA2EC /* GKUserAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BED176085FC005DA2EC /* GKUserAvatar.m */; };
@@ -449,6 +446,7 @@
 		4E71680817843D7E0006C87F /* 标记图_详情.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7166F817843D7E0006C87F /* 标记图_详情.png */; };
 		4E71680917843D7E0006C87F /* 标记图_边栏.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7166F917843D7E0006C87F /* 标记图_边栏.png */; };
 		4E71680A17843D7E0006C87F /* 标记图_选择店铺.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7166FA17843D7E0006C87F /* 标记图_选择店铺.png */; };
+		4E7EAE661785D48B0087FB2A /* GKShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7EAE651785D48B0087FB2A /* GKShop.m */; };
 		4E9AC3F2176393F400A1A32C /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC3F1176393F400A1A32C /* HMSegmentedControl.m */; };
 		4EB8478117731E8100071B95 /* GKEDCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8478017731E8100071B95 /* GKEDCSettingViewController.m */; };
 		4EDB15D21766377400B77684 /* GKMessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB15D11766377400B77684 /* GKMessageBoard.m */; };
@@ -498,8 +496,6 @@
 		4E07E1E417636A390060AFCD /* SimpleCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleCardView.m; sourceTree = "<group>"; };
 		4E07E1E517636A390060AFCD /* SingleCardViewForPopular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleCardViewForPopular.h; sourceTree = "<group>"; };
 		4E07E1E617636A390060AFCD /* SingleCardViewForPopular.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleCardViewForPopular.m; sourceTree = "<group>"; };
-		4E07E1E717636A390060AFCD /* SingleCardViewForSelected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleCardViewForSelected.h; sourceTree = "<group>"; };
-		4E07E1E817636A390060AFCD /* SingleCardViewForSelected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleCardViewForSelected.m; sourceTree = "<group>"; };
 		4E2DC86D17703DA80050658D /* MMMTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMTML.h; sourceTree = "<group>"; };
 		4E2DC86E17703DA80050658D /* MMMTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMTML.m; sourceTree = "<group>"; };
 		4E2DC87017703DE80050658D /* TMLCate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLCate.h; sourceTree = "<group>"; };
@@ -508,8 +504,6 @@
 		4E2DC87417703E060050658D /* TMLKeyWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLKeyWord.m; sourceTree = "<group>"; };
 		4E2DC87D177040B60050658D /* TMLStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLStage.h; sourceTree = "<group>"; };
 		4E2DC87E177040B60050658D /* TMLStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLStage.m; sourceTree = "<group>"; };
-		4E2DC8801770491D0050658D /* TMLEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLEntity.h; sourceTree = "<group>"; };
-		4E2DC8811770491D0050658D /* TMLEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLEntity.m; sourceTree = "<group>"; };
 		4E387A7617607A38005DA2EC /* MMM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E387A7917607A38005DA2EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4E387A7B17607A38005DA2EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -704,8 +698,6 @@
 		4E387BDF176085FC005DA2EC /* GKPopular.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKPopular.m; sourceTree = "<group>"; };
 		4E387BE1176085FC005DA2EC /* GKRecommendFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKRecommendFriend.h; sourceTree = "<group>"; };
 		4E387BE2176085FC005DA2EC /* GKRecommendFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKRecommendFriend.m; sourceTree = "<group>"; };
-		4E387BE4176085FC005DA2EC /* GKSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKSelection.h; sourceTree = "<group>"; };
-		4E387BE5176085FC005DA2EC /* GKSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSelection.m; sourceTree = "<group>"; };
 		4E387BE7176085FC005DA2EC /* GKTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKTags.h; sourceTree = "<group>"; };
 		4E387BE8176085FC005DA2EC /* GKTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKTags.m; sourceTree = "<group>"; };
 		4E387BEA176085FC005DA2EC /* GKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUser.h; sourceTree = "<group>"; };
@@ -1069,6 +1061,8 @@
 		4E7166F817843D7E0006C87F /* 标记图_详情.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标记图_详情.png"; sourceTree = "<group>"; };
 		4E7166F917843D7E0006C87F /* 标记图_边栏.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标记图_边栏.png"; sourceTree = "<group>"; };
 		4E7166FA17843D7E0006C87F /* 标记图_选择店铺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标记图_选择店铺.png"; sourceTree = "<group>"; };
+		4E7EAE641785D48B0087FB2A /* GKShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKShop.h; sourceTree = "<group>"; };
+		4E7EAE651785D48B0087FB2A /* GKShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKShop.m; sourceTree = "<group>"; };
 		4E9AC3F0176393F400A1A32C /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		4E9AC3F1176393F400A1A32C /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		4EB8477F17731E8100071B95 /* GKEDCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKEDCSettingViewController.h; sourceTree = "<group>"; };
@@ -1254,8 +1248,6 @@
 				4E07E1E417636A390060AFCD /* SimpleCardView.m */,
 				4E07E1E517636A390060AFCD /* SingleCardViewForPopular.h */,
 				4E07E1E617636A390060AFCD /* SingleCardViewForPopular.m */,
-				4E07E1E717636A390060AFCD /* SingleCardViewForSelected.h */,
-				4E07E1E817636A390060AFCD /* SingleCardViewForSelected.m */,
 			);
 			path = SingleCardView;
 			sourceTree = "<group>";
@@ -1306,8 +1298,6 @@
 				4E2DC87417703E060050658D /* TMLKeyWord.m */,
 				4E2DC87D177040B60050658D /* TMLStage.h */,
 				4E2DC87E177040B60050658D /* TMLStage.m */,
-				4E2DC8801770491D0050658D /* TMLEntity.h */,
-				4E2DC8811770491D0050658D /* TMLEntity.m */,
 			);
 			name = TimeLine;
 			path = ../AppBase;
@@ -1761,6 +1751,7 @@
 		4E387BA6176085FC005DA2EC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E7EAE631785D4720087FB2A /* Shop */,
 				4E2DC86817703D060050658D /* TimeLine */,
 				4E387BA7176085FC005DA2EC /* Activity */,
 				4E387BB2176085FC005DA2EC /* Base */,
@@ -1774,7 +1765,6 @@
 				4E387BDA176085FC005DA2EC /* Notification */,
 				4E387BDD176085FC005DA2EC /* Popular */,
 				4E387BE0176085FC005DA2EC /* Recommend_Friend */,
-				4E387BE3176085FC005DA2EC /* Selection */,
 				4E387BE6176085FC005DA2EC /* Tags */,
 				4E387BE9176085FC005DA2EC /* Users */,
 				4E387BF6176085FC005DA2EC /* Version */,
@@ -1912,15 +1902,6 @@
 				4E387BE2176085FC005DA2EC /* GKRecommendFriend.m */,
 			);
 			path = Recommend_Friend;
-			sourceTree = "<group>";
-		};
-		4E387BE3176085FC005DA2EC /* Selection */ = {
-			isa = PBXGroup;
-			children = (
-				4E387BE4176085FC005DA2EC /* GKSelection.h */,
-				4E387BE5176085FC005DA2EC /* GKSelection.m */,
-			);
-			path = Selection;
 			sourceTree = "<group>";
 		};
 		4E387BE6176085FC005DA2EC /* Tags */ = {
@@ -2457,6 +2438,15 @@
 			path = "切图";
 			sourceTree = "<group>";
 		};
+		4E7EAE631785D4720087FB2A /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				4E7EAE641785D48B0087FB2A /* GKShop.h */,
+				4E7EAE651785D48B0087FB2A /* GKShop.m */,
+			);
+			name = Shop;
+			sourceTree = "<group>";
+		};
 		4E9AC3EF176393F400A1A32C /* HMSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -2971,7 +2961,6 @@
 				4E387C2B176085FC005DA2EC /* GKNotification.m in Sources */,
 				4E387C2C176085FC005DA2EC /* GKPopular.m in Sources */,
 				4E387C2D176085FC005DA2EC /* GKRecommendFriend.m in Sources */,
-				4E387C2E176085FC005DA2EC /* GKSelection.m in Sources */,
 				4E387C2F176085FC005DA2EC /* GKTags.m in Sources */,
 				4E387C30176085FC005DA2EC /* GKUser.m in Sources */,
 				4E387C31176085FC005DA2EC /* GKUserAvatar.m in Sources */,
@@ -3017,7 +3006,6 @@
 				4E07E1E11763695F0060AFCD /* TableViewCellForHomeTag.m in Sources */,
 				4E07E1E917636A390060AFCD /* SimpleCardView.m in Sources */,
 				4E07E1EA17636A390060AFCD /* SingleCardViewForPopular.m in Sources */,
-				4E07E1EB17636A390060AFCD /* SingleCardViewForSelected.m in Sources */,
 				4E9AC3F2176393F400A1A32C /* HMSegmentedControl.m in Sources */,
 				4EDB15D21766377400B77684 /* GKMessageBoard.m in Sources */,
 				4EDB15E417663A1F00B77684 /* CollapseClick.m in Sources */,
@@ -3034,7 +3022,6 @@
 				4E2DC87217703DE80050658D /* TMLCate.m in Sources */,
 				4E2DC87517703E060050658D /* TMLKeyWord.m in Sources */,
 				4E2DC87F177040B70050658D /* TMLStage.m in Sources */,
-				4E2DC8821770491D0050658D /* TMLEntity.m in Sources */,
 				4E48F0F617716ECB009EF5AE /* RatingView.m in Sources */,
 				4E48F0FD17717083009EF5AE /* GKNotePostViewController.m in Sources */,
 				4E48F100177184B9009EF5AE /* GKAlertView.m in Sources */,
@@ -3049,6 +3036,7 @@
 				4E4C6C43177C0E3C0045695A /* GKCenterViewController.m in Sources */,
 				4E4C6C5F177C30200045695A /* MMMLeftCell.m in Sources */,
 				4E51AE861783E2E0004A6AC4 /* FollowUserCell.m in Sources */,
+				4E7EAE661785D48B0087FB2A /* GKShop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

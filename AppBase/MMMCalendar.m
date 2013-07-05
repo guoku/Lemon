@@ -15,32 +15,66 @@
     UILabel *day;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame kind:(NSUInteger)kind
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImageView * Calendar = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sidebar_calendar.png"]];
-        Calendar.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-        
-        day = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20, 12)];
-        day.textAlignment = NSTextAlignmentCenter;
-        day.backgroundColor = [UIColor clearColor];
-        [day setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
-        day.textColor = UIColorFromRGB(0x777777);
-        day.center =  CGPointMake(Calendar.frame.size.width/2,13);
-        [Calendar addSubview:day];
-        
-        month = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20,10)];
-        month.textAlignment = NSTextAlignmentCenter;
-        month.backgroundColor = [UIColor clearColor];
-        [month setFont:[UIFont fontWithName:@"Helvetica" size:5.0f]];
-        month.textColor = UIColorFromRGB(0x777777);
-        month.center = CGPointMake(Calendar.frame.size.width/2,20);
-        [Calendar addSubview:month];
-        
+        switch (kind) {
+            case 0:
+            {
+                UIImageView * Calendar = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sidebar_calendar.png"]];
+                Calendar.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+                
+                day = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20, 12)];
+                day.textAlignment = NSTextAlignmentCenter;
+                day.backgroundColor = [UIColor clearColor];
+                [day setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+                day.textColor = UIColorFromRGB(0x777777);
+                day.center =  CGPointMake(Calendar.frame.size.width/2,13);
+                [Calendar addSubview:day];
+                
+                month = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20,10)];
+                month.textAlignment = NSTextAlignmentCenter;
+                month.backgroundColor = [UIColor clearColor];
+                [month setFont:[UIFont fontWithName:@"Helvetica" size:5.0f]];
+                month.textColor = UIColorFromRGB(0x777777);
+                month.center = CGPointMake(Calendar.frame.size.width/2,20);
+                [Calendar addSubview:month];
+                
+                
+                
+                [self addSubview:Calendar];
+            }
+                break;
+            
+                
+            default:
+            {
+                UIImageView * Calendar = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Calendar.png"]];
+                Calendar.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+                
+                day = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20, 12)];
+                day.textAlignment = NSTextAlignmentCenter;
+                day.backgroundColor = [UIColor clearColor];
+                [day setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+                day.textColor = UIColorFromRGB(0x666666);
+                day.center =  CGPointMake(Calendar.frame.size.width/2,13);
+                [Calendar addSubview:day];
+                
+                month = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 20,10)];
+                month.textAlignment = NSTextAlignmentCenter;
+                month.backgroundColor = [UIColor clearColor];
+                [month setFont:[UIFont fontWithName:@"Helvetica" size:5.0f]];
+                month.textColor = UIColorFromRGB(0x666666);
+                month.center = CGPointMake(Calendar.frame.size.width/2,20);
+                [Calendar addSubview:month];
+                
+            
+                [self addSubview:Calendar];
+            }
+                break;
+        }
 
-        
-        [self addSubview:Calendar];
         
     }
     return self;

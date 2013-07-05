@@ -230,7 +230,7 @@
                                                      withLabel:nil
                                                      withValue:nil];
         [self resignTextView:nil];
-    NSString *clickUrl = [NSString stringWithFormat:@" 详情 http://guoku.com/detail/%@ (分享自@果库) ",_detailData.entity_hash];
+    NSString *clickUrl = [NSString stringWithFormat:@" 详情 http://guoku.com/detail/%d (分享自@果库) ",_detailData.entity_id];
     NSString *postContent = [NSString stringWithFormat:@"%@%@",_textView.text,clickUrl];
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
             SinaWeibo *sinaweibo = [self sinaweibo];

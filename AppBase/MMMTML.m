@@ -33,10 +33,9 @@
     }
     return self;
 }
-+ (void)globalTMLWithBlock:(void (^)(NSArray * array, NSError * error))block
++ (void)globalTMLWithBlock:(void (^)(NSDictionary * dictionary,NSArray * array, NSError * error))block
 {
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"allcategories/" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        //GKLog(@"%@", JSON);
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/allcategories/" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {
@@ -44,24 +43,39 @@
             {
                 NSArray *Response = [[JSON valueForKeyPath:@"results"] valueForKey:@"data"];
 
-                NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:0];
+                NSMutableDictionary *mutableList = [[NSMutableDictionary alloc] init];
+                
+                NSMutableArray*mutableList2 = [[NSMutableArray alloc] init];
+                
                 for(NSDictionary * Sattributes in Response){
                     TMLStage * stage = [[TMLStage alloc]initWithAttributes:Sattributes];
+                    NSMutableArray * list = [NSMutableArray arrayWithCapacity:0];
                     NSMutableArray * clist = [NSMutableArray arrayWithCapacity:0];
+                    NSMutableDictionary * rowdic = [NSMutableDictionary dictionaryWithCapacity:0];
                     for (NSDictionary * Gattributes in [Sattributes objectForKey:@"g_list"]) {
+                        NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
                         TMLCate *cate = [[TMLCate alloc]initWithAttributes:Gattributes];
-                        [clist addObject:cate];
-                        //NSMutableArray * klist = [NSMutableArray arrayWithCapacity:0];
+                        NSMutableArray * klist = [NSMutableArray arrayWithCapacity:0];
                         for (NSDictionary * Kattributes in [Gattributes objectForKey:@"c_list"])
                         {
                             TMLKeyWord * keyword = [[TMLKeyWord alloc]initWithAttributes:Kattributes];
+                            [klist addObject:keyword];
                             [clist addObject:keyword];
                         }
+                        [dic setObject:cate forKey:@"section"];
+                        [dic setObject:klist forKey:@"row"];
+                        [list addObject:dic];
                     }
-                    [mutableList addObject:[NSDictionary dictionaryWithObjectsAndKeys:stage,@"section",clist,@"row",nil]];
+                    
+                    [rowdic setObject:stage forKey:@"section"];
+                    [rowdic setObject:clist forKey:@"row"];
+                    
+                    [mutableList setObject:list forKey:@(stage.sid)];
+                    [mutableList2 addObject:rowdic];
+                   
                 }
                 if(block) {
-                    block([NSArray arrayWithArray:mutableList], nil);
+                    block([NSDictionary dictionaryWithDictionary:mutableList],[NSArray arrayWithArray:mutableList2], nil);
                 }
             }
                 break;
@@ -79,13 +93,13 @@
         {
             if (block)
             {
-                block([NSArray array], aError);
+                block([NSArray array],[NSArray array], aError);
             }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (block) {
-                block([NSArray array], error);
+                block([NSArray array], [NSArray array],error);
             }
     }];
 }

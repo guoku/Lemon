@@ -20,7 +20,7 @@ typedef enum {
 
 @interface GKVisitedUser : NSObject
 
-+ (void)visitedUserWithUserID:(NSUInteger)user_id Page:(NSUInteger)page Type:(VisitedType)visitedtpye
++ (void)visitedUserWithUserID:(NSUInteger)user_id Page:(NSUInteger)page
                         Block:(void (^)(NSArray * entitylist, NSError *error))block;
 
 @end

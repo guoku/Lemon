@@ -19,10 +19,11 @@
 #define kGK_AppID_iPhone @"477652209"
 #endif
 // guoku api base url
-#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
+//#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
+#define kGKAppBaseURL @"http://pre.guoku.com/mobile/"
 
-#define kGuokuApiKey @"0b19c2b93687347e95c6b6f5cc91bb87"
-#define kGuokuApiSecret @"47b41864d64bd46"
+#define kGuokuApiKey @"4abe75e4aa7a7ec59976400e5e3b8fcf"
+#define kGuokuApiSecret @"a3b4abb1ac8c43cc6095b25a9751a3b3"
 
 // guoku user session
 #define kUserDefault  [NSUserDefaults standardUserDefaults]
@@ -41,11 +42,11 @@
 
 // weibo
 #ifndef kGK_WeiboAPPKey
-#define kGK_WeiboAPPKey @"1459383851"
+#define kGK_WeiboAPPKey @"2925244096"
 #endif
 
 #ifndef kGK_WeiboSecret
-#define kGK_WeiboSecret @"bfb2e43c3fa636f102b304c485fa2110"
+#define kGK_WeiboSecret @"ea309cceda94e73ac81fc6e0035daae1"
 #endif
 
 #ifndef kGK_WeiboRedirectURL

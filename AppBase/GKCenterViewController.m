@@ -14,13 +14,12 @@
 #import "TMLCate.h"
 #import "TMLKeyWord.h"
 #import "GKEntity.h"
-#import "TMLEntity.h"
-#import "MMMTML.h"
 #import "GKNotePostViewController.h"
 #import "MMMCalendar.h"
 #import "TMLCell.h"
 #import "GKDetailViewController.h"
 #import "GKEDCSettingViewController.h"
+#import "GKUserViewController.h"
 @interface GKCenterViewController ()
 
 @end
@@ -73,38 +72,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIcon) name:@"stageChange" object:nil];
-    //数据
-    
-    TMLCate *cate1 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"清洁",@"gtt",@"1",@"gid",nil]];
-    TMLCate *cate2 = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"饮食",@"gtt",@"2",@"gid",nil]];
-    
-    TMLKeyWord *keyword1 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"婴儿摇篮",@"ctt",@"121",@"cid",@"NO",@"open",@"YES",@"necessary",@"10",@"count",nil]];
-    TMLKeyWord *keyword2 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"备纸尿布",@"ctt",@"122",@"cid",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
-    TMLKeyWord *keyword3 = [[TMLKeyWord alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"湿疹防护",@"ctt",@"123",@"cid",@"NO",@"open",@"NO",@"necessary",@"100",@"count",nil]];
-    
-    NSMutableDictionary * argsDict = [NSMutableDictionary dictionaryWithCapacity:13];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", 83099] forKey:@"entity_id"];
-    [argsDict setValue:@"18045653654" forKey:@"taobao_id"];
-    [argsDict setValue:@"4300bb1e" forKey:@"entity_hash"];
-    [argsDict setValue:@"home by ASA - 厨房陶瓷收纳罐" forKey:@"title"];
-    [argsDict setValue:@"http://www.guoku.com/visit_item?item_id=18045653654&amp;outer_code=GWB18746" forKey:@"url"];
-    [argsDict setValue:@"http://img01.taobaocdn.com/imgextra/i1/920964035/T2iuWMXk0bXXXXXXXX_!!920964035.jpg_310x310.jpg" forKey:@"image_url"];
-    [argsDict setValue:@"home" forKey:@"brand"];
-    [argsDict setValue:@"1" forKey:@"stuff_status"];
-    [argsDict setValue:[NSString stringWithFormat:@"%.2f", 123.00] forKey:@"price"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", 1] forKey:@"category_id"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", 212] forKey:@"liked_count"];
-    [argsDict setValue:@"2012-12-13 12:30" forKey:@"created_time"];
-    [argsDict setValue:[NSNumber numberWithInteger:1] forKey:@"popularity"];
-    GKEntity *entity = [[GKEntity alloc]initWithAttributes:argsDict];
-    
-    NSDictionary *one = [NSDictionary dictionaryWithObjectsAndKeys:cate1,@"section",[NSArray arrayWithObjects:keyword1,keyword2,keyword3,entity,entity,keyword1,entity,entity,entity,nil],@"row",nil];
-    NSDictionary *two = [NSDictionary dictionaryWithObjectsAndKeys:cate2,@"section",[NSArray arrayWithObjects:keyword1,keyword2,keyword3,entity,entity,keyword1,entity,entity,entity,nil],@"row",nil];
-       
-    _dataArray = [[NSMutableArray alloc]init];
-    [_dataArray addObject:one];
-    [_dataArray addObject:two];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
 
     
     
@@ -126,7 +94,7 @@
     _icon = [[UIImageView alloc]initWithFrame:CGRectMake(7, 4, 26, 26)];
     _icon.backgroundColor = UIColorFromRGB(0xebe7e4);
     [self.view addSubview:_icon];
-    [self changeIcon];
+    [self stageChange];
     
     UIView *mask = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mask.png"]];
     mask.backgroundColor = [UIColor clearColor];
@@ -143,16 +111,23 @@
     [view addSubview:line];
     
     [self.view addSubview:view];
+
     
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+      [self showUserWithUserID:79761];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    //[self showDetailWithEntityID:75635];
-    //[self showNotePostView];
-    //[self showEDCSettingView];
-   
+    
+    if([_dataArray count] == 0)
+    {
+        NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
+        _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+        NSLog(@"%@",_dataArray);
+        [self.table reloadData]; 
+    }
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -274,14 +249,8 @@
     UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 8, 14, 14)];
     image.center = CGPointMake(20, image.center.y);
     image.tag = 2;
-    if(0)
-    {
-        image.image =[UIImage imageNamed:@"timeline_dot_done.png"];
-    }
-    else
-    {
-        image.image = [UIImage imageNamed:@"timeline_dot.png"];
-    }    
+    image.image = [UIImage imageNamed:@"timeline_dot.png"];
+    
     [view addSubview:label];
     [view addSubview:image];
     view.tag = 1400+section;
@@ -292,21 +261,6 @@
     NSLog(@"%@",indexPath);
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    NSIndexPath * tmp = [_table indexPathForRowAtPoint:CGPointMake(160,scrollView.contentOffset.y+60)];
-    UIView * view = [[_table viewWithTag:(1400+tmp.section)]viewWithTag:2];
-    NSLog(@"%@",NSStringFromCGRect([_table viewWithTag:(1400+tmp.section)].frame));
-    view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 0.9);
-    
-    if(scrollView.contentOffset.y <0)
-    {
-      //  scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x,0);
-    }
-    if(tmp.section != indexPathTmp.section)
-    {
-    //    [self sectionChange:indexPathTmp and:tmp];
-    }
-    indexPathTmp = tmp;
 
 }
 
@@ -408,6 +362,12 @@
         [self.navigationController pushViewController:notePostVC animated:YES];
     }
 }
+- (void)showUserWithUserID:(NSUInteger)user_id
+{
+    GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user_id];
+    VC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:VC animated:YES];
+}
 - (void)showLeftMenu
 {
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"navigation_bar_button_enable"]) {
@@ -429,8 +389,15 @@
         [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:NULL];
     }
 }
-- (void)changeIcon
+- (void)stageChange
 {
     _icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"stage_list_%@.png",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]];
+    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
+    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+    NSLog(@"%@",_dataArray);
+    [self.table reloadData];
+    self.table.contentOffset = CGPointMake(self.table.contentOffset.x, 0);
+
 }
 @end

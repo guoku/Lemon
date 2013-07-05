@@ -10,4 +10,5 @@
 
 @interface MMMCalendar : UIView
 @property (strong,nonatomic) NSDate *date;
+- (id)initWithFrame:(CGRect)frame kind:(NSUInteger)kind;
 @end

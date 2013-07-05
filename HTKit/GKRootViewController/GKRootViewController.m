@@ -12,6 +12,7 @@
 #import "GKLeftViewController.h"
 #import "GKRightViewController.h"
 #import "MMExampleDrawerVisualStateManager.h"
+#import "MMMTML.h"
 
 
 
@@ -20,7 +21,10 @@
 @end
 
 @implementation GKRootViewController
-//@synthesize tabVC = _tabVC;
+{
+    @private  NSMutableDictionary * _dataDic;
+    @private  NSMutableArray * _dataArray;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,14 +37,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-	// Do any additional setup after loading the view.
-    //self.tabVC = [[GKTabViewController alloc]init];
+    self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"table"])
+    {
     
-    //[self addChildViewController:_tabVC];
-    //[self.view addSubview:_tabVC.view];
-    
-
+    }
+    else
+    {
+        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+        [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
+            if(!error)
+            {
+                    _dataArray = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                    _dataDic = [NSMutableArray arrayWithArray:array];
+                
+                    NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
+                    NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                    [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
+                    [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
+            }
+            else
+            {
+                switch (error.code) {
+                    case -999:
+                        [GKMessageBoard hideMB];
+                        break;
+                    default:
+                    {
+                        NSString * errorMsg = [error localizedDescription];
+                        [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                    }
+                        break;
+                }
+            }            
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

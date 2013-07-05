@@ -31,7 +31,6 @@
         {
             GKPopular * pop = [[GKPopular alloc] initWithAttributes:attributes];
             [pops addObject:pop];
-            GKLog(@"------------%u", pop.popularity);
         }
         if (block)
         {

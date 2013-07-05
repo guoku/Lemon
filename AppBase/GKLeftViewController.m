@@ -110,7 +110,7 @@
     [H1 setImage:[UIImage imageNamed:@"sidebar_shadow.png"]];
     [tipView addSubview:H1];
     
-    MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30) kind:0];
     calendar.center = CGPointMake(20, 20);
     calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
     [tipView addSubview:calendar];

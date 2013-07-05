@@ -15,32 +15,13 @@
 
 
 
-+ (void)visitedUserWithUserID:(NSUInteger)user_id Page:(NSUInteger)page Type:(VisitedType)visitedtpye
++ (void)visitedUserWithUserID:(NSUInteger)user_id Page:(NSUInteger)page
                                 Block:(void (^)(NSArray * entitylist, NSError *error))block
 {
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
     [parameters setObject:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
     [parameters setObject:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
-    NSString * _requestURIString;
-    switch (visitedtpye) {
-        case kUserLike:
-            _requestURIString = @"user/like/";
-            break;
-        case kUserPost:
-            _requestURIString = @"user/post/";
-            break;
-        case kUserNotes:
-            _requestURIString = @"user/notes/";
-            break;
-        case kUserTags:
-            _requestURIString = @"user/tags/";
-            break;
-        default:
-            _requestURIString = @"user/like/";
-            break;
-    }
-    
-    [[GKAppDotNetAPIClient sharedClient] getPath:_requestURIString parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/u/%d/folder/",user_id] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -50,37 +31,9 @@
                 NSArray *listFromResponse = [[JSON listResponse] valueForKey:@"data"];
                 NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[listFromResponse count]];
                 for(NSDictionary * attributes in listFromResponse){
-                    switch (visitedtpye) {
-                        case kUserLike:
-                        {
+
                             GKEntity * entity = [[GKEntity alloc] initWithAttributes:attributes];
                             [mutableList addObject:entity];
-                        }
-                            break;
-                        case kUserPost:
-                        {
-                            GKEntity * entity = [[GKEntity alloc] initWithAttributes:attributes];
-                            [mutableList addObject:entity];
-                        }
-                            break;
-                        case kUserNotes:
-                        {
-                            GKNote * note = [[GKNote alloc] initWithAttributes:attributes];
-                            [mutableList addObject:note];
-                        }
-                            break;
-                        case kUserTags:
-                        {
-                            GKTags * tag = [[GKTags alloc] initWithAttributes:attributes];
-                            [mutableList addObject:tag];
-                        }
-                            break;
-                        default:
-                            break;
-                            
-                    }
-                    
-                    
                 }
                 GKLog(@"%@", mutableList);
                 if(block) {
@@ -104,7 +57,6 @@
         {
             block([NSArray array], aError);
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if(block)
         {

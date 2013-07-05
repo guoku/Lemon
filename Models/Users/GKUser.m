@@ -586,10 +586,8 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
                            Block:(void (^)(NSArray * fans_list, NSError * error))block {
     
     NSMutableDictionary * parameters = [[NSMutableDictionary alloc] initWithCapacity:4];
-//    [parameters setValue:kGuokuApiKey forKey:@"api_key"];
     [parameters setValue:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
     [parameters setValue:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
-//    [parameters setValue:[NSString SignWithParamters:parameters] forKey:@"sign"];
     
     [[GKAppDotNetAPIClient sharedClient] postPath:@"user/fans/" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
@@ -649,7 +647,7 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
     NSString * _urlString;
     switch (type) {
         case GKWeiboURLType:
-            _urlString = @"account/weibo/register/";
+            _urlString = @"maria/register_by_weibo";
             break;
         case GKTaobaoURLType:
             _urlString = @"account/taobao/register/";
@@ -657,7 +655,7 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
         default:
             break;
     }
-    [[GKAppDotNetAPIClient sharedClient] postPath:_urlString parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:_urlString parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -723,88 +721,5 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
 }
 
 
-#pragma mark - bind by three part
-+ (void)bindByWeiboOrTaobaoWithParamters:(NSDictionary *)paramters Type:(GKThreePartAccountURL)type Block:(void (^)(NSDictionary * dict, NSError * error))block
-{
-    NSString * _urlString;
-    switch (type) {
-        case GKWeiboURLType:
-            _urlString = @"account/weibo/bind/";
-            break;
-        case GKTaobaoURLType:
-            _urlString = @"account/taobao/bind/";
-            break;
-        default:
-            break;
-    }
-    GKLog(@"%@", paramters);
-    [[GKAppDotNetAPIClient sharedClient] postPath:_urlString parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        
-        GKLog(@"%@", JSON);
-        NSError * aError;
-        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
-        switch (res_code) {
-            case SUCCESS:
-            {
-                NSArray * tokenResponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-                NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:[tokenResponse count]];
-                for (NSDictionary * attributes in tokenResponse)
-                {
-                    switch (type) {
-                        case GKTaobaoURLType:
-                        {
-                            GKUserTaobaoToken * _token = [[GKUserTaobaoToken alloc] initWithAttributes:attributes];
-                            [_mutableDict setValue:_token forKey:@"content"];
-                            [_token saveToSQLite];
-                        }
-                            break;
-                        case GKWeiboURLType:
-                        {
-                            GKUserWeiboToken * _token = [[GKUserWeiboToken alloc] initWithAttributes:attributes];
-                            [_mutableDict setValue:_token forKey:@"content"];
-                            [_token saveToSQLite];
-                        }
-                        default:
-                            break;
-                    }
-
-                }
-                
-                if(block)
-                {
-                    block([NSDictionary dictionaryWithDictionary:_mutableDict], nil);
-                }
-            }
-                break;
-            case OTHER_USER_BINDED:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:ThreePartErrorDomain code:kOtherUserBinded userInfo:userInfo];
-            }
-                break;
-            case USER_ALREADY_BINDED:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:ThreePartErrorDomain code:kUserAlreadyBinded userInfo:userInfo];
-            }
-            default:
-                break;
-        }
-        if (res_code != SUCCESS)
-        {
-            if (block)
-                block([NSDictionary dictionary], aError);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       if (block)
-       {
-           GKLog(@"%@", error);
-           block([NSDictionary dictionary], error);
-       }
-    }];
-    
-}
 
 @end

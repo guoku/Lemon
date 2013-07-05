@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface TMLKeyWord : NSObject
-@property (readonly) NSString *name;
-@property (readonly) NSUInteger kid;
+@property (readwrite) NSString *name;
+@property (readwrite) NSUInteger kid;
 @property (assign) BOOL necessary;
 @property (assign) NSInteger count;
 - (id)initWithAttributes:(NSDictionary *)attributes;

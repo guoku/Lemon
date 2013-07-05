@@ -26,7 +26,7 @@
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
         self.followBTN = [[UIButton alloc]initWithFrame:CGRectZero];
               
-        [_followBTN setTitle:@"关注" forState:UIControlStateNormal];
+        [_followBTN setTitle:@"加关注" forState:UIControlStateNormal];
         [_followBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
         [_followBTN setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
         [_followBTN setBackgroundImage:[[UIImage imageNamed:@"button_red_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];

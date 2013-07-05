@@ -14,5 +14,5 @@
 @property (readonly) NSString *type;
 @property (readonly) id object;
 - (id)initWithAttributes:(NSDictionary *)attributes;
-+ (void)globalTMLWithBlock:(void (^)(NSArray * array, NSError * error))block;
++ (void)globalTMLWithBlock:(void (^)(NSDictionary * dictionary,NSArray * array, NSError * error))block;
 @end

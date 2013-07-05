@@ -97,6 +97,7 @@
             {
                 _data = [dict valueForKeyPath:@"content"];
                 _friendarray = [[NSMutableArray alloc]initWithCapacity:0];
+                /*
                 for (GKNote *note in _data.notes_list) {
                     //if (note.creator.relation !=nil) 
                     if(0)
@@ -104,6 +105,7 @@
                         [_friendarray addObject:note];
                     }
                 }
+                 */
                 [self setFooterViewText];
                 self.detailHeaderView.detailData = _data;
                 [self.table reloadData];
@@ -188,7 +190,7 @@
 -(void) setFooterViewText
 {
     GKUser *user = [[GKUser alloc] initFromSQLite];
-    
+    /*
     for (GKNote * note in _data.notes_list) {
         if(note.creator.user_id == user.user_id)
         {
@@ -198,6 +200,7 @@
             break;
         }
     }
+     */
 }
 -(void) showActivity
 {
@@ -220,17 +223,21 @@
 //返回一共有多少个Section
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    /*
     if([_data.notes_list count] == 0)
         return 0;
     else
         return 1;
+     */
+    return 0;
 }
 
 //返回每个Section有多少Row
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(friendonly == NO)
     {
-        return [_data.notes_list count];
+        //return [_data.notes_list count];
+        return 0;
     }
     else
     {
@@ -251,7 +258,7 @@
     cell.delegate = self;
     if(friendonly == NO)
     {
-    cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
+    //cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
     }
     else
     {
@@ -261,8 +268,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = [GKDetailNoteCellView height:[_data.notes_list objectAtIndex:indexPath.row]];
-    return height;
+    //CGFloat height = [GKDetailNoteCellView height:[_data.notes_list objectAtIndex:indexPath.row]];
+    //return height;
+    return 10;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -410,6 +418,7 @@
     int i=0;
     if(_data.entity_id == newnote.entity_id)
     {
+        /*
         for (GKNote *note in _data.notes_list) {
             
             if(note.note_id == newnote.note_id)
@@ -427,7 +436,7 @@
         }
         self.detailHeaderView.detailData = _data;
         [self.table reloadData];
-        
+     */
     }
 }
 
@@ -505,7 +514,7 @@
             view.alpha = 0;
         }
     }completion:^(BOOL finished) {
-        [self showWebViewWithTaobaoUrl:_detailHeaderView.detailData.urlString];
+        //[self showWebViewWithTaobaoUrl:_detailHeaderView.detailData.urlString];
     }];
 
 }

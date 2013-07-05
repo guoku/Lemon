@@ -19,5 +19,20 @@
     }
     return self;
 }
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+      [aCoder encodeObject:self.name forKey:@"name"];
+      [aCoder encodeObject:@(self.cid) forKey:@"cid"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+            self.name = [aDecoder decodeObjectForKey:@"name"];
+            self.cid = [[aDecoder decodeObjectForKey:@"cid"]intValue];
+     }
+    return self;
+}
 @end
 

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface TMLStage : NSObject
-@property (readonly) NSString *name;
-@property (readonly) NSUInteger sid;
+@property (readwrite) NSString *name;
+@property (readwrite) NSUInteger sid;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

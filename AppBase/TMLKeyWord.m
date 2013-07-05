@@ -23,4 +23,23 @@
     }
     return self;
 }
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:@(self.kid) forKey:@"kid"];
+    [aCoder encodeObject:@(self.count) forKey:@"count"];
+    [aCoder encodeObject:@(self.necessary) forKey:@"necessary"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.kid = [[aDecoder decodeObjectForKey:@"kid"]intValue];
+        self.count = [[aDecoder decodeObjectForKey:@"count"]intValue];
+        self.necessary = [[aDecoder decodeObjectForKey:@"necessary"]boolValue];
+    }
+    return self;
+}
 @end

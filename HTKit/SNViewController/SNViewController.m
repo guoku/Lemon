@@ -92,6 +92,7 @@
         NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:5];
         [paramters setValue:sinaweibo.userID forKey:@"weibo_id"];
         [paramters setValue:[data valueForKeyPath:@"screen_name"] forKey:@"screen_name"];
+        [paramters setValue:[data valueForKeyPath:@"screen_name"] forKey:@"nickname"];
         [paramters setValue:sinaweibo.accessToken forKey:@"access_token"];
         [paramters setValue:[NSString stringWithFormat:@"%u", expires_in] forKey:@"expires_in"];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];

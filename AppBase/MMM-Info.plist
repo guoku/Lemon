@@ -39,21 +39,21 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.guoku.iphone.ljk</string>
+			<string>com.guoku.iphone.mmm</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>sinaweibosso.1459383851</string>
+				<string>sinaweibosso.2925244096</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.guoku.iphone.ljk</string>
+			<string>com.guoku.iphone.mmm</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx59118ccde8270caa</string>
-				<string>guoku</string>
+				<string>mmm</string>
 			</array>
 		</dict>
 	</array>
