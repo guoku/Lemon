@@ -231,14 +231,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    SinaWeibo *sinaweibodata = [self sinaweibo];
-    GKUser *user = [[GKUser alloc]initFromSQLite];
-    if(user.weibo_token.user_id !=0)
-    {
-        sinaweibodata.userID = [NSString stringWithFormat:@"%lld",user.weibo_token.weibo_id];
-        sinaweibodata.accessToken= user.weibo_token.access_token;
-        sinaweibodata.expirationDate =[NSDate dateWithTimeIntervalSinceNow:user.weibo_token.expires_in];
-    }
     [self.sinaweibo applicationDidBecomeActive];
 }
 

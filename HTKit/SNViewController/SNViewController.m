@@ -92,11 +92,10 @@
         NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:5];
         [paramters setValue:sinaweibo.userID forKey:@"weibo_id"];
         [paramters setValue:[data valueForKeyPath:@"screen_name"] forKey:@"screen_name"];
-        [paramters setValue:[data valueForKeyPath:@"screen_name"] forKey:@"nickname"];
         [paramters setValue:sinaweibo.accessToken forKey:@"access_token"];
         [paramters setValue:[NSString stringWithFormat:@"%u", expires_in] forKey:@"expires_in"];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        [GKUser registerByWeiboOrTaobaoWithParamters:paramters Type:GKWeiboURLType  Block:^(NSDictionary *dict, NSError *error) {
+        [GKUser registerByWeiboOrTaobaoWithParamters:paramters Block:^(NSDictionary *dict, NSError *error) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error)
             {
@@ -114,6 +113,10 @@
                     }
                 }];
                 [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
+            else
+            {
+                [GKMessageBoard showMBWithText:kGK_LoginFailText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             }
         }];
         [paramters setValue:[data valueForKeyPath:@"profile_image_url"] forKey:@"avatar"];

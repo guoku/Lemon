@@ -28,6 +28,7 @@
 {
 @private
     NSMutableArray * _dataArray;
+    NSMutableArray * _titleArray;
     SMPageControl * pageControl;
     UIView *HeaderView;
     NSIndexPath *indexPathTmp;
@@ -47,8 +48,9 @@
         NSLog(@"%d",indexPathTmp.section);
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-        self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"我的"];
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
+        
+
         
         UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
         [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
@@ -74,7 +76,19 @@
     [super viewDidLoad];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
 
-    
+    _titleArray = [NSMutableArray arrayWithObjects:
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"2",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"3",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"4",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"5",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"初生",@"name",@"6",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"7",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"8",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"9",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"10",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"11",@"pid",nil]
+                   , nil];
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -117,7 +131,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-      [self showUserWithUserID:79761];
+     // [self showUserWithUserID:79761];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     if([_dataArray count] == 0)
@@ -398,6 +412,7 @@
     NSLog(@"%@",_dataArray);
     [self.table reloadData];
     self.table.contentOffset = CGPointMake(self.table.contentOffset.x, 0);
+    self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:stage-1] objectForKey:@"name"]];
 
 }
 @end

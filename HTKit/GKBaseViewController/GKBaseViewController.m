@@ -145,7 +145,7 @@
     }
     taobao_url = [taobao_url stringByReplacingOccurrencesOfString:@"&type=mobile" withString:@""];
     NSString *url = [NSString stringWithFormat:@"%@&ttid=%@&sid=%@&type=mobile&outer_code=IPE",taobao_url, TTID,sid];
-    GKUser *user = [[GKUser alloc ]initFromSQLite];
+    GKUser *user = [[GKUser alloc ]initFromNSU];
     if(user.user_id !=0)
     {
         url = [NSString stringWithFormat:@"%@%u",url,user.user_id];

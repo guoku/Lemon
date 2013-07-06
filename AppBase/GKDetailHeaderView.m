@@ -103,8 +103,10 @@
         
         self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(100, y+14, 75, 32)];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateHighlighted];
+        [_usedButton setImage:[UIImage imageNamed:@"check_white.png"] forState:UIControlStateNormal];
+        [_usedButton setImage:[UIImage imageNamed:@"check_white.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
+        [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
         [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_usedButton addTarget:self action:@selector(showNotePostView) forControlEvents:UIControlEventTouchUpInside];
@@ -113,6 +115,8 @@
         [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateSelected];
+        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted|UIControlStateSelected];
         
         [self addSubview:_usedButton];
         

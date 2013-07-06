@@ -101,7 +101,7 @@
     calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
     [HeaderView addSubview:calendar];
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(50, 60, 2,90)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(50, 50, 2,100)];
     line.center = CGPointMake(20, line.center.y);
     line.backgroundColor = UIColorFromRGB(0xe2ddd9);
     [HeaderView addSubview:line];
@@ -198,7 +198,7 @@
     [HeaderView addSubview:user_bg];
         
     
-    _user =[[GKUser alloc ]initFromSQLite];
+    _user =[[GKUser alloc ]initFromNSU];
     
     GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
     avatar.center = CGPointMake(85, 40);

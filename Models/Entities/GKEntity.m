@@ -67,6 +67,25 @@
     }
     return self;
 }
+- (id)initFromSQLiteWithRsSet:(FMResultSet *)rs
+{
+    self = [super init];
+    if (self)
+    {
+        _entity_id = [rs intForColumn:@"entity_id"];
+        _title = [rs stringForColumn:@"title"];
+        _brand = [rs stringForColumn:@"brand"];
+        _imgUrlString = [rs stringForColumn:@"image_url"];
+        _price = [rs doubleForColumn:@"price"];
+        _liked_count = [rs intForColumn:@"liked_count"];
+        _created_time = [NSDate dateFromString:[rs stringForColumn:@"created_time"]];
+    
+        
+        _entitylike = [GKEntityLike getEntityLikeStatusFromSQLiteWithEntityID:_entity_id];
+    }
+    
+    return self;
+}
 - (NSURL *)imageURL {
     return [NSURL URLWithString:_imgUrlString];
 }

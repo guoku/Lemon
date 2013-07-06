@@ -76,7 +76,7 @@
         }
         
     }
-    user =[[GKUser alloc ]initFromSQLite];
+    user =[[GKUser alloc ]initFromNSU];
     
     tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 260, 120)];
     tableHeaderView.backgroundColor = UIColorFromRGB(0x403B3B);

@@ -38,7 +38,7 @@
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
     [self.view addSubview:headerView];
     
-    GKUser * user =[[GKUser alloc ]initFromSQLite];
+    GKUser * user =[[GKUser alloc ]initFromNSU];
     
     GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
     avatar.center = CGPointMake(kScreenWidth/2, 57);

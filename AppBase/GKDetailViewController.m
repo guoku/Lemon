@@ -106,7 +106,6 @@
                     }
                 }
                  */
-                [self setFooterViewText];
                 self.detailHeaderView.detailData = _data;
                 [self.table reloadData];
                 [self hideActivity];
@@ -187,21 +186,6 @@
     _table.tableFooterView = tableFooterView;
     _table.tableFooterView.hidden = YES;
 }
--(void) setFooterViewText
-{
-    GKUser *user = [[GKUser alloc] initFromSQLite];
-    /*
-    for (GKNote * note in _data.notes_list) {
-        if(note.creator.user_id == user.user_id)
-        {
-            [noteBTN setTitle:@"修改我的点评" forState:UIControlStateNormal];
-            [noteBTN setImage:nil forState:UIControlStateNormal];
-            [noteBTN setImage:nil forState:UIControlStateHighlighted];
-            break;
-        }
-    }
-     */
-}
 -(void) showActivity
 {
     indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -223,13 +207,7 @@
 //返回一共有多少个Section
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    /*
-    if([_data.notes_list count] == 0)
-        return 0;
-    else
-        return 1;
-     */
-    return 0;
+    return 1;
 }
 
 //返回每个Section有多少Row
@@ -289,20 +267,20 @@
     [_ratingView setImagesDeselected:@"star_m.png" partlySelected:@"star_m_half.png" fullSelected:@"star_m_full.png" andDelegate:nil];
     _ratingView.center = CGPointMake(_ratingView.center.x, 20);
     _ratingView.userInteractionEnabled = NO;
-    [_ratingView displayRating:8/2];
+    [_ratingView displayRating:_data.avg_score];
     [f5f4f4bg addSubview:_ratingView];
     
-    UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 20, 40)];
+    UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 40, 40)];
     score.textAlignment = NSTextAlignmentLeft;
     score.backgroundColor = [UIColor clearColor];
     score.textColor =UIColorFromRGB(0x999999);
     score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-    score.text = @"8.0";
+    score.text = [NSString stringWithFormat:@"%f",_data.avg_score];
     [f5f4f4bg addSubview:score];
     
     
     
-    if(1)
+    if([_friendarray count]!=0)
     {
         tabArrow.hidden = NO;
         UILabel *friendtab = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 80, 40)];
@@ -310,7 +288,7 @@
         friendtab.backgroundColor = [UIColor clearColor];
         friendtab.textColor =UIColorFromRGB(0x999999);
         friendtab.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-        friendtab.text = @"好友推荐 3";
+        friendtab.text = [NSString stringWithFormat:@"好友推荐"];
         [f5f4f4bg addSubview:friendtab];
         friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
         
@@ -333,7 +311,7 @@
     }
     else
     {
-        //tabArrow.hidden = YES;
+         tabArrow.hidden = YES;
     }
     
     tabArrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
@@ -367,7 +345,7 @@
         _data.liked_count = [[notidata objectForKey:@"likeCount"] integerValue];
         _data.entitylike = [notidata objectForKey:@"likeStatus"];
         self.detailHeaderView.detailData = _data;
-        GKUser *user = [[GKUser alloc ]initFromSQLite];
+        GKUser *user = [[GKUser alloc ]initFromNSU];
         if(user.user_id !=0)
         {
             NSMutableArray *a = [NSMutableArray arrayWithCapacity:([_data.liker_list count]+1)];
@@ -388,13 +366,11 @@
                 NSMutableDictionary *userBaseDictionary = [[NSMutableDictionary alloc]init];
                 [userBaseDictionary setObject:@(user.user_id) forKey:@"user_id"];
                 [userBaseDictionary setObject:user.nickname forKey:@"nickname"];
-                [userBaseDictionary setObject:user.username forKey:@"username"];
+                [userBaseDictionary setObject:user.city forKey:@"username"];
                 [userBaseDictionary setObject:user.gender forKey:@"gender"];
                 [userBaseDictionary setObject:user.location forKey:@"location"];
-                [userBaseDictionary setObject:user.email forKey:@"email"];
-                [userBaseDictionary setObject:user.website forKey:@"website"];
                 [userBaseDictionary setObject:user.bio forKey:@"bio"];
-                [userBaseDictionary setObject:[[user.avatars avatarSmallURL] absoluteString] forKey:@"avatar_url"];
+                [userBaseDictionary setObject:[user.avatarImageURL absoluteString] forKey:@"avatar_url"];
                 GKUserBase *meBase = [[GKUserBase alloc] initWithAttributes:userBaseDictionary];
                 [a addObject:meBase];
                 [a addObjectsFromArray:_data.liker_list];
@@ -533,7 +509,7 @@
     }
     taobao_url = [taobao_url stringByReplacingOccurrencesOfString:@"&type=mobile" withString:@""];
     NSString *url = [NSString stringWithFormat:@"%@&ttid=%@&sid=%@&type=mobile&outer_code=IPE",taobao_url, TTID,sid];
-    GKUser *user = [[GKUser alloc ]initFromSQLite];
+    GKUser *user = [[GKUser alloc ]initFromNSU];
     if(user.user_id !=0)
     {
         url = [NSString stringWithFormat:@"%@%u",url,user.user_id];

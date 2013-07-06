@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "GKDelegate.h"
 #import "GKUser.h"
-#import "GKCreator.h"
+#import "GKUserBase.h"
 #import "GKUserBase.h"
 
 @interface GKUserButton : UIView
-@property (nonatomic,strong) GKCreator *creator;
+@property (nonatomic,strong) GKUserBase *creator;
 @property (nonatomic,strong) GKUser *user;
 @property (nonatomic,strong) GKUserBase  *userBase;
 

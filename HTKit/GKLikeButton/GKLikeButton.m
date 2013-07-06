@@ -125,8 +125,7 @@
                     case kUserSessionError:
                     {
                         [GKMessageBoard hideMB];
-                        GKUser * _user = [[GKUser alloc]initFromSQLite];
-                        [_user removeFromSQLite];
+        
                         GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
                         [delegate.sinaweibo logOut];
                         [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLogoutNotification object:nil];

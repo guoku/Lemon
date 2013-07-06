@@ -20,10 +20,11 @@
 #endif
 // guoku api base url
 //#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
-#define kGKAppBaseURL @"http://pre.guoku.com/mobile/"
+#define kGKAppBaseURL @"http://api.guoku.com/mobile/"
+//#define kGKAppBaseURL @"http://10.0.1.74/mobile/"
 
-#define kGuokuApiKey @"4abe75e4aa7a7ec59976400e5e3b8fcf"
-#define kGuokuApiSecret @"a3b4abb1ac8c43cc6095b25a9751a3b3"
+#define kGuokuApiKey @"49396e9f3573727649f7c9651d0450ed"///@"4abe75e4aa7a7ec59976400e5e3b8fcf"
+#define kGuokuApiSecret @"733f16fde4d1b5876c943ddd85bd214d"//@"a3b4abb1ac8c43cc6095b25a9751a3b3"
 
 // guoku user session
 #define kUserDefault  [NSUserDefaults standardUserDefaults]
@@ -50,7 +51,7 @@
 #endif
 
 #ifndef kGK_WeiboRedirectURL
-#define kGK_WeiboRedirectURL @"http://www.guoku.com/sina/auth"
+#define kGK_WeiboRedirectURL @"http://www.mamaqingdan.com"
 #endif
 
 //weixin

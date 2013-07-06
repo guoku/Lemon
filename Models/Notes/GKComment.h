@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKCreator.h"
+#import "GKUserBase.h"
 
 extern NSString * const GKAddNewNoteCommentNotification;
 extern NSString * const GKDeleteNoteCommentNotification;
@@ -19,7 +19,7 @@ extern NSString * const GKDeleteNoteCommentNotification;
 @property (readonly) NSString * comment;
 @property (readonly) NSDate * created_time;
 @property (readonly) NSDate * updated_time;
-@property (readonly) GKCreator * creator;
+@property (readonly) GKUserBase * creator;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 + (void)globalNoteCommetWithNoteID:(NSUInteger)note_id
                              Block:(void (^)(NSArray * comment_list, NSError * error))block;

@@ -103,4 +103,45 @@
             }
     }];
 }
++ (void)globalTMLEntityWithBlock:(void (^)(NSArray * array, NSError * error))block
+{
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/allcategories/" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
+        NSError * aError;
+        switch (res_code) {
+            case SUCCESS:
+            {
+                NSArray *Response = [[JSON valueForKeyPath:@"results"] valueForKey:@"data"];
+                NSMutableArray *mutableList = [[NSMutableArray alloc] init];
+                
+
+                if(block) {
+                    block([NSArray arrayWithArray:mutableList], nil);
+                }
+            }
+                break;
+            case OBJECT_EMPTY:
+            {
+                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
+                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
+                aError = [NSError errorWithDomain:EntityErrorDomain code:kEntityIsEmpty userInfo:userInfo];
+            }
+                break;
+            default:
+                break;
+        }
+        if (res_code != SUCCESS)
+        {
+            if (block)
+            {
+                block([NSArray array], aError);
+            }
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block([NSArray array],error);
+        }
+    }];
+}
 @end

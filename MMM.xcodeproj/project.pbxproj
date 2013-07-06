@@ -110,7 +110,6 @@
 		4E387C19176085FC005DA2EC /* GKLikeEntityActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BAF176085FC005DA2EC /* GKLikeEntityActivity.m */; };
 		4E387C1A176085FC005DA2EC /* GKNotesActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BB1176085FC005DA2EC /* GKNotesActivity.m */; };
 		4E387C1B176085FC005DA2EC /* GKUserBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BB4176085FC005DA2EC /* GKUserBase.m */; };
-		4E387C1C176085FC005DA2EC /* GKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BB7176085FC005DA2EC /* GKCategory.m */; };
 		4E387C1D176085FC005DA2EC /* GKDBCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BBA176085FC005DA2EC /* GKDBCore.m */; };
 		4E387C1E176085FC005DA2EC /* GKDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BBD176085FC005DA2EC /* GKDetail.m */; };
 		4E387C1F176085FC005DA2EC /* GKEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BC0176085FC005DA2EC /* GKEntity.m */; };
@@ -122,7 +121,6 @@
 		4E387C25176085FC005DA2EC /* GKNoteMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BCE176085FC005DA2EC /* GKNoteMessage.m */; };
 		4E387C26176085FC005DA2EC /* GKWeiboFriendJoinMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BD0176085FC005DA2EC /* GKWeiboFriendJoinMessage.m */; };
 		4E387C27176085FC005DA2EC /* GKComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BD3176085FC005DA2EC /* GKComment.m */; };
-		4E387C28176085FC005DA2EC /* GKCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BD5176085FC005DA2EC /* GKCreator.m */; };
 		4E387C29176085FC005DA2EC /* GKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BD7176085FC005DA2EC /* GKNote.m */; };
 		4E387C2A176085FC005DA2EC /* GKNotePoke.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BD9176085FC005DA2EC /* GKNotePoke.m */; };
 		4E387C2B176085FC005DA2EC /* GKNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BDC176085FC005DA2EC /* GKNotification.m */; };
@@ -130,10 +128,7 @@
 		4E387C2D176085FC005DA2EC /* GKRecommendFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BE2176085FC005DA2EC /* GKRecommendFriend.m */; };
 		4E387C2F176085FC005DA2EC /* GKTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BE8176085FC005DA2EC /* GKTags.m */; };
 		4E387C30176085FC005DA2EC /* GKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BEB176085FC005DA2EC /* GKUser.m */; };
-		4E387C31176085FC005DA2EC /* GKUserAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BED176085FC005DA2EC /* GKUserAvatar.m */; };
 		4E387C32176085FC005DA2EC /* GKUserRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BEF176085FC005DA2EC /* GKUserRelation.m */; };
-		4E387C33176085FC005DA2EC /* GKUserTaobaoToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BF1176085FC005DA2EC /* GKUserTaobaoToken.m */; };
-		4E387C34176085FC005DA2EC /* GKUserWeiboToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BF3176085FC005DA2EC /* GKUserWeiboToken.m */; };
 		4E387C35176085FC005DA2EC /* GKVisitedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BF5176085FC005DA2EC /* GKVisitedUser.m */; };
 		4E387C36176085FC005DA2EC /* GKVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BF8176085FC005DA2EC /* GKVersion.m */; };
 		4E387C37176085FC005DA2EC /* GKAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387BFB176085FC005DA2EC /* GKAppDotNetAPIClient.m */; };
@@ -225,8 +220,8 @@
 		4E71672817843D7E0006C87F /* category_icon_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661817843D7D0006C87F /* category_icon_star@2x.png */; };
 		4E71672917843D7E0006C87F /* categorybar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661917843D7D0006C87F /* categorybar.png */; };
 		4E71672A17843D7E0006C87F /* categorybar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661A17843D7D0006C87F /* categorybar@2x.png */; };
-		4E71672B17843D7E0006C87F /* check_greed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661B17843D7D0006C87F /* check_greed.png */; };
-		4E71672C17843D7E0006C87F /* check_greed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661C17843D7D0006C87F /* check_greed@2x.png */; };
+		4E71672B17843D7E0006C87F /* check_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661B17843D7D0006C87F /* check_green.png */; };
+		4E71672C17843D7E0006C87F /* check_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71661C17843D7D0006C87F /* check_green@2x.png */; };
 		4E71673017843D7E0006C87F /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71662017843D7D0006C87F /* done.png */; };
 		4E71673117843D7E0006C87F /* done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71662117843D7D0006C87F /* done@2x.png */; };
 		4E71673217843D7E0006C87F /* icon_sina.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71662217843D7D0006C87F /* icon_sina.png */; };
@@ -660,10 +655,8 @@
 		4E387BAF176085FC005DA2EC /* GKLikeEntityActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKLikeEntityActivity.m; sourceTree = "<group>"; };
 		4E387BB0176085FC005DA2EC /* GKNotesActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKNotesActivity.h; sourceTree = "<group>"; };
 		4E387BB1176085FC005DA2EC /* GKNotesActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKNotesActivity.m; sourceTree = "<group>"; };
-		4E387BB3176085FC005DA2EC /* GKUserBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUserBase.h; sourceTree = "<group>"; };
-		4E387BB4176085FC005DA2EC /* GKUserBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKUserBase.m; sourceTree = "<group>"; };
-		4E387BB6176085FC005DA2EC /* GKCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCategory.h; sourceTree = "<group>"; };
-		4E387BB7176085FC005DA2EC /* GKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKCategory.m; sourceTree = "<group>"; };
+		4E387BB3176085FC005DA2EC /* GKUserBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKUserBase.h; path = ../Base/GKUserBase.h; sourceTree = "<group>"; };
+		4E387BB4176085FC005DA2EC /* GKUserBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKUserBase.m; path = ../Base/GKUserBase.m; sourceTree = "<group>"; };
 		4E387BB9176085FC005DA2EC /* GKDBCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKDBCore.h; sourceTree = "<group>"; };
 		4E387BBA176085FC005DA2EC /* GKDBCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKDBCore.m; sourceTree = "<group>"; };
 		4E387BBC176085FC005DA2EC /* GKDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKDetail.h; sourceTree = "<group>"; };
@@ -686,8 +679,6 @@
 		4E387BD0176085FC005DA2EC /* GKWeiboFriendJoinMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKWeiboFriendJoinMessage.m; sourceTree = "<group>"; };
 		4E387BD2176085FC005DA2EC /* GKComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKComment.h; sourceTree = "<group>"; };
 		4E387BD3176085FC005DA2EC /* GKComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKComment.m; sourceTree = "<group>"; };
-		4E387BD4176085FC005DA2EC /* GKCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCreator.h; sourceTree = "<group>"; };
-		4E387BD5176085FC005DA2EC /* GKCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKCreator.m; sourceTree = "<group>"; };
 		4E387BD6176085FC005DA2EC /* GKNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKNote.h; sourceTree = "<group>"; };
 		4E387BD7176085FC005DA2EC /* GKNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKNote.m; sourceTree = "<group>"; };
 		4E387BD8176085FC005DA2EC /* GKNotePoke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKNotePoke.h; sourceTree = "<group>"; };
@@ -702,14 +693,8 @@
 		4E387BE8176085FC005DA2EC /* GKTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKTags.m; sourceTree = "<group>"; };
 		4E387BEA176085FC005DA2EC /* GKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUser.h; sourceTree = "<group>"; };
 		4E387BEB176085FC005DA2EC /* GKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKUser.m; sourceTree = "<group>"; };
-		4E387BEC176085FC005DA2EC /* GKUserAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUserAvatar.h; sourceTree = "<group>"; };
-		4E387BED176085FC005DA2EC /* GKUserAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKUserAvatar.m; sourceTree = "<group>"; };
 		4E387BEE176085FC005DA2EC /* GKUserRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUserRelation.h; sourceTree = "<group>"; };
 		4E387BEF176085FC005DA2EC /* GKUserRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKUserRelation.m; sourceTree = "<group>"; };
-		4E387BF0176085FC005DA2EC /* GKUserTaobaoToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUserTaobaoToken.h; sourceTree = "<group>"; };
-		4E387BF1176085FC005DA2EC /* GKUserTaobaoToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKUserTaobaoToken.m; sourceTree = "<group>"; };
-		4E387BF2176085FC005DA2EC /* GKUserWeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKUserWeiboToken.h; sourceTree = "<group>"; };
-		4E387BF3176085FC005DA2EC /* GKUserWeiboToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKUserWeiboToken.m; sourceTree = "<group>"; };
 		4E387BF4176085FC005DA2EC /* GKVisitedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKVisitedUser.h; sourceTree = "<group>"; };
 		4E387BF5176085FC005DA2EC /* GKVisitedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKVisitedUser.m; sourceTree = "<group>"; };
 		4E387BF7176085FC005DA2EC /* GKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKVersion.h; sourceTree = "<group>"; };
@@ -837,8 +822,8 @@
 		4E71661817843D7D0006C87F /* category_icon_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category_icon_star@2x.png"; sourceTree = "<group>"; };
 		4E71661917843D7D0006C87F /* categorybar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = categorybar.png; sourceTree = "<group>"; };
 		4E71661A17843D7D0006C87F /* categorybar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorybar@2x.png"; sourceTree = "<group>"; };
-		4E71661B17843D7D0006C87F /* check_greed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_greed.png; sourceTree = "<group>"; };
-		4E71661C17843D7D0006C87F /* check_greed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_greed@2x.png"; sourceTree = "<group>"; };
+		4E71661B17843D7D0006C87F /* check_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_green.png; sourceTree = "<group>"; };
+		4E71661C17843D7D0006C87F /* check_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_green@2x.png"; sourceTree = "<group>"; };
 		4E71661D17843D7D0006C87F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4E71661E17843D7D0006C87F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4E71661F17843D7D0006C87F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -1754,8 +1739,6 @@
 				4E7EAE631785D4720087FB2A /* Shop */,
 				4E2DC86817703D060050658D /* TimeLine */,
 				4E387BA7176085FC005DA2EC /* Activity */,
-				4E387BB2176085FC005DA2EC /* Base */,
-				4E387BB5176085FC005DA2EC /* Categories */,
 				4E387BB8176085FC005DA2EC /* Core */,
 				4E387BBB176085FC005DA2EC /* Detail */,
 				4E387BBE176085FC005DA2EC /* Entities */,
@@ -1787,24 +1770,6 @@
 				4E387BB1176085FC005DA2EC /* GKNotesActivity.m */,
 			);
 			path = Activity;
-			sourceTree = "<group>";
-		};
-		4E387BB2176085FC005DA2EC /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				4E387BB3176085FC005DA2EC /* GKUserBase.h */,
-				4E387BB4176085FC005DA2EC /* GKUserBase.m */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		4E387BB5176085FC005DA2EC /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				4E387BB6176085FC005DA2EC /* GKCategory.h */,
-				4E387BB7176085FC005DA2EC /* GKCategory.m */,
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		4E387BB8176085FC005DA2EC /* Core */ = {
@@ -1867,8 +1832,6 @@
 			children = (
 				4E387BD2176085FC005DA2EC /* GKComment.h */,
 				4E387BD3176085FC005DA2EC /* GKComment.m */,
-				4E387BD4176085FC005DA2EC /* GKCreator.h */,
-				4E387BD5176085FC005DA2EC /* GKCreator.m */,
 				4E387BD6176085FC005DA2EC /* GKNote.h */,
 				4E387BD7176085FC005DA2EC /* GKNote.m */,
 				4E387BD8176085FC005DA2EC /* GKNotePoke.h */,
@@ -1916,16 +1879,12 @@
 		4E387BE9176085FC005DA2EC /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				4E387BB3176085FC005DA2EC /* GKUserBase.h */,
+				4E387BB4176085FC005DA2EC /* GKUserBase.m */,
 				4E387BEA176085FC005DA2EC /* GKUser.h */,
 				4E387BEB176085FC005DA2EC /* GKUser.m */,
-				4E387BEC176085FC005DA2EC /* GKUserAvatar.h */,
-				4E387BED176085FC005DA2EC /* GKUserAvatar.m */,
 				4E387BEE176085FC005DA2EC /* GKUserRelation.h */,
 				4E387BEF176085FC005DA2EC /* GKUserRelation.m */,
-				4E387BF0176085FC005DA2EC /* GKUserTaobaoToken.h */,
-				4E387BF1176085FC005DA2EC /* GKUserTaobaoToken.m */,
-				4E387BF2176085FC005DA2EC /* GKUserWeiboToken.h */,
-				4E387BF3176085FC005DA2EC /* GKUserWeiboToken.m */,
 				4E387BF4176085FC005DA2EC /* GKVisitedUser.h */,
 				4E387BF5176085FC005DA2EC /* GKVisitedUser.m */,
 			);
@@ -2210,8 +2169,8 @@
 				4E71661817843D7D0006C87F /* category_icon_star@2x.png */,
 				4E71661917843D7D0006C87F /* categorybar.png */,
 				4E71661A17843D7D0006C87F /* categorybar@2x.png */,
-				4E71661B17843D7D0006C87F /* check_greed.png */,
-				4E71661C17843D7D0006C87F /* check_greed@2x.png */,
+				4E71661B17843D7D0006C87F /* check_green.png */,
+				4E71661C17843D7D0006C87F /* check_green@2x.png */,
 				4E71661D17843D7D0006C87F /* Default-568h@2x.png */,
 				4E71661E17843D7D0006C87F /* Default.png */,
 				4E71661F17843D7D0006C87F /* Default@2x.png */,
@@ -2659,8 +2618,8 @@
 				4E71672817843D7E0006C87F /* category_icon_star@2x.png in Resources */,
 				4E71672917843D7E0006C87F /* categorybar.png in Resources */,
 				4E71672A17843D7E0006C87F /* categorybar@2x.png in Resources */,
-				4E71672B17843D7E0006C87F /* check_greed.png in Resources */,
-				4E71672C17843D7E0006C87F /* check_greed@2x.png in Resources */,
+				4E71672B17843D7E0006C87F /* check_green.png in Resources */,
+				4E71672C17843D7E0006C87F /* check_green@2x.png in Resources */,
 				4E71673017843D7E0006C87F /* done.png in Resources */,
 				4E71673117843D7E0006C87F /* done@2x.png in Resources */,
 				4E71673217843D7E0006C87F /* icon_sina.png in Resources */,
@@ -2943,7 +2902,6 @@
 				4E387C19176085FC005DA2EC /* GKLikeEntityActivity.m in Sources */,
 				4E387C1A176085FC005DA2EC /* GKNotesActivity.m in Sources */,
 				4E387C1B176085FC005DA2EC /* GKUserBase.m in Sources */,
-				4E387C1C176085FC005DA2EC /* GKCategory.m in Sources */,
 				4E387C1D176085FC005DA2EC /* GKDBCore.m in Sources */,
 				4E387C1E176085FC005DA2EC /* GKDetail.m in Sources */,
 				4E387C1F176085FC005DA2EC /* GKEntity.m in Sources */,
@@ -2955,7 +2913,6 @@
 				4E387C25176085FC005DA2EC /* GKNoteMessage.m in Sources */,
 				4E387C26176085FC005DA2EC /* GKWeiboFriendJoinMessage.m in Sources */,
 				4E387C27176085FC005DA2EC /* GKComment.m in Sources */,
-				4E387C28176085FC005DA2EC /* GKCreator.m in Sources */,
 				4E387C29176085FC005DA2EC /* GKNote.m in Sources */,
 				4E387C2A176085FC005DA2EC /* GKNotePoke.m in Sources */,
 				4E387C2B176085FC005DA2EC /* GKNotification.m in Sources */,
@@ -2963,10 +2920,7 @@
 				4E387C2D176085FC005DA2EC /* GKRecommendFriend.m in Sources */,
 				4E387C2F176085FC005DA2EC /* GKTags.m in Sources */,
 				4E387C30176085FC005DA2EC /* GKUser.m in Sources */,
-				4E387C31176085FC005DA2EC /* GKUserAvatar.m in Sources */,
 				4E387C32176085FC005DA2EC /* GKUserRelation.m in Sources */,
-				4E387C33176085FC005DA2EC /* GKUserTaobaoToken.m in Sources */,
-				4E387C34176085FC005DA2EC /* GKUserWeiboToken.m in Sources */,
 				4E387C35176085FC005DA2EC /* GKVisitedUser.m in Sources */,
 				4E387C36176085FC005DA2EC /* GKVersion.m in Sources */,
 				4E387C37176085FC005DA2EC /* GKAppDotNetAPIClient.m in Sources */,

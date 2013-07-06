@@ -35,7 +35,7 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
         _comment = [attributes valueForKeyPath:@"comment"];
         _created_time = [NSDate dateFromString:[attributes valueForKeyPath:@"created_time"]];
         _updated_time = [NSDate dateFromString:[attributes valueForKeyPath:@"updated_time"]];
-        _creator = [[GKCreator alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
+        _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
     }
     return self;
 }

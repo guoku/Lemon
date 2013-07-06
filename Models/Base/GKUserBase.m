@@ -14,43 +14,22 @@
 }
 
 @synthesize user_id = _user_id;
-@synthesize username = _username;
 @synthesize nickname = _nickname;
 @synthesize gender = _gender;
 @synthesize location = _location;
-@synthesize email = _email;
-@synthesize website = _website;
-@synthesize bio = _bio;
-
-- (id)initFromSQLiteWithRS:(FMResultSet *)rs
-{
-    self = [super init];
-    if (self)
-    {
-        _user_id = [rs intForColumn:@"user_id"];
-        _username = [rs stringForColumn:@"username"];
-        _nickname = [rs stringForColumn:@"nickname"];
-        _gender = [rs stringForColumn:@"gender"];
-        _location = [rs stringForColumn:@"location"];
-        _email = [rs stringForColumn:@"email"];
-        _bio = [rs stringForColumn:@"bio"];
-        _avatarImageURLString = [rs stringForColumn:@"avatar_url"];
-    }
-    return self;
-}
+@synthesize city = _city;
+@synthesize relation = _relation;
 
 - (id)initWithAttributes:(NSDictionary *)attributes {
     self = [super init];
     if (self) {
         _user_id = [[attributes valueForKeyPath:@"user_id"] integerValue];
-        _username = [attributes valueForKeyPath:@"username"];
         _nickname = [attributes valueForKeyPath:@"nickname"];
         _gender = [attributes valueForKeyPath:@"gender"];
         _location = [attributes valueForKeyPath:@"location"];
-        _email = [attributes valueForKeyPath:@"email"];
-        _website = [attributes valueForKeyPath:@"website"];
-        _bio = [attributes valueForKeyPath:@"bio"];
+        _city = [attributes valueForKeyPath:@"city"];
         _avatarImageURLString = [attributes valueForKeyPath:@"avatar_url"];
+        _relation = [[GKUserRelation alloc] initWithAttributes:[attributes valueForKeyPath:@"relation"]];
     }
     return self;
 }

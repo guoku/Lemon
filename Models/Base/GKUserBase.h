@@ -11,16 +11,13 @@
 
 @interface GKUserBase : NSObject
 @property (readonly) NSUInteger user_id;
-@property (readonly) NSString * username;
 @property (readonly) NSString * nickname;
 @property (readonly) NSString * gender;
-@property (readonly) NSString * location;
-@property (readonly) NSString * email;
-@property (readonly) NSString * website;
-@property (readonly) NSString * bio;
 @property (unsafe_unretained, readonly) NSURL * avatarImageURL;
+@property (readonly) NSString * location;
+@property (readonly) NSString * city;
+@property (nonatomic, strong) GKUserRelation * relation;
 
-- (id)initFromSQLiteWithRS:(FMResultSet *)rs;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 
 @end

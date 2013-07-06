@@ -43,7 +43,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        me = [[GKUser alloc]initFromSQLite];
+        me = [[GKUser alloc]initFromNSU];
         _user_id = me.user_id;
         _group = @"follow";
         _loadMoreflag = NO;

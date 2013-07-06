@@ -81,9 +81,9 @@
     }
     return self;
 }
-- (void)setCreator:(GKCreator *)data
+- (void)setCreator:(GKUserBase *)data
 {
-    if([data isKindOfClass:[GKCreator class]])
+    if([data isKindOfClass:[GKUserBase class]])
     {
         _creator = data;
         _avatarURL = data.avatarImageURL;
@@ -96,7 +96,7 @@
     if([user isKindOfClass:[GKUser class]])
     {
         _user = user;
-        _avatarURL = [ _user.avatars avatarLargeURL];
+        _avatarURL = _user.avatarImageURL;
         _userid = _user.user_id;
     }
     [self setNeedsLayout];

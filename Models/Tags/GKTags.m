@@ -30,7 +30,7 @@
         _tag_encode = [attributes valueForKeyPath:@"tag_encode"];
         _tag_count = [[attributes valueForKeyPath:@"tag_count"] integerValue];
         _created_time = [NSDate dateFromString:[attributes valueForKeyPath:@"created_time"]];
-        _creator = [[GKCreator alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
+        _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
         _previews = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"previews"] count]];
         for (NSDictionary * entity_attributes in [attributes valueForKeyPath:@"previews"])
         {

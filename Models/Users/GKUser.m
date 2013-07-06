@@ -17,95 +17,29 @@
 NSString *const GKUserLogoutNotification = @"GKUserLogoutNotification";
 NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
 
-static  NSString * CREATE_USER_TABLE_SQL = @"CREATE TABLE IF NOT EXISTS user \
-                                (id INTEGER PRIMARY KEY NOT NULL, \
-                                user_id INTEGER UNIQUE NOT NULL, \
-                                username VARCHAR(255), \
-                                nickname VARCHAR(255), \
-                                gender CHAR(1), \
-                                location VARCHAR(30), \
-                                email VARCHAR(60), \
-                                email_verified BOOLEAN, \
-                                website VARCHAR(255), \
-                                bio VARCHAR(255), \
-                                birth_date timestamp, \
-                                liked_count INTEGER, \
-                                post_entities INTEGER, \
-                                post_entity_notes INTEGER, \
-                                tags INTEGER, \
-                                followings INTEGER, \
-                                fans INTEGER)";
 
-
-static  NSString * INSERT_USER_SQL = @"REPLACE INTO user (user_id, username, nickname, gender, location, email, website, bio, birth_date, email_verified, liked_count, post_entities, post_entity_notes, tags, followings, fans) VALUES (:user_id, :username, :nickname, :gender, :location, :email, :website, :bio, :birth_date, :email_verified, :liked_count, :post_entities, :post_entity_notes, :tags, :followings, :fans)";
-
-
-static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id";
 @implementation GKUser
+{
+    @private
+    NSString * _avatarImageURLString;
+}
+
 
 @synthesize user_id = _user_id;
-@synthesize username = _username;
 @synthesize nickname = _nickname;
 @synthesize gender = _gender;
 @synthesize location = _location;
-@synthesize email = _email;
-@synthesize email_verified = _email_verified;
-@synthesize website = _website;
+@synthesize city = _city;
 @synthesize bio = _bio;
-@synthesize session = _session;
+@synthesize stage = _stage;
 @synthesize birth_date = _birth_date;
 @synthesize liked_count = _liked_count;
-@synthesize post_entities = _post_entities;
-@synthesize post_entity_notes = _post_entity_notes;
-@synthesize tags = _tags;
-@synthesize followings = _followings;
-@synthesize fans = _fans;
+@synthesize follows_count = _follows_count;
+@synthesize fans_count = _fans_count;
 @synthesize relation = _relation;
-@synthesize avatars = _avatars;
-@synthesize weibo_token = _weibo_token;
-@synthesize taobao_token = _taobao_token;
 
 
-- (BOOL)createUserTable
-{
-    return [[GKDBCore sharedDB] createTableWithSQL:CREATE_USER_TABLE_SQL];
-    //    return YES;
-}
 
-
-- (id)initFromSQLite
-{
-    self = [super init];
-    if (!self)
-    {
-        return nil;
-    }
-    FMResultSet * rs = [[GKDBCore sharedDB] queryDataWithSQL:@"SELECT * FROM user"];
-    while ([rs next]) {
-        _user_id = [rs intForColumn:@"user_id"];
-        _username = [rs stringForColumn:@"username"];
-        _nickname = [rs stringForColumn:@"nickname"];
-        _gender = [rs stringForColumn:@"gender"];
-        _location = [rs stringForColumn:@"location"];
-        _email = [rs stringForColumn:@"email"];
-        _website = [rs stringForColumn:@"website"];
-        _bio = [rs stringForColumn:@"bio"];
-        _birth_date = [rs dateForColumn:@"birth_date"];
-        _email_verified = [rs boolForColumn:@"email_verified"];
-        _liked_count = [rs intForColumn:@"liked_count"];
-        _post_entities = [rs intForColumn:@"post_entities"];
-        _post_entity_notes = [rs intForColumn:@"post_entity_notes"];
-        _tags = [rs intForColumn:@"tags"];
-        _followings = [rs intForColumn:@"followings"];
-        _fans = [rs intForColumn:@"fans"];
-//        _relation = [rs]
-    }
-    _avatars = [[GKUserAvatar alloc] initFromSQLiteWithUserID:_user_id];
-    _weibo_token = [[GKUserWeiboToken alloc] initFromSQLiteWithUserID:_user_id];
-    _taobao_token = [[GKUserTaobaoToken alloc] initFromSQLiteWithUserID:_user_id];
-    return self;
-
-}
 
 - (id)initWithAttributes:(NSDictionary *)attributes
 {
@@ -113,94 +47,83 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
     if (self)
     {
         _user_id = [[attributes valueForKeyPath:@"user_id"] integerValue];
-        _username = [attributes valueForKeyPath:@"username"];
         _nickname = [attributes valueForKeyPath:@"nickname"];
         _location = [attributes valueForKeyPath:@"location"];
-        _email = [attributes valueForKeyPath:@"email"];
-        _email_verified = [[attributes valueForKeyPath:@"email_verified"] boolValue];
-        _website = [attributes valueForKeyPath:@"website"];
+        _city = [attributes valueForKeyPath:@"city"];
+        _avatarImageURLString = [attributes valueForKeyPath:@"avatar_url"];
         _bio = [attributes valueForKeyPath:@"bio"];
+        if([_bio isEqual:[NSNull null]])
+        {
+            _bio = @"";
+        }
         _gender = [attributes valueForKeyPath:@"gender"];
-        _session = [attributes valueForKeyPath:@"session"];
         
-        _liked_count = [[attributes valueForKeyPath:@"liked_count"] integerValue];
-        _post_entities = [[attributes valueForKeyPath:@"post_entities"] integerValue];
-        _post_entity_notes = [[attributes valueForKeyPath:@"post_entity_notes"] integerValue];
-        _tags = [[attributes valueForKeyPath:@"tags"] integerValue];
-        _followings = [[attributes valueForKeyPath:@"followings"] integerValue];
-        _fans = [[attributes valueForKeyPath:@"fans"] integerValue];
-//        _relation = [[attributes valueForKeyPath:@"relation"] integerValue];
         
-        _birth_date = [NSDate dateFromString:[attributes valueForKeyPath:@"birth_date"]];
+        _liked_count = [[attributes valueForKeyPath:@"like_count"] integerValue];
+        _follows_count = [[attributes valueForKeyPath:@"followings"] integerValue];
+        _fans_count = [[attributes valueForKeyPath:@"fans"] integerValue];
+        
+        _stage = [[attributes valueForKeyPath:@"stage"] integerValue];
+        _birth_date = [NSDate dateFromString:[attributes valueForKeyPath:@"baby_birthday"]];
         
         _relation = [[GKUserRelation alloc] initWithAttributes:[attributes valueForKeyPath:@"relation"]];
-        _avatars = [[GKUserAvatar alloc] initWithAttributes:[attributes valueForKeyPath:@"avatars"]];
-        _weibo_token = [[GKUserWeiboToken alloc] initWithAttributes:[attributes valueForKeyPath:@"weibo_token"]];
-        _taobao_token = [[GKUserTaobaoToken alloc] initWithAttributes:[attributes valueForKeyPath:@"taobao_token"]];
-//        GKLog(@"taobao user screen name %@", _taobao_token.screen_name);
+
     }
     return self;
 }
-
-
-
-- (GKUser *)save
+- (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [self createUserTable];
-    if (_session)
-    {
-        GKLog(@" session ------------ %@", _session);
-        [kUserDefault setObject:_session forKey:kSession];
-        [kUserDefault synchronize];
-    }
+    [aCoder encodeObject:@(self.user_id) forKey:@"user_id"];
+    [aCoder encodeObject:self.nickname forKey:@"nickname"];
+    [aCoder encodeObject:self.gender forKey:@"gender"];
+    [aCoder encodeObject:_avatarImageURLString forKey:@"avatar"];
+    [aCoder encodeObject:self.location forKey:@"location"];
+    [aCoder encodeObject:self.city forKey:@"city"];    
+    [aCoder encodeObject:self.birth_date forKey:@"birth_date"];
+    [aCoder encodeObject:self.bio forKey:@"bio"];
+    [aCoder encodeObject:@(self.stage) forKey:@"stage"];
+    [aCoder encodeObject:@(self.follows_count) forKey:@"follows_count"];
+    [aCoder encodeObject:@(self.fans_count) forKey:@"fans_count"];
+    [aCoder encodeObject:@(self.liked_count) forKey:@"like_count"];
     
-    NSMutableDictionary * argsDict = [NSMutableDictionary dictionaryWithCapacity:16];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _user_id] forKey:@"user_id"];
-    [argsDict setValue:_username forKey:@"username"];
-    [argsDict setValue:_nickname forKey:@"nickname"];
-    [argsDict setValue:_gender forKey:@"gender"];
-    [argsDict setValue:_location forKey:@"location"];
-    [argsDict setValue:_email forKey:@"email"];
-    [argsDict setValue:_website forKey:@"website"];
-    [argsDict setValue:_bio forKey:@"bio"];
-    [argsDict setValue:[NSDate stringFromDate:_birth_date] forKey:@"birth_date"];
-    [argsDict setValue:[NSString stringWithFormat:@"%d", _email_verified] forKey:@"email_verified"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _liked_count] forKey:@"liked_count"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _post_entities] forKey:@"post_entities"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _post_entity_notes] forKey:@"post_entity_notes"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _tags] forKey:@"tags"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _followings] forKey:@"followings"];
-    [argsDict setValue:[NSString stringWithFormat:@"%u", _fans] forKey:@"fans"];
-    GKLog(@"save to sqlite %@", argsDict);
-    [[GKDBCore sharedDB] beginTransaction];
-    [[GKDBCore sharedDB] insertDataWithSQL:INSERT_USER_SQL ArgsDict:argsDict];
-    [_avatars saveToSQLite];
-    [_weibo_token saveToSQLite];
+}
 
-    [_taobao_token saveToSQLite];
-    [[GKDBCore sharedDB] commit];
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        self.user_id = [[aDecoder decodeObjectForKey:@"user_id"]intValue];
+        self.nickname = [aDecoder decodeObjectForKey:@"nickname"];
+        self.gender = [aDecoder decodeObjectForKey:@"gender"];
+        _avatarImageURLString = [aDecoder decodeObjectForKey:@"avatar"];
+        self.location = [aDecoder decodeObjectForKey:@"location"];
+        self.city = [aDecoder decodeObjectForKey:@"city"];
+        self.bio = [aDecoder decodeObjectForKey:@"bio"];
+        self.stage = [[aDecoder decodeObjectForKey:@"stage"]intValue];
+        self.birth_date = [aDecoder decodeObjectForKey:@"birth_date"];
+        self.liked_count = [[aDecoder decodeObjectForKey:@"like_count"] intValue];
+        self.follows_count = [[aDecoder decodeObjectForKey:@"follows_count"] intValue];
+        self.fans_count = [[aDecoder decodeObjectForKey:@"fans_count"] intValue];
+    }
     return self;
 }
 
-- (BOOL)removeFromSQLite
+- (NSURL *)avatarImageURL
 {
-    [_avatars removeFromSQLiteWithUserID:self.user_id];
-    [_weibo_token removeFromSQLite];
-    [_taobao_token removeFromSQLite];
-//    [_weibo_token removeFromSQILiteWithUserID:self.user_id];
-//    [_taobao_token removeFromSQLiteWithUserID:self.user_id];
-    NSDictionary * argsDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSString stringWithFormat:@"%u", self.user_id], @"user_id", nil];
-
-    GKLog(@"delete user info %@", argsDict);
-    if ([[GKDBCore sharedDB] removeDataWithSQL:REMOVE_USER_SQL ArgsDict:argsDict])
-    {
-        [kUserDefault removeObjectForKey:kSession];
-        [kUserDefault synchronize];
-        return YES;
-    }
-    return YES;
+    return [NSURL URLWithString:_avatarImageURLString];
 }
+- (id)initFromNSU
+{
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"login_user"];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+}
+- (void)save
+{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"login_user"];
+}
+
+
 
 #pragma mark -
 
@@ -210,20 +133,8 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
     {
         [parameters setValue:[NSNumber numberWithUnsignedInteger:user_id] forKey:@"user_id"];
     }
-//    else
-//    {
-//        NSMutableDictionary * _res = [NSMutableDictionary dictionaryWithCapacity:1];
-//        GKUser * _user = [[GKUser alloc] initFromSQLite];
-//        [_res setValue:_user forKey:@"content"];
-//        if(block)
-//        {
-//            block([NSDictionary dictionaryWithDictionary:_res], nil);
-//        }
-//        return;
-//    }
-    
+
     [[GKAppDotNetAPIClient sharedClient] getPath:@"user/profile/" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-//        GKLog(@"%@",  JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         
         switch (res_code) {
@@ -235,7 +146,6 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
                 for( NSDictionary *attributes in _profiles )
                 {
                     GKUser * user = [[GKUser alloc] initWithAttributes:attributes];
-                    GKLog(@"user %@ post entity %u", user.username, user.post_entity_notes);
                     [_res setValue:user forKey:@"content"];
                 }
                 
@@ -257,138 +167,6 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
         }
     }];
 }
-
-+ (void)globaluserRegisterWithEmail:(NSString *)email Passwd:(NSString *)passwd NickName:(NSString *)nickname
-                            Block:(void (^)(NSDictionary * dict, NSError * error))block
-{
-    NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:3];
-    [paramters setValue:email forKey:@"email"];
-    [paramters setValue:passwd forKey:@"passwd"];
-    [paramters setValue:nickname forKey:@"nickname"];
-    [paramters setValue:[kUserDefault valueForKeyPath:kDeviceToken] forKey:@"dev_token"];
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"account/register/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        GKLog(@"response json %@", JSON);
-        NSError * aError;
-        NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
-        switch (res_code) {
-            case SUCCESS:
-            {
-                NSArray * _prefiles = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-                NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
-                for (NSDictionary * attributes in _prefiles)
-                {
-                    GKUser * _user = [[GKUser alloc] initWithAttributes:attributes];
-                    [_user save];
-                    [_mutableDict setValue:_user forKey:@"content"];
-                    break;
-                }
-                if (block)
-                {
-                    block([NSDictionary dictionaryWithDictionary:_mutableDict], nil);
-                    [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLoginNotification object:nil userInfo:_mutableDict];
-                }
-            }
-                break;
-            case EMAIL_IS_REGISTER:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:UserErrorDomain code:kEmailIsUsedError userInfo:userInfo];
-            }
-                break;
-            case NICK_IS_USED:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:UserErrorDomain code:kNicknameIsUsedError userInfo:userInfo];
-            }
-                break;
-            default:
-                break;
-        }
-        
-        if (res_code != SUCCESS)
-        {
-            block([NSDictionary dictionary], aError);
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block)
-        {
-            GKLog(@"%@", error);
-            block([NSDictionary dictionary], error);
-        }
-    }];
-}
-
-+ (void)globalUserLoginWithEmail:(NSString *)email passwd:(NSString *)passwd
-                           Block:(void (^)(NSDictionary * dict, NSError * error))block
-{
-    NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:2];
-//    [parameters setValue:kGuokuApiKey forKey:@"api_key"];
-    [paramters setValue:email forKey:@"email"];
-    [paramters setValue:passwd forKey:@"passwd"];
-//    [parameters setValue:[NSString SignWithParamters:parameters] forKey:@"sign"];
-    [paramters setValue:[kUserDefault valueForKeyPath:kDeviceToken] forKey:@"dev_token"];
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"account/login/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        GKLog(@"%@", JSON);
-        NSError * aError;
-        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
-        
-        switch (res_code) {
-            case SUCCESS:
-            {
-                NSArray * _profiles = [[JSON valueForKey:@"results"] valueForKey:@"data"];
-                NSMutableDictionary * _res = [NSMutableDictionary dictionaryWithCapacity:[_profiles count]];
-                for( NSDictionary *attributes in _profiles )
-                {
-                    GKUser * user = [[GKUser alloc] initWithAttributes:attributes];
-                    GKLog(@"username %@", user.username);
-                    [user save];
-                    [_res setValue:user forKey:@"content"];
-                }
-                if (block) {
-                    block([NSDictionary dictionaryWithDictionary:_res], nil);
-                    [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLoginNotification object:_res userInfo:nil];
-                }
-                
-            }
-                break;
-            case PASSWD_NOT_MATCAH:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:UserErrorDomain code:kUserPasswdError userInfo:userInfo];
-            }
-                break;
-            case ABSENT_USER:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:UserErrorDomain code:kAbsenUserError userInfo:userInfo];
-            }
-            default:
-            {
-                
-            }
-                break;
-        }
-        if (res_code != SUCCESS)
-        {
-            if (block)
-            {
-                block([NSDictionary dictionary], aError);
-            }
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if(block)
-        {
-            GKLog(@"%@", error);
-            block([NSDictionary dictionary], error);
-        }
-    }];
-}
-
 + (void)globalUserLogoutWithBlock:(void (^)(BOOL is_logout, NSError * error))block
 {
     
@@ -428,39 +206,6 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
         if (block)
         {
             GKLog(@"%@", error);
-            block(NO, error);
-            //[[NSNotificationCenter defaultCenter] postNotificationName:GKUserLogoutNotification object:nil];
-        }
-    }];
-}
-
-+ (void)ForgetPasswdWithEmail:(NSString *)email Block:(void (^)(BOOL is_send_email, NSError * error))block
-{
-    NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [paramters setValue:email forKey:@"email"];
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"account/forget/passwd/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSError * aError;
-        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
-        switch (res_code) {
-            case EMAIL_NOT_EXIST:
-            {
-                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
-                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
-                aError = [NSError errorWithDomain:UserErrorDomain code:kAbsentEmailError userInfo:userInfo];
-                if (block)
-                {
-                    block(NO, aError);
-                }
-            }
-                break;
-                
-            default:
-                block(YES, nil);
-                break;
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block)
-        {
             block(NO, error);
         }
     }];
@@ -638,24 +383,12 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
 
 #pragma mark - register by weibo
 + (void)registerByWeiboOrTaobaoWithParamters:(NSDictionary *)paramters
-                                        Type:(GKThreePartAccountURL)type
                                        Block:(void (^)(NSDictionary * dict, NSError * error))block
 {
     
     NSMutableDictionary * _paramters = [NSMutableDictionary dictionaryWithDictionary:paramters];
     [_paramters setValue:[kUserDefault valueForKeyPath:kDeviceToken] forKey:@"dev_token"];
-    NSString * _urlString;
-    switch (type) {
-        case GKWeiboURLType:
-            _urlString = @"maria/register_by_weibo";
-            break;
-        case GKTaobaoURLType:
-            _urlString = @"account/taobao/register/";
-            break;
-        default:
-            break;
-    }
-    [[GKAppDotNetAPIClient sharedClient] getPath:_urlString parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/register_by_weibo" parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -663,10 +396,16 @@ static NSString * REMOVE_USER_SQL = @"DELETE FROM user WHERE user_id = :user_id"
             case SUCCESS:
             {
                 NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
+                NSLog(@"%@",_listresponse);
                 NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:[_listresponse count]];
                 for (NSDictionary *attributes in _listresponse)
                 {
-                    GKUser * _user = [[GKUser alloc] initWithAttributes:attributes];
+                    NSString * session = [attributes valueForKey:@"session"];
+                    [kUserDefault setObject:session forKey:kSession];
+                    
+                    NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
+                    
+                    GKUser * _user = [[GKUser alloc] initWithAttributes:[attributes objectForKey:@"user"]];
                     [_mutableDict setValue:_user forKey:@"content"];
                     [_user save];
                     break;

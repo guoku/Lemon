@@ -15,26 +15,6 @@
 
 NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 
-NSString * const QUERY_NOTE_SQL = @"SELECT * FROM note WHERE entity_id = :entity_id\
-                                    ORDER BY updated_time";
-
-static NSString * CREATE_NOTE_SQL = @"CREATE TABLE IF NOT EXISTS note \
-                                    (id INTEGER PRIMARY KEY NOT NULL, \
-                                    note_id INTEGER UNIQUE NOT NULL, \
-                                    entity_id INTEGER NOT NULL, \
-                                    entity_image VARCHAR(255), \
-                                    added_to_selection BOOLEAN, \
-                                    note TEXT, \
-                                    poker_count INTEGER DEFAULT 0, \
-                                    hooter_count INTEGER DEFAULT 0, \
-                                    comment_count INTEGER DEFAULT 0, \
-                                    created_time timestamp, \
-                                    updated_time timestamp)";
-
-static NSString * INSERT_NOTE_SQL = @"REPLACE INTO note \
-                                    (note_id, entity_id, entity_image, added_to_selection, note, poker_count, hooter_count, comment_count, created_time, updated_time) \
-                                    VALUES(:note_id, :entity_id, :entity_image, :added_to_selection, :note, :poker_count, :hooter_count, :comment_count, :created_time, :updated_time)";
-
 @implementation GKNote
 {
 @private
@@ -53,29 +33,6 @@ static NSString * INSERT_NOTE_SQL = @"REPLACE INTO note \
 @synthesize creator = _creator;
 
 
-- (id)initFromSQLiteWithRS:(FMResultSet *)rs
-{
-    self = [super init];
-    if (self)
-    {
-        _note_id = [rs intForColumn:@"note_id"];
-        _entity_id = [rs intForColumn:@"entity_id"];
-        _added_to_selection = [rs boolForColumn:@"added_to_selection"];
-        _note = [rs stringForColumn:@"note"];
-        _poker_count = [rs intForColumn:@"poker_count"];
-        _hooter_count = [rs intForColumn:@"hooter_count"];
-        _comment_count = [rs intForColumn:@"comment_count"];
-        _created_time = [NSDate dateFromString:[rs stringForColumn:@"created_time"]];
-        _updated_time = [NSDate dateFromString:[rs stringForColumn:@"updated_time"]];
-        _imageURLString = [rs stringForColumn:@"entity_image"];
-        
-        FMResultSet * rs =  [[GKDBCore sharedDB] queryDataWithSQL:QUERY_NOTE_CREATOR_SQL ArgsDict:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:_note_id], @"note_id", nil]];
-        while ([rs next]) {
-            _creator = [[GKCreator alloc] initFromSQLiteWithRS:rs];
-        }
-    }
-    return self;
-}
 
 - (id)initWithAttributes:(NSDictionary *)attributes
 {
@@ -93,7 +50,7 @@ static NSString * INSERT_NOTE_SQL = @"REPLACE INTO note \
         _created_time = [NSDate dateFromString:[attributes valueForKeyPath:@"created_time"]];
         _updated_time = [NSDate dateFromString:[attributes valueForKeyPath:@"updated_time"]];
         _imageURLString = [attributes valueForKeyPath:@"entity_image"];
-        _creator = [[GKCreator alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
+        _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
         _note_poke = [[GKNotePoke alloc] initWithAttributes:[attributes valueForKeyPath:@"poker"]];
     }
     
@@ -103,35 +60,6 @@ static NSString * INSERT_NOTE_SQL = @"REPLACE INTO note \
 - (NSURL *)imageURL
 {
     return [NSURL URLWithString:_imageURLString];
-}
-
-- (BOOL)createTable
-{
-    return [[GKDBCore sharedDB] createTableWithSQL:CREATE_NOTE_SQL];
-}
-
-- (BOOL)saveToSQLite
-{
-    if ([self createTable])
-    {
-        NSMutableDictionary * argDict = [NSMutableDictionary dictionaryWithCapacity:10];
-        [argDict setValue:[NSNumber numberWithUnsignedInteger:_note_id] forKey:@"note_id"];
-        [argDict setValue:[NSNumber numberWithUnsignedInteger:_entity_id] forKey:@"entity_id"];
-        [argDict setValue:_imageURLString forKey:@"entity_image"];
-        [argDict setValue:[NSNumber numberWithBool:_added_to_selection] forKey:@"added_to_selection"];
-        [argDict setValue:_note forKey:@"note"];
-        [argDict setValue:[NSNumber numberWithUnsignedInteger:_poker_count] forKey:@"poker_count"];
-        [argDict setValue:[NSNumber numberWithUnsignedInteger:_hooter_count] forKey:@"hooter_count"];
-        [argDict setValue:[NSNumber numberWithUnsignedInteger:_comment_count] forKey:@"comment_count"];
-        [argDict setValue:[NSDate stringFromDate:_created_time] forKey:@"created_time"];
-        [argDict setValue:[NSDate stringFromDate:_updated_time] forKey:@"updated_time"];
-//        GKLog(@"%@", argDict);
-        if ([[GKDBCore sharedDB] insertDataWithSQL:INSERT_NOTE_SQL ArgsDict:argDict])
-        {
-            [_creator saveToSQLite];
-        }
-    }
-    return NO;
 }
 
 + (void)postEntityNoteWithEntityID:(NSUInteger)entity_id

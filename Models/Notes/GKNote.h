@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKCreator.h"
+#import "GKUserBase.h"
 #import "GKNotePoke.h"
 
 extern NSString * const GKAddNewNoteNotification;
@@ -26,12 +26,10 @@ extern NSString * const QUERY_NOTE_SQL;
 @property (readonly) NSDate * created_time;
 @property (readonly) NSDate * updated_time;
 @property (unsafe_unretained, readonly) NSURL * imageURL;
-@property (readonly) GKCreator * creator;
+@property (readonly) GKUserBase * creator;
 @property (nonatomic, strong) GKNotePoke * note_poke;
 
-- (id)initFromSQLiteWithRS:(FMResultSet *)rs;
 - (id)initWithAttributes:(NSDictionary *)attributes;
-- (BOOL)saveToSQLite;
 
 //+ (void)postEntityNoteWithEntityID:(NSUInteger)entity_id Content:(NSString *)content
 //                             Block:(void (^)(NSDictionary *note, NSError * error))block;

@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKCreator.h"
+#import "GKUserBase.h"
 @interface GKTags : NSObject
 
 @property (readonly) NSString * tag_name;
 @property (readonly) NSString * tag_encode;
 @property (readonly) NSUInteger tag_count;
 @property (readonly) NSDate * created_time;
-@property (readonly) GKCreator * creator;
+@property (readonly) GKUserBase * creator;
 @property (readonly) NSMutableArray * previews;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 

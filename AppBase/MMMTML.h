@@ -15,4 +15,5 @@
 @property (readonly) id object;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 + (void)globalTMLWithBlock:(void (^)(NSDictionary * dictionary,NSArray * array, NSError * error))block;
++ (void)globalTMLEntityWithBlock:(void (^)(NSArray * array, NSError * error))block;
 @end
