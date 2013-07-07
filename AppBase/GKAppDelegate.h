@@ -32,6 +32,7 @@
 @property (nonatomic, retain) Reachability *hostReach;
 @property(nonatomic, retain) id<GAITracker> tracker;
 @property(nonatomic,strong) GKRootViewController * drawerController;
+@property (nonatomic,strong) NSMutableArray *needRequestEntityArray;
 
 - (GKStatusBar *)sharedStatusBar;
 - (MBProgressHUD *)sharedHUD;

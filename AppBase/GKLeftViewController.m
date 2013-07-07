@@ -47,7 +47,7 @@
 
     // Do any additional setup after loading the view from its nib.
     _dataArray = [[NSMutableArray alloc]init];
-
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileChange) name:@"UserProfileChange" object:nil];
     _dataArray = [NSMutableArray arrayWithObjects:
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"NO",@"open",@"YES",@"necessary",@"10",@"count",@"1",@"pid",nil],
@@ -289,6 +289,11 @@
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         
     }];
+}
+- (void)GKLogin
+{
+    user =[[GKUser alloc ]initFromNSU];
+    [self.view setNeedsDisplay];
 }
 - (void)logout
 {

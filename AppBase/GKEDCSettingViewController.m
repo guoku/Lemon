@@ -18,6 +18,8 @@
     CGFloat y1;
     UILabel * tip;
     UIButton *button;
+    NSUInteger state;
+    GKUser * user;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,7 +60,7 @@
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
     [self.view addSubview:headerView];
     
-    GKUser * user =[[GKUser alloc ]initFromNSU];
+    user =[[GKUser alloc ]initFromNSU];
     
     GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
     avatar.center = CGPointMake(kScreenWidth/2, 57);
@@ -191,10 +193,26 @@
 {
     if(buttonIndex == 1)
     {
-
-        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
-            
+        if([[kUserDefault objectForKey:@"state"]isEqualToString:@"pregnant"])
+        {
+            state = 2;
+        }
+        else
+        {
+            state = 3;
+        }
+        [user changeStageWithStage:state Date:datePicker.date Block:^(NSDictionary *dict, NSError *error) {
+            if(!error)
+            {
+                GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            }
+            else
+            {
+                [GKMessageBoard showMBWithText:@"与服务器同步状态时网络出错，请重试" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
         }];
     }
     

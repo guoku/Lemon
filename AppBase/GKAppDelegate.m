@@ -37,6 +37,7 @@
 @synthesize hostReach = _hostReach;
 @synthesize tracker = tracker_;
 @synthesize drawerController = _drawerController;
+@synthesize needRequestEntityArray = _needRequestEntityArray;
 
 #pragma mark- 系统
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -177,10 +178,16 @@
     [self updateInterfaceWithReachability:self.hostReach];
     [_hostReach startNotifier];
     
+    
     if (![kUserDefault stringForKey:kSession])
     {
         GKLoginViewController *loginVC = [[GKLoginViewController alloc] init];
-        [self.window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
+       // [self.window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
+    }
+    else
+    {
+        _needRequestEntityArray = [NSMutableArray arrayWithArray:[GKEntity getNeedResquestEntity]];
+        NSLog(@"%@",_needRequestEntityArray);
     }
 
     return YES;

@@ -53,5 +53,7 @@ extern NSString * const GKUserLogoutNotification;
 + (void)globalUserFansWithUserID:(NSUInteger)user_id Page:(NSUInteger)page
                                 Block:(void (^)(NSArray * fans_list, NSError * error))block;
 
-
+- (void)changeStageWithStage:(NSUInteger)stage
+                        Date:(NSDate*)date
+                       Block:(void (^)(NSDictionary *dict, NSError * error))block;
 @end

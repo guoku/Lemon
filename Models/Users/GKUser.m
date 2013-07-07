@@ -63,8 +63,16 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         _follows_count = [[attributes valueForKeyPath:@"followings"] integerValue];
         _fans_count = [[attributes valueForKeyPath:@"fans"] integerValue];
         
-        _stage = [[attributes valueForKeyPath:@"stage"] integerValue];
-        _birth_date = [NSDate dateFromString:[attributes valueForKeyPath:@"baby_birthday"]];
+        _stage = [[attributes valueForKeyPath:@"mom_stage"] integerValue];
+        if([[attributes valueForKeyPath:@"baby_birthday"] isEqual:[NSNull null]])
+        {
+            _birth_date = [NSDate date];
+        }
+        else
+        {
+            _birth_date = [NSDate dateFromString:[attributes valueForKeyPath:@"baby_birthday"]];
+        }
+ 
         
         _relation = [[GKUserRelation alloc] initWithAttributes:[attributes valueForKeyPath:@"relation"]];
 
@@ -397,13 +405,13 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
             {
                 NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
                 NSLog(@"%@",_listresponse);
-                NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:[_listresponse count]];
+                NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary *attributes in _listresponse)
                 {
                     NSString * session = [attributes valueForKey:@"session"];
                     [kUserDefault setObject:session forKey:kSession];
                     
-                    NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
+           
                     
                     GKUser * _user = [[GKUser alloc] initWithAttributes:[attributes objectForKey:@"user"]];
                     [_mutableDict setValue:_user forKey:@"content"];
@@ -412,6 +420,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 }
                 if (block)
                 {
+                    NSLog(@"%@",_mutableDict);
                     block([NSDictionary dictionaryWithDictionary:_mutableDict], nil);
                     [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLoginNotification object:nil userInfo:nil];
                 }
@@ -459,6 +468,64 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     }];
 }
 
+- (void)changeStageWithStage:(NSUInteger)stage
+                            Date:(NSDate*)date
+                               Block:(void (^)(NSDictionary *dict, NSError * error))block
+{
+    NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:4];
+    [paramters setValue:[NSString stringWithFormat:@"%u", stage] forKeyPath:@"mom_stage"];
+    [paramters setValue:[NSDate stringFromDate:date WithFormatter:@"yyyy-MM-dd"] forKeyPath:@"baby_birthday"];
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/set_stage"parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+        
+        NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
+        NSError * aError;
+        GKLog(@"%@", JSON);
+        switch (res_code) {
+            case SUCCESS:
+            {
+                
+                NSArray * entitylikeResponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
+                NSMutableDictionary * mutalbleDict = [NSMutableDictionary dictionaryWithCapacity:1];
+                for (NSDictionary *attributes in entitylikeResponse)
+                {
+                    [mutalbleDict setValue:attributes forKeyPath:@"content"];
+                }
+                
+                if (block)
+                {
+                    block([NSDictionary dictionaryWithDictionary:mutalbleDict], nil);
+                }
+            }
+                break;
+            case SESSION_ERROR:
+            {
+                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
+                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
+                aError = [NSError errorWithDomain:UserErrorDomain code:kUserSessionError userInfo:userInfo];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        if (res_code != SUCCESS)
+        {
+            if (block)
+            {
+                block([NSDictionary dictionary], aError);
+            }
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block)
+        {
+            GKLog(@"%@", error);
+            block([NSDictionary dictionary], error);
+        }
+    }];
+    
+}
 
 
 @end

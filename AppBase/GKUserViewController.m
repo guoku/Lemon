@@ -248,6 +248,7 @@
             {
                 NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
                 for (GKEntity * entity in entitylist) {
+                    [entity save];
                     BOOL flag = YES;
                     for (GKEntity * e in list) {
                        if(e.entity_id == entity.entity_id)

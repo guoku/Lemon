@@ -27,7 +27,11 @@
 @property (readwrite) NSUInteger liked_count;
 @property (readonly) float price;
 @property (readonly) NSDate * created_time;
+@property (readwrite) NSUInteger weight;
 @property (nonatomic, strong) GKEntityLike * entitylike;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
+- (GKEntity *)save;
+- (id)initFromSQLiteWithRsSet:(FMResultSet *)rs;
++ (NSArray *)getNeedResquestEntity;
 @end

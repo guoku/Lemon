@@ -99,17 +99,28 @@
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error)
             {
+               
+                NSLog(@"%@",dict);
+                GKUser *user = [[GKUser alloc ]initFromNSU];
+                NSLog(@"%@",user);
                 [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"AcountAction"
                                                                 withAction:@"login_sina_success"
                                                                  withLabel:nil
                                                                  withValue:nil];
                 GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
                 [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:^{
-                    if(1)
+                    if(user.stage == 0)
                     {
                         GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
                         GKNavigationController *nav =[[GKNavigationController alloc]initWithRootViewController:VC];
                         [delegate.window.rootViewController presentViewController: nav animated:NO completion:NULL];
+                    }
+                    else
+                    {
+                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                        [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                            
+                        }];
                     }
                 }];
                 [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];

@@ -82,7 +82,7 @@
 
 - (BOOL)insertDataWithSQL:(NSString *)sql ArgsDict:(NSDictionary *)argsDict
 {
-    //GKLog(@"%@ %@",sql, argsDict);
+    GKLog(@"%@ %@",sql, argsDict);
     FMDBQuickCheck([_db executeUpdate:sql withParameterDictionary:argsDict]);
 
     return YES;
