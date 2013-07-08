@@ -16,6 +16,7 @@
 }
 @property (strong, nonatomic) UITableView *table;
 
+-(id)initWithPid:(NSUInteger)pid Cid:(NSUInteger)cid;
 -(void)reloadTableViewDataSource;
 -(void)doneLoadingTableViewData;
 

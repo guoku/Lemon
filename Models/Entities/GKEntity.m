@@ -158,7 +158,8 @@ static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT * FROM entity ORDER BY
     NSLog(@"%@",rs);
     NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:0];
     while ([rs next]) {
-        [_mutableArray addObject:[NSString stringWithFormat:@"%u",[rs intForColumn:@"entity_id"]]];
+        //[_mutableArray addObject:[NSString stringWithFormat:@"%u",[rs intForColumn:@"entity_id"]]];
+        [_mutableArray addObject:[[GKEntity alloc] initFromSQLiteWithRsSet:rs]];
     }
     return [NSArray arrayWithArray:_mutableArray];
 }

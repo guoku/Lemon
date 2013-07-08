@@ -131,7 +131,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [self showUserWithUserID:18746];
+    //[self showUserWithUserID:18746];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     if([_dataArray count] == 0)

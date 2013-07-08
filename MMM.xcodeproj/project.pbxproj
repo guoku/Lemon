@@ -442,6 +442,7 @@
 		4E71680917843D7E0006C87F /* 标记图_边栏.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7166F917843D7E0006C87F /* 标记图_边栏.png */; };
 		4E71680A17843D7E0006C87F /* 标记图_选择店铺.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7166FA17843D7E0006C87F /* 标记图_选择店铺.png */; };
 		4E7EAE661785D48B0087FB2A /* GKShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7EAE651785D48B0087FB2A /* GKShop.m */; };
+		4E7EAE6A178A92F00087FB2A /* MMMKWD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7EAE69178A92F00087FB2A /* MMMKWD.m */; };
 		4E9AC3F2176393F400A1A32C /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC3F1176393F400A1A32C /* HMSegmentedControl.m */; };
 		4EB8478117731E8100071B95 /* GKEDCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8478017731E8100071B95 /* GKEDCSettingViewController.m */; };
 		4EDB15D21766377400B77684 /* GKMessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB15D11766377400B77684 /* GKMessageBoard.m */; };
@@ -1048,6 +1049,8 @@
 		4E7166FA17843D7E0006C87F /* 标记图_选择店铺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标记图_选择店铺.png"; sourceTree = "<group>"; };
 		4E7EAE641785D48B0087FB2A /* GKShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKShop.h; sourceTree = "<group>"; };
 		4E7EAE651785D48B0087FB2A /* GKShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKShop.m; sourceTree = "<group>"; };
+		4E7EAE68178A92F00087FB2A /* MMMKWD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMKWD.h; sourceTree = "<group>"; };
+		4E7EAE69178A92F00087FB2A /* MMMKWD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMKWD.m; sourceTree = "<group>"; };
 		4E9AC3F0176393F400A1A32C /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		4E9AC3F1176393F400A1A32C /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		4EB8477F17731E8100071B95 /* GKEDCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKEDCSettingViewController.h; sourceTree = "<group>"; };
@@ -1736,6 +1739,7 @@
 		4E387BA6176085FC005DA2EC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E7EAE67178A92D10087FB2A /* KeyWord */,
 				4E7EAE631785D4720087FB2A /* Shop */,
 				4E2DC86817703D060050658D /* TimeLine */,
 				4E387BA7176085FC005DA2EC /* Activity */,
@@ -2406,6 +2410,15 @@
 			name = Shop;
 			sourceTree = "<group>";
 		};
+		4E7EAE67178A92D10087FB2A /* KeyWord */ = {
+			isa = PBXGroup;
+			children = (
+				4E7EAE68178A92F00087FB2A /* MMMKWD.h */,
+				4E7EAE69178A92F00087FB2A /* MMMKWD.m */,
+			);
+			name = KeyWord;
+			sourceTree = "<group>";
+		};
 		4E9AC3EF176393F400A1A32C /* HMSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -2991,6 +3004,7 @@
 				4E4C6C5F177C30200045695A /* MMMLeftCell.m in Sources */,
 				4E51AE861783E2E0004A6AC4 /* FollowUserCell.m in Sources */,
 				4E7EAE661785D48B0087FB2A /* GKShop.m in Sources */,
+				4E7EAE6A178A92F00087FB2A /* MMMKWD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

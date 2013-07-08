@@ -186,6 +186,7 @@
     [user_bg addSubview:likeNumBTN];
     
     followBTN =  [[GKFollowButton alloc]initWithFrame:CGRectMake(203, user_bg.frame.size.height-40, 50, 30)];
+    followBTN.data = [[GKUser alloc]initFromNSU];
     [user_bg addSubview:followBTN];
     
     

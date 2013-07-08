@@ -222,18 +222,18 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
 + (void)UserFollowActionWithUserID:(NSUInteger)user_id Action:(GK_USER_RELATION)action Block:(void (^)(NSDictionary * user_relation, NSError * error))block
 {
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
-    [parameters setValue:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
+    [parameters setValue:[NSString stringWithFormat:@"%u", user_id] forKey:@"followee_id"];
     NSString * urlString;
     switch (action) {
         case kFOLLOWED:
-            urlString = @"user/follow/action/";
+            urlString = @"maria/follow/";
             break;
         case kFANS:
-            urlString = @"user/unfollow/action/";
+            urlString = @"maria/unfollow/";
         default:
             break;
     }
-    [[GKAppDotNetAPIClient sharedClient] postPath:urlString parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:urlString parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"user relation %@", JSON);
         
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
@@ -290,7 +290,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     [parameters setValue:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
 
     
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"user/following/" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/get_followings" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -342,7 +342,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     [parameters setValue:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
     [parameters setValue:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
     
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"user/fans/" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/get_fans" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;

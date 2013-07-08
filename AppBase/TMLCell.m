@@ -19,6 +19,7 @@
     UIView * colorf9f9f9;
 }
 @synthesize delegate = _delegate;
+@synthesize pid = _pid;
 - (void)setDelegate:(id<GKDelegate>)delegate
 {
     _delegate = delegate;
@@ -153,13 +154,11 @@
         _title.text = _entity.title;
         NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _entity.price];
         _price.text = priceTitle ;
-
-
     }    
 }
 - (void)goKeyWord
 {
-    TMLKeywordViewController *VC = [[TMLKeywordViewController alloc] init];
+    TMLKeywordViewController *VC = [[TMLKeywordViewController alloc] initWithPid:_pid Cid:((TMLKeyWord *)_object).kid];
     VC.hidesBottomBarWhenPushed = YES;
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];

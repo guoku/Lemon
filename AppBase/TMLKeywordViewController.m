@@ -10,6 +10,7 @@
 #import "GKPopular.h"
 #import "GKAppDelegate.h"
 #import "TableViewCellForTwo.h"
+#import "MMMKWD.h"
 @interface TMLKeywordViewController ()
 
 @end
@@ -18,11 +19,15 @@
 
 {
 @private
-    NSMutableArray * _dataArray;
+    NSMutableDictionary *dataArrayDic;
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
-    NSUInteger page;
     UIImageView *cate_arrow;
+    NSUInteger _pid;
+    NSUInteger _cid;
+    NSMutableDictionary *yOffsetDictionary;
+    NSMutableDictionary *pageDictionary;
+    NSString *group;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,10 +38,24 @@
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"分类"];
+        pageDictionary = [[NSMutableDictionary alloc] init];
+        [pageDictionary setObject:@(1) forKey:@"best"];
+        [pageDictionary setObject:@(1) forKey:@"new"];
+        dataArrayDic = [[NSMutableDictionary alloc] init];
+        yOffsetDictionary = [[NSMutableDictionary alloc] init];
+        group = @"best";
     }
     return self;
 }
-
+-(id)initWithPid:(NSUInteger)pid Cid:(NSUInteger)cid
+{
+    self = [super init];
+    {
+        _pid = pid;
+        _cid = cid;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -58,14 +77,10 @@
 }
 - (void)reload:(id)sender
 {
-    [GKPopular globalPopularWithGroup:@"daily" Block:^(NSArray *entitylist, NSError *error) {
+    [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:1 Block:^(NSArray *array, NSError *error) {
         if(!error)
         {
-            if([entitylist count] != 0)
-            {
-                _dataArray = [NSMutableArray arrayWithArray:entitylist];
-                
-            }
+            [dataArrayDic setObject: [NSMutableArray arrayWithArray:array] forKey:group];
             [self.table reloadData];
         }
         else
@@ -74,14 +89,6 @@
                 case -999:
                     [GKMessageBoard hideMB];
                     break;
-                case kUserSessionError:
-                {
-                    [GKMessageBoard hideMB];
-                    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                    [delegate.sinaweibo logOut];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLogoutNotification object:nil];
-                    [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
-                }
                 default:
                 {
                     NSString * errorMsg = [error localizedDescription];
@@ -91,16 +98,13 @@
             }
         }
         [self doneLoadingTableViewData];
-        [indicator stopAnimating];
-        _loadMoreflag = NO;
-        self.navigationItem.rightBarButtonItem.enabled = YES;
     }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    if([_dataArray count]==0)
+    if(([[dataArrayDic objectForKey:group] count] == 0)&&(!_reloading))
     {
         [self refresh];
     }
@@ -213,7 +217,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(section == 0)
     {
-        return [_dataArray count] / 2;
+       return ceil([[dataArrayDic objectForKey:group] count]/2.0f);
     }
     return 0;
 }
@@ -228,7 +232,8 @@
         cell = [[TableViewCellForTwo alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: PopularTableIdentifier];
     }
     cell.delegate = self;
-    cell.dataArray =[NSMutableArray arrayWithObjects:[_dataArray objectAtIndex:(indexPath.row*2)], [_dataArray objectAtIndex:(indexPath.row*2+1)],nil];
+    NSMutableArray * a = [dataArrayDic objectForKey:group];
+    cell.dataArray =[NSMutableArray arrayWithObjects:[a objectAtIndex:(indexPath.row*2)], [a objectAtIndex:(indexPath.row*2+1)],nil];
     
     return cell;
 }
@@ -329,7 +334,7 @@
             [UIView animateWithDuration:0.3 animations:^{
                 cate_arrow.center = CGPointMake(45, cate_arrow.center.y);
             }completion:^(BOOL finished) {
-        
+                group = @"best";
             }];
 
         }
@@ -339,7 +344,7 @@
             [UIView animateWithDuration:0.3 animations:^{
                 cate_arrow.center = CGPointMake(135, cate_arrow.center.y);
             }completion:^(BOOL finished) {
-                
+                group = @"new";
             }];
         }
             break;

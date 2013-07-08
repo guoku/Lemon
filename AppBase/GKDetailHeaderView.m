@@ -162,7 +162,39 @@
         y = _brand.frame.origin.y+_brand.frame.size.height;
     }
     _title.frame = CGRectMake(145, y, 145, 20);
-    y = _title.frame.origin.y+_title.frame.size.height;
+    y = _title.frame.origin.y+_title.frame.size.height+10;
+    CGFloat remark_x = 0;
+    CGFloat remark_y = 0;
+    for (NSString * remark in _detailData.remark_list) {
+        UIFont *font = [UIFont fontWithName:@"Helvetica" size:10.0f];
+        CGSize size = [remark sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX,10) lineBreakMode:NSLineBreakByTruncatingTail];
+        UILabel *remarkLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        if(remark_x+size.width>160)
+        {
+            remark_x = 0;
+            remark_y = remark_y+20;
+            remarkLabel.frame = CGRectMake(145+remark_x,y+remark_y, size.width+2, 14);
+            remark_x = remark_x+size.width+10;
+            
+        }
+        else
+        {
+            remarkLabel.frame = CGRectMake(145+remark_x,y+remark_y, size.width+2, 14);
+            remark_x = remark_x+size.width+10;
+        }
+        remarkLabel.layer.masksToBounds = YES;
+        remarkLabel.layer.cornerRadius = 2.0;
+        remarkLabel.textAlignment = NSTextAlignmentCenter;
+        remarkLabel.backgroundColor = UIColorFromRGB(0xe0e0e0);
+        remarkLabel.textColor = UIColorFromRGB(0x959595);
+        remarkLabel.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
+        remarkLabel.text = remark;
+        [self addSubview:remarkLabel];
+    }
+    
+    
+    
+    
     _price.frame = CGRectMake(145, 100, 145, 20);
     
     _likeButton.data = _detailData;
