@@ -20,7 +20,6 @@
     if (self)
     {
         _user_id = [[attributes valueForKeyPath:@"user_id"] integerValue];
-        _visitor_id = [[attributes valueForKeyPath:@"visitor_id"] integerValue];
         _status = [[attributes valueForKeyPath:@"status"] integerValue];
     }
     

@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Models/Users/GKUser.m"
-         timestampString = "394801978.223293"
+         timestampString = "394962943.37961"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "424"
-         endingLineNumber = "424"
+         startingLineNumber = "422"
+         endingLineNumber = "422"
          landmarkName = "+registerByWeiboOrTaobaoWithParamters:Block:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,24 +86,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Models/Users/GKUser.m"
-         timestampString = "394801986.371263"
+         timestampString = "394962943.37961"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "423"
-         endingLineNumber = "423"
+         startingLineNumber = "421"
+         endingLineNumber = "421"
          landmarkName = "+registerByWeiboOrTaobaoWithParamters:Block:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Models/Users/GKUser.m"
-         timestampString = "394802132.254264"
+         timestampString = "394962943.37961"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "414"
-         endingLineNumber = "414"
+         startingLineNumber = "413"
+         endingLineNumber = "413"
          landmarkName = "+registerByWeiboOrTaobaoWithParamters:Block:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -196,6 +196,58 @@
          startingLineNumber = "179"
          endingLineNumber = "179"
          landmarkName = "-layoutSubviews"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Models/MMMKWD.m"
+         timestampString = "394962237.733651"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "20"
+         endingLineNumber = "20"
+         landmarkName = "+globalKWDWithGroup:Pid:Cid:Page:Block:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HTKit/GKFollowButton/GKFollowButton.m"
+         timestampString = "394964247.523996"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "113"
+         endingLineNumber = "113"
+         landmarkName = "-followButtonAction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HTKit/GKFollowButton/GKFollowButton.m"
+         timestampString = "394964376.237425"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
+         landmarkName = "-unfollowButtonAction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HTKit/GKBaseViewController/GKBaseViewController.m"
+         timestampString = "394966270.611711"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "89"
+         endingLineNumber = "89"
+         landmarkName = "-showUserWithUserID:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

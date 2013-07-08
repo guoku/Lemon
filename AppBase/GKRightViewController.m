@@ -156,8 +156,6 @@
     [super viewDidLoad];
     [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"navigation_bar_button_enable"];
     self.trackedViewName = @"关注页";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:@"UserFollowChange" object:nil];
-	// Do any additional setup after loading the view.
     self.dataArrayDic = [[NSMutableDictionary alloc]init];
     _pageForFans = 1;
     _pageForFollow = 1;
@@ -173,6 +171,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
     [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"navigation_bar_button_enable"];
     if(([[_dataArrayDic objectForKey:_group] count] == 0)&&(!_reloading))
     {
@@ -238,7 +237,6 @@
 }
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
     GKUser *user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
     [self showUserWithUserID:user.user_id];
 }
@@ -610,9 +608,7 @@
     imageView2.frame = CGRectMake(320, 0, imageView2.frame.size.width, imageView2.frame.size.height);
     [delegate.window addSubview:imageView];
     [delegate.window addSubview:imageView2];
-    
-    //[[NSUserDefaults standardUserDefaults] setObject:image forKey:@"view_cache"];
-    
+ 
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         imageView.frame = CGRectMake(-320, 0, imageView.frame.size.width, imageView.frame.size.height);
         imageView2.frame = CGRectMake(0, 0, imageView2.frame.size.width, imageView2.frame.size.height);
@@ -620,37 +616,6 @@
         [imageView removeFromSuperview];
         [imageView2 removeFromSuperview];
     }];
-    
-    /*
-    [delegate.drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
-    }];
-     */
-
-
 }
 
-- (void)userFollowChange:(NSNotification *)noti
-{
-    NSDictionary *data = [noti userInfo];
-    NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
-    GKUserRelation *relation = [data objectForKey:@"relation"];
-    for (GKUser * user in [_dataArrayDic objectForKey:@"follow"] ) {
-        
-        if (user_id == user.user_id) {
-            user.relation = relation;
-            [self.table reloadData];
-            break;
-        }
-    }
-    for (GKUser * user in [_dataArrayDic objectForKey:@"fan"] ) {
-        
-        if (user_id == user.user_id) {
-            user.relation = relation;
-            [self.table reloadData];
-            break;
-        }
-    }
-    
-}
 @end

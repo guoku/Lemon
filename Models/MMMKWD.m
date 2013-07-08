@@ -17,8 +17,8 @@
 {
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:1];
     [parameters setValue:group forKey:@"method"];
-    
-    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/list/%d/%d/",pid,cid] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    NSLog(@"%@",[NSString stringWithFormat:@"maria/entity/list/%d/%d/",pid,cid]);
+    [[GKAppDotNetAPIClient sharedClient] postPath:[NSString stringWithFormat:@"maria/entity/list/%d/%d/",pid,cid] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSArray * Response = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
         NSMutableArray * array = [NSMutableArray arrayWithCapacity:[Response count]];

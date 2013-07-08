@@ -84,12 +84,16 @@
 {
     GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user_id];
     VC.hidesBottomBarWhenPushed = YES;
+    if(self.navigationController)
+    {
         [self.navigationController pushViewController:VC animated:YES];
-    /*
+    }
+    else
+    {
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
     }];
-     */
+    }
 
 }
 - (void)showUserWithUserID:(NSUInteger)user_id WithTab:(NSUInteger)tab_id

@@ -142,7 +142,8 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         [parameters setValue:[NSNumber numberWithUnsignedInteger:user_id] forKey:@"user_id"];
     }
 
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"user/profile/" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/get_user_info" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@",JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         
         switch (res_code) {
@@ -410,9 +411,6 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 {
                     NSString * session = [attributes valueForKey:@"session"];
                     [kUserDefault setObject:session forKey:kSession];
-                    
-           
-                    
                     GKUser * _user = [[GKUser alloc] initWithAttributes:[attributes objectForKey:@"user"]];
                     [_mutableDict setValue:_user forKey:@"content"];
                     [_user save];

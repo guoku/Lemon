@@ -131,7 +131,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    //[self showUserWithUserID:18746];
+    //[self showUserWithUserID:181082];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     if([_dataArray count] == 0)
@@ -173,6 +173,7 @@
     if (cell == nil) {
         cell = [[TMLCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
+    cell.pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     cell.delegate = self;
     NSUInteger row = [indexPath row];
     NSUInteger section = [indexPath section];

@@ -29,6 +29,9 @@
     NSMutableArray * _dataArray;
     NSMutableArray * _titleArray;
     UIView *HeaderView;
+    GKUserButton * avatar;
+    UILabel * name;
+    UILabel * description;
     GKFollowButton *followBTN;
     UIButton *followNumBTN;
     UIButton *fanNumBTN;
@@ -94,20 +97,21 @@
     timelineBG.backgroundColor = UIColorFromRGB(0xebe7e4);
     [HeaderView addSubview:timelineBG];
     
-
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(50, 0, 2,150)];
+    line.center = CGPointMake(20, line.center.y);
+    line.backgroundColor = UIColorFromRGB(0xe2ddd9);
+    [HeaderView addSubview:line];
     
     MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30) kind:1];
     calendar.center = CGPointMake(20, 30);
     calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
     [HeaderView addSubview:calendar];
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(50, 50, 2,100)];
-    line.center = CGPointMake(20, line.center.y);
-    line.backgroundColor = UIColorFromRGB(0xe2ddd9);
-    [HeaderView addSubview:line];
+    UIView * user_bg = [[UIView alloc]initWithFrame:CGRectMake(50, 20,260, 110)];
     
-    UIImageView * user_bg = [[UIImageView alloc]initWithFrame:CGRectMake(50, 20,260, 110)];
-    user_bg.image = [[UIImage imageNamed:@"tables_single.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, user_bg.frame.size.width, user_bg.frame.size.height)];
+    img.image = [[UIImage imageNamed:@"tables_single.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    [user_bg addSubview:img];
     
     UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, user_bg.frame.size.height-50, user_bg.frame.size.width, 1)];
     H.backgroundColor = UIColorFromRGB(0xf1f1f1);
@@ -153,7 +157,6 @@
     [user_bg addSubview:tip3];
     
     followNumBTN= [[UIButton alloc]initWithFrame:CGRectMake(0, user_bg.frame.size.height-50, 65, 50)];
-    [followNumBTN setTitle:@"12" forState:UIControlStateNormal];
     followNumBTN.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
     [followNumBTN.titleLabel setTextAlignment:NSTextAlignmentCenter];
     followNumBTN.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -164,7 +167,6 @@
     [user_bg addSubview:followNumBTN];
     
     fanNumBTN = [[UIButton alloc]initWithFrame:CGRectMake(65, user_bg.frame.size.height-50, 65, 50)];
-    [fanNumBTN  setTitle:@"12" forState:UIControlStateNormal];
     fanNumBTN.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
     [fanNumBTN.titleLabel setTextAlignment:NSTextAlignmentCenter];
     fanNumBTN.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -175,38 +177,26 @@
     [user_bg addSubview:fanNumBTN];
     
     likeNumBTN = [[UIButton alloc]initWithFrame:CGRectMake(130, user_bg.frame.size.height-50, 65, 50)];
-    [likeNumBTN setTitle:@"12" forState:UIControlStateNormal];
     likeNumBTN.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
     [likeNumBTN.titleLabel setTextAlignment:NSTextAlignmentCenter];
     likeNumBTN.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [likeNumBTN setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [likeNumBTN setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
     [likeNumBTN setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 20, 0)];
-    //[followBTN addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    likeNumBTN.userInteractionEnabled = NO;
     [user_bg addSubview:likeNumBTN];
     
     followBTN =  [[GKFollowButton alloc]initWithFrame:CGRectMake(203, user_bg.frame.size.height-40, 50, 30)];
-    followBTN.data = [[GKUser alloc]initFromNSU];
     [user_bg addSubview:followBTN];
     
-    
-    
-    
-    
-    
-    
-    
     [HeaderView addSubview:user_bg];
-        
-    
-    _user =[[GKUser alloc ]initFromNSU];
-    
-    GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
+            
+    avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
     avatar.center = CGPointMake(85, 40);
     avatar.user = _user;
     [HeaderView addSubview:avatar];
     
-    UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(120, 25, kScreenWidth-150, 25)];
+    name = [[UILabel alloc]initWithFrame:CGRectMake(120, 25, kScreenWidth-150, 25)];
     name.backgroundColor = [UIColor clearColor];
     name.textAlignment = NSTextAlignmentLeft;
     [name setFont:[UIFont fontWithName:@"Helvetica" size:20.0f]];
@@ -214,22 +204,18 @@
     name.text = _user.nickname;
     [HeaderView addSubview:name];
     
-    UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(120, 50, kScreenWidth-100, 15)];
+    description = [[UILabel alloc]initWithFrame:CGRectMake(120, 50, kScreenWidth-100, 15)];
     description.backgroundColor = [UIColor clearColor];
     description.textAlignment = NSTextAlignmentLeft;
     [description setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
     description.textColor = UIColorFromRGB(0x555555);
-    description.text = @"宝宝3个月零5天，预计要花费￥22,727";
     [HeaderView addSubview:description];
-    
-    //[self.view addSubview:HeaderView];
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.separatorColor = UIColorFromRGB(0xf9f9f9);
     _table.backgroundColor = UIColorFromRGB(0xf9f9f9);
     _table.tableHeaderView = HeaderView;
-    
     _table.allowsSelection = NO;
     [_table setDelegate:self];
     [_table setDataSource:self];
@@ -237,108 +223,141 @@
     [self setTableHeaderView];
     [self setTableFooterView];
     y = self.table.contentOffset.y;
-    
+}
+- (void)reload:(id)sender
+{
+    [GKUser globalUserProfileWithUserID:_user_id Block:^(NSDictionary *dict, NSError *error) {
+        if (!error){
+            _user = [dict valueForKeyPath:@"content"];
+            avatar.user = _user;
+            followBTN.data = _user;
+            name.text = _user.nickname;
+            description.text = _user.bio;
+            [followNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.follows_count] forState:UIControlStateNormal];
+            [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
+            [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
+            [self loadEntityList];
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+    }];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    if(!_user.user_id)
+    {
+        [self reload:nil];
+    }
+}
+-(void)loadEntityList
+{
     if([_dataArray count]==0)
     {
-        [GKVisitedUser visitedUserWithUserID:_user_id Page:1 Block:^(NSArray *entitylist, NSError *error) {
-            if(!error)
-            {
-                NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
-                for (GKEntity * entity in entitylist) {
-                    [entity save];
-                    BOOL flag = YES;
-                    for (GKEntity * e in list) {
-                       if(e.entity_id == entity.entity_id)
-                       {
-                           flag = NO;
-                           break;
-                       }
-                    }
-                    if(flag)
+    [GKVisitedUser visitedUserWithUserID:_user_id Page:1 Block:^(NSArray *entitylist, NSError *error) {
+        if(!error)
+        {
+            NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
+            for (GKEntity * entity in entitylist) {
+                [entity save];
+                BOOL flag = YES;
+                for (GKEntity * e in list) {
+                    if(e.entity_id == entity.entity_id)
                     {
-                        [list addObject:entity];
+                        flag = NO;
+                        break;
                     }
                 }
-                
-                NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
-                _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                
-                for (GKEntity * entity in list) {
-                    NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
-                    for (NSObject * object  in array ) {
-                        if([object isKindOfClass:[TMLKeyWord class]])
-                        {
-                            if(((TMLKeyWord *)object).kid == entity.cid)
-                            {
-                                
-                                [array insertObject:entity atIndex:[array indexOfObjectIdenticalTo:object]];
-                                break;
-                            }
-                        }
-                     
-                    }
-
+                if(flag)
+                {
+                    [list addObject:entity];
                 }
-                NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
-                for (NSMutableDictionary * dic in _dataArray) {
-                    NSMutableArray *array =  [dic objectForKey:@"row"];
-                    NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
-                    for (NSObject * object  in array ) {
-                        if([object isKindOfClass:[TMLKeyWord class]])
+            }
+            
+            NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
+            _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            for (GKEntity * entity in list) {
+                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+                for (NSObject * object  in array ) {
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        if(((TMLKeyWord *)object).kid == entity.cid)
                         {
                             
-                            NSUInteger  i = [array indexOfObjectIdenticalTo:object];
-                            NSLog(@"%d",i);
-                            if(i< ([array count]-1))
-                            {
-                                if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
-                                {
-                                    [k_array addObject:object];
-                                    
-                                }
-                            }
-                            else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
+                            [array insertObject:entity atIndex:[array indexOfObjectIdenticalTo:object]];
+                            break;
+                        }
+                    }
+                    
+                }
+                
+            }
+            NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
+            for (NSMutableDictionary * dic in _dataArray) {
+                NSMutableArray *array =  [dic objectForKey:@"row"];
+                NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
+                for (NSObject * object  in array ) {
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        
+                        NSUInteger  i = [array indexOfObjectIdenticalTo:object];
+                        NSLog(@"%d",i);
+                        if(i< ([array count]-1))
+                        {
+                            if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
                             {
                                 [k_array addObject:object];
+                                
                             }
                         }
-                        
+                        else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
+                        {
+                            [k_array addObject:object];
+                        }
                     }
-    
-                    [array removeObjectsInArray:k_array];
-                    if([array count]==0)
-                    {
-                        [s_array addObject:dic];
-                    }
+                    
                 }
-                [_dataArray removeObjectsInArray:s_array];
-                [self.table reloadData];
-            }
-            else
-            {
-                switch (error.code) {
-                    case -999:
-                        [GKMessageBoard hideMB];
-                        break;
-                    default:
-                    {
-                        NSString * errorMsg = [error localizedDescription];
-                        [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
-                    }
-                        break;
+                
+                [array removeObjectsInArray:k_array];
+                if([array count]==0)
+                {
+                    [s_array addObject:dic];
                 }
             }
-        }];
-
-
+            [_dataArray removeObjectsInArray:s_array];
+            [self.table reloadData];
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+    }];
     }
-
-    
 }
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [_dataArray count];

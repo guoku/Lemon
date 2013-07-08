@@ -182,7 +182,7 @@
     if (![kUserDefault stringForKey:kSession])
     {
         GKLoginViewController *loginVC = [[GKLoginViewController alloc] init];
-       // [self.window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
+        [self.window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
     }
     else
     {

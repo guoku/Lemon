@@ -21,6 +21,7 @@
 @private
     NSMutableDictionary *dataArrayDic;
     UIActivityIndicatorView *indicator;
+    BOOL _canLoadMore;
     BOOL _loadMoreflag;
     UIImageView *cate_arrow;
     NSUInteger _pid;
@@ -44,6 +45,7 @@
         dataArrayDic = [[NSMutableDictionary alloc] init];
         yOffsetDictionary = [[NSMutableDictionary alloc] init];
         group = @"best";
+        _canLoadMore = NO;
     }
     return self;
 }
@@ -77,11 +79,21 @@
 }
 - (void)reload:(id)sender
 {
+    [pageDictionary setObject:@(1) forKey:@"best"];
+    [pageDictionary setObject:@(1) forKey:@"new"];
     [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:1 Block:^(NSArray *array, NSError *error) {
         if(!error)
         {
             [dataArrayDic setObject: [NSMutableArray arrayWithArray:array] forKey:group];
             [self.table reloadData];
+            if([array count] >25 )
+            {
+                [self setFooterView:YES];
+            }
+            else
+            {
+                [self setFooterView:NO];
+            }
         }
         else
         {
@@ -327,7 +339,7 @@
 
 - (void)TapButtonAction:(id)sender
 {
-    NSLog(@"%d",((UIButton *)sender).tag);
+    [yOffsetDictionary setObject:@(_table.contentOffset.y) forKey:group];
     switch (((UIButton *)sender).tag) {
         case 4001:
         {
@@ -335,6 +347,15 @@
                 cate_arrow.center = CGPointMake(45, cate_arrow.center.y);
             }completion:^(BOOL finished) {
                 group = @"best";
+                [self.table reloadData];
+                if([[dataArrayDic objectForKey:group] count] == 0)
+                {
+                    [self refresh];
+                }
+                else
+                {
+                    [self reloadDataWithYoffset];
+                }
             }];
 
         }
@@ -345,13 +366,22 @@
                 cate_arrow.center = CGPointMake(135, cate_arrow.center.y);
             }completion:^(BOOL finished) {
                 group = @"new";
+                [self.table reloadData];
+                if([[dataArrayDic objectForKey:group] count] == 0)
+                {
+                    [self refresh];
+                }
+                else
+                {
+                    [self reloadDataWithYoffset];
+                }
             }];
         }
             break;
         case 4003:
         {
             [UIView animateWithDuration:0.3 animations:^{
-                cate_arrow.center = CGPointMake(250, cate_arrow.center.y);
+                //cate_arrow.center = CGPointMake(250, cate_arrow.center.y);
             }completion:^(BOOL finished) {
                 
             }];
@@ -360,5 +390,87 @@
         default:
             break;
     }
+}
+- (void)reloadDataWithYoffset
+{
+    [self.table reloadData];
+    
+    if ([[yOffsetDictionary objectForKey:group] floatValue] <= self.table.contentSize.height - self.table.frame.size.height) {
+        [self.table setContentOffset:CGPointMake(0,[[yOffsetDictionary objectForKey:group]floatValue]) animated:NO];
+    }
+    [self.table reloadData];
+
+}
+- (void)setFooterView:(BOOL)yes
+{
+    if (yes) {
+        _canLoadMore = YES;
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320.0f, 44.0f)];
+        UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        LoadMoreBtn.frame = CGRectMake(0, 0, 320.0f, 44.0f);
+        [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
+        [LoadMoreBtn setUserInteractionEnabled:YES];
+        [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
+        LoadMoreBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        
+        [LoadMoreBtn addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:LoadMoreBtn];
+        
+        self.table.tableFooterView = footerView;
+    }
+    else {
+        _canLoadMore = NO;
+        self.table.tableFooterView = nil;
+    }
+}
+
+- (void)loadMore
+{
+    indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0, 0, kScreenWidth, 44);
+    indicator.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    indicator.center = CGPointMake(kScreenWidth/2, 22.0f);
+    indicator.hidesWhenStopped = YES;
+    [indicator startAnimating];
+    [self.table.tableFooterView addSubview:indicator];
+    
+    [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:([[pageDictionary objectForKey:group] intValue]+1)  Block:^(NSArray *array, NSError *error) {
+        if(!error)
+        {
+            
+            [indicator stopAnimating];
+            [pageDictionary setObject:@([[pageDictionary objectForKey:group] intValue]+1) forKey:group];
+            [[dataArrayDic  objectForKey:group ] addObjectsFromArray:[NSMutableArray arrayWithArray:array] ];
+            [self.table reloadData];
+            if([array count] >25 )
+            {
+                [self setFooterView:YES];
+            }
+            else
+            {
+                [self setFooterView:NO];
+            }
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+        [self doneLoadingTableViewData];
+    }];
+
+
 }
 @end
