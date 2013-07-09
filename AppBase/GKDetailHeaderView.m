@@ -103,8 +103,8 @@
         
         self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(100, y+14, 75, 32)];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"check_white.png"] forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"check_white.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal];
+        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
         [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -173,6 +173,8 @@
         {
             remark_x = 0;
             remark_y = remark_y+20;
+            if(remark_y > 40)
+                break;
             remarkLabel.frame = CGRectMake(145+remark_x,y+remark_y, size.width+2, 14);
             remark_x = remark_x+size.width+10;
             
@@ -230,4 +232,5 @@
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
     }];
 }
+
 @end

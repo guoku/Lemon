@@ -88,7 +88,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     
     HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
     HeaderView.backgroundColor = UIColorFromRGB(0xf8f8f8);
@@ -163,7 +163,7 @@
     [followNumBTN setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [followNumBTN setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
     [followNumBTN setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 20, 0)];
-    //[followNumBTN addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [followNumBTN addTarget:self action:@selector(goFollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [user_bg addSubview:followNumBTN];
     
     fanNumBTN = [[UIButton alloc]initWithFrame:CGRectMake(65, user_bg.frame.size.height-50, 65, 50)];
@@ -173,7 +173,7 @@
     [fanNumBTN setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [fanNumBTN setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
     [fanNumBTN setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 20, 0)];
-    //[fanNumBTN addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [fanNumBTN addTarget:self action:@selector(goFansButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [user_bg addSubview:fanNumBTN];
     
     likeNumBTN = [[UIButton alloc]initWithFrame:CGRectMake(130, user_bg.frame.size.height-50, 65, 50)];
@@ -224,6 +224,12 @@
     [self setTableFooterView];
     y = self.table.contentOffset.y;
 }
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_UserFollowChange object:nil];
+}
+
 - (void)reload:(id)sender
 {
     [GKUser globalUserProfileWithUserID:_user_id Block:^(NSDictionary *dict, NSError *error) {
@@ -519,5 +525,60 @@
     GKLog(@"height:%f",scrollView.contentSize.height);
 }
 
+- (void)goFollowButtonAction:(id)sender
+{
+
+        [self showUserFollowWithUserID:_user.user_id];
+    
+}
+- (void)goFansButtonAction:(id)sender
+{
+        [self showUserFansWithUserID:_user.user_id];
+}
+
+- (void)userFollowChange:(NSNotification *)noti
+{
+    NSDictionary *data = [noti userInfo];
+    NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
+    GKUserRelation *relation = [data objectForKey:@"relation"];
+    if (_user.user_id == user_id) {
+        _user.relation = relation;
+        followBTN.data = _user;
+        switch (relation.status) {
+            case kNoneRelation:
+            {
+                _user.fans_count--;
+            }
+                break;
+            case kFOLLOWED:
+            {
+                _user.fans_count++;
+            }
+                break;
+            case kFANS:
+            {
+                _user.fans_count--;
+            }
+                break;
+            case kBothRelation:
+            {
+                _user.fans_count++;
+            }
+                break;
+            case kMyself:
+            {
+
+            }
+                break;
+            default:
+            {
+    
+            }
+                break;
+        }
+    }
+    [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
+    
+}
 
 @end

@@ -74,8 +74,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
 	// Do any additional setup after loading the view.
 }
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_EntityLikeChange object:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -341,81 +348,14 @@
     NSDictionary *notidata = [noti userInfo];
     NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
     
-    if (entity_id == _data.entity_id) {
-        _data.liked_count = [[notidata objectForKey:@"likeCount"] integerValue];
-        _data.entitylike = [notidata objectForKey:@"likeStatus"];
-        self.detailHeaderView.detailData = _data;
-        GKUser *user = [[GKUser alloc ]initFromNSU];
-        if(user.user_id !=0)
-        {
-            NSMutableArray *a = [NSMutableArray arrayWithCapacity:([_data.liker_list count]+1)];
-            if(_data.entitylike.status == NO)
-            {
-                
-                for (GKUserBase*userBase in _data.liker_list)
-                {
-                    if(userBase.user_id != user.user_id)
-                    {
-                        [a addObject:userBase];
-                    }
-                }
-                
-            }
-            else
-            {
-                NSMutableDictionary *userBaseDictionary = [[NSMutableDictionary alloc]init];
-                [userBaseDictionary setObject:@(user.user_id) forKey:@"user_id"];
-                [userBaseDictionary setObject:user.nickname forKey:@"nickname"];
-                [userBaseDictionary setObject:user.city forKey:@"username"];
-                [userBaseDictionary setObject:user.gender forKey:@"gender"];
-                [userBaseDictionary setObject:user.location forKey:@"location"];
-                [userBaseDictionary setObject:user.bio forKey:@"bio"];
-                [userBaseDictionary setObject:[user.avatarImageURL absoluteString] forKey:@"avatar_url"];
-                GKUserBase *meBase = [[GKUserBase alloc] initWithAttributes:userBaseDictionary];
-                [a addObject:meBase];
-                [a addObjectsFromArray:_data.liker_list];
-            }
-            _data.liker_list = a;
-            [self.table reloadData];
-        }
+    GKEntity * entity = self.detailHeaderView.detailData;
+    if (entity_id == entity.entity_id) {
+        entity.liked_count = [[notidata objectForKey:@"likeCount"] integerValue];
+        entity.entitylike = [notidata objectForKey:@"likeStatus"];
+        self.detailHeaderView.detailData = entity;
     }
     
 }
-
-#pragma mark - notification
-- (void)addNewNote:(NSNotification *)noti
-{
-    NSDictionary *notidata = [noti userInfo];
-    //    GKLog(@"%@", notidata);
-    GKNote * newnote = [notidata valueForKeyPath:@"content"];
-    //    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
-    //    GKNote * newnote = [notidata objectForKey:@"note"];
-    BOOL IsNewNote = YES;
-    int i=0;
-    if(_data.entity_id == newnote.entity_id)
-    {
-        /*
-        for (GKNote *note in _data.notes_list) {
-            
-            if(note.note_id == newnote.note_id)
-            {
-                _data.notes_list[i] = newnote;
-                IsNewNote = NO;
-                break;
-            }
-            i++;
-        }
-        if(IsNewNote)
-        {
-            [_data.notes_list addObject:newnote];
-            [self setFooterViewText];
-        }
-        self.detailHeaderView.detailData = _data;
-        [self.table reloadData];
-     */
-    }
-}
-
 
 #pragma mark - button action
 - (void)TapButtonAction:(id)sender

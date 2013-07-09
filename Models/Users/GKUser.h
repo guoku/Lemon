@@ -36,6 +36,7 @@ extern NSString * const GKUserLogoutNotification;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 - (void)save;
 - (id)initFromNSU;
+-(GKUserBase *)getUserBase;
 
 + (void)registerByWeiboOrTaobaoWithParamters:(NSDictionary *)paramters
                                        Block:(void (^)(NSDictionary * dict, NSError * error))block;

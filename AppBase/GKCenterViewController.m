@@ -116,10 +116,10 @@
     //[self.view addSubview:mask];
     
     
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,40, 2)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0,40, 4)];
     view.backgroundColor =UIColorFromRGB(0xebe7e4);
     
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,2)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,4)];
     line.center = CGPointMake(20, line.center.y);
     line.backgroundColor =UIColorFromRGB(0xe2ddd9);
     [view addSubview:line];
@@ -131,7 +131,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    //[self showUserWithUserID:181082];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     if([_dataArray count] == 0)
@@ -230,6 +229,10 @@
     {
         height = 0;
     }
+    if([[[_dataArray objectAtIndex:section]objectForKey:@"row" ]count] == (row+1))
+    {
+        height = height +10;
+    }
     return height;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -269,6 +272,25 @@
     [view addSubview:label];
     [view addSubview:image];
     view.tag = 1400+section;
+    return view;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f,self.view.frame.size.width, 10)];
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
+    
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,10)];
+    line.center = CGPointMake(20, line.center.y);
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
+    [view addSubview:line];
+    
+    UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
+    colorf9f9f9.backgroundColor =UIColorFromRGB(0xf9f9f9);
+    [view addSubview:colorf9f9f9];
     return view;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

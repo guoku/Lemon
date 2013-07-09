@@ -19,5 +19,4 @@
 @property (nonatomic, strong) GKUserRelation * relation;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
-
 @end

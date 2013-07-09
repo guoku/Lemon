@@ -19,7 +19,6 @@ typedef enum {
 @interface GKUserRelation : NSObject
 
 @property (readonly) NSUInteger user_id;
-@property (readonly) NSUInteger visitor_id;
 @property (readonly) GK_USER_RELATION status;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;

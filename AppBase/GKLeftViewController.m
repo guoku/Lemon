@@ -185,6 +185,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    //[self showUserWithUserID:181082];
     [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"navigation_bar_button_enable"];
 }
 - (void)viewDidDisappear:(BOOL)animated

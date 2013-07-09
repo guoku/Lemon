@@ -142,8 +142,8 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
     [paramters setValue:[NSString stringWithFormat:@"%u", entity_id] forKeyPath:@"eid"];
 
     
-    NSString * actionURLString = selected ? @"entity/unlike/" : @"entity/like/";
-    [[GKAppDotNetAPIClient sharedClient] postPath:actionURLString parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/81931/like/%d",selected] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
 
         NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;

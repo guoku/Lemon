@@ -23,14 +23,21 @@
     if (self) {
         self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectZero;
-        [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateNormal];
         [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateSelected];
+        [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [_likeButton setImage:[UIImage imageNamed:@"star_m.png"] forState:UIControlStateNormal];
+         [_likeButton setImage:[UIImage imageNamed:@"star_m.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
-        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateNormal];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateSelected];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateSelected];
         [_likeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
-        [_likeButton setTitleColor:[UIColor colorWithRed:253.0f / 255.0f green:62.0f / 255.0f blue:55.0 / 255.0f alpha:1.0f] forState:UIControlStateNormal];
+        [_likeButton setTitleColor:[UIColor colorWithRed:253.0f / 255.0f green:62.0f / 255.0f blue:55.0 / 255.0f alpha:1.0f] forState:UIControlStateSelected];
+        [_likeButton setTitleColor:[UIColor colorWithRed:253.0f / 255.0f green:62.0f / 255.0f blue:55.0 / 255.0f alpha:1.0f] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [_likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_likeButton addTarget:self action:@selector(likeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_likeButton];
         
@@ -49,6 +56,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    NSString * _liked_count;
+
     if(_data !=nil)
     {
         _likeButton.enabled = YES;
@@ -57,21 +66,21 @@
     {
         _likeButton.enabled = NO;
     }
-    
-    
-    if (_data.entitylike)
+    if (_data.entitylike.status)
     {
+        _liked_count = [NSString stringWithFormat:@"已收藏"];
         _likeButton.selected = _data.entitylike.status;
     }
     else
     {
+        _liked_count = [NSString stringWithFormat:@"收藏 %u", _data.liked_count];
         _likeButton.selected = NO;
     }
     
     _likeButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [_likeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
     _likeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    NSString * _liked_count = [NSString stringWithFormat:@"收藏 %u", _data.liked_count];
+
     [_likeButton setTitle:_liked_count forState:UIControlStateNormal];
 }
 

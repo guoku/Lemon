@@ -15,8 +15,7 @@
 - (void)showDetailWithEntityID:(NSUInteger)entity_id;
 - (void)showDetailWithData:(GKEntity*)data;
 - (void)showUserWithUserID:(NSUInteger)user_id;
-- (void)showUserWithUserID:(NSUInteger)user_id WithTab:(NSUInteger)tab_id;
-- (void)showTagWithTagString:(NSString *)tagString;
+//- (void)showTagWithTagString:(NSString *)tagString;
 - (void)showCommentWithNote:(GKNote *)note;
 - (void)showUserFollowWithUserID:(NSUInteger)user_id;
 - (void)showUserFansWithUserID:(NSUInteger)user_id;

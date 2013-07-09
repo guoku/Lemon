@@ -51,6 +51,10 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         _location = [attributes valueForKeyPath:@"location"];
         _city = [attributes valueForKeyPath:@"city"];
         _avatarImageURLString = [attributes valueForKeyPath:@"avatar_url"];
+        if(!_avatarImageURLString)
+        {
+            _avatarImageURLString = @"http://image.guoku.com/avatar/large_181259_c3ac1096db6cf045cc4c9ed3a62f1c7c.jpe";
+        }
         _bio = [attributes valueForKeyPath:@"bio"];
         if([_bio isEqual:[NSNull null]])
         {
@@ -78,6 +82,20 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
 
     }
     return self;
+}
+-(GKUserBase *)getUserBase
+{
+    NSMutableDictionary *a = [[NSMutableDictionary alloc]initWithCapacity:0];
+    [a setObject:@(_user_id) forKey:@"user_id"];
+    [a setObject:_nickname forKey:@"nickname"];
+    [a setObject:_gender forKey:@"gender"];
+    [a setObject:_location forKey:@"loaction"];
+    [a setObject:_relation forKey:@"relation"];
+    [a setObject:_city forKey:@"city"];
+    [a setObject:_avatarImageURLString forKey:@"avatar_url"];
+    
+    GKUserBase *userBase = [[GKUserBase alloc]initWithAttributes:a];
+    return userBase;
 }
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
@@ -246,8 +264,8 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 NSMutableDictionary * _mutabledict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary * attributes in actionResponse)
                 {
-                    
-                    GKUserRelation  * user_relation = [[GKUserRelation alloc] initWithAttributes:attributes];
+                    NSLog(@"%@",attributes);
+                    GKUserRelation  * user_relation = [[GKUserRelation alloc] initWithAttributes:[attributes objectForKey:@"relation"]];
                     [_mutabledict setValue:user_relation forKey:@"content"];
                     break;
                 }

@@ -11,7 +11,6 @@
 @implementation GKUserRelation
 
 @synthesize user_id = _user_id;
-@synthesize visitor_id = _visitor_id;
 @synthesize status = _status;
 
 - (id)initWithAttributes:(NSDictionary *)attributes
@@ -19,6 +18,7 @@
     self = [super init];
     if (self)
     {
+        NSLog(@"%@",attributes);
         _user_id = [[attributes valueForKeyPath:@"user_id"] integerValue];
         _status = [[attributes valueForKeyPath:@"status"] integerValue];
     }

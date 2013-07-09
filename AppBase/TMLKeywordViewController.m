@@ -29,6 +29,7 @@
     NSMutableDictionary *yOffsetDictionary;
     NSMutableDictionary *pageDictionary;
     NSString *group;
+    NSMutableDictionary *loadMoreBoolDictionary;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,6 +45,9 @@
         [pageDictionary setObject:@(1) forKey:@"new"];
         dataArrayDic = [[NSMutableDictionary alloc] init];
         yOffsetDictionary = [[NSMutableDictionary alloc] init];
+        loadMoreBoolDictionary = [[NSMutableDictionary alloc] init];
+        [loadMoreBoolDictionary setObject:@(NO) forKey:@"best"];
+        [loadMoreBoolDictionary setObject:@(NO) forKey:@"new"];
         group = @"best";
         _canLoadMore = NO;
     }
@@ -88,12 +92,13 @@
             [self.table reloadData];
             if([array count] >25 )
             {
-                [self setFooterView:YES];
+                [loadMoreBoolDictionary setObject:@(YES) forKey:group];
             }
             else
             {
-                [self setFooterView:NO];
+                [loadMoreBoolDictionary setObject:@(NO) forKey:group];
             }
+            [self setLoadMore];
         }
         else
         {
@@ -245,7 +250,16 @@
     }
     cell.delegate = self;
     NSMutableArray * a = [dataArrayDic objectForKey:group];
-    cell.dataArray =[NSMutableArray arrayWithObjects:[a objectAtIndex:(indexPath.row*2)], [a objectAtIndex:(indexPath.row*2+1)],nil];
+    if([a count] > indexPath.row * 2 + 1)
+    {
+        cell.dataArray = nil;
+        cell.dataArray = [NSMutableArray arrayWithObjects:[a objectAtIndex:(indexPath.row * 2)], [a objectAtIndex:(indexPath.row * 2 + 1)],nil];
+    }
+    else
+    {
+        cell.dataArray = nil;
+        cell.dataArray = [NSMutableArray arrayWithObjects:[a objectAtIndex:(indexPath.row * 2)],nil];
+    }
     
     return cell;
 }
@@ -447,12 +461,13 @@
             [self.table reloadData];
             if([array count] >25 )
             {
-                [self setFooterView:YES];
+                [loadMoreBoolDictionary setObject:@(YES) forKey:group];
             }
             else
             {
-                [self setFooterView:NO];
+                [loadMoreBoolDictionary setObject:@(NO) forKey:group];
             }
+            [self setLoadMore];
         }
         else
         {
@@ -470,7 +485,16 @@
         }
         [self doneLoadingTableViewData];
     }];
-
-
 }
+- (void)setLoadMore
+{
+    if ([[loadMoreBoolDictionary objectForKey:group]boolValue]) {
+        [self setFooterView:YES];
+    }
+    else
+    {
+        [self setFooterView:NO];
+    }
+}
+
 @end

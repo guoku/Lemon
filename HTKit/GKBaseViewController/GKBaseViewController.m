@@ -9,6 +9,7 @@
 #import "GKBaseViewController.h"
 #import "GKDetailViewController.h"
 #import "GKUserViewController.h"
+#import "GKFollowViewController.h"
 #import "DPCardWebViewController.h"
 #import "GKAppDotNetAPIClient.h"
 #import "GAI.h"
@@ -51,7 +52,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    //[[SDImageCache sharedImageCache] clearMemory];
 }
 #pragma mark Delegate
 - (void)showDetailWithEntityID:(NSUInteger)entity_id
@@ -59,24 +59,32 @@
     
     GKDetailViewController *VC = [[GKDetailViewController alloc] initWithEntityID:entity_id];
     VC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:VC animated:YES];
-/*
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
-    }];
- */
+    if(self.navigationController)
+    {
+        [self.navigationController pushViewController:VC animated:YES];
+    }
+    else
+    {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
+        }];
+    }
 }
 - (void)showDetailWithData:(GKEntity*)data
 {
     
     GKDetailViewController *VC = [[GKDetailViewController alloc] initWithDate:data];
     VC.hidesBottomBarWhenPushed = YES;
+    if(self.navigationController)
+    {
         [self.navigationController pushViewController:VC animated:YES];
-    /*
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
-    }];
-     */
+    }
+    else
+    {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
+        }];
+    }
 
 }
 
@@ -96,20 +104,36 @@
     }
 
 }
-- (void)showUserWithUserID:(NSUInteger)user_id WithTab:(NSUInteger)tab_id
+- (void)showUserFollowWithUserID:(NSUInteger)user_id
 {
-    //GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user_id WithTab:tab_id];
-    GKUserViewController *VC = [[GKUserViewController alloc] init];
-    VC.hidesBottomBarWhenPushed = YES;
+    GKFollowViewController *VC = [[GKFollowViewController alloc]initWithUserID:user_id withGroup:@"follow"];
+    VC .hidesBottomBarWhenPushed = YES;
+    if(self.navigationController)
+    {
         [self.navigationController pushViewController:VC animated:YES];
-    /*
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
-    }];
-     */
-
+    }
+    else
+    {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
+        }];
+    }
 }
-
+- (void)showUserFansWithUserID:(NSUInteger)user_id
+{
+    GKFollowViewController *VC = [[GKFollowViewController alloc]initWithUserID:user_id withGroup:@"fan"];
+    VC.hidesBottomBarWhenPushed = YES;
+    if(self.navigationController)
+    {
+        [self.navigationController pushViewController:VC animated:YES];
+    }
+    else
+    {
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];
+        }];
+    }
+}
 - (void)showWebViewWithTaobaoid:(NSString *)taobao_id
 {
     [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"ItemAction"

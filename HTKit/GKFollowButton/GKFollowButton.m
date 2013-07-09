@@ -35,7 +35,7 @@
         [self addSubview:_followBTN];
         
         self.unfollowBTN = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_unfollowBTN setTitle:@"取消关注" forState:UIControlStateNormal];
+        [_unfollowBTN setTitle:@"已关注" forState:UIControlStateNormal];
         [_unfollowBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
         [_unfollowBTN setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_unfollowBTN setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
@@ -130,9 +130,13 @@
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error)
             {
+                GKUser * me = [[GKUser alloc]initFromNSU];
+                me.follows_count++;
+                [me save];
                 _userRelation = [user_relation valueForKeyPath:@"content"];
                 [_message setValue:@(button.tag) forKey:@"userID"];
                 [_message setValue:_userRelation forKey: @"relation"];
+                [_message setValue:_data forKey:@"user"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_UserFollowChange object:nil userInfo:_message];
                 [GKMessageBoard hideMB];
             }
@@ -173,9 +177,13 @@
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error)
             {
-                _userRelation = [user_relation valueForKeyPath:@"content"];
+                GKUser * me = [[GKUser alloc]initFromNSU];
+                me.follows_count--;
+                [me save];
+                _userRelation = (GKUserRelation *)[user_relation valueForKeyPath:@"content"];
                 [_message setValue:@(button.tag) forKey:@"userID"];
                 [_message setValue:_userRelation forKey: @"relation"];
+                [_message setValue:_data forKey:@"user"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_UserFollowChange object:nil userInfo:_message];
                 [GKMessageBoard hideMB];
             }

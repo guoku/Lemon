@@ -17,7 +17,7 @@
 @property (strong, nonatomic) GKUserButton *avatar;
 @property (strong, nonatomic) UILabel *nickname;
 @property (strong, nonatomic) UILabel *bio;
-@property (strong, nonatomic) UIButton *invite;
+@property (strong, nonatomic) GKFollowButton *followBTN;
 
 @property (weak,nonatomic) id<GKDelegate> delegate;
 

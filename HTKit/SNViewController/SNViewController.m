@@ -117,6 +117,9 @@
                     }
                     else
                     {
+                        [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
+                        [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
                         GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
                         [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
                             
