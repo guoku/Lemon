@@ -7,6 +7,7 @@
 //
 
 #import "GKBaseViewController.h"
+#import "TMLKeyWord.h"
 #import "EGORefreshTableHeaderView.h"
 
 @interface TMLKeywordViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,EGORefreshTableHeaderDelegate>
@@ -16,7 +17,7 @@
 }
 @property (strong, nonatomic) UITableView *table;
 
--(id)initWithPid:(NSUInteger)pid Cid:(NSUInteger)cid;
+-(id)initWithPid:(NSUInteger)pid Category:(TMLKeyWord *)cate;
 -(void)reloadTableViewDataSource;
 -(void)doneLoadingTableViewData;
 

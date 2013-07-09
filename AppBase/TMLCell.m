@@ -158,7 +158,7 @@
 }
 - (void)goKeyWord
 {
-    TMLKeywordViewController *VC = [[TMLKeywordViewController alloc] initWithPid:_pid Cid:((TMLKeyWord *)_object).kid];
+    TMLKeywordViewController *VC = [[TMLKeywordViewController alloc] initWithPid:_pid Category:((TMLKeyWord *)_object)];
     VC.hidesBottomBarWhenPushed = YES;
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:YES];

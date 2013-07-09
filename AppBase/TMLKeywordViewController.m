@@ -39,7 +39,7 @@
         // Custom initialization
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-        self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"分类"];
+
         pageDictionary = [[NSMutableDictionary alloc] init];
         [pageDictionary setObject:@(1) forKey:@"best"];
         [pageDictionary setObject:@(1) forKey:@"new"];
@@ -53,12 +53,13 @@
     }
     return self;
 }
--(id)initWithPid:(NSUInteger)pid Cid:(NSUInteger)cid
+-(id)initWithPid:(NSUInteger)pid Category:(TMLKeyWord *)cate
 {
     self = [super init];
     {
         _pid = pid;
-        _cid = cid;
+        _cid = cate.kid;
+        self.navigationItem.titleView = [GKTitleView  setTitleLabel:cate.name];
     }
     return self;
 }

@@ -343,15 +343,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 	
-	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
-        if(!_loadMoreflag&&!_reloading)
-        {
-            _loadMoreflag = YES;
-            [self loadMore];
-        }
-	}
-	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];	
 }
 #pragma mark -
 #pragma mark 重载EGORefreshTableHeaderView必选方法

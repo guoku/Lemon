@@ -74,7 +74,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     NSLog(@"%@",[GKEntity getNeedResquestEntity]);
     _titleArray = [NSMutableArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
@@ -437,5 +438,10 @@
     self.table.contentOffset = CGPointMake(self.table.contentOffset.x, 0);
     self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:stage-1] objectForKey:@"name"]];
 
+}
+- (void)cardLikeChange:(NSNotification *)noti
+{
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
 }
 @end
