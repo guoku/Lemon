@@ -8,6 +8,7 @@
 
 #import "GKEDCSettingViewController.h"
 #import "GKAppDelegate.h"
+#import "UIViewController+MMDrawerController.h"
 @interface GKEDCSettingViewController ()
 
 @end
@@ -20,6 +21,7 @@
     UIButton *button;
     NSUInteger state;
     GKUser * user;
+    UIView * bg;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,6 +47,8 @@
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     
+
+    
     if(kScreenHeight == 548)
     {
         y1 = 60;
@@ -56,16 +60,22 @@
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.view.backgroundColor = UIColorFromRGB(0xf2f2f2);
+    
+    bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    bg.backgroundColor = UIColorFromRGB(0xf2f2f2);
+    [self.view addSubview:bg];
+    
+    
     UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,145)];
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
-    [self.view addSubview:headerView];
+    [bg addSubview:headerView];
     
     user =[[GKUser alloc ]initFromNSU];
     
     GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
     avatar.center = CGPointMake(kScreenWidth/2, 57);
     avatar.user = user;
-    [self.view addSubview:avatar];
+    [bg addSubview:avatar];
     
     UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-150, 25)];
     name.center = CGPointMake(kScreenWidth/2, avatar.frame.origin.y+avatar.frame.size.height+14);
@@ -74,7 +84,7 @@
     [name setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
     name.textColor = UIColorFromRGB(0x555555);
     name.text = user.nickname;
-    [self.view addSubview:name];
+    [bg addSubview:name];
     
     UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-100,30)];
     description.center = CGPointMake(kScreenWidth/2, name.frame.origin.y+name.frame.size.height+4);
@@ -84,7 +94,7 @@
     [description setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     description.textColor = UIColorFromRGB(0x999999);
     description.text = user.bio;
-    [self.view addSubview:description];
+    [bg addSubview:description];
         
     button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-50, 40)];
     button.center = CGPointMake(kScreenWidth/2, headerView.frame.size.height+y1);
@@ -130,11 +140,11 @@
     
     button.enabled = NO;
 
-    [self.view addSubview:button];
+    [bg addSubview:button];
 
     datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, kScreenHeight-260, kScreenWidth, 200)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
-    [self.view addSubview:datePicker];
+    [bg addSubview:datePicker];
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
     [datePicker addTarget:self action:@selector(change) forControlEvents:UIControlEventValueChanged];
@@ -204,10 +214,19 @@
         [user changeStageWithStage:state Date:datePicker.date Block:^(NSDictionary *dict, NSError *error) {
             if(!error)
             {
-                GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
-                    
+
+                [UIView animateWithDuration:0.5 animations:^{
+                    bg.alpha = 0;
+                } completion:^(BOOL finished) {
+                    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                    [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:NO completion:^(BOOL finished) {
+                    }];
+                    [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
                 }];
+
+
             }
             else
             {
@@ -217,4 +236,5 @@
     }
     
 }
+
 @end

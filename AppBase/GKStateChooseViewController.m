@@ -10,6 +10,7 @@
 #import "GKAppDelegate.h"
 #import "GKEDCSettingViewController.h"
 #import "GKUser.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface GKStateChooseViewController ()
 
@@ -18,6 +19,7 @@
 @implementation GKStateChooseViewController
 {
     @private GKUser *user;
+    UIView * bg;
 }
 
 
@@ -38,16 +40,21 @@
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"欢迎加入"];
     self.view.backgroundColor = UIColorFromRGB(0xf2f2f2);
+    
+    bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    bg.backgroundColor = UIColorFromRGB(0xf2f2f2);
+    [self.view addSubview:bg];
+    
     UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,145)];
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
-    [self.view addSubview:headerView];
+    [bg addSubview:headerView];
     
     user =[[GKUser alloc ]initFromNSU];
     
     GKUserButton * avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(0, 0, 62, 62)];
     avatar.center = CGPointMake(kScreenWidth/2, 57);
     avatar.user = user;
-    [self.view addSubview:avatar];
+    [bg addSubview:avatar];
     
     UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-150, 25)];
     name.center = CGPointMake(kScreenWidth/2, avatar.frame.origin.y+avatar.frame.size.height+14);
@@ -56,7 +63,7 @@
     [name setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
     name.textColor = UIColorFromRGB(0x555555);
     name.text = user.nickname;
-    [self.view addSubview:name];
+    [bg addSubview:name];
     
     UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-100,30)];
     description.center = CGPointMake(kScreenWidth/2, name.frame.origin.y+name.frame.size.height+4);
@@ -66,7 +73,7 @@
     [description setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     description.textColor = UIColorFromRGB(0x999999);
     description.text = user.bio;
-    [self.view addSubview:description];
+    [bg addSubview:description];
     
     UILabel * tip = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-100,12)];
     tip.center = CGPointMake(kScreenWidth/2, headerView.frame.size.height+42);
@@ -76,7 +83,7 @@
     [tip setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     tip.textColor = UIColorFromRGB(0x999999);
     tip.text = @"请选择您当前的状态";
-    [self.view addSubview:tip];
+    [bg addSubview:tip];
     
     int i =1;
     
@@ -104,7 +111,7 @@
         
         [button addSubview:arrow];
                 
-        [self.view addSubview:button];
+        [bg addSubview:button];
     
     }
     
@@ -159,9 +166,15 @@
         [user changeStageWithStage:1 Date:nil Block:^(NSDictionary *dict, NSError *error) {
             if(!error)
             {
-                GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
-                    
+                [UIView animateWithDuration:0.5 animations:^{
+                    bg.alpha = 0;
+                } completion:^(BOOL finished) {
+                    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                    [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:NO completion:^(BOOL finished) {
+                    }];
+                    [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
                 }];
             }
             else

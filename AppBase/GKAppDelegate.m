@@ -25,6 +25,7 @@
 #import "GKLeftViewController.h"
 #import "GKRightViewController.h"
 #import "MMExampleDrawerVisualStateManager.h"
+#import "GKLoadingViewController.h"
 
 
 @implementation GKAppDelegate
@@ -38,6 +39,7 @@
 @synthesize tracker = tracker_;
 @synthesize drawerController = _drawerController;
 @synthesize needRequestEntityArray = _needRequestEntityArray;
+@synthesize navigationController = _navigationController;
 
 #pragma mark- 系统
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -142,10 +144,10 @@
         
         UIViewController * rightSideDrawerViewController = [[GKRightViewController alloc] init];
         
-        GKNavigationController * navigationController = [[GKNavigationController alloc] initWithRootViewController:centerViewController];
+        _navigationController = [[GKNavigationController alloc] initWithRootViewController:centerViewController];
         
         self.drawerController = [[GKRootViewController alloc]
-                                                    initWithCenterViewController:navigationController
+                                                    initWithCenterViewController:_navigationController
                                                     leftDrawerViewController:leftSideDrawerViewController
                                                     rightDrawerViewController:rightSideDrawerViewController];
         [_drawerController setMaximumLeftDrawerWidth:260.0];
@@ -166,6 +168,9 @@
 
         self.window.rootViewController = _drawerController;
     }
+    
+    _loginVC = [[GKLoginViewController alloc] init];
+
     [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"打开应用"
                                                     withAction:nil
                                                      withLabel:nil
@@ -174,22 +179,19 @@
     [self customizeAppearance];
     
     [self.window makeKeyAndVisible];
-    self.hostReach = [Reachability reachabilityForInternetConnection];
-    [self updateInterfaceWithReachability:self.hostReach];
-    [_hostReach startNotifier];
-    
     
     if (![kUserDefault stringForKey:kSession])
     {
-        GKLoginViewController *loginVC = [[GKLoginViewController alloc] init];
-        [self.window.rootViewController presentViewController: loginVC animated:NO completion:NULL];
+        [self.window.rootViewController presentViewController: _loginVC animated:NO completion:NULL];
     }
     else
     {
-        _needRequestEntityArray = [NSMutableArray arrayWithArray:[GKEntity getNeedResquestEntity]];
-        NSLog(@"%@",_needRequestEntityArray);
+        GKLoadingViewController * VC = [[GKLoadingViewController alloc] init];
+        [self.window.rootViewController presentViewController: VC animated:NO completion:NULL];
     }
-
+    self.hostReach = [Reachability reachabilityForInternetConnection];
+    [self updateInterfaceWithReachability:self.hostReach];
+    [_hostReach startNotifier];
     return YES;
 }
 
@@ -238,9 +240,12 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    SinaWeibo *sinaweibodata = [self sinaweibo];
+    sinaweibodata.userID = [kUserDefault objectForKey:@"sina_user_id"];
+    sinaweibodata.accessToken= [kUserDefault objectForKey:@"sina_access_token"];
+    sinaweibodata.expirationDate =[NSDate dateWithTimeIntervalSinceNow:[[kUserDefault objectForKey:@"sina_expires_in"] integerValue]];
     [self.sinaweibo applicationDidBecomeActive];
 }
-
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     
     if([[url absoluteString]hasPrefix:@"sinaweibosso"])

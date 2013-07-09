@@ -46,26 +46,91 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKDetailHeaderView.m"
-         timestampString = "395048670.840084"
+         filePath = "AppBase/GKLoadingViewController.m"
+         timestampString = "395082873.330134"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "145"
-         endingLineNumber = "145"
-         landmarkName = "-setDetailData:"
+         startingLineNumber = "77"
+         endingLineNumber = "77"
+         landmarkName = "-showEverything"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "HTKit/GKLikeButton/GKLikeButton.m"
-         timestampString = "395048854.826985"
+         filePath = "AppBase/GKLoadingViewController.m"
+         timestampString = "395082651.048278"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "69"
-         endingLineNumber = "69"
-         landmarkName = "-layoutSubviews"
+         startingLineNumber = "77"
+         endingLineNumber = "77"
+         landmarkName = "-showEverything"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKLoadingViewController.m"
+         timestampString = "395082651.048278"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
+         landmarkName = "-viewDidAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKLoadingViewController.m"
+         timestampString = "395082651.048278"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "39"
+         endingLineNumber = "39"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKLoadingViewController.m"
+         timestampString = "395082651.048278"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "52"
+         endingLineNumber = "52"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKSettingViewController.m"
+         timestampString = "395082173.582535"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "421"
+         endingLineNumber = "421"
+         landmarkName = "-logoutButtonAction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKLoginViewController.m"
+         timestampString = "395082622.164582"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "56"
+         endingLineNumber = "56"
+         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -170,7 +170,6 @@
     [_refreshHeaderView refreshLastUpdatedDate];
     [self setFindFriendView];
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -193,7 +192,6 @@
 {
     [super viewDidAppear:animated];
     [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
-    [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"navigation_bar_button_enable"];
     if(([[_dataArrayDic objectForKey:_group] count] == 0)&&(!_reloading))
     {
         [self refresh];
@@ -203,7 +201,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"navigation_bar_button_enable"];
 }
 - (void)viewDidUnload
 {
@@ -216,7 +213,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark 重载tableview必选方法
+#pragma mark - TableView
 //返回一共有多少个Section
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -350,7 +347,6 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
     [self reloadTableViewDataSource];
-    //[self performSelector:@selector(reloadTableViewDataSource) withObject:nil afterDelay:3.0];
 }
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {

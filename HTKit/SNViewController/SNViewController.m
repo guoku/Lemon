@@ -47,7 +47,6 @@
                        params:[NSMutableDictionary dictionaryWithObjectsAndKeys:sinaweibo.userID,@"uid", nil]
                    httpMethod:@"GET"
                      delegate:self];
-    
 }
 
 - (SinaWeibo *)sinaweibo
@@ -95,6 +94,14 @@
         [paramters setValue:sinaweibo.accessToken forKey:@"access_token"];
         [paramters setValue:[NSString stringWithFormat:@"%u", expires_in] forKey:@"expires_in"];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        
+        
+        [kUserDefault setValue:sinaweibo.userID forKey:@"sina_user_id"];
+        [kUserDefault setValue:sinaweibo.accessToken forKey:@"sina_access_token"];
+        [kUserDefault setValue:[NSString stringWithFormat:@"%u", expires_in] forKey:@"sina_expires_in"];
+        
+        
+        
         [GKUser registerByWeiboOrTaobaoWithParamters:paramters Block:^(NSDictionary *dict, NSError *error) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error)

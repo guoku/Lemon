@@ -319,7 +319,7 @@
     self.table.tableFooterView.hidden = NO;
     CGPoint offset = self.table.contentOffset;
     offset.y = 0.0;
-    [UIView animateWithDuration:0.0 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         self.table.contentOffset = offset;
     }completion:^(BOOL finished) {
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.table];
@@ -341,7 +341,6 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
     [self reloadTableViewDataSource];
-    //[self performSelector:@selector(reloadTableViewDataSource) withObject:nil afterDelay:3.0];
 }
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {

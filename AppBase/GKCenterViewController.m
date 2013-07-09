@@ -20,6 +20,7 @@
 #import "GKDetailViewController.h"
 #import "GKEDCSettingViewController.h"
 #import "GKUserViewController.h"
+#import "UIViewController+MMDrawerController.h"
 @interface GKCenterViewController ()
 
 @end
@@ -35,23 +36,25 @@
     BOOL headerChange;
     float y;
     GKUser *user;
+    BOOL openLeftMenu;
 }
 @synthesize table = _table;
 @synthesize icon = _icon;
 
+
+#pragma mark - LifeCircle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        openLeftMenu = YES;
         indexPathTmp = [[NSIndexPath alloc]initWithIndex:0];
         NSLog(@"%d",indexPathTmp.section);
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
-        
 
-        
         UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
         [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
         [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateHighlighted];
@@ -74,6 +77,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     NSLog(@"%@",[GKEntity getNeedResquestEntity]);
@@ -139,23 +145,21 @@
         NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
         _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-        NSLog(@"%@",_dataArray);
-        [self.table reloadData]; 
+        [self.table reloadData];
     }
+    [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-}
-- (void)reload:(id)sender
-{
-
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - TableView
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [_dataArray count];
@@ -298,10 +302,6 @@
 {
     NSLog(@"%@",indexPath);
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
-}
-
 - (void)setTableHeaderView
 {
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
@@ -337,95 +337,13 @@
     _table.tableFooterView = footerview;
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    GKLog(@"offset:%f",scrollView.contentOffset.y);
-    GKLog(@"height:%f",scrollView.contentSize.height);
-}
-- (void)sectionChange:(NSIndexPath *)indexPath1 and:(NSIndexPath *)indexPath2
-{
-    [[HeaderView viewWithTag:1]removeFromSuperview];
-    UIView * view = [[UIView alloc]init];
-  
-    if(indexPath1.section < indexPath2.section)
-    {
-        view = [self tableView:_table viewForHeaderInSection:indexPath1.section];
-        view.frame = CGRectMake(HeaderView.frame.origin.x, HeaderView.frame.origin.y+HeaderView.frame.size.height-30, kScreenWidth, 30);
-        view.tag = 1;
-        view.alpha = 0;
-        [HeaderView addSubview: view];
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        view.alpha=0.8;
-        [UIView commitAnimations];
-    }
-    else
-    {
-        if(indexPath1.section >= 2)
-        {
-            view = [self tableView:_table viewForHeaderInSection:indexPath1.section-2];
-            view.frame = CGRectMake(HeaderView.frame.origin.x, HeaderView.frame.origin.y+HeaderView.frame.size.height-30, kScreenWidth, 30);
-            view.tag = 1;
-            view.alpha = 0;
-            [HeaderView addSubview: view];
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDuration:0.3];
-            view.alpha=0.8;
-            [UIView commitAnimations];
-    
-        }
-    }
-
 
 }
-- (void)showNotePostView
-{
-    if (![kUserDefault stringForKey:kSession])
-    {
-        [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
-    }
-    else {
-        GKNotePostViewController *notePostVC = [[GKNotePostViewController alloc]init];
-        notePostVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:notePostVC animated:YES];
-    }
-}
-- (void)showEDCSettingView
-{
-    if (![kUserDefault stringForKey:kSession])
-    {
-        [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
-    }
-    else {
-        GKEDCSettingViewController *notePostVC = [[GKEDCSettingViewController alloc]init];
-        notePostVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:notePostVC animated:YES];
-    }
-}
-- (void)showUserWithUserID:(NSUInteger)user_id
-{
-    GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user_id];
-    VC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:VC animated:YES];
-}
-- (void)showLeftMenu
-{
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"navigation_bar_button_enable"]) {
-        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
-    }
-    else
-    {
-        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:NULL];
-    }
 
-}
-- (void)showRightMenu
+#pragma mark - 通知处理
+- (void)ProfileChange
 {
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"navigation_bar_button_enable"]) {
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
-    }
-    else
-    {
-        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:NULL];
-    }
+    openLeftMenu = YES;
 }
 - (void)stageChange
 {
@@ -433,7 +351,6 @@
     NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-    NSLog(@"%@",_dataArray);
     [self.table reloadData];
     self.table.contentOffset = CGPointMake(self.table.contentOffset.x, 0);
     self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:stage-1] objectForKey:@"name"]];
@@ -444,4 +361,35 @@
     NSDictionary *notidata = [noti userInfo];
     NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
 }
+
+- (void)showLeftMenu
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
+}
+- (void)showRightMenu
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
+}
+- (void)checkShouldOpenMenu
+{
+    if(openLeftMenu)
+    {
+        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+            openLeftMenu = NO;
+        }];
+    }
+}
+- (void)GKLogin
+{
+    openLeftMenu = YES;
+}
+- (void)GKLogout
+{
+    
+    [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
+        openLeftMenu = YES;
+    }];
+}
+
+
 @end

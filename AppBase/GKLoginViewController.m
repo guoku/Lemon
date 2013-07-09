@@ -252,9 +252,15 @@
     
     logo.hidden = NO;
     
-    [self performSelector:@selector(showEverything) withObject:nil afterDelay:1];
+    [self performSelector:@selector(showEverything) withObject:nil afterDelay:0.4];
     
 }
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)HideSomething
 {
     _sinaBtn.hidden = YES;
@@ -278,7 +284,7 @@
     pageControl.hidden = NO;
     scrollView.hidden = NO;
 
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:0.6 animations:^{
         logo.center = CGPointMake(logo.center.x,y1+55/2);
         pageControl.alpha = 1;
         scrollView.alpha = 1;
@@ -291,11 +297,16 @@
  
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    int page = (scrollView.contentOffset.x +160) /320;
+    pageControl.currentPage = page;
+    
 }
+- (void) changePage:(id)sender {
+    int page = pageControl.currentPage;
+    [scrollView setContentOffset:CGPointMake(320 * page, 0)];
+}
+
 - (void)sinaBtnAction
 {
     [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"AcountAction"
@@ -307,14 +318,6 @@
     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate.sinaweibo logIn];
 }
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    int page = (scrollView.contentOffset.x +160) /320;
-    pageControl.currentPage = page;
-    
-}
-- (void) changePage:(id)sender {
-    int page = pageControl.currentPage;
-    [scrollView setContentOffset:CGPointMake(320 * page, 0)];
-}
+
 
 @end
