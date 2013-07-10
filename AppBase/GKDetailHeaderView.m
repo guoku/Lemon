@@ -173,7 +173,7 @@
         {
             remark_x = 0;
             remark_y = remark_y+20;
-            if(remark_y > 40)
+            if(remark_y >= 40)
                 break;
             remarkLabel.frame = CGRectMake(145+remark_x,y+remark_y, size.width+2, 14);
             remark_x = remark_x+size.width+10;

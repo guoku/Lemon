@@ -67,7 +67,7 @@
     [logoutBTN setTitle:@"退出" forState:UIControlStateNormal];
     [logoutBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     
-    [logoutBTN setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [logoutBTN setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     [logoutBTN setTitleEdgeInsets:UIEdgeInsetsMake(1, 8, 0, 0)];
   
     [logoutBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];

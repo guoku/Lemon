@@ -312,8 +312,11 @@
 }
 - (void)backButtonAction:(id)sender
 {
+    /*
     GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
     [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:YES completion:NULL];
+     */
+    [self showUserWithUserID:user.user_id];
 }
 #pragma mark - 通知处理
 - (void)GKLogin

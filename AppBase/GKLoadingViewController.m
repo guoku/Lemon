@@ -19,6 +19,7 @@
     UIImageView * logo;
     CGFloat y1;
     CGFloat yoffest;
+    UIImageView *imageview;
     
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,7 +55,7 @@
     logo.center = CGPointMake(kScreenWidth/2-0.5,logo.center.y);
     [self.view addSubview:logo];
     
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-190, kScreenWidth, 190)];
+    imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-190, kScreenWidth, 190)];
     [imageview setImage:[UIImage imageNamed:@"login_Introduction_1.png"]];
     imageview.userInteractionEnabled = YES;
     imageview.tag = 2008;
@@ -75,6 +76,7 @@
     [UIView animateWithDuration:0.6 animations:^{
         //logo.center = CGPointMake(logo.center.x,y1+55/2);
         logo.center = CGPointMake(logo.center.x,-55);
+        imageview.center = CGPointMake(imageview.center.x, kScreenHeight+imageview.frame.size.height+100);
         logo.alpha = 0;
     } completion:^(BOOL finished) {
         [[self.view viewWithTag:2008]removeFromSuperview];

@@ -24,7 +24,7 @@
         UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
         gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         gestureRecognizer.numberOfTouchesRequired = 1;
-        //[self.view addGestureRecognizer:gestureRecognizer];
+        [self.view addGestureRecognizer:gestureRecognizer];
     }
     return self;
 }

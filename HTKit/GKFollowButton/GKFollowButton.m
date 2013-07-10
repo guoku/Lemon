@@ -31,7 +31,7 @@
         [_followBTN setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
         [_followBTN setBackgroundImage:[[UIImage imageNamed:@"button_red_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [_followBTN addTarget:self action:@selector(followButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_followBTN setHidden:NO];
+        [_followBTN setHidden:YES];
         [self addSubview:_followBTN];
         
         self.unfollowBTN = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -42,7 +42,7 @@
         [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
         [_unfollowBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [_unfollowBTN addTarget:self action:@selector(unfollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_unfollowBTN setHidden:NO];
+        [_unfollowBTN setHidden:YES];
         [self addSubview:_unfollowBTN];
         
         _message = [[NSMutableDictionary alloc]init];
@@ -102,6 +102,16 @@
             [self.unfollowBTN setImage:nil forState:UIControlStateNormal];
             [self.unfollowBTN setHidden:YES];
             [self.followBTN setHidden:YES];
+            UIButton *meBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height)];
+             UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
+            [meBTN setTitle:@"你自己" forState:UIControlStateNormal];
+            [meBTN setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+            [meBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
+            [meBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+            [meBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+            [meBTN setHidden:NO];
+            meBTN.enabled = NO;
+            [self addSubview:meBTN];
         }
             break;
         default:
