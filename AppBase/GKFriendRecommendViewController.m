@@ -12,6 +12,7 @@
 #import "GKFileManager.h"
 #import "PinyinTools.h"
 #define kSearchString @"abcdefghijklmnopqrstuvwxyz#"
+#import "GKWeiboInviteButton.h"
 @interface GKFriendRecommendViewController ()
 
 @end
@@ -464,13 +465,14 @@
     [userAvatar setImageWithURL:[NSURL URLWithString:[user valueForKey:@"profile_image_url"]]];
     [screenName setText:[user valueForKey:@"screen_name"]];
     
-    UIButton *_invite= [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 6, 50, 30)];
+    GKWeiboInviteButton *_invite= [[GKWeiboInviteButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 6, 50, 30)];
+    _invite.name = screenName.text;
     [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
     [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10) ] forState:UIControlStateHighlighted];
     [_invite setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [_invite setTitle:@"邀请" forState:UIControlStateNormal];
     [_invite.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
-    //[_invite addTarget:self action:@selector(invite) forControlEvents:UIControlEventTouchUpInside];
+    [_invite addTarget:self action:@selector(invite:) forControlEvents:UIControlEventTouchUpInside];
     [_invite.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [cell.contentView addSubview:_invite];
     
@@ -530,6 +532,17 @@
     [self.table reloadData];
 }
 
-
+- (void)invite:(id)sender
+{
+    GKWeiboInviteButton * button = (GKWeiboInviteButton *)sender;
+    NSString *postContent = [NSString stringWithFormat:@"我在使用果库很不错 @%@",button.name];
+    SinaWeibo *sinaweibo = [self sinaweibo];
+    [sinaweibo requestWithURL:@"statuses/update.json"
+                       params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                               postContent, @"status",nil]
+                   httpMethod:@"POST"
+                     delegate:nil];
+    [GKMessageBoard showMBWithText:[NSString  stringWithFormat:@"已发送"] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+}
 
 @end

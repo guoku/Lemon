@@ -109,9 +109,14 @@
         loadView.center = CGPointMake(frame.size.width/2, frame.size.height - 35.0f);
         [self addSubview:loadView];
          */
-        itemLoadingView = [[GKItemLoadingView alloc]init];
-        itemLoadingView.center =  CGPointMake(frame.size.width/2, frame.size.height - 35.0f);
-        [self addSubview:itemLoadingView];
+        //itemLoadingView = [[GKItemLoadingView alloc]init];
+        //itemLoadingView.center =  CGPointMake(frame.size.width/2, frame.size.height - 35.0f);
+        //[self addSubview:itemLoadingView];
+        
+        rotateLoadingView = [[GKRotateLoadingView alloc]init];
+        rotateLoadingView.center =  CGPointMake(frame.size.width/2, frame.size.height - 35.0f);
+        [self addSubview:rotateLoadingView];
+        
         
 		[self setState:EGOOPullRefreshNormal];
 		
@@ -176,7 +181,8 @@
             //[_gkLoadingView stopAnimating];
 			//[_activityView stopAnimating];
             //[loadView stopAnimating];
-            [itemLoadingView stopAnimating];
+            //[itemLoadingView stopAnimating];
+            [rotateLoadingView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = NO;
@@ -193,7 +199,8 @@
             //[_gkLoadingView startAnimating];
             //[loadView startAnimating];
 			//[_activityView startAnimating];
-            [itemLoadingView startAnimating];
+            //[itemLoadingView startAnimating];
+            [rotateLoadingView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = YES;

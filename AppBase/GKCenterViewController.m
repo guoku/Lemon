@@ -89,12 +89,11 @@
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"3",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"4",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"5",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"初生",@"name",@"6",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"7",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"8",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"9",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"10",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"11",@"pid",nil]
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"6",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"7",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"8",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"9",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"10",@"pid",nil]
                    , nil];
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];

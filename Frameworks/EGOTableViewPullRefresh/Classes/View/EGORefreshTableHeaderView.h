@@ -28,6 +28,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "YLActivityIndicatorView.h"
 #import "GKItemLoadingView.h"
+#import "GKRotateLoadingView.h"
 
 typedef enum{
 	EGOOPullRefreshPulling = 0,
@@ -47,7 +48,7 @@ typedef enum{
 	UIActivityIndicatorView *_activityView;
     YLActivityIndicatorView *loadView;
     GKItemLoadingView * itemLoadingView;
-	
+    GKRotateLoadingView * rotateLoadingView;
 
 }
 

@@ -675,6 +675,8 @@
                 {
                     [[_dataArrayDic objectForKey:@"follow"] removeObject:follow_user];
                 }
+                me.follows_count--;
+                [me save];
             }
         }
             break;
@@ -685,6 +687,9 @@
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
             [[_dataArrayDic objectForKey:@"follow"] addObject:userbase];
+            me.follows_count++;
+            [me save];
+            
         }
             break;
         case kFANS:
@@ -695,6 +700,8 @@
                 {
                     [[_dataArrayDic objectForKey:@"follow"] removeObject:follow_user];
                 }
+                me.follows_count--;
+                [me save];
             }
         }
             break;
@@ -705,6 +712,8 @@
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
             [[_dataArrayDic objectForKey:@"follow"] addObject:userbase];
+            me.follows_count++;
+            [me save];
         }
             break;
         case kMyself:
