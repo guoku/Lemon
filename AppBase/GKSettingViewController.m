@@ -14,6 +14,7 @@
 #import "GKAppDelegate.h"
 #import "UIViewController+MMDrawerController.h"
 #import "GKStateChooseViewController.h"
+#import "GKLoginViewController.h"
 @interface GKSettingViewController ()
 
 @end
@@ -426,7 +427,8 @@
 
     }];
     [self.mm_drawerController setCenterViewController:delegate.navigationController withCloseAnimation:NO completion:NULL];
-    [delegate.window.rootViewController presentViewController: delegate.loginVC animated:NO completion:NULL];
+    GKLoginViewController * _loginVC = [[GKLoginViewController alloc] init];
+    [delegate.window.rootViewController presentViewController: _loginVC animated:NO completion:NULL];
 }
 - (void)showLeftMenu
 {

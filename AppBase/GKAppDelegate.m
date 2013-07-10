@@ -169,7 +169,7 @@
         self.window.rootViewController = _drawerController;
     }
     
-    _loginVC = [[GKLoginViewController alloc] init];
+ 
 
     [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"打开应用"
                                                     withAction:nil
@@ -182,6 +182,7 @@
     
     if (![kUserDefault stringForKey:kSession])
     {
+        GKLoginViewController * _loginVC = [[GKLoginViewController alloc] init];
         [self.window.rootViewController presentViewController: _loginVC animated:NO completion:NULL];
     }
     else
