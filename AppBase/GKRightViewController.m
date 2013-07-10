@@ -173,6 +173,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"navigation_bar_button_enable"];
     self.trackedViewName = @"关注页";
@@ -194,7 +196,14 @@
     [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
     if(([[_dataArrayDic objectForKey:_group] count] == 0)&&(!_reloading))
     {
-        [self refresh];
+        if(([_group isEqualToString:@"follow"])&&(me.follows_count!=0))
+        {
+            [self refresh];
+        }
+        else if(([_group isEqualToString:@"fan"])&&(me.fans_count!=0))
+        {
+            [self refresh];
+        }
     }
     
 }
@@ -278,7 +287,6 @@
     tip.textAlignment = NSTextAlignmentLeft;
     [tip setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
     tip.textColor = UIColorFromRGB(0x777777);
-    me = [[GKUser alloc]initFromNSU];
     if([_group isEqualToString:@"follow"])
     {
         tip.text = [NSString stringWithFormat:@"%d个人",me.follows_count];
@@ -672,7 +680,7 @@
             break;
         case kFOLLOWED:
         {
-            if([_dataArrayDic objectForKey:@"follow"])
+            if(![_dataArrayDic objectForKey:@"follow"])
             {
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
@@ -692,7 +700,7 @@
             break;
         case kBothRelation:
         {
-            if([_dataArrayDic objectForKey:@"follow"])
+            if(![_dataArrayDic objectForKey:@"follow"])
             {
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
@@ -721,5 +729,16 @@
     {
         [self setFooterView:NO];
     }
+}
+- (void)GKLogin
+{
+    me = [[GKUser alloc]initFromNSU];
+    _user_id = me.user_id;
+    [self.table reloadData];
+}
+- (void)GKLogout
+{
+    me = nil;
+    [_dataArrayDic removeAllObjects];
 }
 @end

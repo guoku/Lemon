@@ -64,8 +64,8 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         
         
         _liked_count = [[attributes valueForKeyPath:@"like_count"] integerValue];
-        _follows_count = [[attributes valueForKeyPath:@"followings"] integerValue];
-        _fans_count = [[attributes valueForKeyPath:@"fans"] integerValue];
+        _follows_count = [[attributes valueForKeyPath:@"following_count"] integerValue];
+        _fans_count = [[attributes valueForKeyPath:@"fans_count"] integerValue];
         
         _stage = [[attributes valueForKeyPath:@"mom_stage"] integerValue];
         if([[attributes valueForKeyPath:@"baby_birthday"] isEqual:[NSNull null]])
@@ -264,7 +264,6 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 NSMutableDictionary * _mutabledict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary * attributes in actionResponse)
                 {
-                    NSLog(@"%@",attributes);
                     GKUserRelation  * user_relation = [[GKUserRelation alloc] initWithAttributes:[attributes objectForKey:@"relation"]];
                     [_mutabledict setValue:user_relation forKey:@"content"];
                     break;
@@ -423,7 +422,6 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
             case SUCCESS:
             {
                 NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-                NSLog(@"%@",_listresponse);
                 NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary *attributes in _listresponse)
                 {
@@ -436,7 +434,6 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 }
                 if (block)
                 {
-                    NSLog(@"%@",_mutableDict);
                     block([NSDictionary dictionaryWithDictionary:_mutableDict], nil);
                     [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLoginNotification object:nil userInfo:nil];
                 }

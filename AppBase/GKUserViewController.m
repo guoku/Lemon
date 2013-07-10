@@ -528,12 +528,12 @@
 - (void)goFollowButtonAction:(id)sender
 {
 
-        [self showUserFollowWithUserID:_user.user_id];
+        [self showUserFollowWithUserID:_user_id];
     
 }
 - (void)goFansButtonAction:(id)sender
 {
-        [self showUserFansWithUserID:_user.user_id];
+        [self showUserFansWithUserID:_user_id];
 }
 
 - (void)userFollowChange:(NSNotification *)noti
