@@ -103,7 +103,9 @@
         
         self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(100, y+14, 75, 32)];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal];
+        [_usedButton setTitle:@"用过" forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected];
+        [_usedButton setTitle:@"已用过" forState:UIControlStateSelected|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal];
         [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];

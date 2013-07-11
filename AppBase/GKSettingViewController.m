@@ -422,6 +422,9 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate.sinaweibo logOut];
+    [kUserDefault removeObjectForKey:@"sina_user_id"];
+    [kUserDefault removeObjectForKey:@"sina_access_token"];
+    [kUserDefault removeObjectForKey:@"sina_expires_in"];
     [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLogoutNotification object:nil];
     [GKUser globalUserLogoutWithBlock:^(BOOL is_logout, NSError *error) {
 

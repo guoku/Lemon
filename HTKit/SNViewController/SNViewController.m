@@ -137,6 +137,11 @@
             }
             else
             {
+                GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                [delegate.sinaweibo logOut];
+                [kUserDefault removeObjectForKey:@"sina_user_id"];
+                [kUserDefault removeObjectForKey:@"sina_access_token"];
+                [kUserDefault removeObjectForKey:@"sina_expires_in"];
                 [GKMessageBoard showMBWithText:kGK_LoginFailText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             }
         }];

@@ -360,8 +360,13 @@
 - (void)addNewNote:(NSNotification *)noti
 {
     NSDictionary *notidata = [noti userInfo];
-    GKNote * newnote = [notidata valueForKeyPath:@"content"];
+
     NSUInteger entity_id = [[notidata valueForKeyPath:@"entity_id"]integerValue];
+    
+    if([notidata valueForKeyPath:@"content"])
+    {
+        GKNote * newnote = [notidata valueForKeyPath:@"content"];
+  
     BOOL IsNewNote = YES;
     int i=0;
     if(_data.entity_id == entity_id)
@@ -387,7 +392,12 @@
             //[self.detailHeaderView.detailData save];
         }
         [self.table reloadData];
-        
+        }
+    }
+    else
+    {
+        _data.my_score = [[notidata valueForKeyPath:@"score"]integerValue];
+        self.detailHeaderView.detailData = _data;
     }
 }
 - (void)cardLikeChange:(NSNotification *)noti

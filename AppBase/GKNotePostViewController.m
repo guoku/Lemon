@@ -171,6 +171,7 @@
     {
         note_id = _note.note_id;
     }
+    [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
     [GKNote postEntityNoteWithEntityID:_data.entity_id NoteID:note_id Score:score Content:_textView.text Block:^(NSDictionary *note, NSError *error) {
         if(!error)
         {
@@ -179,20 +180,11 @@
                                                             withAction:@"add_note"
                                                              withLabel:nil
                                                              withValue:nil];
-            GKNote * notedata = [note valueForKeyPath:@"content"];
             
-            
-            if(notedata !=nil)
-            {
-                GKLog(@"note note %@", note);
                 _textView.text = nil;
                 [GKMessageBoard showMBWithText:@"点评成功" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else
-            {
-                [GKMessageBoard showMBWithText:@"系统错误，点评失败" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
-            }
+                [self dismissViewControllerAnimated:YES completion:NULL];
+
         }
         else
         {

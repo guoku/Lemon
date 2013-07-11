@@ -89,9 +89,13 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                 NSMutableDictionary * noteDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for(NSDictionary *attributes in listNoteResponse)
                 {
-                    GKNote * _note = [[GKNote alloc] initWithAttributes:[attributes objectForKey:@"note"]];
-                    [noteDict setValue:_note forKey:@"content"];
+                    if(![[attributes objectForKey:@"note"]isEqual:[NSNull null]])
+                    {
+                        GKNote * _note = [[GKNote alloc] initWithAttributes:[attributes objectForKey:@"note"]];
+                        [noteDict setValue:_note forKey:@"content"];
+                    }
                     [noteDict setValue:@(entity_id) forKey:@"entity_id"];
+                    [noteDict setValue:@(score) forKey:@"score"];
                     break;
                 }
                 if (block)
