@@ -144,6 +144,7 @@
         NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
         _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+      
         _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
         bool flag = NO;
         for (GKEntity * entity in _entityArray)
@@ -167,6 +168,7 @@
                 }
                 if(flag)
                 {
+                    flag = NO;
                     break;
                 }
                 
@@ -402,6 +404,7 @@
             }
             if(flag)
             {
+                flag = NO;
                 break;
             }
                 
@@ -417,8 +420,6 @@
 {
     NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
     _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
     bool flag = NO;
@@ -443,6 +444,7 @@
             }
             if(flag)
             {
+                flag = NO;
                 break;
             }
             

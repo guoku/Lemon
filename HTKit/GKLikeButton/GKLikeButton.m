@@ -117,14 +117,20 @@
                 entityLike = [dict valueForKeyPath:@"content"];
                 _data.liked_count = entityLike.status ? _data.liked_count + 1 : _data.liked_count - 1;
                  GKEntity * entity = (GKEntity *)_data;
+                 
+                 if(entityLike.status)
+                 {
                  NSLog(@"%@",entity.pid_list);
                  for(NSString  * pidString in entity.pid_list ) {
                      entity.pid = [pidString integerValue];
                      [entity save];
                  }
+                 }
+                 else
+                 {
+                     [GKEntity deleteWithEntityID:entity.entity_id];
+                 }
                 
-                 
-                 
                 [_message setValue:@(_data.entity_id) forKey:@"entityID"];
                 [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
                 [_message setValue:entityLike forKey:@"likeStatus"];

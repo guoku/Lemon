@@ -35,4 +35,5 @@
 - (id)initFromSQLiteWithRsSet:(FMResultSet *)rs;
 + (NSArray *)getNeedResquestEntity;
 + (NSArray *)getEntityWithPid:(NSUInteger)pid;
++ (BOOL)deleteWithEntityID:(NSUInteger)entity_id;
 @end

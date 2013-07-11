@@ -13,8 +13,8 @@
 static NSString * CREATE_ENTITY_SQL = @"CREATE TABLE IF NOT EXISTS entity \
 (id INTEGER PRIMARY KEY NOT NULL, \
 entity_id INTEGER NOT NULL, \
-pid INTEGER, \
-cid INTEGER, \
+pid INTEGER NOT NULL, \
+cid INTEGER NOT　NULL, \
 title VARCHAR(255), \
 brand VARCHAR(255), \
 shop VARCHAR(255), \
@@ -28,12 +28,15 @@ used_count INTEGER DEFAULT 0, \
 my_score INTEGER DEFAULT 0, \
 weight INTEGER DEFAULT 0)";
 
+
+static NSString * CREATE_ENTITY_INDEX = @"CREATE UNIQUE INDEX IF NOT EXISTS entity_pid_index ON entity (entity_id, pid)";
+
+
 static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,title, brand, image_url, price, avg_score,liked_count, used_count, weight,shop,remark,my_score,pid_list) VALUES(:entity_id,:pid ,:cid ,:title, :brand, :image_url, :price, :avg_score,:liked_count, :used_count, :weight,:shop,:remark,:my_score,:pid_list)";
 
-//static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT entity_id FROM entity LIMIT 30 \
-ORDER BY weight DESC;";
 static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT * FROM entity ORDER BY weight DESC LIMIT 30;";
 static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid = :pid ORDER BY cid";
+static NSString * DELETE_ENTITY_SQL = @"DELETE FROM entity WHERE entity_id = :entity_id";
 
 
 @implementation GKEntity {
@@ -94,6 +97,7 @@ static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid
         {
             NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
             _entitylike = [[GKEntityLike alloc] initWithAttributes:a];
+            [_entitylike saveToSQLite];
         }
         
         _shopList = [attributes valueForKey:@"purchase_list"];
@@ -146,7 +150,12 @@ static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid
 }
 - (BOOL)createTable
 {
-    return [[GKDBCore sharedDB] createTableWithSQL:CREATE_ENTITY_SQL];
+    if ([[GKDBCore sharedDB] createTableWithSQL:CREATE_ENTITY_SQL])
+    {
+        return [[GKDBCore sharedDB] createTableWithSQL:CREATE_ENTITY_INDEX];
+    }
+    
+    return NO;
 }
 - (GKEntity *)save
 {
@@ -198,6 +207,13 @@ static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid
         [_mutableArray addObject:[[GKEntity alloc] initFromSQLiteWithRsSet:rs]];
     }
     return [NSArray arrayWithArray:_mutableArray];
+}
++ (BOOL)deleteWithEntityID:(NSUInteger)entity_id
+{
+    NSDictionary * argsDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSString stringWithFormat:@"%u", entity_id], @"entity_id",nil];
+    
+    return [[GKDBCore sharedDB] removeDataWithSQL:DELETE_ENTITY_SQL ArgsDict:argsDict];
 }
 
 @end
