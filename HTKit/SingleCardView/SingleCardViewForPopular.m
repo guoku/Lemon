@@ -25,7 +25,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _img = [[GKItemButton alloc] initWithFrame:CGRectMake(5, 0, 145, 145)];
+        _img = [[GKItemButton alloc] initWithFrame:CGRectMake(5, 5, 145, 145)];
         [_img setType:kItemButtonWithNumProgress];
         [self addSubview:_img];
         
@@ -97,7 +97,7 @@
     
     _img.entity = _entity;
     _likeButton.data = _entity;
-    [_rating displayRating:7.0/2];
+    [_rating displayRating:_entity.avg_score/2];
     _brand.text = _entity.brand;
     _title.text = _entity.title;
     NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _entity.price];

@@ -27,8 +27,8 @@
         [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
         [_likeButton setImage:[UIImage imageNamed:@"star_m.png"] forState:UIControlStateNormal];
          [_likeButton setImage:[UIImage imageNamed:@"star_m.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateNormal];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateSelected];

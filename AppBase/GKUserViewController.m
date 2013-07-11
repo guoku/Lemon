@@ -277,7 +277,6 @@
         {
             NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
             for (GKEntity * entity in entitylist) {
-                [entity save];
                 BOOL flag = YES;
                 for (GKEntity * e in list) {
                     if(e.entity_id == entity.entity_id)
@@ -296,7 +295,7 @@
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
             for (GKEntity * entity in list) {
-                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid]objectForKey:@"row"];
                 for (NSObject * object  in array ) {
                     if([object isKindOfClass:[TMLKeyWord class]])
                     {

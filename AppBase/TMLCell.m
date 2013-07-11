@@ -115,7 +115,10 @@
         
         UIImageView * check = [[UIImageView alloc]initWithFrame:CGRectMake(entitybg.frame.size.width-21, 0,20, 20)];
         check.image = [UIImage imageNamed:@"done.png"];
-        [entitybg addSubview:check];
+        if(_entity.my_score <11)
+        {
+            [entitybg addSubview:check];
+        }
         
         UILabel * _brand = [[UILabel alloc]initWithFrame:CGRectZero];
         _brand.backgroundColor = [UIColor clearColor];

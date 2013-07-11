@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "GKUserRelation.h"
+#import "GKUserBase.h"
 
 extern NSString * const GKUserLoginNotification;
 extern NSString * const GKUserLogoutNotification;
@@ -36,7 +37,7 @@ extern NSString * const GKUserLogoutNotification;
 - (id)initWithAttributes:(NSDictionary *)attributes;
 - (void)save;
 - (id)initFromNSU;
--(GKUserBase *)getUserBase;
+- (GKUserBase *)getUserBase;
 
 + (void)registerByWeiboOrTaobaoWithParamters:(NSDictionary *)paramters
                                        Block:(void (^)(NSDictionary * dict, NSError * error))block;

@@ -51,7 +51,6 @@
         [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
         _ratingView.center = CGPointMake(_ratingView.center.x, 20);
         _ratingView.userInteractionEnabled = NO;
-        [_ratingView displayRating:8/2];
         [self addSubview:_ratingView];
         
         self.note = [[GKNoteLabel alloc]initWithFrame:CGRectMake(53,y+2,240,400)];
@@ -79,7 +78,7 @@
         [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _pokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_pokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-        [self addSubview:_pokeButton];
+        //[self addSubview:_pokeButton];
         
         _hootButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_hootButton addTarget:self action:@selector(hootButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -158,6 +157,7 @@
     self.nickname.frame = CGRectMake(53, 13, size.width, size.height);
     
     _ratingView.frame = CGRectMake(53+size.width, 13,80 ,size.height);
+    [_ratingView displayRating:_noteData.score/2];
     
     font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
     size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];

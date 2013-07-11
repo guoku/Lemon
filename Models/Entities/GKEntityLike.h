@@ -11,8 +11,6 @@
 @interface GKEntityLike : NSObject
 
 @property (readonly) NSUInteger entity_id;
-@property (readonly) NSUInteger user_id;
-@property (readonly) NSDate * liked_time;
 @property (readonly) BOOL status;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;

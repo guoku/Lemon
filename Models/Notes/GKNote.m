@@ -31,6 +31,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 @synthesize updated_time = _updated_time;
 @synthesize note_poke = _note_poke;
 @synthesize creator = _creator;
+@synthesize score = _score;
 
 
 
@@ -64,18 +65,20 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 
 + (void)postEntityNoteWithEntityID:(NSUInteger)entity_id
                             NoteID:(NSUInteger)note_id
+                            Score:(NSUInteger)score
                            Content:(NSString *)content
                              Block:(void (^)(NSDictionary *note, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:3];
     [paramters setValue:[NSString stringWithFormat:@"%u", entity_id] forKey:@"eid"];
     [paramters setValue:content forKey:@"note"];
+    [paramters setValue:[NSString stringWithFormat:@"%u",score] forKey:@"score"];
     if (note_id != 0)
     {
         [paramters setValue:[NSString stringWithFormat:@"%u", note_id] forKey:@"note_id"];
     }
     GKLog(@"paramters %@", paramters);
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"note/create/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/%u/mark",entity_id] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -86,10 +89,9 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                 NSMutableDictionary * noteDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for(NSDictionary *attributes in listNoteResponse)
                 {
-//                    GKLog(@"%@", attributes);
-                    GKNote * _note = [[GKNote alloc] initWithAttributes:attributes];
+                    GKNote * _note = [[GKNote alloc] initWithAttributes:[attributes objectForKey:@"note"]];
                     [noteDict setValue:_note forKey:@"content"];
-//                    [_note saveToSQLite];
+                    [noteDict setValue:@(entity_id) forKey:@"entity_id"];
                     break;
                 }
                 if (block)

@@ -15,8 +15,11 @@
 @implementation GKNotePostViewController
 {
 @private
-    CGFloat y;    
+    CGFloat y;
+    GKNote * _note;
+    CGFloat score;
 }
+@synthesize data = _data;
 @synthesize ratingView = _ratingView;
 @synthesize seperatorLineImageView = _seperatorLineImageView;
 
@@ -29,16 +32,36 @@
     return self;
 }
 
+- (id)initWithDetailData:(GKDetail *)data
+{
+    self = [super init];
+    {
+        _data = data;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.trackedViewName = @"添加点评页";
-    [self setFooterViewText];
+    
+
+    [self setViewText];
     
 }
--(void) setFooterViewText
+-(void)setViewText
 {
-    
+    [self.ratingView displayRating:_data.my_score/2];
+    GKUser *user = [[GKUser alloc] initFromNSU];
+
+    for (GKNote * note in _data.notes_list) {
+        if(note.creator.user_id == user.user_id)
+        {
+            _note = note;
+            self.textView.text = note.note;
+            break;
+        }
+    }
 }
 - (void)loadView
 {
@@ -58,11 +81,14 @@
     UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [sendBTN setTitle:@"保存" forState:UIControlStateNormal];
     [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
-    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"green_btn_bg.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     [sendBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
     [sendBTN addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *followBtnItem = [[UIBarButtonItem alloc] initWithCustomView:sendBTN];
     [self.navigationItem setRightBarButtonItem:followBtnItem animated:YES];
+    
+    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"使用评价"];
     
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);    
     
@@ -121,7 +147,9 @@
     }
     else
     {
-        NSLog(@"%f",_ratingView.rating);
+        score = _ratingView.rating;
+        score = score * 2;
+        [self submit];
     }
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -130,9 +158,62 @@
     {
         if([alertView isKindOfClass:[GKAlertView class]])
         {
-            NSLog(@"%f",((GKAlertView *)alertView).ratingView.rating);
+            score = ((GKAlertView *)alertView).ratingView.rating;
+            score = score * 2;
+            [self submit];
         }
     }
+}
+- (void)submit
+{
+    NSUInteger  note_id = 0;
+    if (_note)
+    {
+        note_id = _note.note_id;
+    }
+    [GKNote postEntityNoteWithEntityID:_data.entity_id NoteID:note_id Score:score Content:_textView.text Block:^(NSDictionary *note, NSError *error) {
+        if(!error)
+        {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
+            [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"ItemAction"
+                                                            withAction:@"add_note"
+                                                             withLabel:nil
+                                                             withValue:nil];
+            GKNote * notedata = [note valueForKeyPath:@"content"];
+            
+            
+            if(notedata !=nil)
+            {
+                GKLog(@"note note %@", note);
+                _textView.text = nil;
+                [GKMessageBoard showMBWithText:@"点评成功" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [GKMessageBoard showMBWithText:@"系统错误，点评失败" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                case kUserSessionError:
+                {
+                    [GKMessageBoard hideMB];
+                }
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+        
+    }];
 }
 @end
 

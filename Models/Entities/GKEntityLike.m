@@ -16,15 +16,13 @@
 static NSString * CREATE_ENTITY_LIKE_SQL = @"CREATE TABLE IF NOT EXISTS entity_like \
                                 ( id INTEGER PRIMARY KEY NOT NULL, \
                                 entity_id INTEGER, \
-                                user_id INTEGER, \
-                                liked_time timestamp, \
                                 status BOOLEAN )";
 
-static NSString * CREATE_ENTITY_LIKE_INDEX = @"CREATE UNIQUE INDEX IF NOT EXISTS entity_like_index ON entity_like (entity_id, user_id)";
+static NSString * CREATE_ENTITY_LIKE_INDEX = @"CREATE UNIQUE INDEX IF NOT EXISTS entity_like_index ON entity_like (entity_id)";
 
-static NSString * INSERT_ENTITY_LIKE_SQL = @"REPLACE INTO entity_like (entity_id, user_id, liked_time, status) VALUES (:entity_id, :user_id, :liked_time, :status)";
+static NSString * INSERT_ENTITY_LIKE_SQL = @"REPLACE INTO entity_like (entity_id,status) VALUES (:entity_id,:status)";
 
-static NSString * DELETE_ENTITY_LIKE_SQL = @"DELETE FROM entity_like WHERE entity_id = :entity_id and user_id = :user_id";
+static NSString * DELETE_ENTITY_LIKE_SQL = @"DELETE FROM entity_like WHERE entity_id = :entity_id";
 
 static NSString * DELETE_ALL_ENTITY_LIKE_SQL = @"DELETE FROM entity_like";
 
@@ -33,8 +31,6 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
 @implementation GKEntityLike
 
 @synthesize entity_id = _entity_id;
-@synthesize user_id = _user_id;
-@synthesize liked_time = _liked_time;
 @synthesize status = _status;
 
 
@@ -44,8 +40,6 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
     if (self)
     {
         _entity_id = [rs intForColumn:@"entity_id"];
-        _user_id = [rs intForColumn:@"user_id"];
-        _liked_time = [NSDate dateFromString:[rs stringForColumn:@"liked_time"]];
         _status = [rs boolForColumn:@"status"];
     }
     
@@ -58,8 +52,6 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
     if (self)
     {
         _entity_id = [[attributes valueForKeyPath:@"entity_id"] integerValue];
-        _user_id = [[attributes valueForKeyPath:@"user_id"] integerValue];
-        _liked_time = [NSDate dateFromString:[attributes valueForKeyPath:@"liked_time"]];
         _status = [[attributes valueForKeyPath:@"status"] boolValue];
     }
     
@@ -102,8 +94,6 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
     {
         NSMutableDictionary * argsDict = [NSMutableDictionary dictionaryWithCapacity:4];
         [argsDict setValue:[NSString stringWithFormat:@"%u", _entity_id] forKey:@"entity_id"];
-        [argsDict setValue:[NSString stringWithFormat:@"%u", _user_id] forKey:@"user_id"];
-        [argsDict setValue:[NSDate stringFromDate:_liked_time] forKey:@"liked_time"];
         [argsDict setValue:[NSString stringWithFormat:@"%d", _status] forKey:@"status"];
         GKLog(@"%@", argsDict);
         return [[GKDBCore sharedDB] insertDataWithSQL:INSERT_ENTITY_LIKE_SQL ArgsDict:argsDict];
@@ -111,11 +101,10 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
     return NO;
 }
 
-- (BOOL)deleteWithEntityID:(NSUInteger)entity_id UserID:(NSUInteger)user_id
+- (BOOL)deleteWithEntityID:(NSUInteger)entity_id
 {
     NSDictionary * argsDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSString stringWithFormat:@"%u", entity_id], @"entity_id",
-                               [NSString stringWithFormat:@"%u", user_id], @"user_id", nil];
+                               [NSString stringWithFormat:@"%u", entity_id], @"entity_id",nil];
     
     return [[GKDBCore sharedDB] removeDataWithSQL:DELETE_ENTITY_LIKE_SQL ArgsDict:argsDict];
 //    return YES;
@@ -139,11 +128,8 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
                                Block:(void (^)(NSDictionary *dict, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:4];
-    [paramters setValue:[NSString stringWithFormat:@"%u", entity_id] forKeyPath:@"eid"];
 
-    
-
-    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/81931/like/%d",selected] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/%u/like/%d",entity_id,selected] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
 
         NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -161,7 +147,7 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
                         [entityLike saveToSQLite];
                     } else
                     {
-                        [entityLike deleteWithEntityID:entityLike.entity_id UserID:entityLike.user_id];
+                        [entityLike deleteWithEntityID:entityLike.entity_id];
                     }
                     [mutalbleDict setValue:entityLike forKeyPath:@"content"];
                 }

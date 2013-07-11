@@ -29,6 +29,7 @@
 {
 @private
     NSMutableArray * _dataArray;
+    NSMutableArray * _entityArray;
     NSMutableArray * _titleArray;
     SMPageControl * pageControl;
     UIView *HeaderView;
@@ -82,7 +83,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
-    NSLog(@"%@",[GKEntity getNeedResquestEntity]);
     _titleArray = [NSMutableArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"2",@"pid",nil],
@@ -144,6 +144,23 @@
         NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
         _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+        _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+        NSLog(@"%@",_entityArray);
+        for (GKEntity * entity in _entityArray)
+        {
+            for (NSObject * object  in _dataArray ) {
+                if([object isKindOfClass:[TMLKeyWord class]])
+                {
+                    if(((TMLKeyWord *)object).kid == entity.cid)
+                    {
+                        
+                        [_dataArray insertObject:entity atIndex:[_dataArray indexOfObjectIdenticalTo:object]];
+                        break;
+                    }
+                }
+                
+            }
+        }
         [self.table reloadData];
     }
     [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
@@ -350,6 +367,24 @@
     NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+    for (GKEntity * entity in _entityArray)
+    {
+        for (NSMutableDictionary * data  in _dataArray ) {
+            for (NSObject * object in [data objectForKey:@"row"]) {
+                if([object isKindOfClass:[TMLKeyWord class]])
+                {
+                    if(((TMLKeyWord *)object).kid == entity.cid)
+                    {
+                        [_dataArray insertObject:entity atIndex:[_dataArray indexOfObjectIdenticalTo:object]];
+                        break;
+                    }
+                }
+
+            }
+                       
+        }
+    }
     [self.table reloadData];
     self.table.contentOffset = CGPointMake(self.table.contentOffset.x, 0);
     self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:stage-1] objectForKey:@"name"]];

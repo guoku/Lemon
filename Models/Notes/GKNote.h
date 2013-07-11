@@ -20,6 +20,7 @@ extern NSString * const QUERY_NOTE_SQL;
 @property (readonly) NSUInteger entity_id;
 @property (readonly) BOOL added_to_selection;
 @property (readonly) NSString * note;
+@property (readwrite) NSUInteger score;
 @property (readwrite) NSUInteger poker_count;
 @property (readwrite) NSUInteger hooter_count;
 @property (readwrite) NSUInteger comment_count;
@@ -35,6 +36,7 @@ extern NSString * const QUERY_NOTE_SQL;
 //                             Block:(void (^)(NSDictionary *note, NSError * error))block;
 + (void)postEntityNoteWithEntityID:(NSUInteger)entity_id
                             NoteID:(NSUInteger)note_id
+                             Score:(NSUInteger)score
                            Content:(NSString *)content
                              Block:(void (^)(NSDictionary *note, NSError * error))block;
 + (void)pokeEntityNoteWithNoteID:(NSUInteger)note_id

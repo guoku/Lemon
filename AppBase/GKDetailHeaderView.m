@@ -103,16 +103,18 @@
         
         self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(100, y+14, 75, 32)];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal];
+        [_usedButton setTitle:@"已用过" forState:UIControlStateSelected];
         [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal];
         [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
         [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        [_usedButton addTarget:self action:@selector(showNotePostView) forControlEvents:UIControlEventTouchUpInside];
         [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
         [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateSelected];
+        [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted|UIControlStateSelected];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateSelected];
@@ -200,7 +202,14 @@
     _price.frame = CGRectMake(145, 100, 145, 20);
     
     _likeButton.data = _detailData;
-
+    if(_detailData.my_score <11)
+    {
+        _usedButton.selected = YES;
+    }
+    else
+    {
+        _usedButton.selected = NO;
+    }
     _brand.text = _detailData.brand;
     _title.text = _detailData.title;
     NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _detailData.price];
@@ -223,14 +232,5 @@
     return scaledImage;
 }
 
-- (void)showNotePostView
-{
-    GKNotePostViewController *VC = [[GKNotePostViewController alloc] init];
-    VC.hidesBottomBarWhenPushed = YES;
-    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
-    }];
-}
 
 @end

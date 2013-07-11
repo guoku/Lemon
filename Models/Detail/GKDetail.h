@@ -13,10 +13,9 @@
 
 @interface GKDetail : GKEntity
 
-@property (strong,nonatomic) NSMutableArray * liker_list;
+@property (strong,nonatomic) NSMutableArray * notes_list;
 
 + (void)globalDetailPageWithEntityId:(NSUInteger)entity_id
                                Block:(void (^)(NSDictionary * dict, NSError * error))block;
-+ (void)EntityRecommendWithEntityID:(NSUInteger)entity_id
-                              Block:(void (^)(NSArray * entitylist, NSError * error))block;
+
 @end

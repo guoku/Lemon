@@ -32,7 +32,9 @@
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.toolbarHidden = NO;
     
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"toolbar"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    //[self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"toolbar"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    [self.navigationController.toolbar setBackgroundColor:UIColorFromRGB(0xf9f9f9)];
+    self.navigationController.toolbar.tintColor = UIColorFromRGB(0xf9f9f9);
 
     
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -41,11 +43,15 @@
     [self.view addSubview:_webView];
     
     // close web view button
-    UIButton *closeWebBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
+    UIButton *closeWebBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 50.0f, 30.0f)];
     [closeWebBtn addTarget:self action:@selector(closeWebView) forControlEvents:UIControlEventTouchUpInside];
     [closeWebBtn setShowsTouchWhenHighlighted:YES];
-    [closeWebBtn setImage:[UIImage imageNamed:@"webview_button_close.png"] forState:UIControlStateNormal];
-    [closeWebBtn setImage:[UIImage imageNamed:@"webview_button_close_disable.png"] forState:UIControlStateDisabled];
+    [closeWebBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [closeWebBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
+    [closeWebBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [closeWebBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+    [closeWebBtn setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+    [closeWebBtn setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
     UIBarButtonItem *closeWebview = [[UIBarButtonItem alloc] initWithCustomView:closeWebBtn] ;
     
     // refresh web view button
@@ -60,8 +66,8 @@
     self.previousPageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
     [_previousPageBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [_previousPageBtn setShowsTouchWhenHighlighted:YES];
-    [_previousPageBtn setImage:[UIImage imageNamed:@"webview_button_arrowleft.png"] forState:UIControlStateNormal];
-    [_previousPageBtn setImage:[UIImage imageNamed:@"webview_button_arrowleft_disable.png"] forState:UIControlStateDisabled];
+    [_previousPageBtn setImage:[UIImage imageNamed:@"webview_back.png"] forState:UIControlStateNormal];
+    [_previousPageBtn setImage:[UIImage imageNamed:@"webview_back_press.png"] forState:UIControlStateDisabled];
     UIBarButtonItem *previousPage = [[UIBarButtonItem alloc] initWithCustomView:_previousPageBtn];
     [_previousPageBtn setEnabled:NO];
     if ([_webView canGoBack]) {
@@ -72,8 +78,8 @@
     self.nextPageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
     [_nextPageBtn addTarget:self action:@selector(goForward) forControlEvents:UIControlEventTouchUpInside];
     [_nextPageBtn setShowsTouchWhenHighlighted:YES];
-    [_nextPageBtn setImage:[UIImage imageNamed:@"webview_button_arrowright.png"] forState:UIControlStateNormal];
-    [_nextPageBtn setImage:[UIImage imageNamed:@"webview_button_arrowright_disable.png"] forState:UIControlStateDisabled];
+    [_nextPageBtn setImage:[UIImage imageNamed:@"webview_forward.png"] forState:UIControlStateNormal];
+    [_nextPageBtn setImage:[UIImage imageNamed:@"webview_forward_press.png"] forState:UIControlStateDisabled];
     UIBarButtonItem *nextPage = [[UIBarButtonItem alloc] initWithCustomView:_nextPageBtn];
     [_nextPageBtn setEnabled:NO];
     if ([_webView canGoForward]) {
@@ -82,9 +88,9 @@
     UIBarButtonItem * fixedSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpaceBarButton1.width = 0.0f;
     UIBarButtonItem * fixedSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpaceBarButton2.width = 25.0f;
+    fixedSpaceBarButton2.width = 15.0f;
     UIBarButtonItem * fixedSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpaceBarButton3.width = 60.0f;
+    fixedSpaceBarButton3.width = 50.0f;
     
     self.navigationController.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     

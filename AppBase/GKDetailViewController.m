@@ -13,6 +13,7 @@
 #import "HMSegmentedControl.h"
 #import "RatingView.h"
 #import "DPCardWebViewController.h"
+#import "GKNotePostViewController.h"
 
 @interface GKDetailViewController ()
 
@@ -28,6 +29,7 @@
     BOOL friendonly;
     UIImageView *tabArrow;
     UIView * store;
+    UIButton * mask;
 }
 
 @synthesize data = _data;
@@ -64,7 +66,7 @@
         if ([data isKindOfClass:[GKEntity class]])
         {
             _entity_id = data.entity_id;
-            _entity = data;
+            _detailHeaderView.detailData = data;
         }
     }
     
@@ -74,13 +76,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewNote:) name:GKAddNewNoteNotification object:nil];
 	// Do any additional setup after loading the view.
 }
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GKAddNewNoteNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,16 +107,25 @@
             if(!error)
             {
                 _data = [dict valueForKeyPath:@"content"];
+                NSLog(@"%@",_data);
                 _friendarray = [[NSMutableArray alloc]initWithCapacity:0];
-                /*
+              
                 for (GKNote *note in _data.notes_list) {
-                    //if (note.creator.relation !=nil) 
-                    if(0)
+                    if (note.creator.relation !=nil) 
                     {
-                        [_friendarray addObject:note];
+                        switch (note.creator.relation.status) {
+                            case kBothRelation:
+                                [_friendarray addObject:note];
+                                break;
+                            case kFOLLOWED:
+                                [_friendarray addObject:note];
+                            default:
+                                break;
+                        }
+                      
                     }
                 }
-                 */
+             
                 self.detailHeaderView.detailData = _data;
                 [self.table reloadData];
                 [self hideActivity];
@@ -146,6 +159,7 @@
 {
     [super viewWillDisappear:animated];
     [GKMessageBoard hideActivity];
+    [self HideShop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -172,7 +186,7 @@
     [moreBTN setImage:[UIImage imageNamed:@"icon_more.png"] forState:UIControlStateNormal];
     [moreBTN addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:moreBTN];
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:moreBTN];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
@@ -187,6 +201,8 @@
     tableheaderview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
     [tableheaderview addSubview:self.detailHeaderView];
     _table.tableHeaderView = tableheaderview;
+    
+    [self.detailHeaderView.usedButton addTarget:self action:@selector(showNotePostView) forControlEvents:UIControlEventTouchUpInside];
     
         
     UIView *tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];    
@@ -221,8 +237,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(friendonly == NO)
     {
-        //return [_data.notes_list count];
-        return 0;
+        return [_data.notes_list count];
     }
     else
     {
@@ -243,7 +258,7 @@
     cell.delegate = self;
     if(friendonly == NO)
     {
-    //cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
+        cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
     }
     else
     {
@@ -253,9 +268,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //CGFloat height = [GKDetailNoteCellView height:[_data.notes_list objectAtIndex:indexPath.row]];
-    //return height;
-    return 10;
+    CGFloat height = [GKDetailNoteCellView height:[_data.notes_list objectAtIndex:indexPath.row]];
+    return height;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -274,7 +288,7 @@
     [_ratingView setImagesDeselected:@"star_m.png" partlySelected:@"star_m_half.png" fullSelected:@"star_m_full.png" andDelegate:nil];
     _ratingView.center = CGPointMake(_ratingView.center.x, 20);
     _ratingView.userInteractionEnabled = NO;
-    [_ratingView displayRating:_data.avg_score];
+    [_ratingView displayRating:_data.avg_score/2];
     [f5f4f4bg addSubview:_ratingView];
     
     UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 40, 40)];
@@ -282,7 +296,7 @@
     score.backgroundColor = [UIColor clearColor];
     score.textColor =UIColorFromRGB(0x999999);
     score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-    score.text = [NSString stringWithFormat:@"%f",_data.avg_score];
+    score.text = [NSString stringWithFormat:@"%0.1f",_data.avg_score];
     [f5f4f4bg addSubview:score];
     
     
@@ -343,6 +357,39 @@
 }
 
 #pragma mark - NoteCellDelegate
+- (void)addNewNote:(NSNotification *)noti
+{
+    NSDictionary *notidata = [noti userInfo];
+    GKNote * newnote = [notidata valueForKeyPath:@"content"];
+    NSUInteger entity_id = [[notidata valueForKeyPath:@"entity_id"]integerValue];
+    BOOL IsNewNote = YES;
+    int i=0;
+    if(_data.entity_id == entity_id)
+    {
+        for (GKNote *note in _data.notes_list) {
+            
+            if(note.note_id == newnote.note_id)
+            {
+                _data.notes_list[i] = newnote;
+                IsNewNote = NO;
+                break;
+            }
+            i++;
+        }
+        if(IsNewNote)
+        {
+            [_data.notes_list addObject:newnote];
+        }
+        _data.my_score = newnote.score;
+        self.detailHeaderView.detailData = _data;
+        if(_data.entitylike.status)
+        {
+            //[self.detailHeaderView.detailData save];
+        }
+        [self.table reloadData];
+        
+    }
+}
 - (void)cardLikeChange:(NSNotification *)noti
 {
     NSDictionary *notidata = [noti userInfo];
@@ -354,7 +401,6 @@
         entity.entitylike = [notidata objectForKey:@"likeStatus"];
         self.detailHeaderView.detailData = entity;
     }
-    
 }
 
 #pragma mark - button action
@@ -402,35 +448,127 @@
 }
 - (void)buyButtonAction:(id)sender
 {
-    store = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight+20, kScreenWidth, 200)];
-    store.backgroundColor = [UIColor whiteColor];
-    int i =0;
-    for (i=1; i<3; i++) {
+    int num = [_detailHeaderView.detailData.purchase_list count];
+    if(num >5)
+    {
+        num = 5;
+    }
+    mask = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight+20)];
+    mask.backgroundColor = [UIColor whiteColor];
+    mask.alpha = 0.5;
+    [mask addTarget:self action:@selector(HideShop) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:mask];
+    
+    store = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight+20, kScreenWidth, 44+30+num*55)];
+    store.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    
+    UIButton * _cancel = [[UIButton alloc]initWithFrame:CGRectMake(10, store.frame.size.height - 37, 50, 30)];
+    [_cancel setTitle:@"完成" forState:UIControlStateNormal];
+    [_cancel.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
+    [_cancel setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [_cancel setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+    [_cancel setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+    [_cancel setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+    [_cancel addTarget:self action:@selector(HideShop) forControlEvents:UIControlEventTouchUpInside];
+    [store addSubview:_cancel];
+    
+    UIImageView *H1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, store.frame.size.height - 44, kScreenWidth, 2)];
+    [H1 setImage:[UIImage imageNamed:@"review_divider.png"]];
+    [store addSubview:H1];
+    
+    UIImageView *H2 = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 25, kScreenWidth, 2)];
+    [H2 setImage:[UIImage imageNamed:@"review_divider.png"]];
+    [store addSubview:H2];
+    
+ 
+    
+    UILabel * _shop_count_label = [[UILabel alloc]initWithFrame:CGRectMake(10,0,kScreenWidth-10 ,24)];
+    _shop_count_label.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    _shop_count_label.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    _shop_count_label.textAlignment = NSTextAlignmentLeft;
+    _shop_count_label.textColor = UIColorFromRGB(0x666666);
+    _shop_count_label.text = [NSString stringWithFormat:@"%u家店铺有售",num];
+    [store addSubview:_shop_count_label];
+    
+    
+    int i = 0;
+    for (GKShop * shop in _detailHeaderView.detailData.purchase_list) {
 
-        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 10+i*50, kScreenWidth-20, 40)];
-        button.backgroundColor = [UIColor redColor];
+        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 35+i*55, kScreenWidth-20, 40)];
+        [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
+        button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        [button.titleLabel setTextAlignment:NSTextAlignmentRight];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+        [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+        [button setTitle:[NSString stringWithFormat:@"￥%.2f",shop.price] forState:UIControlStateNormal];
         button.tag = i;
         [button addTarget:self action:@selector(shopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(20,5,200 ,button.frame.size.height-10)];
+        name.backgroundColor = [UIColor clearColor];
+        name.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
+        name.textAlignment = NSTextAlignmentLeft;
+        name.textColor = UIColorFromRGB(0x666666);
+        name.text = shop.title;
+        [button addSubview:name];
+        
+        UIImageView * arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
+        arrow.center = CGPointMake(button.frame.size.width-20, button.frame.size.height/2);
+        [button addSubview:arrow];
+                
         [store addSubview:button];
+        i++;
+        if(i>5)
+        {
+            break;
+        }
     }
+    UIImageView *H3 = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 2)];
+    [H3 setImage:[UIImage imageNamed:@"review_divider.png"]];
+    [store addSubview:H3];
+    
     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate.window addSubview:store];
     [UIView animateWithDuration:0.3 animations:^{
-        store.frame = CGRectMake(0, kScreenHeight-200+20, kScreenWidth, 200);
+        store.frame = CGRectMake(0, kScreenHeight-store.frame.size.height+20, kScreenWidth,store.frame.size.height);
     }completion:^(BOOL finished) {
 
     }];
 }
+- (void)displayShop
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        store.frame = CGRectMake(0, kScreenHeight-200+20, kScreenWidth, 200);
+    }completion:^(BOOL finished) {
+        [store removeFromSuperview];
+        [mask removeFromSuperview];
+    }];
+}
+- (void)HideShop
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        store.frame = CGRectMake(0,  kScreenHeight+20, kScreenWidth, store.frame.size.height);
+    }completion:^(BOOL finished) {
+        [store removeFromSuperview];
+        [mask removeFromSuperview];
+    }];
+}
 - (void)shopButtonAction:(id)sender
 {
-    //NSUInteger *shopIndex = ((UIButton *)sender).tag;
+    NSUInteger shopIndex = ((UIButton *)sender).tag;
     [UIView animateWithDuration:0.3 animations:^{
-        store.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        store.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight+20);
         for (UIView *view in store.subviews) {
             view.alpha = 0;
         }
     }completion:^(BOOL finished) {
-        //[self showWebViewWithTaobaoUrl:_detailHeaderView.detailData.urlString];
+        GKShop * shop = _detailHeaderView.detailData.purchase_list[shopIndex];
+        NSLog(@"%@",shop.url);
+        [self showWebViewWithTaobaoUrl:shop.url];
+        [store removeFromSuperview];
+        [mask removeFromSuperview];
     }];
 
 }
@@ -569,5 +707,19 @@
         [GKMessageBoard showMBWithText:@"图片太大，请关闭高清图片按钮" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
     }
 }
+- (void)showNotePostView
+{
+    if(_data == nil)
+    {
+        return;
+    }
+    GKNotePostViewController *VC = [[GKNotePostViewController alloc] initWithDetailData:_data];
+    VC.hidesBottomBarWhenPushed = YES;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:VC];
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
+    }];
+}
+
 
 @end

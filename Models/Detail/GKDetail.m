@@ -13,32 +13,29 @@
 #import "GKUserBase.h"
 
 @implementation GKDetail
-@synthesize liker_list = _liker_list;
+@synthesize notes_list = _notes_list;
 
 - (id)initWithAttributes:(NSDictionary *)attributes
 {
     self = [super initWithAttributes:attributes];
     if (self)
     {
-        _liker_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"liker_list"] count]];
-        for (NSDictionary * liker_attrs in [attributes valueForKeyPath:@"liker_list"] )
+        _notes_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"note_list"] count]];
+        for (NSDictionary * note_attrs in [attributes valueForKeyPath:@"note_list"] )
         {
-            GKUserBase * _user = [[GKUserBase alloc] initWithAttributes:liker_attrs];
-            [_liker_list addObject:_user];
+            GKNote * _note = [[GKNote alloc] initWithAttributes:note_attrs];
+            [_notes_list addObject:_note];
         }
     }
     return self;
 }
 
-
 + (void)globalDetailPageWithEntityId:(NSUInteger)entity_id
                                Block:(void (^)(NSDictionary * dict, NSError * error))block {
     
     NSMutableDictionary * parameters = [[NSMutableDictionary alloc] initWithCapacity:3];
-    NSString * _entityidBystring = [NSString stringWithFormat:@"%d", entity_id];
-    [parameters setObject:_entityidBystring forKey:@"eid"];
     
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"detail/" parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/%d/detail/",entity_id] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"detail data %@", JSON);
         NSArray *listFromResponse = [[JSON listResponse] valueForKey:@"data"];
         NSMutableDictionary * _resDict = [[NSMutableDictionary alloc] initWithCapacity:1];
@@ -60,45 +57,4 @@
         }
     }];
 }
-
-+ (void)EntityRecommendWithEntityID:(NSUInteger)entity_id
-                              Block:(void (^)(NSArray * entitylist, NSError * error))block
-{
-    NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [paramters setValue:[NSString stringWithFormat:@"%u", entity_id] forKey:@"entity_id"];
-    
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"entity/recommend/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        GKLog(@"%@", JSON);
-        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
-        NSArray * listResponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-        NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:[listResponse count]];
-        switch (res_code) {
-            case SUCCESS:
-            {
-                for (NSDictionary * attributes in listResponse)
-                {
-                    GKDetail * _entity = [[GKDetail alloc] initWithAttributes:attributes];
-                    [_mutableArray addObject:_entity];
-                }
-                if (block)
-                {
-                    block([NSArray arrayWithArray:_mutableArray], nil);
-                }
-            }
-                break;
-                
-            default:
-                break;
-        }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block)
-        {
-            GKLog(@"%@", error);
-            block([NSArray array], error);
-        }
-    }];
-}
-
 @end
