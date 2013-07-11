@@ -14,7 +14,6 @@ static NSString * CREATE_ENTITY_SQL = @"CREATE TABLE IF NOT EXISTS entity \
 (id INTEGER PRIMARY KEY NOT NULL, \
 entity_id INTEGER NOT NULL, \
 pid INTEGER, \
-UNIQUE KEY (pid,entity_id),\
 cid INTEGER, \
 title VARCHAR(255), \
 brand VARCHAR(255), \

@@ -13,7 +13,7 @@
 @interface GKEntity : NSObject
 
 @property (readonly) NSUInteger entity_id;
-@property (readonly) NSUInteger pid;
+@property (readwrite) NSUInteger pid;
 @property (readonly) NSString * brand;
 @property (nonatomic,strong) NSMutableArray * remark_list;
 @property (readonly) float avg_score;

@@ -105,7 +105,7 @@
     MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30) kind:1];
     calendar.center = CGPointMake(20, 30);
     calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
-    [HeaderView addSubview:calendar];
+    [self.view addSubview:calendar];
     
     UIView * user_bg = [[UIView alloc]initWithFrame:CGRectMake(50, 20,260, 110)];
     

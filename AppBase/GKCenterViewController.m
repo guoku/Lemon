@@ -145,22 +145,34 @@
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
         _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
         _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
-        NSLog(@"%@",_entityArray);
+        bool flag = NO;
         for (GKEntity * entity in _entityArray)
         {
-            for (NSObject * object  in _dataArray ) {
-                if([object isKindOfClass:[TMLKeyWord class]])
-                {
-                    if(((TMLKeyWord *)object).kid == entity.cid)
+            for (NSMutableDictionary * data  in _dataArray ) {
+                for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                    
+                    NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+                    
+                    if([object isKindOfClass:[TMLKeyWord class]])
                     {
-                        
-                        [_dataArray insertObject:entity atIndex:[_dataArray indexOfObjectIdenticalTo:object]];
-                        break;
+                        if(((TMLKeyWord *)object).kid == entity.cid)
+                        {
+                            [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"]  indexOfObjectIdenticalTo:object]+1)];
+                            i++;
+                            flag = YES;
+                            break;
+                        }
                     }
+                    
+                }
+                if(flag)
+                {
+                    break;
                 }
                 
             }
         }
+
         [self.table reloadData];
     }
     [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
@@ -368,23 +380,34 @@
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
     _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+    bool flag = NO;
     for (GKEntity * entity in _entityArray)
     {
         for (NSMutableDictionary * data  in _dataArray ) {
-            for (NSObject * object in [data objectForKey:@"row"]) {
+            for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+               
+                NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+   
                 if([object isKindOfClass:[TMLKeyWord class]])
                 {
                     if(((TMLKeyWord *)object).kid == entity.cid)
                     {
-                        [_dataArray insertObject:entity atIndex:[_dataArray indexOfObjectIdenticalTo:object]];
+                        [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"] indexOfObjectIdenticalTo:object]+1)];
+                        i++;
+                        flag = YES;
                         break;
                     }
                 }
 
             }
-                       
+            if(flag)
+            {
+                break;
+            }
+                
         }
     }
+
     [self.table reloadData];
     self.table.contentOffset = CGPointMake(self.table.contentOffset.x, 0);
     self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:stage-1] objectForKey:@"name"]];
@@ -392,8 +415,41 @@
 }
 - (void)cardLikeChange:(NSNotification *)noti
 {
-    NSDictionary *notidata = [noti userInfo];
-    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
+    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
+    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+    bool flag = NO;
+    for (GKEntity * entity in _entityArray)
+    {
+        for (NSMutableDictionary * data  in _dataArray ) {
+            for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                
+                NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+                
+                if([object isKindOfClass:[TMLKeyWord class]])
+                {
+                    if(((TMLKeyWord *)object).kid == entity.cid)
+                    {
+                        [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"] indexOfObjectIdenticalTo:object]+1)];
+                        i++;
+                        flag = YES;
+                        break;
+                    }
+                }
+                
+            }
+            if(flag)
+            {
+                break;
+            }
+            
+        }
+    }
+    
+    [self.table reloadData];
 }
 
 - (void)showLeftMenu

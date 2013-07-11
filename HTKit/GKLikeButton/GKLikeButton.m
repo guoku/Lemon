@@ -118,6 +118,11 @@
                 _data.liked_count = entityLike.status ? _data.liked_count + 1 : _data.liked_count - 1;
                  GKEntity * entity = (GKEntity *)_data;
                  NSLog(@"%@",entity.pid_list);
+                 for(NSString  * pidString in entity.pid_list ) {
+                     entity.pid = [pidString integerValue];
+                     [entity save];
+                 }
+                
                  
                  
                 [_message setValue:@(_data.entity_id) forKey:@"entityID"];
