@@ -190,15 +190,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     for (NSDictionary * dic in [GKEntity getEntityCountGroupByPid]) {
         NSUInteger pid = [[dic objectForKey:@"pid"]integerValue];
         NSUInteger count = [[dic objectForKey:@"count"]integerValue];
         [[_dataArray objectAtIndex:(pid-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
     }
     [self.table reloadData];
+    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 - (void)viewDidDisappear:(BOOL)animated
 {

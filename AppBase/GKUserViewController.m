@@ -297,19 +297,22 @@
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
-            for (GKEntity * entity in _entityArray) {
-                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid]objectForKey:@"row"];
-                for (NSObject * object  in array ) {
+       
+            for (int i = 0;i< [_entityArray count];i++) {
+                GKEntity * entity = [_entityArray objectAtIndex:i];
+                
+                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+                
+                for (int k = 0; k< [array count];k++ ) {
+                    NSObject * object  =  [array objectAtIndex:k];
                     if([object isKindOfClass:[TMLKeyWord class]])
                     {
                         if(((TMLKeyWord *)object).kid == entity.cid)
                         {
-                            
-                            [array insertObject:entity atIndex:[array indexOfObjectIdenticalTo:object]];
+                            [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
                             break;
                         }
                     }
-                    
                 }
                 
             }
@@ -322,7 +325,6 @@
                     {
                         
                         NSUInteger  i = [array indexOfObjectIdenticalTo:object];
-                        NSLog(@"%d",i);
                         if(i< ([array count]-1))
                         {
                             if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
@@ -383,6 +385,8 @@
     if (cell == nil) {
         cell = [[TMLCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
+    TMLStage * stage = [[_dataArray objectAtIndex:indexPath.section]objectForKey:@"section"];
+    cell.pid = stage.sid;
     cell.delegate = self;
     NSUInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
