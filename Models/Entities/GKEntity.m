@@ -37,6 +37,7 @@ static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,t
 static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT * FROM entity ORDER BY weight DESC LIMIT 30;";
 static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid = :pid ORDER BY cid";
 static NSString * DELETE_ENTITY_SQL = @"DELETE FROM entity WHERE entity_id = :entity_id";
+static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS count,pid FROM entity GROUP BY pid";
 
 
 @implementation GKEntity {
@@ -185,7 +186,15 @@ static NSString * DELETE_ENTITY_SQL = @"DELETE FROM entity WHERE entity_id = :en
     }
     return self;
 }
-
++ (NSArray *)getEntityCountGroupByPid
+{
+    FMResultSet * rs = [[GKDBCore sharedDB] queryDataWithSQL:GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL];
+    NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:0];
+    while ([rs next]) {
+        [_mutableArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:@([rs intForColumn:@"count"]),@"count",@([rs intForColumn:@"pid"]),@"pid",nil]];
+    }
+    return [NSArray arrayWithArray:_mutableArray];
+}
 + (NSArray *)getNeedResquestEntity
 {
     FMResultSet * rs = [[GKDBCore sharedDB] queryDataWithSQL:GET_MOST_IMPORTANT_QUERY_SQL];

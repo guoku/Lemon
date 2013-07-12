@@ -28,6 +28,7 @@
 @private
     NSMutableArray * _dataArray;
     NSMutableArray * _titleArray;
+    NSMutableArray * _entityArray;
     UIView *HeaderView;
     GKUserButton * avatar;
     UILabel * name;
@@ -88,6 +89,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     
     HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
@@ -228,6 +230,7 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_UserFollowChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
 }
 
 - (void)reload:(id)sender
@@ -275,10 +278,10 @@
     [GKVisitedUser visitedUserWithUserID:_user_id Page:1 Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
-            NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
+            _entityArray = [NSMutableArray arrayWithCapacity:0];
             for (GKEntity * entity in entitylist) {
                 BOOL flag = YES;
-                for (GKEntity * e in list) {
+                for (GKEntity * e in _entityArray) {
                     if(e.entity_id == entity.entity_id)
                     {
                         flag = NO;
@@ -287,14 +290,14 @@
                 }
                 if(flag)
                 {
-                    [list addObject:entity];
+                    [_entityArray addObject:entity];
                 }
             }
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
-            for (GKEntity * entity in list) {
+            for (GKEntity * entity in _entityArray) {
                 NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid]objectForKey:@"row"];
                 for (NSObject * object  in array ) {
                     if([object isKindOfClass:[TMLKeyWord class]])
@@ -578,6 +581,111 @@
     }
     [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
     
+}
+- (void)cardLikeChange:(NSNotification *)noti
+{
+    /*
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
+    GKEntityLike * entitylike = [notidata objectForKey:@"likeStatus"];
+    if(entitylike.status)
+    {
+        GKEntity * entity = [notidata objectForKey:@"entity"];
+        int pid = 20;
+        for(NSString  * pidString in entity.pid_list ) {
+            if(pid > [pidString integerValue])
+            {
+                pid = [pidString integerValue];
+            }
+        }
+        entity.pid = pid;
+        [_entityArray addObject:entity];
+        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
+        _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        for (GKEntity * entity in _entityArray) {
+            NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid]objectForKey:@"row"];
+            for (NSObject * object  in array ) {
+                if([object isKindOfClass:[TMLKeyWord class]])
+                {
+                    if(((TMLKeyWord *)object).kid == entity.cid)
+                    {
+                        
+                        [array insertObject:entity atIndex:[array indexOfObjectIdenticalTo:object]];
+                        break;
+                    }
+                }
+                
+            }
+            
+        }
+        NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
+        for (NSMutableDictionary * dic in _dataArray) {
+            NSMutableArray *array =  [dic objectForKey:@"row"];
+            NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
+            for (NSObject * object  in array ) {
+                if([object isKindOfClass:[TMLKeyWord class]])
+                {
+                    
+                    NSUInteger  i = [array indexOfObjectIdenticalTo:object];
+                    NSLog(@"%d",i);
+                    if(i< ([array count]-1))
+                    {
+                        if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
+                        {
+                            [k_array addObject:object];
+                            
+                        }
+                    }
+                    else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
+                    {
+                        [k_array addObject:object];
+                    }
+                }
+                
+            }
+            
+            [array removeObjectsInArray:k_array];
+            if([array count]==0)
+            {
+                [s_array addObject:dic];
+            }
+        }
+        [_dataArray removeObjectsInArray:s_array];
+    }
+    else
+    {
+        bool flag = NO;
+        for (NSMutableDictionary * dic in _dataArray) {
+            NSMutableArray *array =  [dic objectForKey:@"row"];
+            for (NSObject * object  in array ) {
+                
+                if([object isKindOfClass:[GKEntity class]])
+                {
+                    if(((GKEntity *)object).entity_id == entity_id)
+                    {
+                        [array removeObject:object];
+                        flag = YES;
+                        break;
+                    }
+                }
+            }
+            if (flag) {
+                break;
+            }
+        }
+     
+        for (GKEntity * entity in _entityArray) {
+            if(entity.entity_id == entity_id)
+            {
+                [_entityArray removeObject:entity];
+            }
+        }
+       
+    }
+    [self.table reloadData];
+*/
+
 }
 
 @end

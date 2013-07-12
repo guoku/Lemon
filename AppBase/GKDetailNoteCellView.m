@@ -71,14 +71,14 @@
         [_pokeButton addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_pokeButton setImage:[UIImage imageNamed:@"icon_zan.png"] forState:UIControlStateNormal];
         [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateSelected];
-        [_pokeButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button.png"]  forState:UIControlStateNormal];
-        [_pokeButton setBackgroundImage:[UIImage imageNamed:@"detail_cell_button_press.png"]  forState:UIControlStateSelected];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         _pokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_pokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-        //[self addSubview:_pokeButton];
+        [self addSubview:_pokeButton];
         
         _hootButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_hootButton addTarget:self action:@selector(hootButtonAction:) forControlEvents:UIControlEventTouchUpInside];

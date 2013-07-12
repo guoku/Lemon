@@ -193,6 +193,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    for (NSDictionary * dic in [GKEntity getEntityCountGroupByPid]) {
+        NSUInteger pid = [[dic objectForKey:@"pid"]integerValue];
+        NSUInteger count = [[dic objectForKey:@"count"]integerValue];
+        [[_dataArray objectAtIndex:(pid-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
+    }
+    [self.table reloadData];
 }
 - (void)viewDidDisappear:(BOOL)animated
 {

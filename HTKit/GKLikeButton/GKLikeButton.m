@@ -134,7 +134,7 @@
                 [_message setValue:@(_data.entity_id) forKey:@"entityID"];
                 [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
                 [_message setValue:entityLike forKey:@"likeStatus"];
-                [_message setValue:entity forKey:@"entity"];
+                [_message setValue:_data forKey:@"entity"];
                  
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityLikeChange object:nil userInfo:_message];
                 [GKMessageBoard hideMB];

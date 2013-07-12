@@ -21,6 +21,7 @@
 // guoku api base url
 //#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
 #define kGKAppBaseURL @"http://pre.guoku.com/mobile/"
+//#define kGKAppBaseURL @"http://api.guoku.com/mobile/"
 //#define kGKAppBaseURL @"http://10.0.1.74/mobile/"
 
 //#define kGuokuApiKey @"49396e9f3573727649f7c9651d0450ed"///@"4abe75e4aa7a7ec59976400e5e3b8fcf"
@@ -29,7 +30,9 @@
 //Pre
 #define kGuokuApiKey @"e2efa5d4e61b7fc557d895d33fcde13b"
 #define kGuokuApiSecret @"89b62380c96e5b57737aca34a0b53165"
-
+//API
+//#define kGuokuApiKey @"07fac3e6f494b98fd9482c80882d405a"
+//#define kGuokuApiSecret @"8bdf3f81ae642ef5852a2073f99efdcf"
 // guoku user session
 #define kUserDefault  [NSUserDefaults standardUserDefaults]
 #define kSession @"session"
