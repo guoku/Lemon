@@ -50,7 +50,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         _nickname = [attributes valueForKeyPath:@"nickname"];
         _location = [attributes valueForKeyPath:@"location"];
         _city = [attributes valueForKeyPath:@"city"];
-        _avatarImageURLString = [attributes valueForKeyPath:@"avatar_url"];
+        _avatarImageURLString = [attributes valueForKeyPath:@"avatar_large"];
         if(!_avatarImageURLString)
         {
             _avatarImageURLString = @"http://image.guoku.com/avatar/large_181259_c3ac1096db6cf045cc4c9ed3a62f1c7c.jpe";
@@ -92,7 +92,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     [a setObject:_location forKey:@"loaction"];
     [a setObject:_relation forKey:@"relation"];
     [a setObject:_city forKey:@"city"];
-    [a setObject:_avatarImageURLString forKey:@"avatar_url"];
+    [a setObject:_avatarImageURLString forKey:@"avatar_small"];
     
     GKUserBase *userBase = [[GKUserBase alloc]initWithAttributes:a];
     return userBase;
@@ -200,8 +200,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:0];
     NSString * _dev_token = [kUserDefault stringForKey:kDeviceToken];
     [paramters setValue:_dev_token forKey:@"dev_token"];
-//    [[[GKAppDotNetAPIClient sharedClient] operationQueue] cancelAllOperations];
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"account/logout/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] postPath:@"maria/logout/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
 
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         switch (res_code) {

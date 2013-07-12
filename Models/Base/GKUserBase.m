@@ -28,7 +28,7 @@
         _gender = [attributes valueForKeyPath:@"gender"];
         _location = [attributes valueForKeyPath:@"location"];
         _city = [attributes valueForKeyPath:@"city"];
-        _avatarImageURLString = [attributes valueForKeyPath:@"avatar_url"];
+        _avatarImageURLString = [attributes valueForKeyPath:@"avatar_small"];
         if(!_avatarImageURLString)
         {
             _avatarImageURLString = @"http://image.guoku.com/avatar/large_181259_c3ac1096db6cf045cc4c9ed3a62f1c7c.jpe";

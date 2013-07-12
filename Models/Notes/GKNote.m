@@ -25,13 +25,12 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 @synthesize added_to_selection = _added_to_selection;
 @synthesize note = _note;
 @synthesize poker_count = _poker_count;
-@synthesize hooter_count = _hooter_count;
 @synthesize comment_count = _comment_count;
 @synthesize created_time = _created_time;
 @synthesize updated_time = _updated_time;
-@synthesize note_poke = _note_poke;
 @synthesize creator = _creator;
 @synthesize score = _score;
+@synthesize poker_already = _poker_already;
 
 
 
@@ -45,14 +44,13 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
         _entity_id = [[attributes valueForKeyPath:@"entity_id"] integerValue];
         _added_to_selection = [[attributes valueForKeyPath:@"added_to_selection"] boolValue];
         _note = [attributes valueForKeyPath:@"note"];
-        _poker_count = [[attributes valueForKeyPath:@"poker_count"] integerValue];
-        _hooter_count = [[attributes valueForKeyPath:@"hooter_count"] integerValue];
-        _comment_count = [[attributes valueForKeyPath:@"comment_count"] integerValue];
+        _poker_count = [[attributes valueForKeyPath:@"poker_id_list"] count];
+        _comment_count = [[attributes valueForKeyPath:@"comment_id_list"] count];
         _created_time = [NSDate dateFromString:[attributes valueForKeyPath:@"created_time"]];
         _updated_time = [NSDate dateFromString:[attributes valueForKeyPath:@"updated_time"]];
         _imageURLString = [attributes valueForKeyPath:@"entity_image"];
         _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
-        _note_poke = [[GKNotePoke alloc] initWithAttributes:[attributes valueForKeyPath:@"poker"]];
+        _poker_already = [[attributes valueForKeyPath:@"poked_already"]boolValue];
     }
     
     return self;
@@ -150,26 +148,11 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 
 
 + (void)pokeEntityNoteWithNoteID:(NSUInteger)note_id
-                   PokedOrHotted:(NOTE_POKE_OR_HOOT)poked_or_hooted
                            Block:(void (^)(NSDictionary * dict, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:2];
-    [paramters setObject:[NSString stringWithFormat:@"%u", note_id] forKey:@"note_id"];
-    
-    NSString * poke_or_hoot_URLString;
-    switch (poked_or_hooted) {
-        case kPoker:
-            poke_or_hoot_URLString = @"note/poke/";
-            break;
-        case kHooter:
-            poke_or_hoot_URLString = @"note/hoot/";
-            break;
-        default:
-            break;
-    }
-    
-    
-    [[GKAppDotNetAPIClient sharedClient] postPath:poke_or_hoot_URLString parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+        
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/note/%u/poke",note_id] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
        
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
@@ -181,8 +164,6 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                 NSMutableDictionary * notePokeDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary * attributes in PokeOrHootResponse)
                 {
-                    GKNotePoke * notePoke = [[GKNotePoke alloc] initWithAttributes:attributes];
-                    [notePokeDict setObject:notePoke forKey:@"content"];
                     break;
                 }
                 if (block)

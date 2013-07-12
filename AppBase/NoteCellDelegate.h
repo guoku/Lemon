@@ -11,12 +11,7 @@
 
 
 @protocol NoteCellDelegate <NSObject>
-//- (void)tapPokeRoHootButtonWithNote:(id)noteobj obj:(id)sender;
 @optional
-- (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker Hoot:(id)hoot Stats:(NOTE_POKE_OR_HOOT)stats;
+- (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker;
 - (void)showCommentWithNote:(GKNote *)note;
-- (void)showUserWithUserID:(NSUInteger)user_id;
-- (void)showTagWithTagString:(NSString *)tagString;
-- (void)showCardDetailWithCardID:(NSUInteger)card_id;
-- (void)showCardDetailWithData:(GKEntity*)data;
 @end

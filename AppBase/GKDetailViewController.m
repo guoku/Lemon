@@ -253,16 +253,16 @@
                                   NoteTableIdentifier];
     if (cell == nil) {
         cell = [[GKDetailNoteCellView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: NoteTableIdentifier];
-        
     }
     cell.delegate = self;
+    cell.notedelegate = self;
     if(friendonly == NO)
     {
         cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
     }
     else
     {
-    cell.noteData = [_friendarray objectAtIndex:indexPath.row];
+        cell.noteData = [_friendarray objectAtIndex:indexPath.row];
     }
     return cell;
 }
@@ -309,7 +309,7 @@
         friendtab.backgroundColor = [UIColor clearColor];
         friendtab.textColor =UIColorFromRGB(0x999999);
         friendtab.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-        friendtab.text = [NSString stringWithFormat:@"好友推荐"];
+        friendtab.text = [NSString stringWithFormat:@"好友推荐 %u",[_friendarray count]];
         [f5f4f4bg addSubview:friendtab];
         friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
         
@@ -730,6 +730,41 @@
         [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
     }];
 }
-
+- (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker;
+{
+    GKNote * noteData = noteobj;
+    UIButton * pokeBtn = poker;
+    
+    [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
+    [GKNote pokeEntityNoteWithNoteID:noteData.note_id Block:^(NSDictionary *dict, NSError *error) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
+        if (!error)
+        {
+            [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
+            noteData.poker_already = YES;
+            pokeBtn.selected = YES;
+            pokeBtn.enabled = NO;
+            
+            [GKMessageBoard hideMB];
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+        
+    }];
+    
+}
 
 @end

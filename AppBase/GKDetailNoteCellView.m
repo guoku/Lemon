@@ -24,7 +24,6 @@
 @synthesize time = _time;
 @synthesize avatar = _avatar;
 @synthesize pokeButton = _pokeButton;
-@synthesize hootButton = _hootButton;
 @synthesize commentButton = _commentButton;
 @synthesize avatarButton = _avatarButton;
 @synthesize delegate = _delegate;
@@ -49,7 +48,7 @@
         
         _ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
         [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-        _ratingView.center = CGPointMake(_ratingView.center.x, 20);
+        _ratingView.center = CGPointMake(_ratingView.center.x, 22);
         _ratingView.userInteractionEnabled = NO;
         [self addSubview:_ratingView];
         
@@ -71,6 +70,7 @@
         [_pokeButton addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_pokeButton setImage:[UIImage imageNamed:@"icon_zan.png"] forState:UIControlStateNormal];
         [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateSelected];
+        [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateDisabled];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -80,18 +80,6 @@
         [_pokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
         [self addSubview:_pokeButton];
         
-        _hootButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_hootButton addTarget:self action:@selector(hootButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_hootButton setImage:[UIImage imageNamed:@"icon_mai.png"] forState:UIControlStateNormal];
-        [_hootButton setImage:[UIImage imageNamed:@"icon_mai_press.png"] forState:UIControlStateSelected];
-        [_hootButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_hootButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_hootButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-        [_hootButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-        [_hootButton setImageEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 0)];
-        [_hootButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-        //[self addSubview:_hootButton];
-        //_hootButton.hidden = YES;
         
         
         self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -156,7 +144,7 @@
     CGSize size = [self.nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     self.nickname.frame = CGRectMake(53, 13, size.width, size.height);
     
-    _ratingView.frame = CGRectMake(53+size.width, 13,80 ,size.height);
+    _ratingView.frame = CGRectMake(53+size.width, 15,80 ,size.height);
     [_ratingView displayRating:_noteData.score/2];
     
     font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
@@ -171,36 +159,10 @@
     [_pokeButton setTitle:poke_count forState:UIControlStateNormal];
     [_pokeButton setFrame:CGRectMake(53., _note.frame.origin.y + _note.frame.size.height + 5, 40, 25)];
     
-    NSString * _hoot_count = [NSString stringWithFormat:@"%u", _noteData.hooter_count];
-    [_hootButton setTitle:_hoot_count forState:UIControlStateNormal];
-    _hootButton.frame = CGRectMake(_pokeButton.frame.origin.x + _pokeButton.frame.size.width,  _note.frame.origin.y + _note.frame.size.height+5, 40., 25);
-
-//    GKLog(@"%@", _noteData.note_poke);
-    switch (_noteData.note_poke.poked_or_hooted) {
-        case kPoker:
-        {
-            _pokeButton.selected = YES;
-            _pokeButton.userInteractionEnabled = NO;
-            _hootButton.selected = NO;
-            _hootButton.userInteractionEnabled = YES;
-        }
-            break;
-        case kHooter:
-        {
-            _pokeButton.selected = NO;
-            _pokeButton.userInteractionEnabled = YES;
-            _hootButton.selected = YES;
-            _hootButton.userInteractionEnabled = NO;
-        }
-            break;
-        default:
-        {
-            _pokeButton.selected = NO;
-            _hootButton.selected = NO;
-            _pokeButton.userInteractionEnabled = YES;
-            _hootButton.userInteractionEnabled = YES;
-        }
-            break;
+    if(_noteData.poker_already)
+    {
+        _pokeButton.selected = YES;
+        _pokeButton.enabled = NO;
     }
     
     NSString * comment_count = [NSString stringWithFormat:@"%u", _noteData.comment_count];
@@ -234,23 +196,7 @@
             [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
         }
         else {
-        [_notedelegate tapPokeRoHootButtonWithNote:_noteData Poke:sender Hoot:_hootButton Stats:kPoker];
-        }
-    }
-}
-
-- (void)hootButtonAction:(id)sender
-{
-    
-//    NSLog(@"i2");
-    if (_notedelegate && [_notedelegate respondsToSelector:@selector(tapPokeRoHootButtonWithNote:Poke:Hoot:Stats:)])
-    {
-        if (![kUserDefault stringForKey:kSession])
-        {
-            [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
-        }
-        else {
-        [_notedelegate tapPokeRoHootButtonWithNote:_noteData Poke:_pokeButton Hoot:sender Stats:kHooter];
+            [_notedelegate tapPokeRoHootButtonWithNote:_noteData Poke:sender];
         }
     }
 }
@@ -258,7 +204,7 @@
 - (void)commentButtonAction:(id)sender
 {
     if (_delegate && [_delegate respondsToSelector:@selector(showCommentWithNote:)]) {
- //       [_delegate showCommentWithNote:_noteData];
+        //[_delegate showCommentWithNote:_noteData];
     }
 }
 

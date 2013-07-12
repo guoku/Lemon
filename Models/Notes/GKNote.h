@@ -22,24 +22,20 @@ extern NSString * const QUERY_NOTE_SQL;
 @property (readonly) NSString * note;
 @property (readwrite) NSUInteger score;
 @property (readwrite) NSUInteger poker_count;
-@property (readwrite) NSUInteger hooter_count;
+@property (readwrite) BOOL poker_already;
 @property (readwrite) NSUInteger comment_count;
 @property (readonly) NSDate * created_time;
 @property (readonly) NSDate * updated_time;
 @property (unsafe_unretained, readonly) NSURL * imageURL;
 @property (readonly) GKUserBase * creator;
-@property (nonatomic, strong) GKNotePoke * note_poke;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 
-//+ (void)postEntityNoteWithEntityID:(NSUInteger)entity_id Content:(NSString *)content
-//                             Block:(void (^)(NSDictionary *note, NSError * error))block;
 + (void)postEntityNoteWithEntityID:(NSUInteger)entity_id
                             NoteID:(NSUInteger)note_id
                              Score:(NSUInteger)score
                            Content:(NSString *)content
                              Block:(void (^)(NSDictionary *note, NSError * error))block;
 + (void)pokeEntityNoteWithNoteID:(NSUInteger)note_id
-                   PokedOrHotted:(NOTE_POKE_OR_HOOT)poked_or_hooted
                            Block:(void (^)(NSDictionary * dict, NSError * error))block;
 @end

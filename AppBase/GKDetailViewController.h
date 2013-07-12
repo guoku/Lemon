@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GKDetailHeaderView.h"
+#import "NoteCellDelegate.h"
 
-@interface GKDetailViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
+@interface GKDetailViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,NoteCellDelegate>
 
 @property (readonly) NSUInteger entity_id;
 @property (strong, nonatomic) GKDetail *data;
@@ -19,4 +20,5 @@
 
 - (id)initWithEntityID:(NSUInteger)entity_id;
 - (id)initWithDate:(GKEntity * )data;
+- (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker;
 @end

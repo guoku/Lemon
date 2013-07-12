@@ -19,7 +19,7 @@
 - (void)setDefaultProperty
 {
     _isAnimating = NO;
-    _duration = 0.25f;
+    _duration = 0.5f;
     _hidesWhenStopped = NO;
 }
 
