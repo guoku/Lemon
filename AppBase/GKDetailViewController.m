@@ -128,6 +128,21 @@
                 }
              
                 self.detailHeaderView.detailData = _data;
+                GKEntity * entity = (GKEntity *)_data;
+                
+                if(entity.entitylike.status)
+                {
+                    NSLog(@"%@",entity.pid_list);
+                    for(NSString  * pidString in entity.pid_list ) {
+                        entity.pid = [pidString integerValue];
+                        [entity save];
+                    }
+                }
+                else
+                {
+                    [GKEntity deleteWithEntityID:entity.entity_id];
+                }
+                
                 [self.table reloadData];
                 [self hideActivity];
             }

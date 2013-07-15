@@ -553,27 +553,22 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
             {
                 NSArray *listFromResponse = [[JSON listResponse] valueForKey:@"data"];
                 NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[listFromResponse count]];
-                
                 NSUInteger pid;
                 NSUInteger cid;
-                for(NSDictionary * attributes in listFromResponse){
-                    NSLog(@"%@",attributes);
-                    for (NSDictionary * pdic  in attributes) {
+                for(NSDictionary * pdic in listFromResponse){
+    
                         pid = [[pdic objectForKey:@"pid"]integerValue];
-                        for (NSDictionary * cdic in [pdic objectForKey:@"content"]) {
+                        for (NSDictionary * cdic in [pdic objectForKey:@"data"]) {
                             cid = [[cdic objectForKey:@"cid"]integerValue];
-                            for (NSString * entity_id in [cdic objectForKey:@"content"]) {
-                                GKEntity * entity = [[GKEntity alloc]initWithLittleAttributes:[NSDictionary dictionaryWithObjectsAndKeys:entity_id,@"entity_id",pid,@"pid",cid,@"cid",nil]];
+                            for (NSString * entity_id in [cdic objectForKey:@"data"]) {
+                                GKEntity * entity = [[GKEntity alloc]initWithLittleAttributes:[NSDictionary dictionaryWithObjectsAndKeys:entity_id,@"entity_id",@(pid),@"pid",@(cid),@"cid",nil]];
                                 [entity saveLittle];
                             }
                         }
-                        
-                    }
                 }
                 GKLog(@"%@", mutableList);
                 if(block) {
                     block([NSArray arrayWithArray:mutableList], nil);
-                    NSLog(@"%@",[GKEntity getNeedResquestEntity]);
                 }
             }
                 break;

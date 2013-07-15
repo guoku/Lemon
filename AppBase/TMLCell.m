@@ -155,9 +155,12 @@
         
         _brand.text = _entity.brand;
         _title.text = _entity.title;
-        NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _entity.price];
-        _price.text = priceTitle ;
-    }    
+        if(_entity.price != 0)
+        {
+            NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _entity.price];
+            _price.text = priceTitle ;
+        }
+    }
 }
 - (void)goKeyWord
 {

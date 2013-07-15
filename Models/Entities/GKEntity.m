@@ -36,7 +36,7 @@ static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,t
 
 static NSString * INSERT_LITTLE_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid,weight) VALUES(:entity_id,:pid ,:cid ,:weight)";
 
-static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT * FROM entity ORDER BY weight DESC LIMIT 30;";
+static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT DISTINCT entity_id FROM entity WHERE weight >0 ORDER BY weight DESC LIMIT 30;";
 static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid = :pid ORDER BY cid";
 static NSString * DELETE_ENTITY_SQL = @"DELETE FROM entity WHERE entity_id = :entity_id";
 static NSString * DELETE_ALL_ENTITY_SQL = @"DELETE FROM entity";
@@ -232,8 +232,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
     NSLog(@"%@",rs);
     NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:0];
     while ([rs next]) {
-        //[_mutableArray addObject:[NSString stringWithFormat:@"%u",[rs intForColumn:@"entity_id"]]];
-        [_mutableArray addObject:[[GKEntity alloc] initFromSQLiteWithRsSet:rs]];
+        [_mutableArray addObject:[NSString stringWithFormat:@"%u",[rs intForColumn:@"entity_id"]]];
     }
     return [NSArray arrayWithArray:_mutableArray];
 }

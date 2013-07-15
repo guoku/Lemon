@@ -38,7 +38,6 @@
                 GKLog(@"%@", mutableList);
                 if(block) {
                     block([NSArray arrayWithArray:mutableList], nil);
-                    NSLog(@"%@",[GKEntity getNeedResquestEntity]);
                 }
             
             }

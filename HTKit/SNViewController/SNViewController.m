@@ -131,7 +131,7 @@
                      
                         
                         [GKMessageBoard showMBWithText:@"获取个人数据中" customView:nil delayTime:0.0];
-                        /*
+                        
                         [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
                             if(!error)
                             {
@@ -146,7 +146,7 @@
                                 
                             }
                         }];
-                        */
+                        
 
                     }
                 }];

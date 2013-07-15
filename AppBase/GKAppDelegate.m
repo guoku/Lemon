@@ -193,6 +193,13 @@
     self.hostReach = [Reachability reachabilityForInternetConnection];
     [self updateInterfaceWithReachability:self.hostReach];
     [_hostReach startNotifier];
+    
+    NSTimer *_timer = [NSTimer scheduledTimerWithTimeInterval:60.0f
+                                                       target:self
+                                                     selector:@selector(getEntity)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     return YES;
 }
 
@@ -417,6 +424,11 @@
         [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
     }
     
+}
+- (void)getEntity
+{
+    NSArray * array = [GKEntity getNeedResquestEntity];
+    NSLog(@"%@",array);
 }
 @end
 
