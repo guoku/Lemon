@@ -37,6 +37,7 @@ static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,t
 static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT * FROM entity ORDER BY weight DESC LIMIT 30;";
 static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid = :pid ORDER BY cid";
 static NSString * DELETE_ENTITY_SQL = @"DELETE FROM entity WHERE entity_id = :entity_id";
+static NSString * DELETE_ALL_ENTITY_SQL = @"DELETE FROM entity";
 static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS count,pid FROM entity GROUP BY pid";
 
 
@@ -224,5 +225,10 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
     
     return [[GKDBCore sharedDB] removeDataWithSQL:DELETE_ENTITY_SQL ArgsDict:argsDict];
 }
++ (BOOL)deleteAllEntity
+{
+    return [[GKDBCore sharedDB] removeDataWithSQL:DELETE_ALL_ENTITY_SQL ArgsDict:nil];
+}
+
 
 @end

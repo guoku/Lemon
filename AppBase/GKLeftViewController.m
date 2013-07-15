@@ -53,8 +53,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
-    
-    _dataArray = [[NSMutableArray alloc]init];
 
     _dataArray = [NSMutableArray arrayWithObjects:
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
@@ -122,11 +120,11 @@
     [tipView addSubview:calendar];
     
     tip = [[UILabel alloc]initWithFrame:CGRectMake(40,0,tipView.frame.size.width-100,40)];
-    tip.center = CGPointMake(tip.center.x, tipView.frame.size.height/2);
+    tip.center = CGPointMake(tip.center.x, tipView.frame.size.height/2+1);
     tip.backgroundColor = [UIColor clearColor];
     tip.numberOfLines = 0;
     tip.textAlignment = NSTextAlignmentLeft;
-    [tip setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
+    [tip setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     tip.textColor = UIColorFromRGB(0x777777);
     [tipView addSubview:tip];
     
@@ -193,6 +191,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    for (NSMutableDictionary * dic in _dataArray) {
+        [dic setObject:@"0" forKey:@"count"];
+    }
     for (NSDictionary * dic in [GKEntity getEntityCountGroupByPid]) {
         NSUInteger pid = [[dic objectForKey:@"pid"]integerValue];
         NSUInteger count = [[dic objectForKey:@"count"]integerValue];
@@ -328,7 +329,6 @@
 #pragma mark - 通知处理
 - (void)GKLogin
 {
-    user =[[GKUser alloc ]initFromNSU];
     [self refresh];
    
 }
@@ -353,16 +353,55 @@
     [self.table reloadData];
     NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
     [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [self refresh];
 }
 
 #pragma mark - 其他方法
 - (void)refresh
 {
+    user =[[GKUser alloc ]initFromNSU];
    avatar.user = user;
    name.text = user.nickname;
    description.text = user.bio;
-   calendar.date = user.birth_date;
-   tip.text = @"宝宝现在3个月零5天，预计要花费￥22,727";
+    if((user.birth_date)&&(user.stage !=1))
+    {
+        calendar.date = user.birth_date;
+    }
+    else
+    {
+        calendar.date = [NSDate date];
+    }
+    switch (user.stage) {
+        case 1:
+            tip.text = @"今天要个宝宝吧!";
+            break;
+        case 2:
+        {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDate *startDate = [NSDate date];
+            NSDate *endDate = user.birth_date;
+            unsigned int unitFlags = NSDayCalendarUnit;
+            NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
+            int days = [comps day];
+            tip.text = [NSString stringWithFormat:@"离宝宝出生还有%u天。",days];
+        }
+            break;
+        case 3:
+        {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDate *endDate = [NSDate date];
+            NSDate *startDate = user.birth_date;
+            unsigned int unitFlags = NSDayCalendarUnit;
+            NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
+            int days = [comps day];
+            tip.text = [NSString stringWithFormat:@"宝宝已经出生%u周。",days/7];
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 @end

@@ -39,6 +39,7 @@
     UIButton *likeNumBTN;
     NSIndexPath *indexPathTmp;
     BOOL headerChange;
+    MMMCalendar * calendar;
     float y;
 }
 @synthesize user = _user;
@@ -104,9 +105,8 @@
     line.backgroundColor = UIColorFromRGB(0xe2ddd9);
     [HeaderView addSubview:line];
     
-    MMMCalendar * calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30) kind:1];
+    calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30) kind:1];
     calendar.center = CGPointMake(20, 30);
-    calendar.date = [NSDate dateFromString:@"2013-11-23" WithFormatter:@"yyyy-MM-dd"];
     [self.view addSubview:calendar];
     
     UIView * user_bg = [[UIView alloc]initWithFrame:CGRectMake(50, 20,260, 110)];
@@ -242,6 +242,7 @@
             followBTN.data = _user;
             name.text = _user.nickname;
             description.text = _user.bio;
+            calendar.date = _user.birth_date;
             [followNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.follows_count] forState:UIControlStateNormal];
             [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
             [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
@@ -588,12 +589,13 @@
 }
 - (void)cardLikeChange:(NSNotification *)noti
 {
-    /*
+ 
     NSDictionary *notidata = [noti userInfo];
     NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
     GKEntityLike * entitylike = [notidata objectForKey:@"likeStatus"];
     if(entitylike.status)
     {
+           /*
         GKEntity * entity = [notidata objectForKey:@"entity"];
         int pid = 20;
         for(NSString  * pidString in entity.pid_list ) {
@@ -656,6 +658,7 @@
             }
         }
         [_dataArray removeObjectsInArray:s_array];
+            */
     }
     else
     {
@@ -688,7 +691,7 @@
        
     }
     [self.table reloadData];
-*/
+
 
 }
 

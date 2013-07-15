@@ -242,9 +242,12 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     SinaWeibo *sinaweibodata = [self sinaweibo];
+    if([kUserDefault objectForKey:@"sina_user_id"])
+    {
     sinaweibodata.userID = [kUserDefault objectForKey:@"sina_user_id"];
     sinaweibodata.accessToken= [kUserDefault objectForKey:@"sina_access_token"];
     sinaweibodata.expirationDate =[NSDate dateWithTimeIntervalSinceNow:[[kUserDefault objectForKey:@"sina_expires_in"] integerValue]];
+    }
     [self.sinaweibo applicationDidBecomeActive];
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {

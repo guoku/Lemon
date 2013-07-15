@@ -126,7 +126,7 @@
             [userDefault setObject:@"prepare" forKey:@"state"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"stage"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
+         
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段，偷偷告诉你生孩子老费钱了!!!\uE411" delegate:self cancelButtonTitle:@"重新选择" otherButtonTitles:@"妈妈清单，GO！", nil];
             [alertView show];
         }
@@ -169,6 +169,7 @@
                 [UIView animateWithDuration:0.5 animations:^{
                     bg.alpha = 0;
                 } completion:^(BOOL finished) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
                     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
                     [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:NO completion:^(BOOL finished) {
                     }];

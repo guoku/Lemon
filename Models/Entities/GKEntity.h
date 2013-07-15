@@ -37,4 +37,5 @@
 + (NSArray *)getEntityWithPid:(NSUInteger)pid;
 + (NSArray *)getEntityCountGroupByPid;
 + (BOOL)deleteWithEntityID:(NSUInteger)entity_id;
++ (BOOL)deleteAllEntity;
 @end

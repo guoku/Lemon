@@ -74,7 +74,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         }
         else
         {
-            _birth_date = [NSDate dateFromString:[attributes valueForKeyPath:@"baby_birthday"]];
+            _birth_date = [NSDate dateFromString:[attributes valueForKeyPath:@"baby_birthday"]WithFormatter:@"yyyy-MM-dd"];
         }
  
         
@@ -413,7 +413,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     
     NSMutableDictionary * _paramters = [NSMutableDictionary dictionaryWithDictionary:paramters];
     [_paramters setValue:[kUserDefault valueForKeyPath:kDeviceToken] forKey:@"dev_token"];
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/register_by_weibo" parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] postPath:@"maria/register_by_weibo" parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
@@ -495,7 +495,10 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         switch (res_code) {
             case SUCCESS:
             {
-                
+                GKUser * user = [[GKUser alloc]initFromNSU];
+                user.stage = stage;
+                user.birth_date = date;
+                [user save];
                 NSArray * entitylikeResponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
                 NSMutableDictionary * mutalbleDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary *attributes in entitylikeResponse)

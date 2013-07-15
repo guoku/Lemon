@@ -104,11 +104,16 @@
     
     if([[_data objectForKey:@"count"]intValue] >0)
     {
+        count.hidden = NO;
         UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
         
         CGSize size = [[_data objectForKey:@"count"] sizeWithFont:font constrainedToSize:CGSizeMake(250, 15) lineBreakMode:NSLineBreakByWordWrapping];
         [count setText:[_data objectForKey:@"count"]];
         count.frame = CGRectMake(260-size.width-30,11,size.width+10,20);
+    }
+    else
+    {
+        count.hidden = YES;
     }
 
 }

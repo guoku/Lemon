@@ -111,7 +111,6 @@
 - (BOOL)removeDataWithSQL:(NSString *)sql ArgsDict:(NSDictionary *)argsDict
 {
     return [_db executeUpdate:sql withParameterDictionary:argsDict];
-//    return YES;
 }
 
 
