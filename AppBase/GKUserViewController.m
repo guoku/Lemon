@@ -107,7 +107,7 @@
     
     calendar = [[MMMCalendar alloc]initWithFrame:CGRectMake(0, 0, 30, 30) kind:1];
     calendar.center = CGPointMake(20, 30);
-    [self.view addSubview:calendar];
+ 
     
     UIView * user_bg = [[UIView alloc]initWithFrame:CGRectMake(50, 20,260, 110)];
     
@@ -225,6 +225,18 @@
     [self setTableHeaderView];
     [self setTableFooterView];
     y = self.table.contentOffset.y;
+    
+    UIView * calendarTimelineBG = [[UIView alloc]initWithFrame:CGRectMake(0,0,40,50)];
+    calendarTimelineBG .backgroundColor = UIColorFromRGB(0xebe7e4);
+    
+    
+    UIView * calendarLine = [[UIView alloc]initWithFrame:CGRectMake(50, 0, 2,20)];
+    calendarLine.center = CGPointMake(20, calendarLine.center.y);
+    calendarLine.backgroundColor = UIColorFromRGB(0xe2ddd9);
+    
+    //[self.view addSubview:calendarTimelineBG];
+    //[self.view addSubview:calendarLine];
+       [HeaderView addSubview:calendar];
 }
 - (void)viewDidUnload
 {

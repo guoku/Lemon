@@ -30,7 +30,17 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
         self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"最后一步"];
+        UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
+        [sendBTN setTitle:@"保存" forState:UIControlStateNormal];
+        [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
+        [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [sendBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
+        [sendBTN addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *followBtnItem = [[UIBarButtonItem alloc] initWithCustomView:sendBTN];
+        [self.navigationItem setRightBarButtonItem:followBtnItem animated:YES];
     }
     return self;
 }
@@ -112,6 +122,7 @@
         
     button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-50, 40)];
     button.center = CGPointMake(kScreenWidth/2, headerView.frame.size.height+y1);
+    button.userInteractionEnabled = NO;
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
@@ -140,7 +151,7 @@
     arrow.tag = 110;
     arrow.center = CGPointMake(button.frame.size.width-25, button.frame.size.height/2);
     
-    [button addSubview:arrow];
+    //[button addSubview:arrow];
     
     tip = [[UILabel alloc]initWithFrame:CGRectMake(155, 0, 80,12)];
     tip.center = CGPointMake(tip.center.x, button.frame.size.height/2+1);
@@ -188,7 +199,7 @@
         int days = [comps day];
         int week = days/7;
         int month = days/30;
-        int year = days/365;
+        //int year = days/365;
         if(week<2)
         {
             [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"stage"];
@@ -264,7 +275,7 @@
 - (void)change
 {
     tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
-    button.enabled = YES;
+   // button.enabled = YES;
 }
 - (void)didReceiveMemoryWarning
 {

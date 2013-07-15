@@ -126,12 +126,28 @@
                     else
                     {
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
-                        [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+                        [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"stage"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
-                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                        [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
-                            
+                     
+                        
+                        [GKMessageBoard showMBWithText:@"获取个人数据中" customView:nil delayTime:0.0];
+                        /*
+                        [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
+                            if(!error)
+                            {
+                                NSLog(@"%@",entitylist);
+                                GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                                    
+                                }];
+                            }
+                            else
+                            {
+                                
+                            }
                         }];
+                        */
+
                     }
                 }];
                 [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];

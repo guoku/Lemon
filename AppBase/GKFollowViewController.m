@@ -162,7 +162,7 @@
     [self setupSegmentedControl];
     self.navigationItem.titleView = _segmentedControl;
     
-    UIButton *refreshBTN = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    UIButton *refreshBTN = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
     [refreshBTN setImage:[UIImage imageNamed:@"icon_refresh.png"] forState:UIControlStateNormal];
     [refreshBTN addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
     

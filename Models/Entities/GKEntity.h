@@ -31,7 +31,9 @@
 @property (nonatomic, strong) GKEntityLike * entitylike;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
+- (id)initWithLittleAttributes:(NSDictionary *)attributes;
 - (GKEntity *)save;
+- (GKEntity *)saveLittle;
 - (id)initFromSQLiteWithRsSet:(FMResultSet *)rs;
 + (NSArray *)getNeedResquestEntity;
 + (NSArray *)getEntityWithPid:(NSUInteger)pid;

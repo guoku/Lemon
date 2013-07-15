@@ -72,7 +72,8 @@
         [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateSelected];
         [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateDisabled];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal];
-        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateHighlighted];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
@@ -162,7 +163,7 @@
     if(_noteData.poker_already)
     {
         _pokeButton.selected = YES;
-        _pokeButton.enabled = NO;
+        _pokeButton.userInteractionEnabled = NO;
     }
     
     NSString * comment_count = [NSString stringWithFormat:@"%u", _noteData.comment_count];
@@ -189,7 +190,7 @@
 
 - (void)pokeButtonAction:(id)sender
 {
-    if (_notedelegate && [_notedelegate respondsToSelector:@selector(tapPokeRoHootButtonWithNote:Poke:Hoot:Stats:)])
+    if (_notedelegate && [_notedelegate respondsToSelector:@selector(tapPokeRoHootButtonWithNote:Poke:)])
     {
         if (![kUserDefault stringForKey:kSession])
         {

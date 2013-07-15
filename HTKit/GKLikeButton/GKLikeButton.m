@@ -23,10 +23,10 @@
     if (self) {
         self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectZero;
-        [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateSelected];
-        [_likeButton setImage:[UIImage imageNamed:@"star_m_full.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
-        [_likeButton setImage:[UIImage imageNamed:@"star_m.png"] forState:UIControlStateNormal];
-         [_likeButton setImage:[UIImage imageNamed:@"star_m.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected];
+        [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [_likeButton setImage:[UIImage imageNamed:@"star_white.png"] forState:UIControlStateNormal];
+         [_likeButton setImage:[UIImage imageNamed:@"star_white.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];

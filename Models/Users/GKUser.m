@@ -541,6 +541,64 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     }];
     
 }
-
++ (void)getMyFolderBlock:(void (^)(NSArray * entitylist, NSError *error))block
+{
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/myfolder/"] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+        
+        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
+        NSError * aError;
+        switch (res_code) {
+            case SUCCESS:
+            {
+                NSArray *listFromResponse = [[JSON listResponse] valueForKey:@"data"];
+                NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[listFromResponse count]];
+                
+                NSUInteger pid;
+                NSUInteger cid;
+                for(NSDictionary * attributes in listFromResponse){
+                    NSLog(@"%@",attributes);
+                    for (NSDictionary * pdic  in attributes) {
+                        pid = [[pdic objectForKey:@"pid"]integerValue];
+                        for (NSDictionary * cdic in [pdic objectForKey:@"content"]) {
+                            cid = [[cdic objectForKey:@"cid"]integerValue];
+                            for (NSString * entity_id in [cdic objectForKey:@"content"]) {
+                                GKEntity * entity = [[GKEntity alloc]initWithLittleAttributes:[NSDictionary dictionaryWithObjectsAndKeys:entity_id,@"entity_id",pid,@"pid",cid,@"cid",nil]];
+                                [entity saveLittle];
+                            }
+                        }
+                        
+                    }
+                }
+                GKLog(@"%@", mutableList);
+                if(block) {
+                    block([NSArray arrayWithArray:mutableList], nil);
+                    NSLog(@"%@",[GKEntity getNeedResquestEntity]);
+                }
+            }
+                break;
+            case OBJECT_EMPTY:
+            {
+                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
+                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
+                aError = [NSError errorWithDomain:EntityErrorDomain code:kEntityIsEmpty userInfo:userInfo];
+                
+            }
+                break;
+            default:
+                break;
+        }
+        if (res_code != SUCCESS)
+        {
+            block([NSArray array], aError);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(block)
+        {
+            GKLog(@"%@", error);
+            block([NSArray array], error);
+        }
+    }];
+}
 
 @end

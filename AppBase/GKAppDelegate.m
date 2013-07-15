@@ -289,7 +289,7 @@
         //GKDetailViewController *detailVC = [[GKDetailViewController alloc] initWithEntityID:[cardID integerValue]];
         GKDetailViewController *detailVC = [[GKDetailViewController alloc] init];
         GKNavigationController *navi = [[GKNavigationController alloc] initWithRootViewController:detailVC];
-        UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+        UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
         [backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
         [backBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
         [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];

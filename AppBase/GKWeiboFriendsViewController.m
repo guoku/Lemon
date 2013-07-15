@@ -37,14 +37,14 @@
         self.view.backgroundColor =UIColorFromRGB(0xf9f9f9);
         self.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         
-        UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+        UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
         [backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
         [backBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
         [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithCustomView:backBTN];
         [self.navigationItem setLeftBarButtonItem:back animated:YES];
         
-        UIButton *refreshBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+        UIButton *refreshBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
         [refreshBTN setImage:[UIImage imageNamed:@"icon_refresh.png"] forState:UIControlStateNormal];
         [refreshBTN addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithCustomView:refreshBTN];

@@ -14,6 +14,7 @@
 #import "GKAppDotNetAPIClient.h"
 #import "GAI.h"
 #import "GKAppDelegate.h"
+#import "GKNoteCommentViewController.h"
 
 @interface GKBaseViewController ()
 
@@ -185,6 +186,12 @@
     UINavigationController * _navi = [[UINavigationController alloc] initWithRootViewController:_webVC] ;
     [self presentViewController:_navi animated:YES completion:NULL];
     
+}
+- (void)showCommentWithNote:(GKNote *)note Entity:(GKEntity *)entity
+{
+    GKNoteCommentViewController *noteCommentVC = [[GKNoteCommentViewController alloc]initWithNote:note Entity:entity];
+    noteCommentVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:noteCommentVC animated:YES];
 }
 
 - (void)backButtonAction:(id)sender

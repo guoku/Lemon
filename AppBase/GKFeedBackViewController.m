@@ -40,7 +40,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     
     
-    UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
     [sendBTN setTitle:@"发送" forState:UIControlStateNormal];
     [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
     [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];

@@ -98,6 +98,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
     if(_data == nil)
     {
         GKLog(@"entity --- id --------------- %u", self.entity_id);
@@ -182,7 +183,7 @@
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     
-    UIButton *moreBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    UIButton *moreBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
     [moreBTN setImage:[UIImage imageNamed:@"icon_more.png"] forState:UIControlStateNormal];
     [moreBTN addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -192,7 +193,7 @@
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
     _table.backgroundColor = [UIColor whiteColor];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.allowsSelection = NO;
+    _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self.view addSubview:_table];
@@ -256,6 +257,7 @@
     }
     cell.delegate = self;
     cell.notedelegate = self;
+    cell.selectedBackgroundView =[[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"tables_bottom_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:2]];
     if(friendonly == NO)
     {
         cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
@@ -288,7 +290,7 @@
     [_ratingView setImagesDeselected:@"star_m.png" partlySelected:@"star_m_half.png" fullSelected:@"star_m_full.png" andDelegate:nil];
     _ratingView.center = CGPointMake(_ratingView.center.x, 20);
     _ratingView.userInteractionEnabled = NO;
-    [_ratingView displayRating:_data.avg_score/2];
+    [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
     [f5f4f4bg addSubview:_ratingView];
     
     UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 40, 40)];
@@ -296,7 +298,7 @@
     score.backgroundColor = [UIColor clearColor];
     score.textColor =UIColorFromRGB(0x999999);
     score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-    score.text = [NSString stringWithFormat:@"%0.1f",_data.avg_score];
+    score.text = [NSString stringWithFormat:@"%0.1f",_detailHeaderView.detailData.avg_score];
     [f5f4f4bg addSubview:score];
     
     
@@ -354,6 +356,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 40;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showCommentWithNote:[_data.notes_list objectAtIndex:indexPath.row] Entity:_data];
 }
 
 #pragma mark - NoteCellDelegate
@@ -744,7 +750,7 @@
             [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
             noteData.poker_already = YES;
             pokeBtn.selected = YES;
-            pokeBtn.enabled = NO;
+            pokeBtn.userInteractionEnabled = NO;
             
             [GKMessageBoard hideMB];
         }

@@ -18,6 +18,8 @@
     CGFloat y;
     GKNote * _note;
     CGFloat score;
+    GKEntityLike *entityLike;
+    NSMutableDictionary * _message;
 }
 @synthesize data = _data;
 @synthesize ratingView = _ratingView;
@@ -28,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _message = [[NSMutableDictionary alloc]init];
     }
     return self;
 }
@@ -78,7 +81,7 @@
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     
-    UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
     [sendBTN setTitle:@"保存" forState:UIControlStateNormal];
     [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
     [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
@@ -184,6 +187,30 @@
                 _textView.text = nil;
                 [GKMessageBoard showMBWithText:@"点评成功" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
                 [self dismissViewControllerAnimated:YES completion:NULL];
+            
+            entityLike = [note valueForKeyPath:@"like_content"];
+            _data.liked_count = entityLike.status ? _data.liked_count + 1 : _data.liked_count - 1;
+            GKEntity * entity = (GKEntity *)_data;
+            
+            if(entityLike.status)
+            {
+                NSLog(@"%@",entity.pid_list);
+                for(NSString  * pidString in entity.pid_list ) {
+                    entity.pid = [pidString integerValue];
+                    [entity save];
+                }
+            }
+            else
+            {
+                [GKEntity deleteWithEntityID:entity.entity_id];
+            }
+            
+            [_message setValue:@(_data.entity_id) forKey:@"entityID"];
+            [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
+            [_message setValue:entityLike forKey:@"likeStatus"];
+            [_message setValue:_data forKey:@"entity"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityLikeChange object:nil userInfo:_message];
 
         }
         else

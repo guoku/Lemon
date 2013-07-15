@@ -51,6 +51,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
         _imageURLString = [attributes valueForKeyPath:@"entity_image"];
         _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
         _poker_already = [[attributes valueForKeyPath:@"poked_already"]boolValue];
+        _score = [[attributes valueForKeyPath:@"score"] integerValue];
     }
     
     return self;
@@ -87,6 +88,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                 NSMutableDictionary * noteDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for(NSDictionary *attributes in listNoteResponse)
                 {
+                    NSLog(@"%@",attributes);
                     if(![[attributes objectForKey:@"note"]isEqual:[NSNull null]])
                     {
                         GKNote * _note = [[GKNote alloc] initWithAttributes:[attributes objectForKey:@"note"]];
@@ -94,7 +96,15 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                     }
                     [noteDict setValue:@(entity_id) forKey:@"entity_id"];
                     [noteDict setValue:@(score) forKey:@"score"];
-                    break;
+                    if(![[attributes objectForKey:@"like"]isEqual:[NSNull null]])
+                    {
+                        GKEntityLike * entityLike = [[GKEntityLike alloc] initWithAttributes:[attributes objectForKey:@"like"]];
+                        if (entityLike.status) {
+                            [entityLike saveToSQLite];
+                        }
+                        [noteDict setValue:entityLike forKeyPath:@"like_content"];
+
+                    }
                 }
                 if (block)
                 {

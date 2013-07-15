@@ -34,6 +34,8 @@ static NSString * CREATE_ENTITY_INDEX = @"CREATE UNIQUE INDEX IF NOT EXISTS enti
 
 static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,title, brand, image_url, price, avg_score,liked_count, used_count, weight,shop,remark,my_score,pid_list) VALUES(:entity_id,:pid ,:cid ,:title, :brand, :image_url, :price, :avg_score,:liked_count, :used_count, :weight,:shop,:remark,:my_score,:pid_list)";
 
+static NSString * INSERT_LITTLE_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid,weight) VALUES(:entity_id,:pid ,:cid ,:weight)";
+
 static NSString * GET_MOST_IMPORTANT_QUERY_SQL = @"SELECT * FROM entity ORDER BY weight DESC LIMIT 30;";
 static NSString * GET_ENTITY_BY_PID_QUERY_SQL = @"SELECT * FROM entity WHERE pid = :pid ORDER BY cid";
 static NSString * DELETE_ENTITY_SQL = @"DELETE FROM entity WHERE entity_id = :entity_id";
@@ -46,7 +48,6 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
     NSString * _imgUrlString;
     NSMutableArray * _shopList;
 }
-
 @synthesize entity_id = _entity_id;
 @synthesize pid = _pid;
 @synthesize brand = _brand;
@@ -89,11 +90,6 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _avg_score = [[attributes valueForKeyPath:@"avg_score"]integerValue];
         _weight = 0;
         
-        //BOOL _like_status = [[[attributes valueForKeyPath:@"entity_like"] valueForKeyPath:@"status"] boolValue];
-        //if (_like_status){
-        //    GKLog(@"entity_like ---------- %@", [attributes valueForKeyPath:@"entity_like"]);
-        //    _entitylike = [[GKEntityLike alloc] initWithAttributes:[attributes valueForKeyPath:@"entity_like"]];
-        //}
         BOOL _like_status = [[attributes valueForKeyPath:@"liked_already"]boolValue];
         if(_like_status)
         {
@@ -117,6 +113,40 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
     }
     return self;
 }
+- (id)initWithLittleAttributes:(NSDictionary *)attributes
+{
+    self = [super init];
+    if (self)
+    {
+        _entity_id = [[attributes valueForKeyPath:@"entity_id"] integerValue];
+        _pid = [[attributes valueForKeyPath:@"pid"] intValue];
+        _cid = [[attributes valueForKeyPath:@"cid"] intValue];
+        _weight = 1;
+        
+        NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
+        _entitylike = [[GKEntityLike alloc] initWithAttributes:a];
+        [_entitylike saveToSQLite];
+    }
+    return self;
+}
+- (GKEntity *)saveLittle
+{
+    if ([self createTable])
+    {
+        NSMutableDictionary * argsDict = [NSMutableDictionary dictionaryWithCapacity:13];
+        [argsDict setValue:[NSString stringWithFormat:@"%u", _entity_id] forKey:@"entity_id"];
+        [argsDict setValue:[NSString stringWithFormat:@"%u", _pid] forKey:@"pid"];
+        [argsDict setValue:[NSString stringWithFormat:@"%u", _cid] forKey:@"cid"];
+        [argsDict setValue:[NSString stringWithFormat:@"%u", _weight] forKey:@"weight"];
+        
+        if ([[GKDBCore sharedDB] insertDataWithSQL:INSERT_LITTLE_DATA_SQL ArgsDict:argsDict])
+        {
+            [_entitylike saveToSQLite];
+        }
+    }
+    return self;
+}
+
 - (id)initFromSQLiteWithRsSet:(FMResultSet *)rs
 {
     self = [super init];
