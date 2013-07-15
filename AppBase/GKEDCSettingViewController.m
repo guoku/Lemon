@@ -257,7 +257,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"妈妈清单，GO！", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
     

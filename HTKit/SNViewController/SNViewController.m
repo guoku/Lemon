@@ -72,6 +72,7 @@
     }
     else
     {
+        NSLog(@"%@",error);
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
         [GKMessageBoard showMBWithText:@"网络错误" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
     }

@@ -127,7 +127,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"stage"];
          
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段，偷偷告诉你生孩子老费钱了!!!\uE411" delegate:self cancelButtonTitle:@"重新选择" otherButtonTitles:@"妈妈清单，GO！", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段，偷偷告诉你生孩子老费钱了!!!\uE411" delegate:self cancelButtonTitle:@"重新选择" otherButtonTitles:@"进入妈妈清单", nil];
             [alertView show];
         }
             break;
@@ -137,7 +137,6 @@
                 [userDefault setObject:@"pregnant" forKey:@"state"];
                 GKEDCSettingViewController *VC = [[GKEDCSettingViewController alloc]init];
                 [self.navigationController pushViewController:VC animated:YES];
-
         }
             break;
         case 3:
