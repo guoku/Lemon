@@ -11,24 +11,63 @@
 @implementation GKNoteCommentHeaderView
 {
 @private
-    __strong GKNote * _noteData;
-    CGFloat _y;
+    CGFloat y;
 }
-@synthesize noteData = _noteData;
-@synthesize nickname = _nickname;
-@synthesize note = _note;
-@synthesize time = _time;
-@synthesize avatar = _avatar;
-@synthesize avatarButton = _avatarButton;
-@synthesize commentButton = _commentButton;
-@synthesize bg = _bg;
-@synthesize seperatorLineImageView = _seperatorLineImageView ;
-
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+    
+        self.entityButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,kScreenWidth , 85)];
+        [_entityButton setBackgroundColor:UIColorFromRGB(0xf1f1f1)];
+        
+        UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
+        arrow.center = CGPointMake(_entityButton.frame.size.width-15, _entityButton.frame.size.height/2);
+        [_entityButton addSubview:arrow];
+        
+        //商品图片
+        self.entityImageView = [[GKItemButton alloc] initWithFrame:CGRectZero];
+        [_entityImageView setFrame:CGRectMake(10,10,60,60)];
+        _entityImageView.userInteractionEnabled = NO;
+        [_entityButton addSubview:_entityImageView];
+        
+        self.brand = [[UILabel alloc]initWithFrame:CGRectZero];
+        _brand.backgroundColor = [UIColor clearColor];
+        _brand.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _brand.textAlignment = NSTextAlignmentLeft;
+        _brand.textColor =UIColorFromRGB(0x555555);
+        [_entityButton addSubview:_brand];
+        
+        self.title = [[UILabel alloc]initWithFrame:CGRectZero];
+        _title.backgroundColor = [UIColor clearColor];
+        
+        _title.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _title.textAlignment = NSTextAlignmentLeft;
+        _title.textColor =UIColorFromRGB(0x555555);
+        [_entityButton addSubview:_title];
+        
+        _ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
+        [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
+        _ratingView.center = CGPointMake(_ratingView.center.x, 22);
+        _ratingView.userInteractionEnabled = NO;
+        [_entityButton addSubview:_ratingView];
+        
+        _score = [[UILabel alloc]initWithFrame:CGRectZero];
+        _score.textAlignment = NSTextAlignmentLeft;
+        _score.backgroundColor = [UIColor clearColor];
+        _score.textColor =UIColorFromRGB(0x999999);
+        _score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
+        [_entityButton addSubview:_score];
+        
+        [_entityButton addTarget:self action:@selector(goEntity) forControlEvents:UIControlEventTouchUpInside];
+
+        
+        
+        [self addSubview:_entityButton];
+        
+        /*
         self.bg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,kScreenWidth-16, 100)];
         [self addSubview:_bg];
         
@@ -64,31 +103,20 @@
         self.avatarButton = [[UIButton alloc]initWithFrame:_nickname.frame];
         [_avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_avatarButton];
-        
-        self.commentButton = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_commentButton addTarget:self action:@selector(commentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_commentButton setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
-        [_commentButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [_commentButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
-        [_commentButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-        _commentButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        _commentButton.userInteractionEnabled = NO;
-        [self addSubview:_commentButton];
-        
+            
         self.seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _seperatorLineImageView.backgroundColor = UIColorFromRGB(0xf2f2f2);
         [self addSubview:_seperatorLineImageView];
+         */
         
     }
     return self;
 }
 
-- (void)setNoteData:(GKNote *)noteData
+- (void)setNoteData:(GKNote *)noteData entityData:(GKEntity *)entity
 {
-    if ([noteData isKindOfClass:[GKNote class]]) {
-        _noteData = noteData;
-    }
+    _noteData = noteData;
+    _entity = entity;
     
     [self setNeedsLayout];
 }
@@ -111,6 +139,25 @@
 {
     [super layoutSubviews];
     
+    y =10;
+    _entityImageView.entity = _entity;
+    _brand.text = _entity.brand;
+    _title.text = _entity.title;
+    if( !([_entity.brand isEqualToString:@""])) {
+        _brand.frame = CGRectMake(80, y,kScreenWidth-90, 20);
+        y = _brand.frame.origin.y+_brand.frame.size.height;
+    }
+    _title.frame = CGRectMake(80, y, kScreenWidth-90, 20);
+    y = _title.frame.origin.y+_title.frame.size.height+2;
+    
+    _ratingView.frame = CGRectMake(80, y, 60, 20);
+    [_ratingView displayRating:_entity.avg_score/2];
+    _score.frame = CGRectMake(_ratingView.frame.origin.x+_ratingView.frame.size.width , _ratingView.frame.origin.y-6, 40, 20);
+    _score.text = [NSString stringWithFormat:@"%0.1f",_entity.avg_score];
+
+    
+    
+    /*
     self.frame = CGRectMake(8, 0, kScreenWidth-16, self.frame.size.height);
     self.bg.frame = CGRectMake(0, 0,kScreenWidth-16 ,self.frame.size.height );
     self.bg.image = [[UIImage imageNamed:@"comment_header_note_bg.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
@@ -128,11 +175,8 @@
     _note.note = _noteData;
 
     self.seperatorLineImageView.frame = CGRectMake(0,self.frame.size.height-30, kScreenWidth-16, 1);
-    
-    NSString * comment_count = [NSString stringWithFormat:@"%u", _noteData.comment_count];
-    [_commentButton setTitle:comment_count forState:UIControlStateNormal];
-    [_commentButton setFrame:CGRectMake(0, self.frame.size.height-30, kScreenWidth-16, 30)];
- 
+     */
+
 }
 + (float)height:(GKNote *)data
 {
@@ -141,5 +185,9 @@
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
     return size.height + 75; // 10即消息上下的空间，可自由调整
+}
+- (void)goEntity
+{
+    [self.delegate showDetailWithData:_entity];
 }
 @end

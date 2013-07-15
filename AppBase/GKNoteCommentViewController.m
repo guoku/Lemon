@@ -97,7 +97,7 @@
     _headerView.frame = CGRectMake(0, 0, kScreenWidth, headheight);
 
     _headerView.delegate = self;
-    self.headerView.noteData = _note;
+    [self.headerView setNoteData:_note entityData:_entity];
     self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
     [self.table.tableHeaderView addSubview:_headerView];
     containerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, 320, 40)];
