@@ -260,8 +260,6 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
-    
-
 }
 - (void)change
 {
