@@ -29,6 +29,9 @@
 
 
 @implementation GKAppDelegate
+{
+@private bool loadingEntity;
+}
 
 @synthesize window = _window;
 @synthesize HUD = _HUD;
@@ -40,6 +43,7 @@
 @synthesize drawerController = _drawerController;
 @synthesize needRequestEntityArray = _needRequestEntityArray;
 @synthesize navigationController = _navigationController;
+@synthesize centerViewController = _centerViewController;
 
 #pragma mark- 系统
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -47,6 +51,7 @@
     if (application)
     {
         application.applicationIconBadgeNumber = 0;
+        loadingEntity =NO;
     }
     //启动缓存区
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:1024 * 1024 diskCapacity:1024 * 1024 * 5 diskPath:nil];
@@ -140,11 +145,11 @@
         GKLog(@"不是第一次启动");
         UIViewController * leftSideDrawerViewController = [[GKLeftViewController alloc] init];
         
-        UIViewController * centerViewController = [[GKCenterViewController alloc] init];
+        _centerViewController = [[GKCenterViewController alloc] init];
         
         UIViewController * rightSideDrawerViewController = [[GKRightViewController alloc] init];
         
-        _navigationController = [[GKNavigationController alloc] initWithRootViewController:centerViewController];
+        _navigationController = [[GKNavigationController alloc] initWithRootViewController:_centerViewController];
         
         self.drawerController = [[GKRootViewController alloc]
                                                     initWithCenterViewController:_navigationController
@@ -193,13 +198,14 @@
     self.hostReach = [Reachability reachabilityForInternetConnection];
     [self updateInterfaceWithReachability:self.hostReach];
     [_hostReach startNotifier];
-    
-    NSTimer *_timer = [NSTimer scheduledTimerWithTimeInterval:60.0f
+
+    NSTimer *_timer = [NSTimer scheduledTimerWithTimeInterval:20.0f
                                                        target:self
                                                      selector:@selector(getEntity)
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    [self getEntity];
     return YES;
 }
 
@@ -427,8 +433,35 @@
 }
 - (void)getEntity
 {
+    if(!loadingEntity)
+    {
+    loadingEntity = YES;
     NSArray * array = [GKEntity getNeedResquestEntity];
-    NSLog(@"%@",array);
+        if([array count]!=0)
+        {
+            [GKEntity getEntityByArray:array Block:^(NSArray *entitylist, NSError *error) {
+                if (!error) {
+                    for (GKEntity * entity in entitylist) {
+                        for(NSString  * pidString in entity.pid_list ) {
+                            entity.pid = [pidString integerValue];
+                            [entity save];
+                        }
+
+                    }
+                    [self.centerViewController stageChange];
+                }
+                else
+                {
+                
+                }
+                loadingEntity = NO;
+            }];
+        }
+        else
+        {
+            loadingEntity = NO;
+        }
+    }
 }
 @end
 

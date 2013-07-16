@@ -11,4 +11,5 @@
 @interface GKCenterViewController : GKBaseViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (strong,nonatomic) UITableView *table;
 @property (strong,nonatomic) UIImageView * icon;
+- (void)stageChange;
 @end

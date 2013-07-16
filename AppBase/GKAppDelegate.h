@@ -15,6 +15,7 @@
 #import "Reachability.h"
 #import "GAI.h"
 #import "GKRootViewController.h"
+#import "GKCenterViewController.h"
 
 @class SNViewController;
 
@@ -33,6 +34,7 @@
 @property(nonatomic, retain) id<GAITracker> tracker;
 @property(nonatomic,strong) GKRootViewController * drawerController;
 @property(nonatomic,strong) GKNavigationController * navigationController;
+@property(nonatomic,strong)GKCenterViewController * centerViewController;
 @property (nonatomic,strong) NSMutableArray *needRequestEntityArray;
 
 - (GKStatusBar *)sharedStatusBar;

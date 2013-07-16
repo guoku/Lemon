@@ -7,13 +7,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "395579084.851201"
+         filePath = "Models/Entities/GKEntity.m"
+         timestampString = "395580973.302035"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "431"
-         endingLineNumber = "431"
-         landmarkName = "-getEntity"
+         startingLineNumber = "267"
+         endingLineNumber = "267"
+         landmarkName = "+getEntityByArray:Block:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

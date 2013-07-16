@@ -71,7 +71,7 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
 + (void)postNoteCommentWithNoteID:(NSUInteger)note_id Content:(NSString *)content Block:(void (^)(NSDictionary * NoteComment, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:2];
-    [paramters setValue:content forKey:@"content"];
+    [paramters setValue:content forKey:@"comment"];
     
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/note/%u/add/comment/",note_id] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         

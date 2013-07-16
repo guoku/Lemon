@@ -98,7 +98,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
+
     if(_data == nil)
     {
         GKLog(@"entity --- id --------------- %u", self.entity_id);
@@ -174,6 +174,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
     [GKMessageBoard hideActivity];
     [self HideShop];
 }
@@ -308,12 +309,19 @@
     [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
     [f5f4f4bg addSubview:_ratingView];
     
-    UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 40, 40)];
+    UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 80, 40)];
     score.textAlignment = NSTextAlignmentLeft;
     score.backgroundColor = [UIColor clearColor];
     score.textColor =UIColorFromRGB(0x999999);
-    score.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
+    score.font = [UIFont fontWithName:@"Helvetica-Bold" size:13.0f];
+    if(_detailHeaderView.detailData.avg_score !=0)
+    {
     score.text = [NSString stringWithFormat:@"%0.1f",_detailHeaderView.detailData.avg_score];
+    }
+    else
+    {
+    score.text = @"木有评分";
+    }
     [f5f4f4bg addSubview:score];
     
     

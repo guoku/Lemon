@@ -217,6 +217,12 @@
             if([object isKindOfClass:[GKEntity class]])
             {
                 cell.object = object;
+                GKEntity * entity = ((GKEntity *)object);
+                if(entity.price == 0)
+                {
+                    entity.weight ++;
+                    [entity save];
+                }
             }
             else if ([object isKindOfClass:[TMLKeyWord class]])
             {

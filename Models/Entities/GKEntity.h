@@ -36,6 +36,7 @@
 - (GKEntity *)saveLittle;
 - (id)initFromSQLiteWithRsSet:(FMResultSet *)rs;
 + (NSArray *)getNeedResquestEntity;
++ (void)getEntityByArray:(NSArray *)array Block:(void (^)(NSArray * entitylist, NSError *error))block;
 + (NSArray *)getEntityWithPid:(NSUInteger)pid;
 + (NSArray *)getEntityCountGroupByPid;
 + (BOOL)deleteWithEntityID:(NSUInteger)entity_id;

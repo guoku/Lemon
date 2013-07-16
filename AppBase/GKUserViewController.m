@@ -40,6 +40,7 @@
     NSIndexPath *indexPathTmp;
     BOOL headerChange;
     MMMCalendar * calendar;
+    UIButton * _shareButton;
     float y;
 }
 @synthesize user = _user;
@@ -188,7 +189,19 @@
     likeNumBTN.userInteractionEnabled = NO;
     [user_bg addSubview:likeNumBTN];
     
+    _shareButton = [[UIButton alloc]initWithFrame:CGRectMake(203, user_bg.frame.size.height-40, 50, 30)];
+    [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [_shareButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
+    [_shareButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [_shareButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+    [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+    [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+    [_shareButton addTarget:self action:@selector(shareButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    _shareButton.hidden = YES;
+    [user_bg addSubview:_shareButton];
+    
     followBTN =  [[GKFollowButton alloc]initWithFrame:CGRectMake(203, user_bg.frame.size.height-40, 50, 30)];
+    followBTN.hidden = YES;
     [user_bg addSubview:followBTN];
     
     [HeaderView addSubview:user_bg];
@@ -259,6 +272,17 @@
             [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
             [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
             [self loadEntityList];
+            GKUser * user = [[GKUser alloc]initFromNSU];
+            if(user.user_id == _user.user_id)
+            {
+                followBTN.hidden = YES;
+                _shareButton.hidden = NO;
+            }
+            else
+            {
+                followBTN.hidden = NO;
+                _shareButton.hidden = YES;
+            }
         }
         else
         {
@@ -601,13 +625,18 @@
 }
 - (void)cardLikeChange:(NSNotification *)noti
 {
- 
+
     NSDictionary *notidata = [noti userInfo];
     NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
     GKEntityLike * entitylike = [notidata objectForKey:@"likeStatus"];
+    GKUser * user = [[GKUser alloc]initFromNSU];
+  if(_user_id != user.user_id)
+  {
+      return;
+  }
     if(entitylike.status)
     {
-           /*
+           
         GKEntity * entity = [notidata objectForKey:@"entity"];
         int pid = 20;
         for(NSString  * pidString in entity.pid_list ) {
@@ -621,56 +650,24 @@
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
         _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         
-        for (GKEntity * entity in _entityArray) {
-            NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid]objectForKey:@"row"];
-            for (NSObject * object  in array ) {
+        for (int i = 0;i< [_entityArray count];i++) {
+            GKEntity * entity = [_entityArray objectAtIndex:i];
+            
+            NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+            
+            for (int k = 0; k< [array count];k++ ) {
+                NSObject * object  =  [array objectAtIndex:k];
                 if([object isKindOfClass:[TMLKeyWord class]])
                 {
                     if(((TMLKeyWord *)object).kid == entity.cid)
                     {
-                        
-                        [array insertObject:entity atIndex:[array indexOfObjectIdenticalTo:object]];
+                        [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
                         break;
                     }
                 }
-                
             }
             
         }
-        NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
-        for (NSMutableDictionary * dic in _dataArray) {
-            NSMutableArray *array =  [dic objectForKey:@"row"];
-            NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
-            for (NSObject * object  in array ) {
-                if([object isKindOfClass:[TMLKeyWord class]])
-                {
-                    
-                    NSUInteger  i = [array indexOfObjectIdenticalTo:object];
-                    NSLog(@"%d",i);
-                    if(i< ([array count]-1))
-                    {
-                        if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
-                        {
-                            [k_array addObject:object];
-                            
-                        }
-                    }
-                    else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
-                    {
-                        [k_array addObject:object];
-                    }
-                }
-                
-            }
-            
-            [array removeObjectsInArray:k_array];
-            if([array count]==0)
-            {
-                [s_array addObject:dic];
-            }
-        }
-        [_dataArray removeObjectsInArray:s_array];
-            */
     }
     else
     {
@@ -693,18 +690,144 @@
                 break;
             }
         }
-     
+        NSMutableArray * r_array = [[NSMutableArray alloc]initWithCapacity:0];
         for (GKEntity * entity in _entityArray) {
             if(entity.entity_id == entity_id)
             {
-                [_entityArray removeObject:entity];
+                [r_array addObject:entity];
             }
         }
+        [_entityArray removeObjectsInArray:r_array];
        
     }
+    NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
+    for (NSMutableDictionary * dic in _dataArray) {
+        NSMutableArray *array =  [dic objectForKey:@"row"];
+        NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
+        for (NSObject * object  in array ) {
+            if([object isKindOfClass:[TMLKeyWord class]])
+            {
+                
+                NSUInteger  i = [array indexOfObjectIdenticalTo:object];
+                NSLog(@"%d",i);
+                if(i< ([array count]-1))
+                {
+                    if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
+                    {
+                        [k_array addObject:object];
+                        
+                    }
+                }
+                else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
+                {
+                    [k_array addObject:object];
+                }
+            }
+            
+        }
+        
+        [array removeObjectsInArray:k_array];
+        if([array count]==0)
+        {
+            [s_array addObject:dic];
+        }
+    }
+    [_dataArray removeObjectsInArray:s_array];
     [self.table reloadData];
 
 
+}
+- (void)shareButtonAction:(id)sender
+{
+    UIActionSheet * shareOptionSheet = nil;
+    
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        shareOptionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"取消",nil) destructiveButtonTitle:nil otherButtonTitles:@"分享到新浪微博",@"分享给微信好友",@"分享到朋友圈", nil];
+    }
+    else {
+        shareOptionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享到新浪微博", nil];
+    }
+    
+    [shareOptionSheet showInView:self.view];
+    [shareOptionSheet setActionSheetStyle:UIActionSheetStyleDefault];
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    BOOL wxShare = NO;
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        wxShare = YES;
+    }
+    switch (buttonIndex) {
+        case 0:
+        {
+            [self sinaShare];
+        }
+            break;
+        case 1:
+        {
+            if (wxShare) {[self wxShare:0];}
+        }
+            break;
+        case 2:
+        {
+            if (wxShare) {[self wxShare:1];}
+        }
+            break;
+        default:
+        {
+        }
+            
+    }
+}
+- (void)sinaShare
+{
+    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+}
+
+- (void)wxShare:(int)scene
+{
+    if(scene ==0)
+    {
+        [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"微信分享"
+                                                        withAction:@"给好友"
+                                                         withLabel:nil
+                                                         withValue:nil];
+    }
+    else
+    {
+        [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"微信分享"
+                                                        withAction:@"到朋友圈"
+                                                         withLabel:nil
+                                                         withValue:nil];
+    }
+    WXMediaMessage *message = [WXMediaMessage message];
+    
+    
+
+    WXWebpageObject *webPage = [WXWebpageObject object];
+    GKLog(@"webpageUrl---%@",webPage.webpageUrl);
+    message.mediaObject = webPage;
+    message.title = @"果库 - 尽收世上好物";
+    if(scene ==1)
+    {
+        message.description = @"";
+    }
+    else
+    {
+        message.title = @"果库 - 尽收世上好物";
+    }
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene =scene;
+    
+    if ([WXApi sendReq:req]) {
+        GKLog(@"wei xin");
+    }
+    else{
+        [GKMessageBoard showMBWithText:@"图片太大，请关闭高清图片按钮" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    }
 }
 
 @end

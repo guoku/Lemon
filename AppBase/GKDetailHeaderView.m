@@ -55,7 +55,7 @@
         self.title = [[UILabel alloc]initWithFrame:CGRectZero];
         _title.backgroundColor = [UIColor clearColor];
         
-        _title.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _title.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _title.textAlignment = NSTextAlignmentLeft;
         _title.textColor =UIColorFromRGB(0x555555);
         [self addSubview:_title];
@@ -65,7 +65,7 @@
         self.price = [[UILabel alloc]initWithFrame:CGRectZero];
         _price.backgroundColor = [UIColor clearColor];
         
-        _price.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        _price.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
         _price.textAlignment = NSTextAlignmentLeft;
         _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];
@@ -79,15 +79,12 @@
         [_entityImageView setFrame:CGRectMake(5,10,125,125)];
         _entityImageView.userInteractionEnabled = NO;
         [self addSubview:_entityImageView];
-        UIButton *showTaobao = [[UIButton alloc]initWithFrame:_entityImageView.frame];
-        [showTaobao addTarget:self action:@selector(buyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:showTaobao];
         
-        self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectMake(220, 100, 80, 26)];
+        self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectMake(220, 100, 70, 26)];
         UIEdgeInsets insets = UIEdgeInsetsMake(5, 15, 5, 5);
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy.png"]resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy_press.png"]resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
-        [_buyInfoButton.titleLabel setFont:[UIFont fontWithName:@"Georgia" size:18]];
+        [_buyInfoButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
         [_buyInfoButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [self addSubview:_buyInfoButton];
         

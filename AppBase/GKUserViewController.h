@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GKUserViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource>
+@interface GKUserViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 @property (nonatomic) NSUInteger user_id;
 @property (nonatomic) GKUser *user;
 @property (nonatomic,strong) UITableView *table;
