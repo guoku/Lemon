@@ -26,11 +26,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.avatar = [[UIImageView alloc ]initWithFrame:CGRectZero];
-        [_avatar setFrame:CGRectMake(20, 10, 35, 35)];
-        [_avatar setContentMode:UIViewContentModeScaleAspectFit];
-        _avatar.layer.cornerRadius = 3;
-        _avatar.layer.masksToBounds = YES;
+        self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
+        [_avatar setFrame:CGRectMake(10, 13, 35, 35)];
         [self addSubview:_avatar];
         
         UIImageView * _avatarBgImg = [[UIImageView alloc] initWithFrame:CGRectMake(_avatar.frame.origin.x, _avatar.frame.origin.y , _avatar.frame.size.width+1, _avatar.frame.size.height+1)];
@@ -69,9 +66,11 @@
         _time.userInteractionEnabled = NO;
         [self addSubview:_time];
         
-        self.seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _seperatorLineImageView.image =[UIImage imageNamed:@"splitline.png"];
+        _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _seperatorLineImageView.backgroundColor = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0 / 255.0f alpha:1.0f]
+        ;
         [self addSubview:_seperatorLineImageView];
+
     }
     return self;
 }
@@ -89,6 +88,7 @@
 {
     _delegate = delegate;
     _comment.gkdelegate = _delegate;
+    _avatar.delegate = _delegate;
 }
 - (void)avatarButtonAction:(id)sender
 {
@@ -103,7 +103,7 @@
     
     self.backgroundView.frame = CGRectMake(8, 0, kScreenWidth-16, self.frame.size.height);
     
-    [self.avatar setImageWithURL:_data.creator.avatarImageURL];
+    self.avatar.userBase = _data.creator;
     
     [self.nickname setText:_data.creator.nickname];
 
@@ -115,7 +115,7 @@
     [_time setTitle:[NSDate stringFromDate:_data.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
     [_time setFrame:CGRectMake(190, self.frame.size.height-18, 120, 10)];
     
-    [self.seperatorLineImageView setFrame:CGRectMake(8, _time.frame.origin.y+_time.frame.size.height+1, kScreenWidth-16, 2)];
+    [self.seperatorLineImageView setFrame:CGRectMake(0,self.frame.size.height, kScreenWidth, 1)];
     
 }
 + (float)height:(GKComment *)data

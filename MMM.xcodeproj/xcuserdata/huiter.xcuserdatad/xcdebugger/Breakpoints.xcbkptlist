@@ -7,39 +7,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKNoteCommentViewController.m"
-         timestampString = "395665193.77687"
+         filePath = "AppBase/GKNoteCommentCell.m"
+         timestampString = "395669321.332445"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "52"
-         endingLineNumber = "52"
-         landmarkName = "-initWithNote:Entity:"
+         startingLineNumber = "96"
+         endingLineNumber = "96"
+         landmarkName = "-avatarButtonAction:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKNoteCommentViewController.m"
-         timestampString = "395665479.190931"
+         filePath = "AppBase/TMLKeywordViewController.m"
+         timestampString = "395670391.542886"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
-         landmarkName = "-initWithNote:Entity:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "HTKit/GKBaseViewController/GKBaseViewController.m"
-         timestampString = "395665304.233799"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
-         landmarkName = "-showCommentWithNote:Entity:"
+         startingLineNumber = "60"
+         endingLineNumber = "60"
+         landmarkName = "-initWithPid:Category:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

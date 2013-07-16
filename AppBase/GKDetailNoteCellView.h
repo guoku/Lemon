@@ -21,7 +21,7 @@
 @property (strong, nonatomic) UIButton * hootButton;
 @property (strong, nonatomic) UIButton *commentButton;
 @property (strong, nonatomic) UILabel *nickname;
-@property (nonatomic, strong) GKNoteLabel * note;
+@property (nonatomic, strong) UILabel * note;
 @property (strong, nonatomic) UIButton *time;
 @property (strong, nonatomic) RatingView *ratingView;
 

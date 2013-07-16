@@ -52,13 +52,12 @@
         _ratingView.userInteractionEnabled = NO;
         [self addSubview:_ratingView];
         
-        self.note = [[GKNoteLabel alloc]initWithFrame:CGRectMake(53,y+2,240,400)];
-        UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-        _note.content.font = font;
-        [_note setFontsize:13];
-        _note.content.numberOfLines = 0;
-        _note.content.leading = 2;
-        _note.content.lineBreakMode = NSLineBreakByWordWrapping;
+        self.note = [[UILabel alloc]initWithFrame:CGRectMake(53,y+2,240,400)];
+        _note.font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+        _note.numberOfLines = 0;
+        _note.textAlignment = NSTextAlignmentLeft;
+        _note.textColor = UIColorFromRGB(0x666666);
+        _note.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_note];
         
         self.avatarButton = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -127,7 +126,6 @@
 - (void)setDelegate:(id<GKDelegate>)delegate
 {
     _delegate = delegate;
-    _note.gkdelegate = _delegate;
     _avatar.delegate = _delegate;
 }
 #pragma mark - layout view
@@ -152,8 +150,7 @@
     size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     GKLog(@"%@",NSStringFromCGSize(size));
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+5)];
-    _note.note = _noteData;
-    _note.backgroundColor = [UIColor blackColor];
+    _note.text = _noteData.note;
 
     _avatarButton.frame = _nickname.frame;
     
@@ -218,6 +215,6 @@
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return size.height + 55; // 10即消息上下的空间，可自由调整
+    return size.height + 65; // 10即消息上下的空间，可自由调整
 }
 @end

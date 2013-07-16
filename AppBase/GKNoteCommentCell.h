@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) GKComment * data;
 @property (strong, nonatomic) UIButton *avatarButton;
-@property (strong, nonatomic) UIImageView *avatar;
+@property (strong, nonatomic) GKUserButton *avatar;
 @property (strong, nonatomic) UILabel *nickname;
 @property (strong, nonatomic) GKNoteLabel *comment;
 @property (strong, nonatomic) UIButton *time;

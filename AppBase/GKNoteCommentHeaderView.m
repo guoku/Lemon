@@ -67,17 +67,17 @@
         
         
         UIView * noteView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, self.frame.size.height - 80)];
-        self.avatar = [[GKUserButton alloc ]initWithFrame:CGRectZero];
+        self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
         [_avatar setFrame:CGRectMake(9, 13, 35, 35)];
         [noteView addSubview:_avatar];
-                
+        
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(50, 10, 120, 20)];
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [noteView addSubview:_nickname];
         
-        self.time = [[UIButton alloc]initWithFrame:CGRectMake(170, 10,125, 20)];
+        self.time = [[UIButton alloc]initWithFrame:CGRectMake(190, noteView.frame.size.height-20,125, 20)];
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
         [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
         [_time setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
@@ -86,6 +86,12 @@
         _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _time.userInteractionEnabled = NO;
         [noteView addSubview:_time];
+        
+        self.noteRatingView = [[RatingView alloc]initWithFrame:CGRectZero];
+        [_noteRatingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
+        _noteRatingView.center = CGPointMake(_noteRatingView.center.x, 22);
+        _noteRatingView.userInteractionEnabled = NO;
+        [noteView addSubview:_noteRatingView];
         
         self.note = [[GKNoteLabel alloc]initWithFrame:CGRectMake(50,32, 250, 400)];
         [_note.content setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
@@ -99,10 +105,6 @@
         self.avatarButton = [[UIButton alloc]initWithFrame:_nickname.frame];
         [_avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [noteView addSubview:_avatarButton];
-            
-        self.seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _seperatorLineImageView.backgroundColor = UIColorFromRGB(0xf2f2f2);
-        [noteView addSubview:_seperatorLineImageView];
         
         noteView.backgroundColor = UIColorFromRGB(0xf9f9f9);
         [self addSubview:noteView];
@@ -157,17 +159,21 @@
     
     self.avatar.userBase = _noteData.creator;
     
-    [self.nickname setText:_noteData.creator.nickname];
+    [self.nickname setText:[NSString stringWithFormat:@"%@ :",_noteData.creator.nickname]];
+   
+    CGSize size = [_nickname.text sizeWithFont:_nickname.font constrainedToSize:CGSizeMake(CGFLOAT_MAX,20) lineBreakMode:NSLineBreakByWordWrapping];
+    _nickname.frame = CGRectMake(_nickname.frame.origin.x, _nickname.frame.origin.y, size.width, 20);
+    _noteRatingView.frame = CGRectMake(_nickname.frame.origin.x + _nickname.frame.size.width, _nickname.frame.origin.y+5, 60, 20);
+    [_noteRatingView displayRating:_noteData.score/2];
+    
     
     
     [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
     
     UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-    CGSize size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+10)];
-    _note.note = _noteData;
-    self.seperatorLineImageView.frame = CGRectMake(0,self.frame.size.height-30, kScreenWidth-16, 1);
-    
+    _note.note = _noteData;    
     UIImageView * arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
     arrow.frame = CGRectMake(20, self.frame.size.height - 7, 12, 7);
     [self addSubview:arrow];
