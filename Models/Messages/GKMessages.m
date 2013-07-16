@@ -13,10 +13,8 @@
 
 @implementation GKMessages
 
-@synthesize message_id = _message_id;
 @synthesize type = _type;
 @synthesize created_time = _created_time;
-@synthesize updated_time = _updated_time;
 @synthesize message_object = _message_object;
 
 
@@ -25,22 +23,20 @@
     self = [super init];
     if (self)
     {
-        _message_id = [attributes valueForKeyPath:@"message_id"];
         _type = [attributes valueForKeyPath:@"type"];
         _created_time = [NSDate  dateFromString:[attributes valueForKeyPath:@"created_time"]];
-        _updated_time = [NSDate dateFromString:[attributes valueForKeyPath:@"updated_time"]];
         if ([_type isEqualToString:@"entity_message"])
         {
-            _message_object = [[GKEntityMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"object"]];
+            _message_object = [[GKEntityMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         } else if ([_type isEqualToString:@"user_follow_message"])
         {
-            _message_object = [[GKFollowerMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"object"]];
+            _message_object = [[GKFollowerMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         } else if ([_type isEqualToString:@"entity_note_message"])
         {
-            _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"object"]];
-        } else if ([_type isEqualToString:@"weibo_friend_notification_message"])
+            _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
+        } else if ([_type isEqualToString:@"friend_joined"])
         {
-            _message_object = [[GKWeiboFriendJoinMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"object"]];
+            _message_object = [[GKWeiboFriendJoinMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         }
     }
     
@@ -106,12 +102,12 @@
     if (!postbefore)
     {
         NSString * dataString = [NSDate now];
-        [paramters setValue:dataString forKey:@"post_before"];
+        [paramters setValue:dataString forKey:@"since_time"];
     } else {
-        [paramters setValue:[NSDate stringFromDate:postbefore] forKey:@"post_before"];
+        [paramters setValue:[NSDate stringFromDate:postbefore] forKey:@"since_time"];
     }
     GKLog(@"message messsage");
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"user/message/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/read_message/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         
         GKLog(@"%@", JSON);
         NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
@@ -123,6 +119,7 @@
                 NSMutableArray * _mutablearray = [NSMutableArray arrayWithCapacity:[listResponse count]];
                 for (NSDictionary * attributes in listResponse)
                 {
+                    NSLog(@"%@",attributes);
                     GKMessages * _message = [[GKMessages alloc] initWithAttributes:attributes];
                     [_mutablearray addObject:_message];
                 }

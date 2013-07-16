@@ -26,6 +26,7 @@
 #import "GKRightViewController.h"
 #import "MMExampleDrawerVisualStateManager.h"
 #import "GKLoadingViewController.h"
+#import "GKMessages.h"
 
 
 @implementation GKAppDelegate
@@ -206,6 +207,9 @@
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     [self getEntity];
+    [GKMessages getUserMessageWithPostBefore:nil Block:^(NSArray *messages, NSError *error) {
+        NSLog(@"%@",messages);
+    }];
     return YES;
 }
 

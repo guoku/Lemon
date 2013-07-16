@@ -14,10 +14,8 @@
 #import "GKWeiboFriendJoinMessage.h"
 @interface GKMessages : NSObject
 
-@property (readonly) NSString * message_id;
 @property (readonly) NSString * type;
 @property (readonly) NSDate * created_time;
-@property (readonly) NSDate * updated_time;
 @property (readonly) id  message_object;
 
 

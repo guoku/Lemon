@@ -33,7 +33,6 @@
     NSMutableArray * _titleArray;
     SMPageControl * pageControl;
     UIView *HeaderView;
-    NSIndexPath *indexPathTmp;
     BOOL headerChange;
     float y;
     GKUser *user;
@@ -50,8 +49,6 @@
     if (self) {
         // Custom initialization
         openLeftMenu = YES;
-        indexPathTmp = [[NSIndexPath alloc]initWithIndex:0];
-        NSLog(@"%d",indexPathTmp.section);
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);

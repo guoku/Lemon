@@ -13,6 +13,7 @@
 #import "GKLoginViewController.h"
 #import "GKAppDelegate.h"
 #import "GKSettingViewController.h"
+#import "GKMessageViewController.h"
 
 @interface GKLeftViewController ()
 
@@ -316,7 +317,9 @@
 }
 - (void)messageButtonAction
 {
-
+    GKMessageViewController *VC = [[GKMessageViewController alloc]init];
+    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+    [self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
 }
 - (void)backButtonAction:(id)sender
 {

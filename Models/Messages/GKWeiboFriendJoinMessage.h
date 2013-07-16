@@ -15,7 +15,6 @@
 
 @property (readonly) GKUser * recommended_user;
 @property (readonly) long long weibo_id;
-@property (readonly) NSString * nickname;
 @property (readonly) NSString * weibo_screen_name;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
