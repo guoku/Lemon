@@ -39,6 +39,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.navigationItem.titleView = [GKTitleView setTitleLabel:@"评论"];
+        self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     }
     return self;
 }
@@ -49,6 +51,24 @@
     {
         _note = note;
         _entity = entity;
+        self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44 -40) style:UITableViewStylePlain];
+        _table.backgroundColor = UIColorFromRGB(0xffffff);
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _table.allowsSelection = NO;
+        [_table setDelegate:self];
+        [_table setDataSource:self];
+        headheight = [GKNoteCommentHeaderView height:_note];
+        self.headerView = [[GKNoteCommentHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,headheight)];
+        [self.headerView setNoteData:_note entityData:_entity];
+        
+        _headerView.delegate = self;
+        self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
+        [self.table.tableHeaderView addSubview:_headerView];
+        
+        [self.view addSubview:_table];
+        [self reload:nil];
+        
+        [self.view addSubview:containerView];
     }
     return self;
 }
@@ -69,37 +89,9 @@
     [refreshBTN setImage:[UIImage imageNamed:@"icon_refresh.png"] forState:UIControlStateNormal];
     [refreshBTN addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:refreshBTN];
-    
-    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"评论"];
-    self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-    
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44 -40) style:UITableViewStylePlain];
-    _table.backgroundColor = UIColorFromRGB(0xf6f6f6);
-    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.allowsSelection = NO;
-    [_table setDelegate:self];
-    [_table setDataSource:self];
-    [self.view addSubview:_table];
-    
-    
-    if(_refreshHeaderView == nil)
-    {
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
-        view.delegate = self;
-        _refreshHeaderView = view;
-        [self.table addSubview:_refreshHeaderView];
-    }
-    [_refreshHeaderView refreshLastUpdatedDate];
-    
-    self.headerView = [[GKNoteCommentHeaderView alloc]initWithFrame:CGRectZero];
-    headheight = [GKNoteCommentHeaderView height:_note];
-    _headerView.frame = CGRectMake(0, 0, kScreenWidth, headheight);
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:refreshBTN];
 
-    _headerView.delegate = self;
-    [self.headerView setNoteData:_note entityData:_entity];
-    self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
-    [self.table.tableHeaderView addSubview:_headerView];
+
     containerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, 320, 40)];
     
 	textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(13, 6, 240, 29)];
@@ -117,7 +109,7 @@
     textView.text = @"评论";
 	// textView.animateHeightChange = NO; //turns off animation
     
-    [self.view addSubview:containerView];
+
 	
     UIImage *rawEntryBackground = [UIImage imageNamed:@"comment_input.png"];
     UIImage *entryBackground = [rawEntryBackground stretchableImageWithLeftCapWidth:13 topCapHeight:22];
@@ -159,30 +151,7 @@
 
 - (void)reload:(id)sender
 {
-    [GKComment globalNoteCommetWithNoteID:_note.note_id Block:^(NSArray *comment_list, NSError *error) {
-        if(!error)
-        {
-            _dataArray = [NSMutableArray arrayWithArray:comment_list];
-            GKLog(@"%@", _dataArray);
-            [self.table reloadData];
-           
-        }
-        else
-        {
-            switch (error.code) {
-                case -999:
-                    [GKMessageBoard hideMB];
-                    break;
-                default:
-                {
-                    NSString * errorMsg = [error localizedDescription];
-                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
-                }
-                    break;
-            }
-        }
-        [self doneLoadingTableViewData];
-    }];
+    _dataArray = _note.comments_list;
 }
 
 - (void)viewDidLoad
@@ -201,7 +170,9 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 	// Do any additional setup after loading the view.
-    [self reload:nil];
+
+    
+
 
 }
 - (void)viewDidUnload
@@ -228,12 +199,10 @@
 - (void)addNewNoteComment:(NSNotification *)noti
 {
     NSDictionary *notidata = [noti userInfo];
-//    NSUInteger note_id = [[notidata objectForKey:@"noteID"]integerValue];
     GKComment * _comment = [notidata valueForKeyPath:@"content"];
-    if(_comment.note_id == _note.note_id)
+    if([[notidata valueForKeyPath:@"note_id"]integerValue] == _note.note_id)
     {
         _note.comment_count += 1;
-//        _note.comment_count = [[notidata objectForKey:@"noteCommentCount"]integerValue];
         self.headerView.noteData = _note;
         [_dataArray addObject:_comment];
         [self.table reloadData];
@@ -304,13 +273,7 @@
                                                             withLabel:nil
                                                             withValue:nil];
            textView.text = nil;
-//           [_message removeAllObjects];
            _notecomment = [NoteComments valueForKeyPath:@"content"];
-//           [_message setValue:@(_note.note_id) forKey:@"noteID"];
-//           [_message setValue:@(_note.comment_count + 1) forKey:@"noteCommentCount"];
-//           [_message setValue:_notecomment forKey:@"noteComment"];
-//           [[NSNotificationCenter defaultCenter] postNotificationName:@"AddNewNoteComment" object:nil userInfo:_message];
-           
            [GKMessageBoard hideMB];
         
        }
@@ -400,17 +363,12 @@
        
         [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
-        [GKComment deleteNoteCommentWithCommentID:commentid Block:^(BOOL is_removed, NSError *error) {
+        [GKComment deleteNoteCommentWithCommentID:commentid NoteID:_note.note_id Block:^(BOOL is_removed, NSError *error) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error &&is_removed)
             {
-//                [_message removeAllObjects];
-//                [_message setValue:@(_note.note_id) forKey:@"noteID"];
-//                [_message setValue:@(commentid) forKey:@"noteCommentID"];
-//                [_message setValue:@(_note.comment_count-1) forKey:@"noteCommentCount"];
                 [_dataArray removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteNoteComment" object:nil userInfo:_message];
                 
                 [GKMessageBoard hideMB];
             }
@@ -422,81 +380,6 @@
             }
         }];
     }
-}
-#pragma mark 刷新通用代码
-- (void)refresh
-{
-    _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    [self makeHearderReloading];
-    //[self reload:nil];
-    [self performSelector:@selector(reload:) withObject:nil afterDelay:0.3];
-}
--(void)reloadTableViewDataSource
-{
-    _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    [self reload:nil];
-    
-}
-- (void)doneLoadingTableViewData{
-    _reloading = NO;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-    CGPoint offset = self.table.contentOffset;
-    offset.y = 0.0;
-    [UIView animateWithDuration:0.3 animations:^{
-        self.table.contentOffset = offset;
-    }completion:^(BOOL finished) {
-        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.table];
-    }];
-}
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	
-	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-	
-	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-	
-}
-#pragma mark -
-#pragma mark 重载EGORefreshTableHeaderView必选方法
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
-{
-    [self reloadTableViewDataSource];
-    //[self performSelector:@selector(reloadTableViewDataSource) withObject:nil afterDelay:3.0];
-}
-
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
-{
-    return _reloading;
-}
-
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-	
-	return [NSDate date]; // should return date data source was last changed
-}
-
-- (void)makeHearderReloading
-{
-    [_refreshHeaderView setState:EGOOPullRefreshNormal];
-    if (self.table.isDecelerating) {
-        [self.table setContentOffset:self.table.contentOffset animated:NO];
-    }
-    CGPoint offset = self.table.contentOffset;
-    if (offset.y >= 0.0) {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.table.contentOffset = CGPointMake(offset.x, -65.);
-        }completion:^(BOOL finished) {
-            [_refreshHeaderView setState:EGOOPullRefreshLoading];
-        }];
-    }
-    
-    
 }
 //Code from Brett Schumann
 - (void) keyboardWillShow:(NSNotification *)note{

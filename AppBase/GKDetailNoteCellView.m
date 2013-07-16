@@ -149,16 +149,17 @@
     [_ratingView displayRating:_noteData.score/2];
     
     font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     GKLog(@"%@",NSStringFromCGSize(size));
-    [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 250, size.height+10)];
+    [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+5)];
     _note.note = _noteData;
+    _note.backgroundColor = [UIColor blackColor];
 
     _avatarButton.frame = _nickname.frame;
     
     NSString * poke_count = [NSString stringWithFormat:@"%u", _noteData.poker_count];
     [_pokeButton setTitle:poke_count forState:UIControlStateNormal];
-    [_pokeButton setFrame:CGRectMake(53., _note.frame.origin.y + _note.frame.size.height + 5, 40, 25)];
+    [_pokeButton setFrame:CGRectMake(53., _note.frame.origin.y + _note.frame.size.height, 40, 25)];
     
     if(_noteData.poker_already)
     {
@@ -174,7 +175,7 @@
     
     GKLog(@"%---------@", _noteData.created_time);
     [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:yy"] forState:UIControlStateNormal];
-    [_time setFrame:CGRectMake(190, _note.frame.origin.y+_note.frame.size.height+12, 120, 30)];
+    [_time setFrame:CGRectMake(190,self.frame.size.height-30, 120, 30)];
     
     [_seperatorLineImageView setFrame:CGRectMake(0, self.frame.size.height-1, kScreenWidth, 1)];
 }
@@ -215,8 +216,8 @@
 {
     UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
     
-    CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return size.height + 75; // 10即消息上下的空间，可自由调整
+    return size.height + 55; // 10即消息上下的空间，可自由调整
 }
 @end

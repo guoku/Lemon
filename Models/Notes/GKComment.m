@@ -23,6 +23,7 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
 @synthesize created_time = _created_time;
 @synthesize updated_time = _updated_time;
 @synthesize creator = _creator;
+@synthesize replied_user_id = _replied_user_id;
 
 
 - (id)initWithAttributes:(NSDictionary *)attributes
@@ -36,6 +37,14 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
         _created_time = [NSDate dateFromString:[attributes valueForKeyPath:@"created_time"]];
         _updated_time = [NSDate dateFromString:[attributes valueForKeyPath:@"updated_time"]];
         _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
+        if(![[attributes valueForKeyPath:@"replied_comment_id"] isEqual:[NSNull null]])
+        {
+            _replied_user_id = [[attributes valueForKeyPath:@"replied_comment_id"] integerValue];
+        }
+        else
+        {
+            _replied_user_id = 0;
+        }
     }
     return self;
 }
@@ -86,15 +95,13 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
                 NSMutableDictionary * _mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSDictionary * attributions in listCommentResponse)
                 {
-                    GKComment * _noteComment = [[GKComment alloc] initWithAttributes:attributions];
-                    //            GKLog(@"note obj %@", _noteComment);
-                    //            [_mutableArray addObject:_noteComment];
+                    GKComment * _noteComment = [[GKComment alloc] initWithAttributes:[attributions objectForKey:@"comment"]];
                     [_mutableDict setValue:_noteComment forKey:@"content"];
+                    [_mutableDict setValue:@(note_id) forKey:@"note_id"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:GKAddNewNoteCommentNotification object:nil userInfo:_mutableDict];
                 }
                 if (block)
                 {
-                    //            GKLog(@"%@", _mutableArray);
                     block([NSDictionary dictionaryWithDictionary:_mutableDict], nil);
                 }
             }
@@ -126,12 +133,11 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
     }];
 }
 
-+ (void)deleteNoteCommentWithCommentID:(NSUInteger)comment_id
++ (void)deleteNoteCommentWithCommentID:(NSUInteger)comment_id NoteID:(NSUInteger)note_id
                                  Block:(void (^)(BOOL is_removed, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [paramters setValue:[NSString stringWithFormat:@"%u", comment_id] forKey:@"comment_id"];
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"note/comment/delete/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/note/%u/del/comment/%u",note_id,comment_id] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSError * aError;
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];

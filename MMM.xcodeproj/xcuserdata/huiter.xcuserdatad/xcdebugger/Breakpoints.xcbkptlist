@@ -7,45 +7,40 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Models/Entities/GKEntity.m"
-         timestampString = "395580973.302035"
+         filePath = "AppBase/GKNoteCommentViewController.m"
+         timestampString = "395665193.77687"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "267"
-         endingLineNumber = "267"
-         landmarkName = "+getEntityByArray:Block:"
+         startingLineNumber = "52"
+         endingLineNumber = "52"
+         landmarkName = "-initWithNote:Entity:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "395645122.177423"
+         filePath = "AppBase/GKNoteCommentViewController.m"
+         timestampString = "395665479.190931"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "211"
-         endingLineNumber = "211"
-         landmarkName = "-application:didFinishLaunchingWithOptions:"
+         startingLineNumber = "53"
+         endingLineNumber = "53"
+         landmarkName = "-initWithNote:Entity:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HTKit/GKBaseViewController/GKBaseViewController.m"
+         timestampString = "395665304.233799"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "192"
+         endingLineNumber = "192"
+         landmarkName = "-showCommentWithNote:Entity:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
-   <SymbolicBreakpoints>
-      <SymbolicBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         symbolName = ""
-         moduleName = "">
-      </SymbolicBreakpoint>
-   </SymbolicBreakpoints>
-   <ExceptionBreakpoints>
-      <ExceptionBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         scope = "0"
-         stopOnStyle = "0">
-      </ExceptionBreakpoint>
-   </ExceptionBreakpoints>
 </Bucket>

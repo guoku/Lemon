@@ -45,7 +45,7 @@
         friendonly = NO;
         self.detailHeaderView = [[GKDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
         self.detailHeaderView.delegate =self;
-        self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"详情"];
+        self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"商品"];
     }
     return self;
 }

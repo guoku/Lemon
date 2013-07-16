@@ -28,6 +28,7 @@ extern NSString * const QUERY_NOTE_SQL;
 @property (readonly) NSDate * updated_time;
 @property (unsafe_unretained, readonly) NSURL * imageURL;
 @property (readonly) GKUserBase * creator;
+@property (strong,nonatomic) NSMutableArray * comments_list;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 

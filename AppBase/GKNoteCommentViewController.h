@@ -11,10 +11,8 @@
 #import "HPGrowingTextView.h"
 
 @class GKNoteCommentHeaderView;
-@interface GKNoteCommentViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,EGORefreshTableHeaderDelegate,HPGrowingTextViewDelegate>
+@interface GKNoteCommentViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,HPGrowingTextViewDelegate>
 {
-    BOOL _reloading;
-    EGORefreshTableHeaderView *_refreshHeaderView;
     UIView *containerView;
     HPGrowingTextView *textView;
 }

@@ -16,6 +16,7 @@ extern NSString * const GKDeleteNoteCommentNotification;
 
 @property (readonly) NSUInteger note_id;
 @property (readonly) NSUInteger comment_id;
+@property (readonly) NSUInteger replied_user_id;
 @property (readonly) NSString * comment;
 @property (readonly) NSDate * created_time;
 @property (readonly) NSDate * updated_time;
@@ -24,6 +25,7 @@ extern NSString * const GKDeleteNoteCommentNotification;
 + (void)globalNoteCommetWithNoteID:(NSUInteger)note_id
                              Block:(void (^)(NSArray * comment_list, NSError * error))block;
 + (void)postNoteCommentWithNoteID:(NSUInteger)note_id Content:(NSString *)content Block:(void (^)(NSDictionary * NoteComments, NSError * error))block;
-+ (void)deleteNoteCommentWithCommentID:(NSUInteger)comment_id Block:(void (^)(BOOL is_removed, NSError * error))block;
++ (void)deleteNoteCommentWithCommentID:(NSUInteger)comment_id NoteID:(NSUInteger)note_id
+                                 Block:(void (^)(BOOL is_removed, NSError * error))block;
 
 @end

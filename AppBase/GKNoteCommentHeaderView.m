@@ -19,7 +19,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-    
+        self.backgroundColor = UIColorFromRGB(0xf9f9f9);
         self.entityButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,kScreenWidth , 85)];
         [_entityButton setBackgroundColor:UIColorFromRGB(0xf1f1f1)];
         
@@ -63,23 +63,19 @@
         
         [_entityButton addTarget:self action:@selector(goEntity) forControlEvents:UIControlEventTouchUpInside];
 
-        
-        
         [self addSubview:_entityButton];
         
-        /*
-        self.bg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,kScreenWidth-16, 100)];
-        [self addSubview:_bg];
         
+        UIView * noteView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, self.frame.size.height - 80)];
         self.avatar = [[GKUserButton alloc ]initWithFrame:CGRectZero];
         [_avatar setFrame:CGRectMake(9, 13, 35, 35)];
-        [self addSubview:_avatar];
+        [noteView addSubview:_avatar];
                 
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(50, 10, 120, 20)];
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         [_nickname setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:_nickname];
+        [noteView addSubview:_nickname];
         
         self.time = [[UIButton alloc]initWithFrame:CGRectMake(170, 10,125, 20)];
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
@@ -89,7 +85,7 @@
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
         _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _time.userInteractionEnabled = NO;
-        [self addSubview:_time];
+        [noteView addSubview:_time];
         
         self.note = [[GKNoteLabel alloc]initWithFrame:CGRectMake(50,32, 250, 400)];
         [_note.content setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
@@ -98,16 +94,18 @@
         _note.content.leading = 2;
         _note.content.lineBreakMode = NSLineBreakByWordWrapping;
         [_note setFontsize:13];
-        [self addSubview:_note];
+        [noteView addSubview:_note];
         
         self.avatarButton = [[UIButton alloc]initWithFrame:_nickname.frame];
         [_avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_avatarButton];
+        [noteView addSubview:_avatarButton];
             
         self.seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _seperatorLineImageView.backgroundColor = UIColorFromRGB(0xf2f2f2);
-        [self addSubview:_seperatorLineImageView];
-         */
+        [noteView addSubview:_seperatorLineImageView];
+        
+        noteView.backgroundColor = UIColorFromRGB(0xf9f9f9);
+        [self addSubview:noteView];
         
     }
     return self;
@@ -155,13 +153,8 @@
     _score.frame = CGRectMake(_ratingView.frame.origin.x+_ratingView.frame.size.width , _ratingView.frame.origin.y-6, 40, 20);
     _score.text = [NSString stringWithFormat:@"%0.1f",_entity.avg_score];
 
-    
-    
-    /*
-    self.frame = CGRectMake(8, 0, kScreenWidth-16, self.frame.size.height);
-    self.bg.frame = CGRectMake(0, 0,kScreenWidth-16 ,self.frame.size.height );
-    self.bg.image = [[UIImage imageNamed:@"comment_header_note_bg.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
 
+    
     self.avatar.userBase = _noteData.creator;
     
     [self.nickname setText:_noteData.creator.nickname];
@@ -173,9 +166,13 @@
     CGSize size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+10)];
     _note.note = _noteData;
-
     self.seperatorLineImageView.frame = CGRectMake(0,self.frame.size.height-30, kScreenWidth-16, 1);
-     */
+    
+    UIImageView * arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
+    arrow.frame = CGRectMake(20, self.frame.size.height - 7, 12, 7);
+    [self addSubview:arrow];
+
+
 
 }
 + (float)height:(GKNote *)data
@@ -184,7 +181,7 @@
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return size.height + 75; // 10即消息上下的空间，可自由调整
+    return (size.height+120); // 10即消息上下的空间，可自由调整
 }
 - (void)goEntity
 {

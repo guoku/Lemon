@@ -74,6 +74,15 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
     [self setNeedsLayout];
 }
+- (void)setComment:(GKComment *)comment
+{
+    if([comment isKindOfClass:[GKComment class]])
+    {
+        _comment = comment;
+        text = _comment.comment;
+    }
+    [self setNeedsLayout];
+}
 - (void)setFontsize:(NSUInteger)size
 {
     fontsize = size;

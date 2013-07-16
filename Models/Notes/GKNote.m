@@ -31,6 +31,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 @synthesize creator = _creator;
 @synthesize score = _score;
 @synthesize poker_already = _poker_already;
+@synthesize comments_list = _comments_list;
 
 
 
@@ -52,6 +53,12 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
         _creator = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"creator"]];
         _poker_already = [[attributes valueForKeyPath:@"poked_already"]boolValue];
         _score = [[attributes valueForKeyPath:@"score"] integerValue];
+        _comments_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"comment_list"] count]];
+        for (NSDictionary * comment_attrs in [attributes valueForKeyPath:@"comment_list"] )
+        {
+            GKComment * _comment = [[GKComment alloc] initWithAttributes:comment_attrs];
+            [_comments_list addObject:_comment];
+        }
     }
     
     return self;
