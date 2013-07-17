@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GKMessages.h"
+#import "RTLabel.h"
 
-@interface TableViewCellForMessage : UITableViewCell
+@interface TableViewCellForMessage : UITableViewCell<RTLabelDelegate>
 @property (nonatomic, strong) GKMessages * message;
 @property (nonatomic, weak) id<GKDelegate> delegate;
 + (float)height:(GKMessages *)message;

@@ -15,6 +15,7 @@
 #import "SimpleCardView.h"
 #import "GKFollowButton.h"
 #import "GKWeiboFriendJoinMessage.h"
+#import "RTLabel.h"
 @implementation TableViewCellForMessage
 {
 @private
@@ -112,7 +113,7 @@
         [self addSubview:_avatar];
         _avatar.userBase = noteMessage.user;
         
-        UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
+        /*UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
         _nickname.textColor = UIColorFromRGB(0x555555);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         _nickname.text = noteMessage.user.nickname;
@@ -122,13 +123,26 @@
         UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
         [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
-        
+         */
+        /*
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
         _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         _message_label.text = @"点评了一件商品";
         [_message_label setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_message_label];
+         */
+        
+        
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+10,y+15,150,100)];
+        [message_label setParagraphReplacement:@""];
+        
+        message_label.lineSpacing = 4.0;
+        message_label.delegate = self;
+        
+        [message_label setText:[NSString stringWithFormat:@"<p face='Helvetica-Bold' size=13><a href='user:%u' color='#EEEEEE'>%@</a>点评了<a href='entity:%u' color='#EEEEEE'>%@</a></p>",noteMessage.user.user_id,noteMessage.user.nickname,noteMessage.entity.entity_id,noteMessage.entity.title]];
+        
+        [self addSubview:message_label];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
@@ -155,10 +169,10 @@
         
         y =_noteButton.frame.origin.y+_noteButton.frame.size.height;
 
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(32,y+10,25,25)];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(32,y+10,40,40)];
         [self addSubview:_avatar];
         _avatar.user = ((GKFollowerMessage*)_message.message_object).user;
-        
+        /*
         UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
@@ -173,6 +187,7 @@
         [avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         avatarButton.frame = _nickname.frame;
         [self addSubview:avatarButton];
+         */
         
         GKFollowButton * followBTN = [[GKFollowButton alloc]initWithFrame:CGRectZero];
         [followBTN setFrame:CGRectMake(kScreenWidth-90,35, 70, 30)];
@@ -304,6 +319,10 @@
 
     }
     return y;
+}
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
+{
+	NSLog(@"did select url %@", url);
 }
 
 @end

@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/TableViewCellForMessage.m"
-         timestampString = "395737145.213665"
+         timestampString = "395742607.437206"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "249"
-         endingLineNumber = "249"
+         startingLineNumber = "264"
+         endingLineNumber = "264"
          landmarkName = "-avatarButtonAction:"
          landmarkType = "5">
       </FileBreakpoint>

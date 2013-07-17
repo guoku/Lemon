@@ -460,6 +460,7 @@
 		4E820F3417965A0F00B0806A /* splitline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E820F3217965A0F00B0806A /* splitline@2x.png */; };
 		4E820F371796600300B0806A /* GKEntityBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E820F361796600300B0806A /* GKEntityBase.m */; };
 		4E820F3B17967ADB00B0806A /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E820F3A17967ADB00B0806A /* STTweetLabel.m */; };
+		4E820F3E1796882600B0806A /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E820F3D1796882600B0806A /* RTLabel.m */; };
 		4E9AC3F2176393F400A1A32C /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC3F1176393F400A1A32C /* HMSegmentedControl.m */; };
 		4EA55242178C763500E679B7 /* GKLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA55241178C763500E679B7 /* GKLoadingViewController.m */; };
 		4EA55248178D501300E679B7 /* GKWeiboInviteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA55247178D501300E679B7 /* GKWeiboInviteButton.m */; };
@@ -1104,6 +1105,8 @@
 		4E820F361796600300B0806A /* GKEntityBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKEntityBase.m; sourceTree = "<group>"; };
 		4E820F3917967ADB00B0806A /* STTweetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetLabel.h; sourceTree = "<group>"; };
 		4E820F3A17967ADB00B0806A /* STTweetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetLabel.m; sourceTree = "<group>"; };
+		4E820F3C1796882600B0806A /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
+		4E820F3D1796882600B0806A /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
 		4E9AC3F0176393F400A1A32C /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		4E9AC3F1176393F400A1A32C /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		4EA55240178C763500E679B7 /* GKLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKLoadingViewController.h; sourceTree = "<group>"; };
@@ -1415,6 +1418,8 @@
 		4E387A7817607A38005DA2EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E820F3C1796882600B0806A /* RTLabel.h */,
+				4E820F3D1796882600B0806A /* RTLabel.m */,
 				4E820F3817967ADB00B0806A /* STTweetLabel */,
 				4E48F0ED17716ECB009EF5AE /* RatingView.h */,
 				4EDB15D317663A1F00B77684 /* CollapseClick */,
@@ -3195,6 +3200,7 @@
 				4E2EC29F17951C6400B41DDE /* TableViewCellForMessage.m in Sources */,
 				4E820F371796600300B0806A /* GKEntityBase.m in Sources */,
 				4E820F3B17967ADB00B0806A /* STTweetLabel.m in Sources */,
+				4E820F3E1796882600B0806A /* RTLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
