@@ -26,7 +26,23 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
         
+        UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+        [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
+        [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateHighlighted];
+        [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [menuBTN addTarget:self action:@selector(showLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:menuBTN];
+        
+        UIButton *friendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+        [friendBTN setImage:[UIImage imageNamed:@"button_icon_friends.png"] forState:UIControlStateNormal];
+        [friendBTN setImage:[UIImage imageNamed:@"button_icon_friends.png"] forState:UIControlStateHighlighted];
+        [friendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [friendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [friendBTN addTarget:self action:@selector(showRightMenu) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:friendBTN];
     }
     return self;
 }
@@ -74,19 +90,9 @@
 {
     [super loadView];
     
-    self.view.backgroundColor = UIColorFromRGB(0xf6f6f6);
+    self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     
-    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
-    
-    UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
-    [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
-    [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateHighlighted];
-    [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
-    [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
-    [menuBTN addTarget:self action:@selector(showLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:menuBTN];
-    
-    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"消息"];
+    self.navigationItem.titleView = [GKTitleView setTitleLabel:@"我的消息"];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 40) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -198,7 +204,7 @@
 - (void)refresh
 {
     _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    //self.navigationItem.rightBarButtonItem.enabled = NO;
     [self makeHearderReloading];
     //[self reload:nil];
     [self performSelector:@selector(reload:) withObject:nil afterDelay:0.3];
@@ -206,13 +212,13 @@
 -(void)reloadTableViewDataSource
 {
     _reloading = YES;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    //self.navigationItem.rightBarButtonItem.enabled = NO;
     [self reload:nil];
     
 }
 - (void)doneLoadingTableViewData{
     _reloading = NO;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
+    //self.navigationItem.rightBarButtonItem.enabled = YES;
     CGPoint offset = self.table.contentOffset;
     offset.y = 0.0;
     [UIView animateWithDuration:0.3 animations:^{
@@ -268,5 +274,8 @@
 {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
 }
-
+- (void)showRightMenu
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
+}
 @end

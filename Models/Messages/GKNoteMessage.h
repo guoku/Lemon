@@ -12,11 +12,9 @@
 
 @interface GKNoteMessage : NSObject
 
-@property (readonly) NSUInteger user_id;
+@property (readonly) GKUserBase * user;
+@property (readonly) GKEntityBase * entity;
 @property (readonly) GKNote * note;
-@property (readonly) NSArray * hooter_id_list;
-@property (readonly) NSArray * poker_id_list;
-@property (readonly) NSArray * comment_id_list;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

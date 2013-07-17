@@ -200,7 +200,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:0];
     NSString * _dev_token = [kUserDefault stringForKey:kDeviceToken];
     [paramters setValue:_dev_token forKey:@"dev_token"];
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"maria/logout/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/logout/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
 
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         switch (res_code) {
@@ -413,7 +413,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     
     NSMutableDictionary * _paramters = [NSMutableDictionary dictionaryWithDictionary:paramters];
     [_paramters setValue:[kUserDefault valueForKeyPath:kDeviceToken] forKey:@"dev_token"];
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/register_by_weibo" parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] postPath:@"maria/register_by_weibo" parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;

@@ -23,8 +23,8 @@
     if (self)
     {
         _recommended_user = [[GKUser alloc] initWithAttributes:[attributes valueForKeyPath:@"user"]];
-        _weibo_id = [[[attributes valueForKeyPath:@"weibo_info"] valueForKeyPath:@"weibo_id"] longLongValue];
-        _weibo_screen_name = [[attributes valueForKeyPath:@"weibo_info"] valueForKeyPath:@"weibo_screen_name"];
+        _weibo_id = [[[attributes valueForKeyPath:@"weibo_info"] valueForKeyPath:@"sina_id"] longLongValue];
+        _weibo_screen_name = [[attributes valueForKeyPath:@"weibo_info"] valueForKeyPath:@"screen_name"];
     }
     
     return self;

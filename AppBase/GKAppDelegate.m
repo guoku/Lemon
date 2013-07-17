@@ -207,9 +207,6 @@
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     [self getEntity];
-    [GKMessages getUserMessageWithPostBefore:nil Block:^(NSArray *messages, NSError *error) {
-        NSLog(@"%@",messages);
-    }];
     return YES;
 }
 

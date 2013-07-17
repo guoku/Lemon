@@ -16,6 +16,7 @@ typedef enum {
 
 @interface GKItemButton : UIView
 
+@property (strong,nonatomic) GKEntityBase *entityBase;
 @property (strong, nonatomic) GKEntity *entity;
 @property (strong,nonatomic) GKNote *note;
 

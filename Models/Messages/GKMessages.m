@@ -31,7 +31,7 @@
         } else if ([_type isEqualToString:@"user_follow_message"])
         {
             _message_object = [[GKFollowerMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
-        } else if ([_type isEqualToString:@"entity_note_message"])
+        } else if ([_type isEqualToString:@"post_entity_note"])
         {
             _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         } else if ([_type isEqualToString:@"friend_joined"])

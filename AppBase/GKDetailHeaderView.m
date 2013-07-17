@@ -86,6 +86,7 @@
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy_press.png"]resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
         [_buyInfoButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
         [_buyInfoButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
+        _buyInfoButton.enabled = NO;
         [self addSubview:_buyInfoButton];
         
         y = _entityImageView.frame.origin.y + _entityImageView.frame.size.height;
@@ -118,6 +119,7 @@
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateSelected];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted|UIControlStateSelected];
+        _usedButton.enabled = NO;
         
         [self addSubview:_usedButton];
         
@@ -128,6 +130,7 @@
         [_shareButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
         [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
         [_shareButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+        _shareButton.enabled = NO;
         
         [self addSubview:_shareButton];
         
@@ -156,6 +159,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    if(_detailData)
+    {
     bg.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     y =10;
     if( !([_detailData.brand isEqualToString:@""])) {
@@ -206,9 +211,11 @@
         _usedButton.selected = YES;
     }
     else
-    {
+    {   
         _usedButton.selected = NO;
     }
+        
+ 
     _brand.text = _detailData.brand;
     _title.text = _detailData.title;
     NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _detailData.price];
@@ -219,7 +226,10 @@
     NSString * liked_count = [NSString stringWithFormat:@"%u 个喜爱", _detailData.liked_count];
     [_likeButton.likeButton setTitle:liked_count forState:UIControlStateNormal];
     [_buyInfoButton setTitle:@"去购买" forState:UIControlStateNormal];
-    _buyInfoButton.userInteractionEnabled = YES;
+    _buyInfoButton.enabled = YES;
+    _shareButton.enabled = YES;
+    _usedButton.enabled = YES;
+    }
 }
 
 - (UIImage *)image

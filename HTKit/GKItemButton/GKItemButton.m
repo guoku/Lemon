@@ -19,6 +19,7 @@
     NSUInteger _padding;
     BOOL _useSmallImg;
 }
+@synthesize entityBase = _entityBase;
 @synthesize entity = _entity;
 @synthesize note = _note;
 @synthesize img = _img;
@@ -90,6 +91,16 @@
     if(shouldreload)
     {
         [self setNeedsLayout];
+    }
+}
+- (void)setEntityBase:(GKEntityBase *)entityBase
+{
+    if([entityBase isKindOfClass:[GKEntityBase class]])
+    {
+        _entityBase = entityBase;
+        _entityid = _entityBase.entity_id;
+        _imgURL = _entityBase.imageURL;
+        [_itemImageButton addTarget:self action:@selector(itemCardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 - (void)setNote:(GKNote *)note

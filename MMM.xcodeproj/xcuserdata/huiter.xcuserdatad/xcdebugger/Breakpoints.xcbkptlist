@@ -20,13 +20,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/TMLKeywordViewController.m"
-         timestampString = "395670391.542886"
+         filePath = "AppBase/TableViewCellForMessage.m"
+         timestampString = "395737145.213665"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "60"
-         endingLineNumber = "60"
-         landmarkName = "-initWithPid:Category:"
+         startingLineNumber = "249"
+         endingLineNumber = "249"
+         landmarkName = "-avatarButtonAction:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -81,127 +81,66 @@
             [view removeFromSuperview];
         }
     }
-    if([_message.type isEqual:@"entity_message"])
-    {
-        CGFloat y = 6;
+    UIImageView * icon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 18, 18)];
+    //icon.center = CGPointMake(icon.center.x,self.frame.size.height/2 );
+    [self addSubview:icon];
     
-        GKEntityMessage *entityMessage = ((GKEntityMessage*)_message.message_object);
-        if(entityMessage.added_to_selection)
-        {
-            UIButton *_selectionButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
-            [_selectionButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [_selectionButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-            [_selectionButton setImage:[UIImage imageNamed:@"message_icon_selection.png"] forState:UIControlStateNormal];
-            [_selectionButton setTitle:@"你添加的商品，已被收录精选" forState:UIControlStateNormal];
-            [_selectionButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-            _selectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_selectionButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-            _selectionButton.userInteractionEnabled = NO;
-            [self addSubview:_selectionButton];
-            
-            y = _selectionButton.frame.origin.y+_selectionButton.frame.size.height;
-        }
-        if([entityMessage.liker_id_list count]>0)
-        {
-            UIButton *_likeCountButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
-            [_likeCountButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [_likeCountButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-            [_likeCountButton setImage:[UIImage imageNamed:@"message_icon_like.png"] forState:UIControlStateNormal];
-            [_likeCountButton setTitle:[NSString stringWithFormat:@"你添加的商品收到 %u 个喜爱",[entityMessage.liker_id_list count]]forState:UIControlStateNormal];
-            [_likeCountButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-            _likeCountButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_likeCountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-            _likeCountButton.userInteractionEnabled = NO;
-            [self addSubview:_likeCountButton];
-            
-            y = _likeCountButton.frame.origin.y+_likeCountButton.frame.size.height;
-        }
-        if([entityMessage.note_id_list count]>0)
-        {
-            UIButton *_noteCountButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
-            [_noteCountButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [_noteCountButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-            [_noteCountButton setImage:[UIImage imageNamed:@"message_icon_note.png"] forState:UIControlStateNormal];
-            [_noteCountButton setTitle:[NSString stringWithFormat:@"你添加的商品收到 %u 条点评",[entityMessage.note_id_list count]] forState:UIControlStateNormal];
-            [_noteCountButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-            _noteCountButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_noteCountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-            _noteCountButton.userInteractionEnabled = NO;
-            [self addSubview:_noteCountButton];
-            
-            y = _noteCountButton.frame.origin.y+_noteCountButton.frame.size.height;
-        }
+    UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 2, kScreenWidth, 2)];
+    [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
+    [self addSubview:_seperatorLineImageView];
+    
+    UIButton *_time = [[UIButton alloc]initWithFrame:CGRectMake(70, self.frame.size.height-15, 60, 10)];
+    [_time addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    //[_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
+    [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+    [_time setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [_time.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    //[_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+    _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    _time.userInteractionEnabled = NO;
+    [_time setTitle:[NSDate stringFromDate:_message.created_time WithFormatter:@"MM-dd HH:mm"] forState:UIControlStateNormal];
+    [self addSubview:_time];
 
-        GKItemButton *_img = [[GKItemButton alloc] init];
-        [_img setType:kItemButtonWithNumProgress];
-        [_img setPadding:4];
-        [_img setFrame:CGRectMake(32, y+10, 55, 55)];
-        [self addSubview:_img];
-        _img.entity=entityMessage.entity;
-
-    }
-    if([_message.type isEqual:@"entity_note_message"])
+    if([_message.type isEqual:@"post_entity_note"])
     {
+        icon.image = [UIImage imageNamed:@"message_icon5.png"];
         CGFloat y = 6;
         
         GKNoteMessage *noteMessage = ((GKNoteMessage*)_message.message_object);
-        if([noteMessage.comment_id_list count]>0)
-        {
-            UIButton *_notePokeButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
-            [_notePokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [_notePokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-            [_notePokeButton setImage:[UIImage imageNamed:@"message_icon_note.png"] forState:UIControlStateNormal];
-            [_notePokeButton setTitle:[NSString stringWithFormat:@"你的点评收到 %u 个评论",[noteMessage.comment_id_list count]] forState:UIControlStateNormal];
-            [_notePokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-            _notePokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_notePokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-            _notePokeButton.userInteractionEnabled = NO;
-            [self addSubview:_notePokeButton];
-            
-            y = _notePokeButton.frame.origin.y+_notePokeButton.frame.size.height;
-        }
-        if([noteMessage.poker_id_list count]>0)
-        {
-            UIButton *_notePokeButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
-            [_notePokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [_notePokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-            [_notePokeButton setImage:[UIImage imageNamed:@"message_icon_poke.png"] forState:UIControlStateNormal];
-            [_notePokeButton setTitle:[NSString stringWithFormat:@"你的点评收到 %u 个赞",[noteMessage.poker_id_list count]] forState:UIControlStateNormal];
-            [_notePokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-            _notePokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_notePokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-            _notePokeButton.userInteractionEnabled = NO;
-            [self addSubview:_notePokeButton];
-            
-            y = _notePokeButton.frame.origin.y+_notePokeButton.frame.size.height;
-        }
-        if([noteMessage.hooter_id_list count]>0)
-        {
-            UIButton *_notePokeButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
-            [_notePokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [_notePokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-            [_notePokeButton setImage:[UIImage imageNamed:@"message_icon_hoot.png"] forState:UIControlStateNormal];
-            [_notePokeButton setTitle:[NSString stringWithFormat:@"你的点评收到 %u 个踩",[noteMessage.hooter_id_list count]] forState:UIControlStateNormal];
-            [_notePokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-            _notePokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_notePokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-            _notePokeButton.userInteractionEnabled = NO;
-            [self addSubview:_notePokeButton];
-            
-            y = _notePokeButton.frame.origin.y+_notePokeButton.frame.size.height;
-        }
-
+        
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(32,y+10,40,40) useBg:NO cornerRadius:0];
+        [self addSubview:_avatar];
+        _avatar.userBase = noteMessage.user;
+        
+        UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
+        _nickname.textColor = UIColorFromRGB(0x555555);
+        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        _nickname.text = noteMessage.user.nickname;
+        [_nickname setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_nickname];
+        
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
+        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
+        
+        UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
+        _message_label.textColor = UIColorFromRGB(0x999999);
+        _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        _message_label.text = @"点评了一件商品";
+        [_message_label setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_message_label];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(32, y+10, 55, 55)];
+        [_img setFrame:CGRectMake(250, y+10, 60, 60)];
         [self addSubview:_img];
-        _img.note = noteMessage.note;
+        _img.entityBase = noteMessage.entity;
 
     }
     if([_message.type isEqual:@"user_follow_message"])
     {
+        icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 6;
         UIButton *_noteButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
         [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
@@ -243,7 +182,9 @@
     }
     if([_message.type isEqual:@"friend_joined"])
     {
-        CGFloat y = 6;
+        icon.image = [UIImage imageNamed:@"message_icon2.png"];
+        CGFloat y = 0;
+        /*
         UIButton *_noteButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 300, 14)];
         [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
         [_noteButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
@@ -256,30 +197,44 @@
         [self addSubview:_noteButton];
         
         y =_noteButton.frame.origin.y+_noteButton.frame.size.height;
+         */
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(32,y+10,25,25)];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(32,y+10,40,40) useBg:NO cornerRadius:0];
         [self addSubview:_avatar];
         _avatar.user = ((GKWeiboFriendJoinMessage *)_message.message_object).recommended_user;
         
         UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
-        _nickname.textColor = UIColorFromRGB(0x666666);
-        _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
+        _nickname.textColor = UIColorFromRGB(0x555555);
+        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         _nickname.text = ((GKWeiboFriendJoinMessage*)_message.message_object).recommended_user.nickname;
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
-        UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
-        [_nickname setFrame:CGRectMake(63,y+10,labelsize.width, 25)];
+        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
+        
+        UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
+        _message_label.textColor = UIColorFromRGB(0x999999);
+        _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        _message_label.text = @"加入妈妈清单";
+        [_message_label setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_message_label];
+        
+        
         UIButton * avatarButton = [[UIButton alloc]initWithFrame:CGRectZero];
         [avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         avatarButton.frame = _nickname.frame;
         [self addSubview:avatarButton];
-        
+
+        /*
         GKFollowButton * followBTN = [[GKFollowButton alloc]initWithFrame:CGRectZero];
         [followBTN setFrame:CGRectMake(kScreenWidth-90,35, 70, 30)];
         followBTN.data = ((GKWeiboFriendJoinMessage *)_message.message_object).recommended_user;
         [self addSubview:followBTN];
+         */
+        
+
         
     }
 
@@ -303,6 +258,10 @@
         if([_message.type isEqual:@"user_follow_message"])
         {
             [_delegate showUserWithUserID:((GKFollowerMessage*)_message.message_object).user.user_id];
+        }
+        if([_message.type isEqual:@"friend_joined"])
+        {
+            [_delegate showUserWithUserID:((GKWeiboFriendJoinMessage *)_message.message_object).recommended_user.user_id];
         }
     }
 }
@@ -333,29 +292,16 @@
     {
         y = 74;
     }
-    if([data.type isEqual:@"weibo_friend_notification_message"])
+    if([data.type isEqual:@"friend_joined"])
     {
-        y = 74;
+        y = 60;
     }
     
-    if([data.type isEqual:@"entity_note_message"])
+    if([data.type isEqual:@"post_entity_note"])
     {
-        {
-            y = y+7+10+55+10;
-            GKNoteMessage *noteMessage = ((GKNoteMessage*)data.message_object);
-            if([noteMessage.hooter_id_list count]>0)
-            {
-                y = y+22;
-            }
-            if([noteMessage.poker_id_list count]>0)
-            {
-                y = y+22;
-            }
-            if([noteMessage.comment_id_list count]>0)
-            {
-                y = y+22;
-            }
-        }
+        GKNoteMessage *noteMessage = ((GKNoteMessage*)data.message_object);
+        y = 200;
+
     }
     return y;
 }

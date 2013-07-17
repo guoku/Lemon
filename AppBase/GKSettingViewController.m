@@ -36,22 +36,30 @@
         self.navigationItem.titleView = [GKTitleView setTitleLabel:@"设置"];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         
+        UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
+        
+        UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+        [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
+        [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateHighlighted];
+        [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [menuBTN addTarget:self action:@selector(showLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:menuBTN];
+        
+        UIButton *friendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+        [friendBTN setImage:[UIImage imageNamed:@"button_icon_friends.png"] forState:UIControlStateNormal];
+        [friendBTN setImage:[UIImage imageNamed:@"button_icon_friends.png"] forState:UIControlStateHighlighted];
+        [friendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [friendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [friendBTN addTarget:self action:@selector(showRightMenu) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:friendBTN];
+        
     }
     return self;
 }
 - (void)loadView
 {
     [super loadView];
-    
-    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
-    
-    UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
-    [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
-    [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateHighlighted];
-    [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
-    [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
-    [menuBTN addTarget:self action:@selector(showLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:menuBTN];
     
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStyleGrouped];
@@ -62,7 +70,7 @@
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self.view addSubview:_table];
-    
+    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
     UIButton *logoutBTN = [[UIButton alloc]initWithFrame:CGRectMake(10,10,kScreenWidth - 20, 35)];
     
     [logoutBTN setTitle:@"退出" forState:UIControlStateNormal];
@@ -437,6 +445,10 @@
 - (void)showLeftMenu
 {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
+}
+- (void)showRightMenu
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
 }
 
 @end
