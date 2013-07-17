@@ -27,6 +27,7 @@
     __strong GKComment * _notecomment;
     __strong GKUser * _user;
     CGFloat headheight;
+    NSUInteger reply_id;
 }
 @synthesize note = _note;
 @synthesize entity = _entity;
@@ -39,6 +40,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        reply_id = 0;
         self.navigationItem.titleView = [GKTitleView setTitleLabel:@"评论"];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     }
@@ -263,7 +265,7 @@
           [self resignTextView:nil];
         [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
-        [GKComment postNoteCommentWithNoteID:_note.note_id Content:textView.text Block:^(NSDictionary *NoteComments, NSError *error) {
+        [GKComment postNoteCommentWithNoteID:_note.note_id Content:textView.text reply:reply_id Block:^(NSDictionary *NoteComments, NSError *error) {
        GKLog(@"note note %@", NoteComments);
        if(!error)
        {
@@ -302,6 +304,16 @@
     }];
     }
  }
+- (void)replyButtonAction:(GKComment *)comment
+{
+    NSLog(@"%u",[_dataArray indexOfObjectIdenticalTo:comment]);
+
+    textView.text =[NSString stringWithFormat:@"回复%@：",comment.creator.nickname];
+    reply_id = comment.comment_id;
+    
+    [textView becomeFirstResponder];
+}
+
 
 #pragma mark 重载tableview必选方法
 //返回一共有多少个Section
@@ -446,6 +458,8 @@
          textView.text =@"";
      }
     self.mask = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    _mask.backgroundColor = UIColorFromRGB(0xffffff);
+    _mask.alpha = 0.5;
     UITapGestureRecognizer *Tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [Tap1 setNumberOfTapsRequired:1];
     [_mask addGestureRecognizer:Tap1];

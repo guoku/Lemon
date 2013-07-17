@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "GKComment.h"
 #import "GKNoteLabel.h"
-@interface GKNoteCommentCell : UITableViewCell
+#import "RTLabel.h"
+@interface GKNoteCommentCell : UITableViewCell<RTLabelDelegate>
 
 @property (nonatomic, strong) GKComment * data;
 @property (strong, nonatomic) UIButton *avatarButton;
 @property (strong, nonatomic) GKUserButton *avatar;
 @property (strong, nonatomic) UILabel *nickname;
-@property (strong, nonatomic) GKNoteLabel *comment;
+@property (strong, nonatomic) RTLabel *comment;
 @property (strong, nonatomic) UIButton *time;
 @property (strong, nonatomic) UIImageView *seperatorLineImageView;
 @property (weak,nonatomic) id<GKDelegate> delegate;

@@ -24,5 +24,6 @@
 
 
 - (id)initWithNote:(GKNote *)note Entity:(GKEntity *)entity;
+- (void)replyButtonAction:(GKComment *)comment;
 
 @end

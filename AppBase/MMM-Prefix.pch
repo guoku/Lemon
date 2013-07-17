@@ -46,6 +46,7 @@
 #import "GKAPICode.h"
 #import "GKAppDotNetAPIClient.h"
 
+
 #import "GKUserRelation.h"
 #import "GKEntityBase.h"
 #import "GKShop.h"
@@ -53,6 +54,7 @@
 #import "GKEntity.h"
 #import "GKUser.h"
 #import "GKUserBase.h"
+#import "GKComment.h"
 #import "GKNote.h"
 #import "GKTags.h"
 

@@ -21,5 +21,6 @@
 - (void)showUserFansWithUserID:(NSUInteger)user_id;
 
 - (void)showWebViewWithTaobaoUrl:(NSString *)taobao_url;
+- (void)replyButtonAction:(GKComment *)comment;
 @end
 

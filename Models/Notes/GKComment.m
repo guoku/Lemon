@@ -24,6 +24,7 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
 @synthesize updated_time = _updated_time;
 @synthesize creator = _creator;
 @synthesize replied_user_id = _replied_user_id;
+@synthesize reply_user = _reply_user;
 
 
 - (id)initWithAttributes:(NSDictionary *)attributes
@@ -44,6 +45,14 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
         else
         {
             _replied_user_id = 0;
+        }
+        if(![[attributes valueForKeyPath:@"replied_user"] isEqual:[NSNull null]])
+        {
+            _reply_user = [[GKUserBase alloc] initWithAttributes:[attributes valueForKeyPath:@"replied_user"]];
+        }
+        else
+        {
+            _reply_user = nil;
         }
     }
     return self;
@@ -77,10 +86,14 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
     }];
 }
 
-+ (void)postNoteCommentWithNoteID:(NSUInteger)note_id Content:(NSString *)content Block:(void (^)(NSDictionary * NoteComment, NSError * error))block
++ (void)postNoteCommentWithNoteID:(NSUInteger)note_id Content:(NSString *)content reply:(NSUInteger)reply_id Block:(void (^)(NSDictionary * NoteComment, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:2];
     [paramters setValue:content forKey:@"comment"];
+    if(reply_id)
+    {
+        [paramters setValue:[NSString stringWithFormat:@"%u",reply_id]  forKey:@"replied_comment_id"];
+    }
     
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/note/%u/add/comment/",note_id] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         

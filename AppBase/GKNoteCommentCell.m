@@ -12,6 +12,7 @@
 {
 @private
     __strong GKComment * _data;
+    UIButton * reply;
     CGFloat _y;
 }
 @synthesize data = _data;
@@ -42,13 +43,15 @@
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
-        self.comment = [[GKNoteLabel alloc]initWithFrame:CGRectMake(60,25, 240, 400)];
-        _comment.content.leading = 2;
-        [_comment.content setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
-        _comment.content.font = [UIFont fontWithName:@"STHeitiSC-Light" size:12];
-        _comment.content.numberOfLines = 0;
-        _comment.content.lineBreakMode = NSLineBreakByWordWrapping;
-        [_comment setFontsize:12];
+        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(60,25, 240, 400)];
+        [_comment setParagraphReplacement:@""];
+        
+        _comment.lineSpacing = 4.0;
+        _comment.delegate = self;
+                
+        [self addSubview:_comment];
+
+
         [self addSubview:_comment];
         
         self.avatarButton = [[UIButton alloc]initWithFrame:_nickname.frame];
@@ -70,7 +73,11 @@
         _seperatorLineImageView.backgroundColor = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0 / 255.0f alpha:1.0f]
         ;
         [self addSubview:_seperatorLineImageView];
-
+        
+        reply = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-30, 0, 30, 30)];
+        [reply setImage:[UIImage imageNamed:@"message_icon4.png"] forState:UIControlStateNormal];
+        [reply addTarget:self action:@selector(replyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:reply];
     }
     return self;
 }
@@ -87,13 +94,18 @@
 - (void)setDelegate:(id<GKDelegate>)delegate
 {
     _delegate = delegate;
-    _comment.gkdelegate = _delegate;
     _avatar.delegate = _delegate;
 }
 - (void)avatarButtonAction:(id)sender
 {
     if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {
         [_delegate showUserWithUserID:_data.creator.user_id];
+    }
+}
+- (void)replyButtonAction:(id)sender
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(replyButtonAction:)]) {
+        [_delegate replyButtonAction:_data];
     }
 }
 #pragma mark -
@@ -107,15 +119,25 @@
     
     [self.nickname setText:_data.creator.nickname];
 
-    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:12];
-    CGSize size = [_data.comment sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    [_comment setFrame:CGRectMake(_comment.frame.origin.x, _comment.frame.origin.y, 240, size.height+10)];
-    _comment.comment = _data;
+    if(_data.reply_user)
+    {
+    [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>%@</font>",_data.reply_user.user_id,_data.reply_user.nickname,_data.comment]];
+    }
+    else
+    {
+        [_comment setText:[NSString stringWithFormat:@"<font face='Helvetica' color='#999999' size=13>%@</font>",_data.comment]];
+    }
+    CGSize optimumSize = [self.comment optimumSize];
+	CGRect frame = [self.comment frame];
+    frame.size.height = (int)optimumSize.height+5;
+    
+    [_comment setFrame:CGRectMake(_comment.frame.origin.x, _comment.frame.origin.y, 240, frame.size.height)];
     
     [_time setTitle:[NSDate stringFromDate:_data.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
     [_time setFrame:CGRectMake(190, self.frame.size.height-18, 120, 10)];
     
     [self.seperatorLineImageView setFrame:CGRectMake(0,self.frame.size.height, kScreenWidth, 1)];
+    reply.center = CGPointMake(reply.center.x, self.frame.size.height/2);
     
 }
 + (float)height:(GKComment *)data
@@ -133,5 +155,23 @@
         return 60;
     }
     
+}
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
+{
+	NSLog(@"did select url %@", url);
+    
+    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
+    if([array[0] isEqualToString:@"user"])
+    {
+        if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {
+            [_delegate showUserWithUserID:[array[1]integerValue]];
+        }
+    }
+    if([array[0] isEqualToString:@"entity"])
+    {
+        if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {
+            [_delegate showDetailWithEntityID:[array[1]integerValue]];
+        }
+    }
 }
 @end
