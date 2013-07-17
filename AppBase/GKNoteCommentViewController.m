@@ -262,10 +262,30 @@
             [GKMessageBoard showMBWithText:@"评论不能为空" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             return;
         }
-          [self resignTextView:nil];
+ 
+        NSString *string = [NSString stringWithFormat:@"%@",textView.text];
+        NSString *resultString = [[NSString alloc]init ];
+        if([string hasPrefix:@"回复"])
+        {
+            NSArray  * array= [string componentsSeparatedByString:@"："];
+            if(([array count]>1)&&(![[array  objectAtIndex:1]isEqualToString:@""]))
+            {
+                for (int i = 1 ;i< [array count];i++) {
+                    resultString = [NSString stringWithFormat:@"%@%@",resultString,[array objectAtIndex:i]];
+                }
+            }
+            else
+            {
+                [GKMessageBoard showMBWithText:@"评论不能为空" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                reply_id = 0;
+                return;
+            }
+        }
+        [self resignTextView:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
         [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
-        [GKComment postNoteCommentWithNoteID:_note.note_id Content:textView.text reply:reply_id Block:^(NSDictionary *NoteComments, NSError *error) {
+
+        [GKComment postNoteCommentWithNoteID:_note.note_id Content:resultString reply:reply_id Block:^(NSDictionary *NoteComments, NSError *error) {
        GKLog(@"note note %@", NoteComments);
        if(!error)
        {

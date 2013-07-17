@@ -41,17 +41,14 @@
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         [_nickname setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:_nickname];
+        //[self addSubview:_nickname];
         
-        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(60,25, 240, 400)];
+        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(60,12, 240, 400)];
         [_comment setParagraphReplacement:@""];
         
         _comment.lineSpacing = 4.0;
         _comment.delegate = self;
                 
-        [self addSubview:_comment];
-
-
         [self addSubview:_comment];
         
         self.avatarButton = [[UIButton alloc]initWithFrame:_nickname.frame];
@@ -119,13 +116,13 @@
     
     [self.nickname setText:_data.creator.nickname];
 
-    if(_data.reply_user)
+    if(_data.reply_user.user_id)
     {
-    [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>%@</font>",_data.reply_user.user_id,_data.reply_user.nickname,_data.comment]];
+        [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>回复了:</font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>%@</font>",_data.creator.user_id,_data.creator.nickname,_data.reply_user.user_id,_data.reply_user.nickname,_data.comment]];
     }
     else
     {
-        [_comment setText:[NSString stringWithFormat:@"<font face='Helvetica' color='#999999' size=13>%@</font>",_data.comment]];
+        [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>:%@</font>",_data.creator.user_id,_data.creator.nickname,_data.comment]];
     }
     CGSize optimumSize = [self.comment optimumSize];
 	CGRect frame = [self.comment frame];
@@ -142,13 +139,25 @@
 }
 + (float)height:(GKComment *)data
 {
-    UIFont *font = [UIFont systemFontOfSize:12.0];
     
-    CGSize size = [data.comment sizeWithFont:font constrainedToSize:CGSizeMake(240, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+    RTLabel * rtlabel =[[RTLabel alloc]initWithFrame:CGRectMake(60,12, 240, 400)];
     
-    if(size.height>=15)
+    if(data.reply_user.user_id)
     {
-        return size.height + 45; // 消息上下的空间，可自由调整
+        NSLog(@"%@",data.reply_user);
+        [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>回复了:</font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>%@</font>",data.creator.user_id,data.creator.nickname,data.reply_user.user_id,data.reply_user.nickname,data.comment]];
+    }
+    else
+    {
+        [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>:%@</font>",data.creator.user_id,data.creator.nickname,data.comment]];
+    }
+    CGSize optimumSize = [rtlabel optimumSize];
+	CGRect frame = [rtlabel frame];
+    frame.size.height = (int)optimumSize.height+5;
+    
+    if(frame.size.height>=15)
+    {
+        return frame.size.height + 45; // 消息上下的空间，可自由调整
     }
     else
     {
