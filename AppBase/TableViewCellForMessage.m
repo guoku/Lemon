@@ -140,7 +140,7 @@
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<p face='Helvetica-Bold' size=13><a href='user:%u' color='#EEEEEE'>%@</a>点评了<a href='entity:%u' color='#EEEEEE'>%@</a></p>",noteMessage.user.user_id,noteMessage.user.nickname,noteMessage.entity.entity_id,noteMessage.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13> 点评了 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a>",noteMessage.user.user_id,noteMessage.user.nickname,noteMessage.entity.entity_id,noteMessage.entity.title]];
         
         [self addSubview:message_label];
         
@@ -314,7 +314,6 @@
     
     if([data.type isEqual:@"post_entity_note"])
     {
-        GKNoteMessage *noteMessage = ((GKNoteMessage*)data.message_object);
         y = 200;
 
     }
@@ -323,6 +322,20 @@
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
 {
 	NSLog(@"did select url %@", url);
+    
+    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
+    if([array[0] isEqualToString:@"user"])
+    {
+        if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {
+            [_delegate showUserWithUserID:[array[1]integerValue]];
+        }
+    }
+    if([array[0] isEqualToString:@"entity"])
+    {
+        if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {
+            [_delegate showDetailWithEntityID:[array[1]integerValue]];
+        }
+    }
 }
 
 @end
