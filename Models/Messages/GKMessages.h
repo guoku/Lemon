@@ -11,6 +11,7 @@
 #import "GKEntityMessage.h"
 #import "GKFollowerMessage.h"
 #import "GKNoteMessage.h"
+#import "GKPokeNoteMessage.h"
 #import "GKWeiboFriendJoinMessage.h"
 @interface GKMessages : NSObject
 

@@ -38,6 +38,14 @@
         {
             _message_object = [[GKWeiboFriendJoinMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         }
+        else if ([_type isEqualToString:@"poke_note"])
+        {
+             _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
+        }
+        else if ([_type isEqualToString:@"reply"])
+        {
+            _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
+        }
     }
     
     return self;

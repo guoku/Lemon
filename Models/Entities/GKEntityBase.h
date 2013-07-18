@@ -15,6 +15,7 @@
 @property (readonly) NSString * title;
 @property (readonly) NSString * brand;
 @property (readonly) float avg_score;
+@property (readwrite) NSUInteger my_score;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

@@ -111,7 +111,7 @@
     }
     [_refreshHeaderView refreshLastUpdatedDate];
     
-    self.table.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
+    self.table.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
 }
 
 - (void)viewDidLoad
@@ -176,28 +176,36 @@
 {
     return [TableViewCellForMessage height:[_dataArray objectAtIndex:indexPath.row]];
 }
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIImageView *bgV = [[UIImageView alloc]initWithFrame:CGRectMake(8, 0, kScreenWidth-16, 285)];
-    bgV.contentMode = UIViewContentModeScaleToFill;
-    if(ceilf([_dataArray count] / 2.0f) ==1)
+    GKMessages *data = [_dataArray objectAtIndex:indexPath.row];
+
+    if([data.type isEqual:@"post_entity_note"])
     {
-        bgV.image = [[UIImage imageNamed:@"cell_bg_all.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:2];
+    GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
+        [self showDetailWithEntityID:message.entity.entity_id];
+        return;
     }
-    else if (0 == indexPath.row) {
-        bgV.image = [[UIImage imageNamed:@"cell_bg_top.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:2];
+    if([data.type isEqual:@"user_follow_message"])
+    {
+
     }
-    else
+    if([data.type isEqual:@"friend_joined"])
+    {
+        GKWeiboFriendJoinMessage *message =  ((GKWeiboFriendJoinMessage*)data.message_object);
+        [self showUserWithUserID:message.recommended_user.user_id];
+        return;
+    }
+    if([data.type isEqual:@"poke_note"])
     {
         
-        if (ceilf([_dataArray count] / 2.0f) == indexPath.row+1) {
-            bgV.image = [[UIImage imageNamed:@"cell_bg_bottom.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:2];
-        }
-        else{
-            bgV.image = [[UIImage imageNamed:@"cell_bg_middle.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:2];
-        }
+        
     }
-    cell.backgroundView = bgV;
+    if([data.type isEqual:@"reply"])
+    {
+       
+    
+    }
 }
 #pragma mark Delegate
 

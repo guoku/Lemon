@@ -23,6 +23,7 @@
         _brand = [attributes valueForKeyPath:@"brand"];
         _title = [attributes valueForKeyPath:@"title"];
         _imgUrlString = [attributes valueForKeyPath:@"image_url"];
+        _my_score = [[attributes valueForKeyPath:@"my_score"]integerValue];
     }
     return self;
 }
