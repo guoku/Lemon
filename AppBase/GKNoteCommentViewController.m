@@ -45,7 +45,7 @@
         reply_id = 0;
         self.navigationItem.titleView = [GKTitleView setTitleLabel:@"评论"];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-        self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
+        self.view.backgroundColor = UIColorFromRGB(0xffffff);
     }
     return self;
 }
@@ -83,6 +83,8 @@
     {
         _note_id = note_id;
         _entity_id = entity_id;
+        [self.view addSubview:containerView];
+      
     }
     
     return self;
@@ -223,13 +225,10 @@
                
                [self.view addSubview:_table];
                [self reload:nil];
-               
-               [self.view addSubview:containerView];
-               
            }
            else
            {
-
+               [GKMessageBoard showMBWithText:@"加载失败" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
            }
            
        }];

@@ -28,6 +28,7 @@
 @property (readonly) NSDate * created_time;
 @property (readwrite) NSUInteger weight;
 @property (readwrite) NSUInteger my_score;
+@property (readwrite) NSUInteger target_user_score;
 @property (nonatomic, strong) GKEntityLike * entitylike;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;

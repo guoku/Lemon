@@ -111,7 +111,7 @@
         switch (res_code) {
             case SUCCESS:
             {
-                NSArray *Response = [[JSON valueForKeyPath:@"results"] valueForKey:@"data"];
+               // NSArray *Response = [[JSON valueForKeyPath:@"results"] valueForKey:@"data"];
                 NSMutableArray *mutableList = [[NSMutableArray alloc] init];
                 
 

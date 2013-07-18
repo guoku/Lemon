@@ -22,7 +22,6 @@
     [parameters setObject:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
     [parameters setObject:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/u/%d/folder/",user_id] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {

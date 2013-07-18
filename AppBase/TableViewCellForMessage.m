@@ -138,7 +138,7 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+15,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
@@ -173,7 +173,7 @@
     {
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
-        UIButton *_noteButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+9, 250, 14)];
+        UIButton *_noteButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+10, 250, 14)];
         [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
         [_noteButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_noteButton setImage:[UIImage imageNamed:@"message_icon_user.png"] forState:UIControlStateNormal];
@@ -252,7 +252,7 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+15,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
@@ -276,7 +276,7 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+15,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;

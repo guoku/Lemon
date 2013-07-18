@@ -63,6 +63,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
 @synthesize entitylike = _entitylike;
 @synthesize weight = _weight;
 @synthesize my_score = _my_score;
+@synthesize target_user_score = _target_user_score;
 
 - (id)initWithAttributes:(NSDictionary *)attributes
 {
@@ -86,6 +87,14 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         else
         {
             _my_score = 11;
+        }
+        if([attributes valueForKeyPath:@"target_user_score"])
+        {
+            _target_user_score = [[attributes valueForKeyPath:@"target_user_score"]integerValue];
+        }
+        else
+        {
+            _target_user_score = 0;
         }
         _avg_score = [[attributes valueForKeyPath:@"avg_score"]integerValue];
         _weight = 0;

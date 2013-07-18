@@ -8,13 +8,13 @@
 
 #import "GKUserViewController.h"
 #import "GKCenterViewController.h"
+#import "TMLCellForUser.h"
 #import "GKAppDelegate.h"
 #import "TMLStage.h"
 #import "TMLCate.h"
 #import "TMLKeyWord.h"
 #import "GKEntity.h"
 #import "MMMCalendar.h"
-#import "TMLCell.h"
 #import "GKDetailViewController.h"
 #import "GKEDCSettingViewController.h"
 #import "GKVisitedUser.h"
@@ -417,10 +417,10 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
     
-    TMLCell *cell = [tableView dequeueReusableCellWithIdentifier:
+    TMLCellForUser *cell = [tableView dequeueReusableCellWithIdentifier:
                      SimpleTableIdentifier];
     if (cell == nil) {
-        cell = [[TMLCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
+        cell = [[TMLCellForUser alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
     TMLStage * stage = [[_dataArray objectAtIndex:indexPath.section]objectForKey:@"section"];
     cell.pid = stage.sid;
@@ -781,7 +781,7 @@
 }
 - (void)sinaShare
 {
-    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+   // GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
     
 }
 

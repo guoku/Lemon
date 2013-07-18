@@ -180,6 +180,7 @@
 		4E51B0B117841F0D004A6AC4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51B0B017841F0C004A6AC4 /* Default.png */; };
 		4E51B0B317841F74004A6AC4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51B0B217841F73004A6AC4 /* Default@2x.png */; };
 		4E51B0B517841F91004A6AC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51B0B417841F90004A6AC4 /* Default-568h@2x.png */; };
+		4E581A5A1797EA3C00E701D3 /* TMLCellForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E581A591797EA3C00E701D3 /* TMLCellForUser.m */; };
 		4E71B8231796F887005BE565 /* GKPokeNoteMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E71B8221796F887005BE565 /* GKPokeNoteMessage.m */; };
 		4E71B82E1796F9F1005BE565 /* message_icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71B8241796F9F1005BE565 /* message_icon1.png */; };
 		4E71B82F1796F9F1005BE565 /* message_icon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71B8251796F9F1005BE565 /* message_icon1@2x.png */; };
@@ -817,6 +818,8 @@
 		4E51B0B017841F0C004A6AC4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4E51B0B217841F73004A6AC4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4E51B0B417841F90004A6AC4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4E581A581797EA3B00E701D3 /* TMLCellForUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLCellForUser.h; sourceTree = "<group>"; };
+		4E581A591797EA3C00E701D3 /* TMLCellForUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLCellForUser.m; sourceTree = "<group>"; };
 		4E71B8211796F887005BE565 /* GKPokeNoteMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKPokeNoteMessage.h; sourceTree = "<group>"; };
 		4E71B8221796F887005BE565 /* GKPokeNoteMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKPokeNoteMessage.m; sourceTree = "<group>"; };
 		4E71B8241796F9F1005BE565 /* message_icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message_icon1.png; sourceTree = "<group>"; };
@@ -1333,6 +1336,8 @@
 		4E24A271177AC98F00666BAD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E581A581797EA3B00E701D3 /* TMLCellForUser.h */,
+				4E581A591797EA3C00E701D3 /* TMLCellForUser.m */,
 				4E48F15C17719B23009EF5AE /* MMMCalendar.h */,
 				4E48F15D17719B23009EF5AE /* MMMCalendar.m */,
 				4E48F15F177298D6009EF5AE /* TMLCell.h */,
@@ -3207,6 +3212,7 @@
 				4E820F3B17967ADB00B0806A /* STTweetLabel.m in Sources */,
 				4E820F3E1796882600B0806A /* RTLabel.m in Sources */,
 				4E71B8231796F887005BE565 /* GKPokeNoteMessage.m in Sources */,
+				4E581A5A1797EA3C00E701D3 /* TMLCellForUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
