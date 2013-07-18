@@ -29,6 +29,7 @@ extern NSString * const QUERY_NOTE_SQL;
 @property (unsafe_unretained, readonly) NSURL * imageURL;
 @property (readonly) GKUserBase * creator;
 @property (strong,nonatomic) NSMutableArray * comments_list;
+@property (strong,nonatomic) NSMutableArray * poke_id_list;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 

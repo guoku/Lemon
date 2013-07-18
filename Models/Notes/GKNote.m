@@ -59,6 +59,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
             GKComment * _comment = [[GKComment alloc] initWithAttributes:comment_attrs];
             [_comments_list addObject:_comment];
         }
+        _poke_id_list = [NSMutableArray arrayWithArray:[attributes valueForKeyPath:@"poker_id_list"]];
     }
     
     return self;

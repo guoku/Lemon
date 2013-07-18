@@ -774,6 +774,8 @@
        
             noteData.poker_already = YES;
             noteData.poker_count++;
+            GKUser *me = [[GKUser alloc]initFromNSU];
+            [noteData.poke_id_list addObject:@(me.user_id)];
             [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
             pokeBtn.selected = YES;
             pokeBtn.userInteractionEnabled = NO;

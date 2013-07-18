@@ -43,4 +43,53 @@
     return [NSURL URLWithString:_avatarImageURLString];
 }
 
++ (void)getUserBaseByArray:(NSArray *)array Block:(void (^)(NSArray * entitylist, NSError *error))block
+{
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
+    [parameters setObject:array forKey:@"uid"];
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/user/list/brief/"] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+        
+        NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
+        NSError * aError;
+        switch (res_code) {
+            case SUCCESS:
+            {
+                NSArray *listFromResponse = [[JSON listResponse] valueForKey:@"data"];
+                NSMutableArray *mutableList = [NSMutableArray arrayWithCapacity:[listFromResponse count]];
+                for(NSDictionary * attributes in listFromResponse){
+                    
+                    GKUserBase * user = [[GKUserBase alloc] initWithAttributes:attributes];
+                    [mutableList addObject:user];
+                }
+                GKLog(@"%@", mutableList);
+                if(block) {
+                    block([NSArray arrayWithArray:mutableList], nil);
+                }
+            }
+                break;
+            case OBJECT_EMPTY:
+            {
+                NSString * errorMsg = [JSON valueForKeyPath:@"res_msg"];
+                NSDictionary * userInfo = [NSDictionary dictionaryWithObject:errorMsg forKey:NSLocalizedDescriptionKey];
+                aError = [NSError errorWithDomain:EntityErrorDomain code:kEntityIsEmpty userInfo:userInfo];
+                
+            }
+                break;
+            default:
+                break;
+        }
+        if (res_code != SUCCESS)
+        {
+            block([NSArray array], aError);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(block)
+        {
+            GKLog(@"%@", error);
+            block([NSArray array], error);
+        }
+    }];
+}
+
+
 @end

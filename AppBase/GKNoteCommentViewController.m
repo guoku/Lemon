@@ -64,9 +64,10 @@
         [_table setDataSource:self];
         headheight = [GKNoteCommentHeaderView height:_note];
         self.headerView = [[GKNoteCommentHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,headheight)];
+        _headerView.delegate = self;
         [self.headerView setNoteData:_note entityData:_entity];
         
-        _headerView.delegate = self;
+    
         self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
         [self.table.tableHeaderView addSubview:_headerView];
         
@@ -223,7 +224,7 @@
                self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
                [self.table.tableHeaderView addSubview:_headerView];
                
-               [self.view addSubview:_table];
+               [self.view insertSubview:self.table belowSubview:containerView];
                [self reload:nil];
            }
            else

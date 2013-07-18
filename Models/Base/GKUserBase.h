@@ -19,4 +19,5 @@
 @property (nonatomic, strong) GKUserRelation * relation;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
++ (void)getUserBaseByArray:(NSArray *)array Block:(void (^)(NSArray * entitylist, NSError *error))block;
 @end

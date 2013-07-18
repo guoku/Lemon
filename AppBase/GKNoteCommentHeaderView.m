@@ -122,6 +122,8 @@
         arrow1.frame = CGRectMake(20, self.frame.size.height - 52, 12, 7);
         [self addSubview:arrow1];
         
+
+        
     }
     return self;
 }
@@ -130,7 +132,38 @@
 {
     _noteData = noteData;
     _entity = entity;
-    
+
+    if([_noteData.poke_id_list count]!=0)
+    {
+        NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:0];
+        int i =0;
+        for(NSString *user_id in _noteData.poke_id_list)
+        {
+            [array addObject:user_id];
+            i++;
+            if(i>10)
+            {
+                break;
+            }
+        }
+            [GKUserBase getUserBaseByArray:array  Block:^(NSArray *list, NSError *error) {
+                if(!error)
+                {
+                    int i = 0;
+                    for (GKUserBase * user in list) {
+                        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+                        avatar.userBase = user;
+                        avatar.delegate = _delegate;
+                        [self addSubview:avatar];
+                        i++;
+                        if(i>=9)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }];
+    }
     [self setNeedsLayout];
 }
 - (void)setDelegate:(id<GKDelegate>)delegate
