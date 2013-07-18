@@ -39,7 +39,35 @@
     }
     return self;
 }
-
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    if(selected)
+    {
+        [self viewWithTag:4003].hidden = YES;
+        self.backgroundColor = UIColorFromRGB(0xededed);
+    }
+    else
+    {
+        [self viewWithTag:4003].hidden = NO;
+        self.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    }
+    // Configure the view for the selected state
+}
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if(highlighted)
+    {
+        [self viewWithTag:4003].hidden = YES;
+        self.backgroundColor = UIColorFromRGB(0xededed);
+    }
+    else
+    {
+        [self viewWithTag:4003].hidden = NO;
+        self.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    }
+}
 - (void)setMessage:(GKMessages *)message
 {
     _message = message;
@@ -88,6 +116,7 @@
     [self addSubview:icon];
     
     UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 2, kScreenWidth, 2)];
+    _seperatorLineImageView.tag = 4003;
     [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
     [self addSubview:_seperatorLineImageView];
     

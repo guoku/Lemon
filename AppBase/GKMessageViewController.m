@@ -96,7 +96,7 @@
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 40) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.allowsSelection = NO;
+    _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
     
@@ -130,6 +130,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -182,7 +184,7 @@
 
     if([data.type isEqual:@"post_entity_note"])
     {
-    GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
+        GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         [self showDetailWithEntityID:message.entity.entity_id];
         return;
     }
@@ -198,12 +200,16 @@
     }
     if([data.type isEqual:@"poke_note"])
     {
-        
+        GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
+        [self showCommentWithNoteID:message.note.note_id EntityID:message.entity.entity_id];
+        return;
         
     }
     if([data.type isEqual:@"reply"])
     {
-       
+        GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
+        [self showCommentWithNoteID:message.note.note_id EntityID:message.entity.entity_id];
+        return;
     
     }
 }

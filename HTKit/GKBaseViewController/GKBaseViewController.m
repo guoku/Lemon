@@ -193,6 +193,13 @@
     noteCommentVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:noteCommentVC animated:YES];
 }
+- (void)showCommentWithNoteID:(NSUInteger)note_id EntityID:(NSUInteger)entity_id
+{
+    GKNoteCommentViewController *noteCommentVC = [[GKNoteCommentViewController alloc]initWithNoteID:note_id EntityID:entity_id];
+    noteCommentVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:noteCommentVC animated:YES];
+}
+
 
 - (void)backButtonAction:(id)sender
 {

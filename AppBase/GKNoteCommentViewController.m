@@ -28,6 +28,8 @@
     __strong GKUser * _user;
     CGFloat headheight;
     NSUInteger reply_id;
+    NSUInteger _note_id;
+    NSUInteger _entity_id;
 }
 @synthesize note = _note;
 @synthesize entity = _entity;
@@ -43,6 +45,7 @@
         reply_id = 0;
         self.navigationItem.titleView = [GKTitleView setTitleLabel:@"评论"];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
+        self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     }
     return self;
 }
@@ -72,6 +75,16 @@
         
         [self.view addSubview:containerView];
     }
+    return self;
+}
+- (id)initWithNoteID:(NSUInteger)note_id EntityID:(NSUInteger)entity_id
+{
+    self = [super init];
+    {
+        _note_id = note_id;
+        _entity_id = entity_id;
+    }
+    
     return self;
 }
 - (void)loadView
@@ -176,6 +189,52 @@
     
 
 
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+   if((!_note)||(!(_entity)))
+   {
+       [GKDetail globalDetailPageWithEntityId:_entity_id Block:^(NSDictionary *dict, NSError *error) {
+           if(!error)
+           {
+               GKDetail * data =  [dict valueForKeyPath:@"content"];
+               _entity = data;
+               for (GKNote * note in data.notes_list) {
+                   if(note.note_id == _note_id)
+                   {
+                       _note = note;
+                       break;
+                   }
+               }
+               self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44 -40) style:UITableViewStylePlain];
+               _table.backgroundColor = UIColorFromRGB(0xffffff);
+               _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+               _table.allowsSelection = NO;
+               [_table setDelegate:self];
+               [_table setDataSource:self];
+               headheight = [GKNoteCommentHeaderView height:_note];
+               self.headerView = [[GKNoteCommentHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,headheight)];
+               [self.headerView setNoteData:_note entityData:_entity];
+               
+               _headerView.delegate = self;
+               self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
+               [self.table.tableHeaderView addSubview:_headerView];
+               
+               [self.view addSubview:_table];
+               [self reload:nil];
+               
+               [self.view addSubview:containerView];
+               
+           }
+           else
+           {
+
+           }
+           
+       }];
+   }
+    
 }
 - (void)viewDidUnload
 {
