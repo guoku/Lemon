@@ -120,7 +120,7 @@
                     if(user.stage == 0)
                     {
                         GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
-                        GKNavigationController *nav =[[GKNavigationController alloc]initWithRootViewController:VC];
+                        UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:VC];
                         [delegate.window.rootViewController presentViewController: nav animated:NO completion:NULL];
                     }
                     else
@@ -128,7 +128,6 @@
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"stage"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
-                     
                         
                         [GKMessageBoard showMBWithText:@"获取个人数据中" customView:nil delayTime:0.0];
                         

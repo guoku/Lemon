@@ -57,6 +57,7 @@
         _note.numberOfLines = 0;
         _note.textAlignment = NSTextAlignmentLeft;
         _note.textColor = UIColorFromRGB(0x666666);
+        _note.backgroundColor = [UIColor clearColor];
         _note.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_note];
         
@@ -112,6 +113,35 @@
         
     }
     return self;
+}
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    if(selected)
+    {
+        [self viewWithTag:4003].hidden = YES;
+        self.backgroundColor = UIColorFromRGB(0xededed);
+    }
+    else
+    {
+        [self viewWithTag:4003].hidden = NO;
+        self.backgroundColor = UIColorFromRGB(0xffffff);
+    }
+    // Configure the view for the selected state
+}
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if(highlighted)
+    {
+        [self viewWithTag:4003].hidden = YES;
+        self.backgroundColor = UIColorFromRGB(0xededed);
+    }
+    else
+    {
+        [self viewWithTag:4003].hidden = NO;
+        self.backgroundColor = UIColorFromRGB(0xffffff);
+    }
 }
 
 - (void)setNoteData:(GKNote *)noteData

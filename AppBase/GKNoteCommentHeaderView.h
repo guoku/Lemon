@@ -28,7 +28,7 @@
 @property (strong, nonatomic) GKUserButton *avatar;
 @property (strong, nonatomic) UILabel *nickname;
 @property (nonatomic,strong)  RatingView * noteRatingView;
-@property (nonatomic, strong) GKNoteLabel * note;
+@property (nonatomic, strong) UILabel * note;
 @property (strong, nonatomic) UIButton *time;
 @property (strong, nonatomic) UIImageView * seperatorLineImageView;
 @property (weak,nonatomic) id<GKDelegate> delegate;

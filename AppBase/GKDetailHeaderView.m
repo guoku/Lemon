@@ -171,6 +171,13 @@
     y = _title.frame.origin.y+_title.frame.size.height+10;
     CGFloat remark_x = 0;
     CGFloat remark_y = 0;
+    for(UIView * view in self.subviews)
+    {
+        if(view.tag == 2501)
+        {
+            [view removeFromSuperview];
+        }
+    }
     for (NSString * remark in _detailData.remark_list) {
         UIFont *font = [UIFont fontWithName:@"Helvetica" size:10.0f];
         CGSize size = [remark sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX,10) lineBreakMode:NSLineBreakByTruncatingTail];
@@ -197,6 +204,7 @@
         remarkLabel.textColor = UIColorFromRGB(0x959595);
         remarkLabel.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
         remarkLabel.text = remark;
+        remarkLabel.tag = 2501;
         [self addSubview:remarkLabel];
     }
     

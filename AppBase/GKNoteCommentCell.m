@@ -43,7 +43,7 @@
         [_nickname setBackgroundColor:[UIColor clearColor]];
         //[self addSubview:_nickname];
         
-        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(60,12, 240, 400)];
+        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(50,12, 240, 400)];
         [_comment setParagraphReplacement:@""];
         
         _comment.lineSpacing = 4.0;
@@ -62,7 +62,7 @@
         [_time setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_time.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
-        _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _time.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _time.userInteractionEnabled = NO;
         [self addSubview:_time];
         
@@ -123,6 +123,7 @@
     else
     {
         [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>:%@</font>",_data.creator.user_id,_data.creator.nickname,_data.comment]];
+        NSLog(@"%@",_data.comment);
     }
     CGSize optimumSize = [self.comment optimumSize];
 	CGRect frame = [self.comment frame];
@@ -130,11 +131,21 @@
     
     [_comment setFrame:CGRectMake(_comment.frame.origin.x, _comment.frame.origin.y, 240, frame.size.height)];
     
-    [_time setTitle:[NSDate stringFromDate:_data.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
-    [_time setFrame:CGRectMake(190, self.frame.size.height-18, 120, 10)];
+    [_time setTitle:[NSDate stringFromDate:_data.created_time WithFormatter:@"MM-dd HH:mm"] forState:UIControlStateNormal];
+    [_time setFrame:CGRectMake(50, self.frame.size.height-18, 120, 10)];
     
     [self.seperatorLineImageView setFrame:CGRectMake(0,self.frame.size.height, kScreenWidth, 1)];
     reply.center = CGPointMake(reply.center.x, self.frame.size.height/2);
+    
+    GKUser *user =[[GKUser alloc]initFromNSU];
+    if(_data.creator.user_id == user.user_id)
+    {
+        reply.hidden = YES;
+    }
+    else
+    {
+        reply.hidden = NO;
+    }
     
 }
 + (float)height:(GKComment *)data

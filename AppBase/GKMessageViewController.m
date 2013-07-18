@@ -169,6 +169,8 @@
     if (cell == nil) {
         cell = [[TableViewCellForMessage alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: @"messageCell"];
     }
+    cell.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     cell.message = [_dataArray objectAtIndex:indexPath.row];
 

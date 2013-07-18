@@ -273,7 +273,8 @@
     }
     cell.delegate = self;
     cell.notedelegate = self;
-    cell.selectedBackgroundView =[[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"tables_bottom_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:2]];
+    cell.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     if(friendonly == NO)
     {
         cell.noteData = [_data.notes_list objectAtIndex:indexPath.row];
@@ -770,8 +771,10 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
         if (!error)
         {
-            [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
+       
             noteData.poker_already = YES;
+            noteData.poker_count++;
+            [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
             pokeBtn.selected = YES;
             pokeBtn.userInteractionEnabled = NO;
             

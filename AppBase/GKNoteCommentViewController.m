@@ -316,6 +316,7 @@
         [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
     }
     else {
+        NSString *resultString = [[NSString alloc]init ];
         if(textView.text.length == 0)
         {
             [GKMessageBoard showMBWithText:@"评论不能为空" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
@@ -323,7 +324,6 @@
         }
  
         NSString *string = [NSString stringWithFormat:@"%@",textView.text];
-        NSString *resultString = [[NSString alloc]init ];
         if([string hasPrefix:@"回复"])
         {
             NSArray  * array= [string componentsSeparatedByString:@"："];
@@ -340,15 +340,20 @@
                 return;
             }
         }
+        else
+        {
+            resultString = textView.text;
+        }
         [self resignTextView:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
+ 
         [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
-
+       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
         [GKComment postNoteCommentWithNoteID:_note.note_id Content:resultString reply:reply_id Block:^(NSDictionary *NoteComments, NSError *error) {
+             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
        GKLog(@"note note %@", NoteComments);
        if(!error)
        {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
+          
            [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"ItemAction"
                                                            withAction:@"add_note_comment"
                                                             withLabel:nil
@@ -380,6 +385,7 @@
                    break;
            }
        }
+             
     }];
     }
  }
