@@ -77,6 +77,8 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePokeChange:) name:kGKN_NotePokeChange object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewNote:) name:GKAddNewNoteNotification object:nil];
 	// Do any additional setup after loading the view.
 }
@@ -84,6 +86,8 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_NotePokeChange object:nil];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GKAddNewNoteNotification object:nil];
 }
 
@@ -440,6 +444,23 @@
         entity.liked_count = [[notidata objectForKey:@"likeCount"] integerValue];
         entity.entitylike = [notidata objectForKey:@"likeStatus"];
         self.detailHeaderView.detailData = entity;
+    }
+}
+- (void)notePokeChange:(NSNotification *)noti
+{
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger note_id = [[notidata objectForKey:@"noteID"]integerValue];
+    GKNote * noteData =[notidata objectForKey:@"note"];
+    
+    for (GKNote * note in _data.notes_list) {
+        if(note.note_id == note_id)
+        {
+            int i =  [_data.notes_list indexOfObject:note];
+            _data.notes_list[i] = noteData;
+            NSIndexPath * indexPath =  [NSIndexPath indexPathForRow:i inSection:0];
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            [self.table reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+        }
     }
 }
 

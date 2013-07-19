@@ -111,12 +111,12 @@
         [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
-        [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_usedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateSelected];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted|UIControlStateSelected];
-        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
-        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+        [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateSelected];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted|UIControlStateSelected];
         _usedButton.enabled = NO;

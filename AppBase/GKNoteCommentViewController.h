@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
 #import "HPGrowingTextView.h"
+#import "NoteCellDelegate.h"
 
 @class GKNoteCommentHeaderView;
-@interface GKNoteCommentViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,HPGrowingTextViewDelegate>
+@interface GKNoteCommentViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,NoteCellDelegate,HPGrowingTextViewDelegate>
 {
     UIView *containerView;
     HPGrowingTextView *textView;
@@ -26,5 +27,5 @@
 - (id)initWithNote:(GKNote *)note Entity:(GKEntity *)entity;
 - (id)initWithNoteID:(NSUInteger)note_id EntityID:(NSUInteger)entity_id;
 - (void)replyButtonAction:(GKComment *)comment;
-
+- (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker;
 @end

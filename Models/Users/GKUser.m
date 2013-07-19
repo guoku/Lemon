@@ -314,13 +314,25 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         switch (res_code) {
             case SUCCESS:
             {
-                NSArray * _following_list = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-                NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:[_following_list count]];
-                for (NSDictionary *attributes in _following_list)
+                NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:0];
+                NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
+                for (NSDictionary *dic in _listresponse)
                 {
-                    GKUser * _user = [[GKUser alloc] initWithAttributes:attributes];
-                    [_mutableArray addObject:_user];
+                    NSUInteger total = [[dic valueForKey:@"total"] integerValue];
+                    GKUser * user = [[GKUser alloc]initFromNSU];
+                    user.follows_count = total;
+                    [user save];
+                    NSArray * _following_list = [dic valueForKey:@"list"];
+                    NSLog(@"%@",_following_list);
+                    NSLog(@"%u",[_following_list count]);
+
+                    for (NSDictionary *attributes in _following_list)
+                    {
+                        GKUser * _user = [[GKUser alloc] initWithAttributes:attributes];
+                        [_mutableArray addObject:_user];
+                    }
                 }
+ 
                 if (block)
                 {
                     block([NSArray arrayWithArray:_mutableArray], nil);
@@ -366,13 +378,25 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
         switch (res_code) {
             case SUCCESS:
             {
-                NSArray * _fans_list = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-                NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:[_fans_list count]];
-                for (NSDictionary *attributes in _fans_list)
+                NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:0];
+                NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
+                for (NSDictionary *dic in _listresponse)
                 {
-                    GKUser * _user = [[GKUser alloc] initWithAttributes:attributes];
-                    [_mutableArray addObject:_user];
+                    NSUInteger total = [[dic valueForKey:@"total"] integerValue];
+                    GKUser * user = [[GKUser alloc]initFromNSU];
+                    user.fans_count = total;
+                    [user save];
+                    NSArray * _following_list = [dic valueForKey:@"list"];
+                    NSLog(@"%@",_following_list);
+                    NSLog(@"%u",[_following_list count]);
+                    
+                    for (NSDictionary *attributes in _following_list)
+                    {
+                        GKUser * _user = [[GKUser alloc] initWithAttributes:attributes];
+                        [_mutableArray addObject:_user];
+                    }
                 }
+                
                 if (block)
                 {
                     block([NSArray arrayWithArray:_mutableArray], nil);

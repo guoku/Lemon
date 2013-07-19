@@ -67,6 +67,7 @@
     {
         _entity = data;
         _entityid = data.entity_id;
+        /*
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"useBigImg"])
         {
             if([_imgURL isEqual:[NSURL URLWithString:[[data.imageURL absoluteString]stringByReplacingOccurrencesOfString:@"310x310" withString:@"640x640"]]])
@@ -81,12 +82,13 @@
                 shouldreload = NO;
             }
         }
+         */
         _imgURL = data.imageURL;
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"useBigImg"])
-        {
-        _imgURL = [NSURL URLWithString:[[data.imageURL absoluteString]stringByReplacingOccurrencesOfString:@"310x310" withString:@"640x640"]];
-        }
+
+        _imgURL = [NSURL URLWithString:[[data.imageURL absoluteString]stringByReplacingOccurrencesOfString:@"310x310" withString:@"240x240"]];
+
         [_itemImageButton addTarget:self action:@selector(itemCardWithDataButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+         
     }
     if(shouldreload)
     {
@@ -99,7 +101,9 @@
     {
         _entityBase = entityBase;
         _entityid = _entityBase.entity_id;
-        _imgURL = _entityBase.imageURL;
+       // _imgURL = _entityBase.imageURL;
+        
+        _imgURL = [NSURL URLWithString:[[_entityBase.imageURL absoluteString]stringByReplacingOccurrencesOfString:@"310x310" withString:@"240x240"]];
         [_itemImageButton addTarget:self action:@selector(itemCardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
 }

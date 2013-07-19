@@ -29,15 +29,15 @@
          [_likeButton setImage:[UIImage imageNamed:@"star_white.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
-        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
-        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_red_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateNormal];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
+        [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateNormal];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateSelected];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateSelected];
         [_likeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
         [_likeButton setTitleColor:[UIColor colorWithRed:253.0f / 255.0f green:62.0f / 255.0f blue:55.0 / 255.0f alpha:1.0f] forState:UIControlStateSelected];
         [_likeButton setTitleColor:[UIColor colorWithRed:253.0f / 255.0f green:62.0f / 255.0f blue:55.0 / 255.0f alpha:1.0f] forState:UIControlStateSelected|UIControlStateHighlighted];
-        [_likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [_likeButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [_likeButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal|UIControlStateHighlighted];
         [_likeButton addTarget:self action:@selector(likeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_likeButton];
         

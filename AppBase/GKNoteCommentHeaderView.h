@@ -30,6 +30,8 @@
 @property (nonatomic,strong)  RatingView * noteRatingView;
 @property (nonatomic, strong) UILabel * note;
 @property (strong, nonatomic) UIButton *time;
+@property (strong, nonatomic) UIButton *pokeButton;
+@property (weak,nonatomic) id<NoteCellDelegate> notedelegate;
 @property (strong, nonatomic) UIImageView * seperatorLineImageView;
 @property (weak,nonatomic) id<GKDelegate> delegate;
 - (void)setNoteData:(GKNote *)noteData entityData:(GKEntity *)entity;

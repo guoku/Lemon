@@ -129,19 +129,22 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
+    [super viewWillDisappear:animated];
+
     [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     if([_dataArray count] == 0)
     {
         [self refresh];
     }
-    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
 }
 - (void)didReceiveMemoryWarning
 {

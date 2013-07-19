@@ -21,5 +21,4 @@
 - (void)showUserFansWithUserID:(NSUInteger)user_id;
 - (void)showWebViewWithTaobaoid:(NSString *)taobao_id;
 - (void)showWebViewWithTaobaoUrl:(NSString *)taobao_url;
-- (void)showUserTagWithTag:(NSString*)tagstring WithUserid:(NSUInteger)user_id;
 @end

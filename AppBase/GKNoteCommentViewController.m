@@ -65,9 +65,9 @@
         headheight = [GKNoteCommentHeaderView height:_note];
         self.headerView = [[GKNoteCommentHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,headheight)];
         _headerView.delegate = self;
+        _headerView.notedelegate = self;
         [self.headerView setNoteData:_note entityData:_entity];
         
-    
         self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
         [self.table.tableHeaderView addSubview:_headerView];
         
@@ -564,4 +564,50 @@
     [self resignTextView:nil];
     [_mask removeFromSuperview];
 }
+- (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker;
+{
+    GKNote * noteData = noteobj;
+    UIButton * pokeBtn = poker;
+    
+    [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
+    [GKNote pokeEntityNoteWithNoteID:noteData.note_id Block:^(NSDictionary *dict, NSError *error) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
+        if (!error)
+        {
+            
+            noteData.poker_already = YES;
+            noteData.poker_count++;
+            GKUser *me = [[GKUser alloc]initFromNSU];
+            [noteData.poke_id_list addObject:@(me.user_id)];
+            [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
+            pokeBtn.selected = YES;
+            pokeBtn.userInteractionEnabled = NO;
+            
+            [_message setValue:@(noteData.note_id) forKey:@"noteID"];
+            [_message setValue:noteData forKey: @"note"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_NotePokeChange object:nil userInfo:_message];
+            
+            [GKMessageBoard hideMB];
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+        
+    }];
+    
+}
+
 @end

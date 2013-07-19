@@ -8,6 +8,7 @@
 
 #import "GKNoteCommentHeaderView.h"
 #import "NSDate+GKHelper.h"
+#import "GKAppDelegate.h"
 @implementation GKNoteCommentHeaderView
 {
 @private
@@ -122,6 +123,21 @@
         arrow1.frame = CGRectMake(20, self.frame.size.height - 52, 12, 7);
         [self addSubview:arrow1];
         
+        _pokeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_pokeButton addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_pokeButton setImage:[UIImage imageNamed:@"icon_zan.png"] forState:UIControlStateNormal];
+        [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateSelected];
+        [_pokeButton setImage:[UIImage imageNamed:@"icon_zan_press.png"] forState:UIControlStateDisabled];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateHighlighted];
+        [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+        [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+        [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
+        _pokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [_pokeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [self addSubview:_pokeButton];
+        
 
         
     }
@@ -163,6 +179,42 @@
                     }
                 }
             }];
+    }
+    [self setNeedsLayout];
+}
+- (void)setNoteData:(GKNote *)noteData
+{
+    _noteData = noteData;    
+    if([_noteData.poke_id_list count]!=0)
+    {
+        NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:0];
+        int i =0;
+        for(NSString *user_id in _noteData.poke_id_list)
+        {
+            [array addObject:user_id];
+            i++;
+            if(i>10)
+            {
+                break;
+            }
+        }
+        [GKUserBase getUserBaseByArray:array  Block:^(NSArray *list, NSError *error) {
+            if(!error)
+            {
+                int i = 0;
+                for (GKUserBase * user in list) {
+                    GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+                    avatar.userBase = user;
+                    avatar.delegate = _delegate;
+                    [self addSubview:avatar];
+                    i++;
+                    if(i>=9)
+                    {
+                        break;
+                    }
+                }
+            }
+        }];
     }
     [self setNeedsLayout];
 }
@@ -219,6 +271,15 @@
     size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+10)];
     _note.text = _noteData.note;
+    
+    NSString * poke_count = [NSString stringWithFormat:@"%u", _noteData.poker_count];
+    [_pokeButton setTitle:poke_count forState:UIControlStateNormal];
+    [_pokeButton setFrame:CGRectMake(8, self.frame.size.height - 77, 40, 25)];
+    if(_noteData.poker_already)
+    {
+        _pokeButton.selected = YES;
+        _pokeButton.userInteractionEnabled = NO;
+    }
 }
 + (float)height:(GKNote *)data
 {
@@ -226,10 +287,23 @@
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return (size.height+185); // 10即消息上下的空间，可自由调整
+    return (size.height+200); // 10即消息上下的空间，可自由调整
 }
 - (void)goEntity
 {
     [self.delegate showDetailWithData:_entity];
+}
+- (void)pokeButtonAction:(id)sender
+{
+    if (_notedelegate && [_notedelegate respondsToSelector:@selector(tapPokeRoHootButtonWithNote:Poke:)])
+    {
+        if (![kUserDefault stringForKey:kSession])
+        {
+            [(GKAppDelegate *)[UIApplication sharedApplication].delegate showLoginView];
+        }
+        else {
+            [_notedelegate tapPokeRoHootButtonWithNote:_noteData Poke:sender];
+        }
+    }
 }
 @end
