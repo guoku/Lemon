@@ -111,7 +111,7 @@
     }
     [_refreshHeaderView refreshLastUpdatedDate];
     
-    self.table.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+    //self.table.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
 }
 
 - (void)viewDidLoad

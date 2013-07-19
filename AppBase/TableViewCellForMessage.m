@@ -2,8 +2,8 @@
 //  TableViewCellForMessage.m
 //  Grape
 //
-//  Created by huiter on 13-4-19.
-//  Copyright (c) 2013年 guoku. All rights reserved.
+//  Created by huiter on 14-4-19.
+//  Copyright (c) 2014年 guoku. All rights reserved.
 //
 
 #import "TableViewCellForMessage.h"
@@ -112,15 +112,14 @@
         }
     }
     UIImageView * icon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 22, 22)];
-    //icon.center = CGPointMake(icon.center.x,self.frame.size.height/2 );
-    [self addSubview:icon];
+
     
     UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 2, kScreenWidth, 2)];
     _seperatorLineImageView.tag = 4003;
     [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
     [self addSubview:_seperatorLineImageView];
     
-    UIButton *_time = [[UIButton alloc]initWithFrame:CGRectMake(32, self.frame.size.height-15, 60, 10)];
+    UIButton *_time = [[UIButton alloc]initWithFrame:CGRectMake(48, self.frame.size.height-15, 60, 10)];
     //[_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
     [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
     [_time setTitleColor:UIColorFromRGB(0xb8b8b8) forState:UIControlStateNormal];
@@ -138,13 +137,13 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+10,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>点评了</font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 点评了 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         CGSize optimumSize = [message_label optimumSize];
         CGRect frame = [message_label frame];
@@ -174,7 +173,7 @@
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
         UIButton *_noteButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+10, 250, 14)];
-        [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+        [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
         [_noteButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_noteButton setImage:[UIImage imageNamed:@"message_icon_user.png"] forState:UIControlStateNormal];
         [_noteButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
@@ -192,12 +191,12 @@
       
         UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
         _nickname.textColor = UIColorFromRGB(0x666666);
-        _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
+        _nickname.font = [UIFont fontWithName:@"Helvetica" size:14];
         _nickname.text = ((GKFollowerMessage*)_message.message_object).user.nickname;
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
-        UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];
+        UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
         [_nickname setFrame:CGRectMake(63,y+10,labelsize.width, 25)];
         UIButton * avatarButton = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -217,24 +216,24 @@
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(40,y+10,40,40) useBg:NO cornerRadius:0];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(40,y+10,40,40) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.user = ((GKWeiboFriendJoinMessage *)_message.message_object).recommended_user;
         
         UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
         _nickname.textColor = UIColorFromRGB(0x555555);
-        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         _nickname.text = ((GKWeiboFriendJoinMessage*)_message.message_object).recommended_user.nickname;
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
-        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
         [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
         
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
-        _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         _message_label.text = @"加入妈妈清单";
         [_message_label setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_message_label];
@@ -252,13 +251,17 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+10,200,100)];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        [self addSubview:_avatar];
+        _avatar.userBase = message.user;
+        
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>顶了你对</font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 顶了你对 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         [self addSubview:message_label];
         
@@ -276,13 +279,17 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+10,200,100)];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        [self addSubview:_avatar];
+        _avatar.userBase = message.user;
+        
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-       [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>回复了你对</font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+       [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 回复了你对 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         [self addSubview:message_label];
         
@@ -293,6 +300,8 @@
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
+    icon.center = CGPointMake(40,40);
+    //[self addSubview:icon];
 
     self.delegate = _delegate;
 }
@@ -329,12 +338,12 @@
     {
         GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+15,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+15,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>点评了</font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 点评了 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         CGSize optimumSize = [message_label optimumSize];
         y = (int)optimumSize.height+30;
@@ -353,12 +362,12 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+15,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+15,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
       
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>顶了你对</font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 顶了你对 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         CGSize optimumSize = [message_label optimumSize];
         y = (int)optimumSize.height+25;
@@ -367,13 +376,13 @@
     {        
         GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(36,y+15,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+15,200,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
 
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>回复了你对</font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 回复了你对 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         CGSize optimumSize = [message_label optimumSize];
         y = (int)optimumSize.height+25;
