@@ -214,7 +214,7 @@
     _price.frame = CGRectMake(145, 100, 145, 20);
     
     _likeButton.data = _detailData;
-    if(_detailData.my_score <11)
+    if(_detailData.my_score >0)
     {
         _usedButton.selected = YES;
     }

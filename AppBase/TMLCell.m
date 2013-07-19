@@ -144,7 +144,7 @@
         
         UIImageView * check = [[UIImageView alloc]initWithFrame:CGRectMake(entitybg.frame.size.width-21, 0,20, 20)];
         check.image = [UIImage imageNamed:@"done.png"];
-        if(_entity.my_score <11)
+        if(_entity.my_score >0)
         {
             [entitybg addSubview:check];
         }

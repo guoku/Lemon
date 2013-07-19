@@ -86,7 +86,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         }
         else
         {
-            _my_score = 11;
+            _my_score = 0;
         }
         if([attributes valueForKeyPath:@"target_user_score"])
         {
