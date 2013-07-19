@@ -48,7 +48,8 @@
 
 #pragma mark- 系统
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
+{
+    [EGG launchWithAppToken:@"9c8aff14d2583954082d72e7e5175c92"];
     if (application)
     {
         application.applicationIconBadgeNumber = 0;

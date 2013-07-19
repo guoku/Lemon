@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <EGG/EGG.h>
 #import "GKStatusBar.h"
 #import "MBProgressHUD.h"
 #import "SinaWeibo.h"

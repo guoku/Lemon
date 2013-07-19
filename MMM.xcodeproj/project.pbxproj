@@ -180,6 +180,7 @@
 		4E51B0B117841F0D004A6AC4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51B0B017841F0C004A6AC4 /* Default.png */; };
 		4E51B0B317841F74004A6AC4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51B0B217841F73004A6AC4 /* Default@2x.png */; };
 		4E51B0B517841F91004A6AC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51B0B417841F90004A6AC4 /* Default-568h@2x.png */; };
+		4E52A569179931AF000D4513 /* EGG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E52A568179931AF000D4513 /* EGG.framework */; };
 		4E581A5A1797EA3C00E701D3 /* TMLCellForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E581A591797EA3C00E701D3 /* TMLCellForUser.m */; };
 		4E71B8231796F887005BE565 /* GKPokeNoteMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E71B8221796F887005BE565 /* GKPokeNoteMessage.m */; };
 		4E71B82E1796F9F1005BE565 /* message_icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E71B8241796F9F1005BE565 /* message_icon1.png */; };
@@ -818,6 +819,7 @@
 		4E51B0B017841F0C004A6AC4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4E51B0B217841F73004A6AC4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4E51B0B417841F90004A6AC4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4E52A568179931AF000D4513 /* EGG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EGG.framework; sourceTree = "<group>"; };
 		4E581A581797EA3B00E701D3 /* TMLCellForUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLCellForUser.h; sourceTree = "<group>"; };
 		4E581A591797EA3C00E701D3 /* TMLCellForUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLCellForUser.m; sourceTree = "<group>"; };
 		4E71B8211796F887005BE565 /* GKPokeNoteMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKPokeNoteMessage.h; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 				4E387A7E17607A38005DA2EC /* CoreGraphics.framework in Frameworks */,
 				4E387B5117607C89005DA2EC /* libGoogleAnalytics.a in Frameworks */,
 				4E387B7217607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a in Frameworks */,
+				4E52A569179931AF000D4513 /* EGG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1426,6 +1429,7 @@
 		4E387A7817607A38005DA2EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E52A568179931AF000D4513 /* EGG.framework */,
 				4E820F3C1796882600B0806A /* RTLabel.h */,
 				4E820F3D1796882600B0806A /* RTLabel.m */,
 				4E820F3817967ADB00B0806A /* STTweetLabel */,
@@ -2694,6 +2698,7 @@
 				4E387A7217607A38005DA2EC /* Sources */,
 				4E387A7317607A38005DA2EC /* Frameworks */,
 				4E387A7417607A38005DA2EC /* Resources */,
+				4E52A56A1799323A000D4513 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3049,6 +3054,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4E52A56A1799323A000D4513 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./EGG.framework/lay 9c8aff14d2583954082d72e7e5175c92";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4E387A7217607A38005DA2EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -3289,6 +3310,10 @@
 		4E387A9417607A38005DA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppBase/MMM-Prefix.pch";
 				INFOPLIST_FILE = "AppBase/MMM-Info.plist";
@@ -3306,6 +3331,10 @@
 		4E387A9517607A38005DA2EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppBase/MMM-Prefix.pch";
 				INFOPLIST_FILE = "AppBase/MMM-Info.plist";

@@ -46,6 +46,7 @@
         self.navigationItem.titleView = [GKTitleView setTitleLabel:@"评论"];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         self.view.backgroundColor = UIColorFromRGB(0xffffff);
+        _message = [[NSMutableDictionary alloc]initWithCapacity:0];
     }
     return self;
 }
@@ -581,6 +582,7 @@
             GKUser *me = [[GKUser alloc]initFromNSU];
             [noteData.poke_id_list addObject:@(me.user_id)];
             [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
+            self.headerView.noteData = noteData;
             pokeBtn.selected = YES;
             pokeBtn.userInteractionEnabled = NO;
             
