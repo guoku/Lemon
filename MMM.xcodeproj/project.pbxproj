@@ -460,6 +460,9 @@
 		4E52A7C317996293000D4513 /* poke@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E52A7BF17996291000D4513 /* poke@2x.png */; };
 		4E52A7C417996293000D4513 /* poked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E52A7C017996292000D4513 /* poked.png */; };
 		4E52A7C517996293000D4513 /* poked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E52A7C117996292000D4513 /* poked@2x.png */; };
+		4E52A7C917996E91000D4513 /* MMMFriendSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E52A7C817996E91000D4513 /* MMMFriendSelectViewController.m */; };
+		4E52A7CC1799A454000D4513 /* MMMKWDFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E52A7CB1799A454000D4513 /* MMMKWDFS.m */; };
+		4E52A7CF1799A870000D4513 /* TableViewCellForMMMFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E52A7CE1799A870000D4513 /* TableViewCellForMMMFS.m */; };
 		4E581A5A1797EA3C00E701D3 /* TMLCellForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E581A591797EA3C00E701D3 /* TMLCellForUser.m */; };
 		4E71B8231796F887005BE565 /* GKPokeNoteMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E71B8221796F887005BE565 /* GKPokeNoteMessage.m */; };
 		4E7EAE661785D48B0087FB2A /* GKShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7EAE651785D48B0087FB2A /* GKShop.m */; };
@@ -1104,6 +1107,12 @@
 		4E52A7BF17996291000D4513 /* poke@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poke@2x.png"; sourceTree = "<group>"; };
 		4E52A7C017996292000D4513 /* poked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poked.png; sourceTree = "<group>"; };
 		4E52A7C117996292000D4513 /* poked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poked@2x.png"; sourceTree = "<group>"; };
+		4E52A7C717996E91000D4513 /* MMMFriendSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMFriendSelectViewController.h; sourceTree = "<group>"; };
+		4E52A7C817996E91000D4513 /* MMMFriendSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMFriendSelectViewController.m; sourceTree = "<group>"; };
+		4E52A7CA1799A453000D4513 /* MMMKWDFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMKWDFS.h; sourceTree = "<group>"; };
+		4E52A7CB1799A454000D4513 /* MMMKWDFS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMKWDFS.m; sourceTree = "<group>"; };
+		4E52A7CD1799A870000D4513 /* TableViewCellForMMMFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellForMMMFS.h; sourceTree = "<group>"; };
+		4E52A7CE1799A870000D4513 /* TableViewCellForMMMFS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellForMMMFS.m; sourceTree = "<group>"; };
 		4E581A581797EA3B00E701D3 /* TMLCellForUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLCellForUser.h; sourceTree = "<group>"; };
 		4E581A591797EA3C00E701D3 /* TMLCellForUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLCellForUser.m; sourceTree = "<group>"; };
 		4E71B8211796F887005BE565 /* GKPokeNoteMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKPokeNoteMessage.h; sourceTree = "<group>"; };
@@ -1201,6 +1210,7 @@
 		4E07E1251762EDB00060AFCD /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				4E52A7C617996E65000D4513 /* 好友精选 */,
 				4E2EC299179519E500B41DDE /* 消息页 */,
 				4E2EC2861793D8CA00B41DDE /* 评论页 */,
 				4EA5523F178C760500E679B7 /* 载入动画页 */,
@@ -2550,6 +2560,17 @@
 			path = "切图";
 			sourceTree = "<group>";
 		};
+		4E52A7C617996E65000D4513 /* 好友精选 */ = {
+			isa = PBXGroup;
+			children = (
+				4E52A7C717996E91000D4513 /* MMMFriendSelectViewController.h */,
+				4E52A7C817996E91000D4513 /* MMMFriendSelectViewController.m */,
+				4E52A7CD1799A870000D4513 /* TableViewCellForMMMFS.h */,
+				4E52A7CE1799A870000D4513 /* TableViewCellForMMMFS.m */,
+			);
+			name = "好友精选";
+			sourceTree = "<group>";
+		};
 		4E7EAE631785D4720087FB2A /* Shop */ = {
 			isa = PBXGroup;
 			children = (
@@ -2564,6 +2585,8 @@
 			children = (
 				4E7EAE68178A92F00087FB2A /* MMMKWD.h */,
 				4E7EAE69178A92F00087FB2A /* MMMKWD.m */,
+				4E52A7CA1799A453000D4513 /* MMMKWDFS.h */,
+				4E52A7CB1799A454000D4513 /* MMMKWDFS.m */,
 			);
 			name = KeyWord;
 			sourceTree = "<group>";
@@ -3254,6 +3277,9 @@
 				4E820F3E1796882600B0806A /* RTLabel.m in Sources */,
 				4E71B8231796F887005BE565 /* GKPokeNoteMessage.m in Sources */,
 				4E581A5A1797EA3C00E701D3 /* TMLCellForUser.m in Sources */,
+				4E52A7C917996E91000D4513 /* MMMFriendSelectViewController.m in Sources */,
+				4E52A7CC1799A454000D4513 /* MMMKWDFS.m in Sources */,
+				4E52A7CF1799A870000D4513 /* TableViewCellForMMMFS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

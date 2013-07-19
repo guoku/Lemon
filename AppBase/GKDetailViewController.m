@@ -515,7 +515,7 @@
         num = 5;
     }
     mask = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight+20)];
-    mask.backgroundColor = [UIColor whiteColor];
+    mask.backgroundColor = [UIColor blackColor];
     mask.alpha = 0.5;
     [mask addTarget:self action:@selector(HideShop) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:mask];

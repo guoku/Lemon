@@ -11,4 +11,5 @@
 @interface MMMKWD : NSObject
 + (void)globalKWDWithGroup:(NSString *)group Pid:(NSUInteger)pid Cid:(NSUInteger)cid Page:(NSUInteger)page
                          Block:(void (^)(NSArray *array, NSError * error))block;
+
 @end
