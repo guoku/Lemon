@@ -98,7 +98,7 @@
     _table.separatorColor =UIColorFromRGB(0xf9f9f9);
     _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
 
-    _table.allowsSelection = NO;
+    _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
 
@@ -178,7 +178,9 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -205,6 +207,7 @@
         cell = [[TMLCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
     cell.pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     NSUInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
@@ -218,7 +221,7 @@
                 if(entity.price == 0)
                 {
                     entity.weight ++;
-                    [entity save];
+                    [entity saveLittle];
                 }
             }
             else if ([object isKindOfClass:[TMLKeyWord class]])
@@ -333,7 +336,14 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@",indexPath);
+    NSUInteger row = [indexPath row];
+    NSUInteger section = [indexPath section];
+    NSObject *object = [[[_dataArray objectAtIndex:section]objectForKey:@"row" ]objectAtIndex:row];
+    if([object isKindOfClass:[GKEntity class]])
+    {
+        [self showDetailWithData:(GKEntity *)object];
+    }
+
 }
 - (void)setTableHeaderView
 {

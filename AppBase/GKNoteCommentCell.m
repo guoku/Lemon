@@ -72,7 +72,7 @@
         [self addSubview:_seperatorLineImageView];
         
         reply = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-30, 0, 30, 30)];
-        [reply setImage:[UIImage imageNamed:@"message_icon4.png"] forState:UIControlStateNormal];
+        [reply setImage:[UIImage imageNamed:@"reply.png"] forState:UIControlStateNormal];
         [reply addTarget:self action:@selector(replyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:reply];
     }

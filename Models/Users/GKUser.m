@@ -320,11 +320,12 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 {
                     NSUInteger total = [[dic valueForKey:@"total"] integerValue];
                     GKUser * user = [[GKUser alloc]initFromNSU];
-                    user.follows_count = total;
-                    [user save];
+                    if (user_id == user.user_id) {
+                        user.follows_count = total;
+                        [user save];
+                    }
+
                     NSArray * _following_list = [dic valueForKey:@"list"];
-                    NSLog(@"%@",_following_list);
-                    NSLog(@"%u",[_following_list count]);
 
                     for (NSDictionary *attributes in _following_list)
                     {
@@ -384,8 +385,10 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                 {
                     NSUInteger total = [[dic valueForKey:@"total"] integerValue];
                     GKUser * user = [[GKUser alloc]initFromNSU];
+                    if (user_id == user.user_id) {
                     user.fans_count = total;
                     [user save];
+                    }
                     NSArray * _following_list = [dic valueForKey:@"list"];
                     NSLog(@"%@",_following_list);
                     NSLog(@"%u",[_following_list count]);

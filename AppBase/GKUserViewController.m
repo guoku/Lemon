@@ -231,7 +231,7 @@
     _table.separatorColor = UIColorFromRGB(0xf9f9f9);
     _table.backgroundColor = UIColorFromRGB(0xf9f9f9);
     _table.tableHeaderView = HeaderView;
-    _table.allowsSelection = NO;
+    _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self.view addSubview:_table];
@@ -258,6 +258,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
+}
 - (void)reload:(id)sender
 {
     [GKUser globalUserProfileWithUserID:_user_id Block:^(NSDictionary *dict, NSError *error) {
@@ -422,6 +427,7 @@
     if (cell == nil) {
         cell = [[TMLCellForUser alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     TMLStage * stage = [[_dataArray objectAtIndex:indexPath.section]objectForKey:@"section"];
     cell.pid = stage.sid;
     cell.delegate = self;
@@ -525,7 +531,14 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@",indexPath);
+    NSUInteger row = [indexPath row];
+    NSUInteger section = [indexPath section];
+    NSObject *object = [[[_dataArray objectAtIndex:section]objectForKey:@"row" ]objectAtIndex:row];
+    if([object isKindOfClass:[GKEntity class]])
+    {
+        [self showDetailWithData:(GKEntity *)object];
+    }
+    
 }
 
 - (void)setTableHeaderView

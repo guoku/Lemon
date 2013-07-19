@@ -129,7 +129,7 @@
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"stage"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
                         
-                        [GKMessageBoard showMBWithText:@"获取个人数据中" customView:nil delayTime:0.0];
+                        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
                         
                         [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
                             if(!error)
@@ -144,6 +144,7 @@
                             {
                                 
                             }
+                         [GKMessageBoard hideMB];
                         }];
                         
 

@@ -104,8 +104,8 @@
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected|UIControlStateHighlighted];
-        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal];
-        [_usedButton setImage:[UIImage imageNamed:@"check_White.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal];
+        [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
         [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];

@@ -70,7 +70,7 @@
 
         if(yes)
         {
-        [_avatarBgImg setImage:[[UIImage imageNamed:@"avatar.png"] stretchableImageWithLeftCapWidth:31 topCapHeight:31]];
+        [_avatarBgImg setImage:[[UIImage imageNamed:@"avatar_s.png"] stretchableImageWithLeftCapWidth:31 topCapHeight:31]];
         [self addSubview:_avatarBgImg];
         }
         

@@ -134,8 +134,12 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
     view.backgroundColor = [UIColor clearColor];
     
+    UIImageView *backgroundView =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 42)];
+    backgroundView.image = [[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1];
+    [view addSubview:backgroundView];
+    
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    bg.backgroundColor =UIColorFromRGB(0xf1f1f1);
+    bg.backgroundColor =[UIColor clearColor];
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateHighlighted];
@@ -187,15 +191,15 @@
     V1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     UIView *V2 = [[UIView alloc]initWithFrame:CGRectMake(180, 0, 1, 40)];
     V2.backgroundColor =UIColorFromRGB(0xe4e4e4);
-    UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
-    H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
+    //UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
+    //H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     
-    [bg addSubview:H1];
+    //[bg addSubview:H1];
     [bg addSubview:V1];
     [bg addSubview:V2];
     
     cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
-    cate_arrow.frame = CGRectMake(0,39, 15,8);
+    cate_arrow.frame = CGRectMake(0,39, 15,10);
     cate_arrow.center = CGPointMake(45, cate_arrow.center.y);
     cate_arrow.backgroundColor = [UIColor clearColor];
     

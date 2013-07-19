@@ -53,6 +53,33 @@
     _object = object;
     [self setNeedsLayout];
 }
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    UIImageView * entitybg = (UIImageView *)[self viewWithTag:3858];
+    if(selected)
+    {
+        entitybg.image = [[UIImage imageNamed:@"tables_bottom_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    }
+    else
+    {
+        entitybg.image = [[UIImage imageNamed:@"tables_bottom.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    }
+    // Configure the view for the selected state
+}
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    UIImageView * entitybg = (UIImageView *)[self viewWithTag:3858];
+    if(highlighted)
+    {
+        entitybg.image = [[UIImage imageNamed:@"tables_bottom_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    }
+    else
+    {
+        entitybg.image = [[UIImage imageNamed:@"tables_bottom.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    }
+}
 - (void)layoutSubviews
 {
     
@@ -103,10 +130,11 @@
     else if([_object isKindOfClass:[GKEntity class]])
     {
         UIImageView * entitybg = [[UIImageView alloc]initWithFrame:CGRectMake(50, 0, kScreenWidth-60, 98)];
-        entitybg.image = [UIImage imageNamed:@"tables_bottom.png"];
+        entitybg.image = [[UIImage imageNamed:@"tables_bottom.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+        entitybg.tag = 3858;
         [self addSubview:entitybg];
         GKEntity * _entity = (GKEntity*)_object;
-        
+
         GKItemButton *_entityImageView = [[GKItemButton alloc] initWithFrame:CGRectZero];
         _entityImageView.entity = (GKEntity*)_object;
         [_entityImageView setFrame:CGRectMake(55, 5, 80, 80)];
