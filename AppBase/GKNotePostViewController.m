@@ -199,21 +199,43 @@
             
             entityLike = [note valueForKeyPath:@"like_content"];
             _data.liked_count = entityLike.status ? _data.liked_count + 1 : _data.liked_count - 1;
+            if(_data.my_score)
+            {
+                CGFloat sum = (_data.avg_score *_data.score_user_num) - _data.my_score + score;
+                _data.avg_score = sum/_data.score_user_num;
+                _data.my_score = score;
+            }
+            else
+            {
+                CGFloat sum = (_data.avg_score *_data.score_user_num) + score;
+                _data.score_user_num ++;
+                _data.avg_score = sum/_data.score_user_num;
+                _data.my_score = score;
+            }
+            BOOL needSave = NO;
             GKEntity * entity = (GKEntity *)_data;
-            
+            NSLog(@"%@",entity.pid_list);
+            for(NSString  * pidString in entity.pid_list ) {
+                entity.pid = [pidString integerValue];
+                if(entity.entitylike.status)
+                {
+                    needSave = YES;
+                }
+
+            }
             if(entityLike.status)
             {
-                NSLog(@"%@",entity.pid_list);
-                for(NSString  * pidString in entity.pid_list ) {
-                    entity.pid = [pidString integerValue];
-                    [entity save];
-                }
+                needSave = YES;
             }
             else
             {
                 [GKEntity deleteWithEntityID:entity.entity_id];
             }
-            
+        
+            if(needSave)
+            {
+                [entity save];
+            }
             [_message setValue:@(_data.entity_id) forKey:@"entityID"];
             [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
             [_message setValue:entityLike forKey:@"likeStatus"];

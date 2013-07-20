@@ -16,7 +16,8 @@
 @property (readwrite) NSUInteger pid;
 @property (readonly) NSString * brand;
 @property (nonatomic,strong) NSMutableArray * remark_list;
-@property (readonly) float avg_score;
+@property (readwrite) float avg_score;
+@property (readwrite) NSUInteger score_user_num;
 @property (nonatomic,strong) NSMutableArray * purchase_list;
 @property (nonatomic,strong) NSMutableArray * pid_list;
 @property (readonly) NSUInteger cid;

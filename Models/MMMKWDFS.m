@@ -14,10 +14,11 @@
 
 - (id)initWithAttributes:(NSDictionary *)attributes
 {
-    self = [super initWithAttributes:attributes];
+    self = [super initWithAttributes:[attributes valueForKeyPath:@"entity"]];
     if (self)
     {
-        _likes_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"like_list"] count]];
+        _likes_list = [NSMutableArray arrayWithArray:[attributes valueForKeyPath:@"collect_list"]];
+        _likes_user_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"collect_list"] count]];
         _notes_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"note_list"] count]];
         for (NSDictionary * note_attrs in [attributes valueForKeyPath:@"note_list"] )
         {
@@ -29,23 +30,40 @@
     return self;
 }
 
-+ (void)globalKWDFSWithPid:(NSUInteger)pid Cid:(NSUInteger)cid Page:(NSUInteger)page
++ (void)globalKWDFSWithPid:(NSUInteger)pid Cid:(NSUInteger)cid Page:(NSUInteger)page Date:(NSDate *)date
                      Block:(void (^)(NSArray *array, NSError * error))block
 {
-    NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/phase/%d/category/%d/entities/",pid,cid] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
+    [parameters setObject:[NSString stringWithFormat:@"%u",pid] forKey:@"pid"];
+    [parameters setObject:[NSString stringWithFormat:@"%u",cid] forKey:@"category_id"];
+    [parameters setObject:[NSString stringWithFormat:@"%u",page*30] forKey:@"offset"];
+    if (!date)
+    {
+        NSString * dataString = [NSDate now];
+        [parameters  setObject:dataString forKey:@"since_time"];
+    } else {
+        [parameters  setObject:[NSDate stringFromDate:date] forKey:@"since_time"];
+    }
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/read_friends_collection/"] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
-        NSArray * Response = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
-        NSMutableArray * array = [NSMutableArray arrayWithCapacity:[Response count]];
-        for (NSDictionary * attributes in Response)
+        NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
+        NSMutableArray * array;
+        for (NSDictionary *dic in _listresponse)
         {
-            MMMKWDFS * entity = [[MMMKWDFS alloc] initWithAttributes:attributes];
-            [array addObject:entity];
+            array = [NSMutableArray arrayWithCapacity:[[dic objectForKey:@"data"] count]];
+            for (NSDictionary * attributes in [dic objectForKey:@"data"])
+            {
+                //NSLog(@"%@",attributes);
+                MMMKWDFS * entity = [[MMMKWDFS alloc] initWithAttributes:attributes];
+                [array addObject:entity];
+            }
         }
+        
         if (block)
         {
             block([NSArray arrayWithArray:array], nil);
         }
+     
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
             GKLog(@"%@", error);

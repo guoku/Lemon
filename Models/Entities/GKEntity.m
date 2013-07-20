@@ -53,6 +53,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
 @synthesize brand = _brand;
 @synthesize remark_list = _remark_list;
 @synthesize avg_score = _avg_score;
+@synthesize score_user_num = _score_user_num;
 @synthesize purchase_list = _purchase_list;
 @synthesize pid_list = _pid_list;
 @synthesize cid = _cid;
@@ -80,9 +81,10 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _imgUrlString = [attributes valueForKeyPath:@"image_url"];
         _used_count = [[attributes valueForKeyPath:@"used_count"] integerValue];
         _liked_count = [[attributes valueForKeyPath:@"liked_count"] integerValue];
+        _score_user_num = [[[attributes valueForKeyPath:@"avg_score_vector"]objectAtIndex:0] integerValue];
         if([attributes valueForKeyPath:@"my_score"])
         {
-        _my_score = [[attributes valueForKeyPath:@"my_score"]integerValue];
+            _my_score = [[attributes valueForKeyPath:@"my_score"]integerValue];
         }
         else
         {
@@ -132,7 +134,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _cid = [[attributes valueForKeyPath:@"cid"] intValue];
         _weight = 1;
         
-        NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
+        //NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
         //_entitylike = [[GKEntityLike alloc] initWithAttributes:a];
         //[_entitylike saveToSQLite];
     }
@@ -164,6 +166,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _entity_id = [rs intForColumn:@"entity_id"];
         _pid = [rs intForColumn:@"pid"];
         _cid = [rs intForColumn:@"cid"];
+        _score_user_num = [rs intForColumn:@"score_user_num"];
         _title = [rs stringForColumn:@"title"];
         _brand = [rs stringForColumn:@"brand"];
         _imgUrlString = [rs stringForColumn:@"image_url"];
@@ -207,6 +210,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         [argsDict setValue:[NSString stringWithFormat:@"%u", _entity_id] forKey:@"entity_id"];
         [argsDict setValue:[NSString stringWithFormat:@"%u", _pid] forKey:@"pid"];
         [argsDict setValue:[NSString stringWithFormat:@"%u", _cid] forKey:@"cid"];
+        [argsDict setValue:[NSString stringWithFormat:@"%u", _score_user_num] forKey:@"score_user_num"];
         [argsDict setValue:_title forKey:@"title"];
         [argsDict setValue:_brand forKey:@"brand"];
         [argsDict setValue:_imgUrlString forKey:@"image_url"];

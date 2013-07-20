@@ -10,6 +10,6 @@
 #import "TMLKeyWord.h"
 @interface MMMFriendSelectViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *table;
--(id)initWithPid:(NSUInteger)pid Category:(TMLKeyWord *)cate;
+-(id)initWithPid:(NSUInteger)pid cid:(NSUInteger)cid;
 
 @end

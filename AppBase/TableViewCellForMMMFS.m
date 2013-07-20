@@ -9,11 +9,6 @@
 #import "TableViewCellForMMMFS.h"
 
 @implementation TableViewCellForMMMFS
-{
-@private
-    NSMutableArray * user_list;
-    BOOL flag;
-}
 @synthesize data = _data;
 @synthesize delegate = _delegate;
 
@@ -21,9 +16,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-        user_list = [[NSMutableArray alloc]initWithCapacity:0];
-        flag = YES;
+        
     }
     return self;
 }
@@ -50,80 +43,81 @@
             [view removeFromSuperview];
         }
     }
-    
+    self.backgroundColor = UIColorFromRGB(0xf9f9f9);
     UIImageView * bg = [[UIImageView alloc]initWithFrame:CGRectMake(8, 8, self.frame.size.width-16, self.frame.size.height-16)];
     bg.image = [[UIImage imageNamed:@"tables_single.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
     [self addSubview:bg];
-    CGFloat y = 15;
     
-    _img = [[GKItemButton alloc] initWithFrame:CGRectMake(5, y, 145, 145)];
-    [_img setType:kItemButtonWithNumProgress];
-    [self addSubview:_img];
+    GKItemButton *_entityImageView = [[GKItemButton alloc] initWithFrame:CGRectZero];
+    _entityImageView.entity = _data;
+    [_entityImageView setFrame:CGRectMake(20, 20, 80, 80)];
+    [self addSubview:_entityImageView];
+    _entityImageView.delegate = self.delegate;
     
-    
-    y = _img.frame.origin.y+_img.frame.size.height;
-    
-    self.rating = [[RatingView alloc]initWithFrame:CGRectZero];
-    _rating.frame = CGRectMake(0, y, 70, 10);
-    [_rating setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-    _rating.userInteractionEnabled = NO;
-    _rating.center = CGPointMake(self.frame.size.width/2, _rating.center.y);
-    [self addSubview:_rating];
-    
-    self.brand = [[UILabel alloc]initWithFrame:CGRectZero];
+    UILabel * _brand = [[UILabel alloc]initWithFrame:CGRectZero];
     _brand.backgroundColor = [UIColor clearColor];
     
     _brand.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
-    _brand.textAlignment = NSTextAlignmentCenter;
+    _brand.textAlignment = NSTextAlignmentLeft;
     _brand.textColor = UIColorFromRGB(0x666666);
     [self addSubview:_brand];
     
-    self.title = [[UILabel alloc]initWithFrame:CGRectZero];
+    UILabel *_title = [[UILabel alloc]initWithFrame:CGRectZero];
     _title.backgroundColor = [UIColor clearColor];
     
     _title.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
-    _title.textAlignment = NSTextAlignmentCenter;
+    _title.textAlignment = NSTextAlignmentLeft;
     _title.textColor = UIColorFromRGB(0x666666);
     [self addSubview:_title];
     
-    self.price = [[UILabel alloc]initWithFrame:CGRectZero];
+    RatingView *_ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
+    [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
+    _ratingView.center = CGPointMake(_ratingView.center.x, 22);
+    _ratingView.userInteractionEnabled = NO;
+    [self addSubview:_ratingView];
+    
+    UILabel *_price = [[UILabel alloc]initWithFrame:CGRectZero];
     _price.backgroundColor = [UIColor clearColor];
     
     _price.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
-    _price.textAlignment = NSTextAlignmentCenter;
+    _price.textAlignment = NSTextAlignmentLeft;
     _price.textColor = UIColorFromRGB(0x666666);
     [self addSubview:_price];
     
-    y = _rating.frame.origin.y+_rating.frame.size.height;
+    CGFloat y = 20;
     if( !([_data.brand isEqualToString:@""])) {
-        _brand.frame = CGRectMake(5, y, 145, 20);
+        _brand.frame = CGRectMake(105, y, 145, 15);
         y = _brand.frame.origin.y+_brand.frame.size.height;
     }
-    _title.frame = CGRectMake(5, y, 145, 20);
+    _title.frame = CGRectMake(105, y, 145, 15);
     y = _title.frame.origin.y+_title.frame.size.height;
-    _price.frame = CGRectMake(5, y, 145, 20);
     
-    _img.entity = _data;
-    _likeButton.data = _data;
-    [_rating displayRating:_data.avg_score/2];
+    _ratingView.frame = CGRectMake(105, y, 145, 20);
+    [_ratingView displayRating:_data.avg_score/2];
+    y = _ratingView.frame.origin.y+_ratingView.frame.size.height;
+    
+    _price.frame = CGRectMake(105, y, 145, 20);
+    
     _brand.text = _data.brand;
     _title.text = _data.title;
-    NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _data.price];
-    _price.text = priceTitle ;
-    
-    if((flag)&&([_data.likes_list count]))
+    if(_data.price != 0)
     {
-        [GKUserBase getUserBaseByArray:_data.likes_list  Block:^(NSArray *list, NSError *error) {
-            flag = NO;
-            if(!error)
-            {
-                [self showLikeUser];
-            }
-        }];
+        NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _data.price];
+        _price.text = priceTitle ;
+    }
+    
+    if([_data.likes_user_list count])
+    {
+        [self showLikeUser];
     }
     else
     {
-        [self showLikeUser];
+        [GKUserBase getUserBaseByArray:_data.likes_list  Block:^(NSArray *list, NSError *error) {
+            if(!error)
+            {   _data.likes_user_list = [NSMutableArray arrayWithArray:list];
+                [self showLikeUser];
+            }
+        }];
     }
     for (GKNote * note in _data.notes_list) {
         GKUserButton * _avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
@@ -174,8 +168,8 @@
 -(void)showLikeUser
 {
     int i = 0;
-    for (GKUserBase * user in user_list) {
-        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+    for (GKUserBase * user in _data.likes_user_list) {
+        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(20+i*34,110, 30, 30) useBg:NO cornerRadius:0];
         avatar.userBase = user;
         avatar.delegate = _delegate;
         [self addSubview:avatar];

@@ -72,7 +72,6 @@
     
     return self;
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -102,7 +101,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
     if(_data == nil)
     {
         GKLog(@"entity --- id --------------- %u", self.entity_id);
@@ -173,6 +171,7 @@
     else
     {
         _table.tableFooterView.hidden = NO;
+        [_table reloadData];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated
@@ -373,7 +372,7 @@
     }
     else
     {
-        tabArrow.center = CGPointMake(36, tabArrow.center.y); 
+        tabArrow.center = CGPointMake(36, tabArrow.center.y);
     }
     [f5f4f4bg addSubview:tabArrow];
 
@@ -581,7 +580,7 @@
                 
         [store addSubview:button];
         i++;
-        if(i>5)
+        if(i>4)
         {
             break;
         }

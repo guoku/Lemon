@@ -11,6 +11,7 @@
 #import "GKAppDelegate.h"
 #import "TableViewCellForTwo.h"
 #import "MMMKWD.h"
+#import "MMMFriendSelectViewController.h"
 @interface TMLKeywordViewController ()
 
 @end
@@ -398,11 +399,8 @@
             break;
         case 4003:
         {
-            [UIView animateWithDuration:0.3 animations:^{
-                //cate_arrow.center = CGPointMake(250, cate_arrow.center.y);
-            }completion:^(BOOL finished) {
-                
-            }];
+            MMMFriendSelectViewController *VC =[[MMMFriendSelectViewController alloc]initWithPid:_pid cid:_cid];
+            [self.navigationController pushViewController:VC animated:YES];
         }
             break;
         default:

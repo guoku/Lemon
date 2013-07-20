@@ -181,7 +181,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [TableViewCellForMessage height:[_dataArray objectAtIndex:indexPath.row]];
+    //return [TableViewCellForMessage height:[_dataArray objectAtIndex:indexPath.row]];
+    return 100;
 }
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

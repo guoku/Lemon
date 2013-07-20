@@ -18,7 +18,7 @@
     self = [super init];
     if (self)
     {
-        _title = [attributes valueForKeyPath:@"shop_nick"];
+        _title = [attributes valueForKeyPath:@"shop_title"];
         _price = [[attributes valueForKey:@"price"] floatValue];
         _url = [attributes valueForKeyPath:@"url"];
     }

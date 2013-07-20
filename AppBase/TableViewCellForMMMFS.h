@@ -12,12 +12,7 @@
 
 @interface TableViewCellForMMMFS : UITableViewCell
 
-@property (nonatomic, strong) GKItemButton *img;
-@property (nonatomic, strong) RatingView * rating;
-@property (nonatomic, strong) UILabel * brand;
-@property (nonatomic, strong) UILabel * title;
-@property (nonatomic, strong) UILabel * price;
-@property (nonatomic, strong) GKLikeButton *likeButton;
+
 @property (nonatomic,weak) id<GKDelegate> delegate;
 @property (nonatomic, strong) MMMKWDFS * data;
 + (float)height:(MMMKWDFS *)data;
