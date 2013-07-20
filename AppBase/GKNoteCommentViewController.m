@@ -544,7 +544,7 @@
          textView.text =@"";
      }
     self.mask = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    _mask.backgroundColor = UIColorFromRGB(0x000000);
+    _mask.backgroundColor = UIColorFromRGB(0xffffff);
     _mask.alpha = 0.5;
     UITapGestureRecognizer *Tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [Tap1 setNumberOfTapsRequired:1];

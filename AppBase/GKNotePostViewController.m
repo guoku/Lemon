@@ -20,6 +20,7 @@
     CGFloat score;
     GKEntityLike *entityLike;
     NSMutableDictionary * _message;
+    UILabel * label;
 }
 @synthesize data = _data;
 @synthesize ratingView = _ratingView;
@@ -62,6 +63,7 @@
         {
             _note = note;
             self.textView.text = note.note;
+            label.hidden = NO;
             break;
         }
     }
@@ -100,7 +102,7 @@
     _ratingView.center = CGPointMake(160, 20);
     [self.view addSubview:_ratingView];
     
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, _ratingView.frame.origin.y+_ratingView.frame.size.height, kScreenWidth, 15)];
+    label = [[UILabel alloc]initWithFrame:CGRectMake(0, _ratingView.frame.origin.y+_ratingView.frame.size.height, kScreenWidth, 15)];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
     [label setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -120,6 +122,7 @@
     [_textView setEditable:YES];
     [_textView becomeFirstResponder];
     [_textView setBounces:NO];
+    _textView.backgroundColor = UIColorFromRGB(0xf6f6f6);
     _textView.textColor = UIColorFromRGB(0x666666);
     _textView.spellCheckingType = UITextSpellCheckingTypeNo;
     _textView.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -134,7 +137,13 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)ratingChanged:(float)newRating {
-
+    if (newRating !=0) {
+        label.hidden = YES;
+    }
+    else
+    {
+        label.hidden = NO;
+    }
 }
 -(void)resignTextView:(id)sender
 {

@@ -518,7 +518,7 @@
     mask.backgroundColor = [UIColor blackColor];
     mask.alpha = 0.5;
     [mask addTarget:self action:@selector(HideShop) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:mask];
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).window  addSubview:mask];
     
     store = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight+20, kScreenWidth, 44+30+num*55)];
     store.backgroundColor = UIColorFromRGB(0xf9f9f9);
@@ -598,22 +598,32 @@
 
     }];
 }
+/*
 - (void)displayShop
 {
     [UIView animateWithDuration:0.3 animations:^{
         store.frame = CGRectMake(0, kScreenHeight-200+20, kScreenWidth, 200);
     }completion:^(BOOL finished) {
         [store removeFromSuperview];
-        [mask removeFromSuperview];
+        [UIView animateWithDuration:0.1 animations:^{
+            mask.alpha = 0;
+        }completion:^(BOOL finished) {
+            [mask removeFromSuperview];
+        }];
     }];
 }
+ */
 - (void)HideShop
 {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         store.frame = CGRectMake(0,  kScreenHeight+20, kScreenWidth, store.frame.size.height);
     }completion:^(BOOL finished) {
         [store removeFromSuperview];
-        [mask removeFromSuperview];
+        [UIView animateWithDuration:0.1 animations:^{
+            mask.alpha = 0;
+        }completion:^(BOOL finished) {
+            [mask removeFromSuperview];
+        }];
     }];
 }
 - (void)shopButtonAction:(id)sender

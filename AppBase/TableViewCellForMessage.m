@@ -155,7 +155,7 @@
         
         RatingView *_ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
         [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-        _ratingView.frame = CGRectMake(37, message_label.frame.size.height + message_label.frame.origin.y,80 ,20);
+        _ratingView.frame = CGRectMake(50, message_label.frame.size.height + message_label.frame.origin.y,80 ,20);
         [_ratingView displayRating:message.entity.my_score/2];
         _ratingView.userInteractionEnabled = NO;
         [self addSubview:_ratingView];
@@ -185,7 +185,7 @@
         
         y =_noteButton.frame.origin.y+_noteButton.frame.size.height;
 
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(32,y+10,40,40)];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40)];
         [self addSubview:_avatar];
         _avatar.user = ((GKFollowerMessage*)_message.message_object).user;
       
