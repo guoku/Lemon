@@ -104,7 +104,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         {
             NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
             _entitylike = [[GKEntityLike alloc] initWithAttributes:a];
-            [_entitylike saveToSQLite];
+            //[_entitylike saveToSQLite];
         }
         
         _shopList = [attributes valueForKey:@"purchase_list"];
@@ -133,8 +133,8 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _weight = 1;
         
         NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
-        _entitylike = [[GKEntityLike alloc] initWithAttributes:a];
-        [_entitylike saveToSQLite];
+        //_entitylike = [[GKEntityLike alloc] initWithAttributes:a];
+        //[_entitylike saveToSQLite];
     }
     return self;
 }
@@ -150,7 +150,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         
         if ([[GKDBCore sharedDB] insertDataWithSQL:INSERT_LITTLE_DATA_SQL ArgsDict:argsDict])
         {
-            [_entitylike saveToSQLite];
+           // [_entitylike saveToSQLite];
         }
     }
     return self;
@@ -181,7 +181,8 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         }
         _remark_list = [[rs stringForColumn:@"remark"]objectFromJSONString];
         _weight = [rs intForColumn:@"weight"];
-        _entitylike = [GKEntityLike getEntityLikeStatusFromSQLiteWithEntityID:_entity_id];
+            NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%u",_entity_id],@"entity_id",@"YES",@"status",nil];
+            _entitylike = [[GKEntityLike alloc] initWithAttributes:a];
     }
     
     return self;
@@ -221,7 +222,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
     
         if ([[GKDBCore sharedDB] insertDataWithSQL:INSERT_DATA_SQL ArgsDict:argsDict])
         {
-            [_entitylike saveToSQLite];
+           // [_entitylike saveToSQLite];
         }
     }
     return self;

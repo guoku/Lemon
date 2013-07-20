@@ -144,13 +144,13 @@ static NSString * QUERY_ENTITY_LIKE_SQL = @"SELECT * FROM entity_like WHERE enti
                 {
                     GKEntityLike * entityLike = [[GKEntityLike alloc] initWithAttributes:attributes];
                     if (entityLike.status) {
-                        [entityLike saveToSQLite];
+                        //[entityLike saveToSQLite];
                         
                         
                         
                     } else
                     {
-                        [entityLike deleteWithEntityID:entityLike.entity_id];
+                        //[entityLike deleteWithEntityID:entityLike.entity_id];
                     }
                     [mutalbleDict setValue:entityLike forKeyPath:@"content"];
                 }

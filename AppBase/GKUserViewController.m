@@ -339,13 +339,30 @@
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
-       
+            NSUInteger tmp_pid = 0;
+            NSUInteger tmp_k = 0;
             for (int i = 0;i< [_entityArray count];i++) {
                 GKEntity * entity = [_entityArray objectAtIndex:i];
                 
+                if(tmp_pid == 0)
+                {
+                    tmp_pid = entity.pid;
+                }
+                else
+                {
+                    if(entity.pid != tmp_pid)
+                    {
+                        tmp_pid = entity.pid;
+                        tmp_k = 0;
+                    }
+                    else
+                    {
+                        tmp_k = tmp_k + 1;
+                    }
+                }
                 NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
                 
-                for (int k = 0; k< [array count];k++ ) {
+                for (int k = tmp_k; k< [array count];k++ ) {
                     NSObject * object  =  [array objectAtIndex:k];
                     if([object isKindOfClass:[TMLKeyWord class]])
                     {
@@ -649,7 +666,7 @@
   }
     if(entitylike.status)
     {
-           
+        _user.liked_count++;
         GKEntity * entity = [notidata objectForKey:@"entity"];
         int pid = 20;
         for(NSString  * pidString in entity.pid_list ) {
@@ -662,13 +679,30 @@
         [_entityArray addObject:entity];
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
         _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        
+        NSUInteger tmp_pid = 0;
+        NSUInteger tmp_k = 0;
         for (int i = 0;i< [_entityArray count];i++) {
             GKEntity * entity = [_entityArray objectAtIndex:i];
             
+            if(tmp_pid == 0)
+            {
+                tmp_pid = entity.pid;
+            }
+            else
+            {
+                if(entity.pid != tmp_pid)
+                {
+                    tmp_pid = entity.pid;
+                    tmp_k = 0;
+                }
+                else
+                {
+                    tmp_k = tmp_k + 1;
+                }
+            }
             NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
             
-            for (int k = 0; k< [array count];k++ ) {
+            for (int k = tmp_k; k< [array count];k++ ) {
                 NSObject * object  =  [array objectAtIndex:k];
                 if([object isKindOfClass:[TMLKeyWord class]])
                 {
@@ -685,6 +719,7 @@
     else
     {
         bool flag = NO;
+        _user.liked_count--;
         for (NSMutableDictionary * dic in _dataArray) {
             NSMutableArray *array =  [dic objectForKey:@"row"];
             for (NSObject * object  in array ) {
@@ -722,7 +757,6 @@
             {
                 
                 NSUInteger  i = [array indexOfObjectIdenticalTo:object];
-                NSLog(@"%d",i);
                 if(i< ([array count]-1))
                 {
                     if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
@@ -745,9 +779,10 @@
             [s_array addObject:dic];
         }
     }
+    
     [_dataArray removeObjectsInArray:s_array];
     [self.table reloadData];
-
+     [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
 
 }
 - (void)shareButtonAction:(id)sender

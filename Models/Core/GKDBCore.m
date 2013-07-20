@@ -8,6 +8,7 @@
 
 #import "GKDBCore.h"
 #import "FMDatabase.h"
+#import "FMDatabaseQueue.h"
 //#import "FMDatabaseAdditions.h"
 #define FMDBQuickCheck(SomeBool) { if (!(SomeBool)) { NSLog(@"Failure on line %d", __LINE__); abort(); } }
 
@@ -15,6 +16,7 @@
 {
 @private
     NSString * _dbpath;
+    FMDatabaseQueue *queue;
 }
 @synthesize db = _db;
 
@@ -36,6 +38,7 @@
     if (self)
     {
         GKLog(@"database path %@", [self dbPath]);
+        queue = [FMDatabaseQueue databaseQueueWithPath:[self dbPath]];
         _db = [FMDatabase databaseWithPath:[self dbPath]];
         [_db open];
     }
@@ -83,7 +86,7 @@
 - (BOOL)insertDataWithSQL:(NSString *)sql ArgsDict:(NSDictionary *)argsDict
 {
     GKLog(@"%@ %@",sql, argsDict);
-    FMDBQuickCheck([_db executeUpdate:sql withParameterDictionary:argsDict]);
+        FMDBQuickCheck([_db executeUpdate:sql withParameterDictionary:argsDict]);
 
     return YES;
 }

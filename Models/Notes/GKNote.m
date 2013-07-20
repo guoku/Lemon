@@ -108,7 +108,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                     {
                         GKEntityLike * entityLike = [[GKEntityLike alloc] initWithAttributes:[attributes objectForKey:@"like"]];
                         if (entityLike.status) {
-                            [entityLike saveToSQLite];
+                            //[entityLike saveToSQLite];
                         }
                         [noteDict setValue:entityLike forKeyPath:@"like_content"];
 
