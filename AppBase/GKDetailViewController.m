@@ -36,7 +36,6 @@
 
 @synthesize data = _data;
 @synthesize entity_id = _entity_id;
-@synthesize entity = _entity;
 @synthesize table = _table;
 @synthesize detailHeaderView = _detailHeaderView;
 
@@ -95,7 +94,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.detailHeaderView.detailData = _entity;
     [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
     if(_detailHeaderView.detailData.avg_score !=0)
     {
@@ -239,6 +237,9 @@
     UIView *tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];    
     _table.tableFooterView = tableFooterView;
     _table.tableFooterView.hidden = YES;
+    
+        _ratingView = [[RatingView alloc]initWithFrame:CGRectMake(60, 0, 80, 40)];
+        score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 80, 40)];
 }
 -(void) showActivity
 {
@@ -317,14 +318,12 @@
     allnotelabel.text = @"  总体评价";
     [f5f4f4bg addSubview:allnotelabel];
     
-    _ratingView = [[RatingView alloc]initWithFrame:CGRectMake(60, 0, 80, 40)];
     [_ratingView setImagesDeselected:@"star_m.png" partlySelected:@"star_m_half.png" fullSelected:@"star_m_full.png" andDelegate:nil];
     _ratingView.center = CGPointMake(_ratingView.center.x, 20);
     _ratingView.userInteractionEnabled = NO;
     [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
     [f5f4f4bg addSubview:_ratingView];
     
-    score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 80, 40)];
     score.textAlignment = NSTextAlignmentLeft;
     score.backgroundColor = [UIColor clearColor];
     score.textColor =UIColorFromRGB(0x999999);
@@ -411,37 +410,41 @@
     {
         GKNote * newnote = [notidata valueForKeyPath:@"content"];
   
-    BOOL IsNewNote = YES;
-    int i=0;
-    if(_data.entity_id == entity_id)
-    {
-        for (GKNote *note in _data.notes_list) {
-            
-            if(note.note_id == newnote.note_id)
-            {
-                _data.notes_list[i] = newnote;
-                IsNewNote = NO;
-                break;
+        BOOL IsNewNote = YES;
+        int i=0;
+        if(_data.entity_id == entity_id)
+        {
+            for (GKNote *note in _data.notes_list) {
+                
+                if(note.note_id == newnote.note_id)
+                {
+                    _data.notes_list[i] = newnote;
+                    IsNewNote = NO;
+                    break;
+                }
+                i++;
             }
-            i++;
-        }
-        if(IsNewNote)
-        {
-            [_data.notes_list addObject:newnote];
-        }
-        _data.my_score = newnote.score;
-        self.detailHeaderView.detailData = _data;
-        if(_data.entitylike.status)
-        {
-            //[self.detailHeaderView.detailData save];
-        }
-        [self.table reloadData];
+            if(IsNewNote)
+            {
+                [_data.notes_list addObject:newnote];
+            }
+            _data.my_score = newnote.score;
+            self.detailHeaderView.detailData = _data;
+            if(_data.entitylike.status)
+            {
+
+            }
+            [self.table reloadData];
         }
     }
     else
     {
+        if(_data.entity_id == entity_id)
+        {
         _data.my_score = [[notidata valueForKeyPath:@"score"]integerValue];
         self.detailHeaderView.detailData = _data;
+        [self.table reloadData];
+        }
     }
 }
 - (void)cardLikeChange:(NSNotification *)noti
@@ -716,7 +719,7 @@
     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
     
     if ([delegate.sinaweibo isAuthValid]) {
-        GKSinaShareViewController *sinaShareVc = [[GKSinaShareViewController alloc]initWithDetailData:_entity];
+        GKSinaShareViewController *sinaShareVc = [[GKSinaShareViewController alloc]initWithDetailData:_data];
         sinaShareVc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:sinaShareVc animated:YES];
     }

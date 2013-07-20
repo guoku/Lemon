@@ -68,6 +68,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewNote:) name:GKAddNewNoteNotification object:nil];
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
@@ -77,7 +79,12 @@
     [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
 }
-
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GKAddNewNoteNotification object:nil];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -497,6 +504,59 @@
     {
         [self setFooterView:NO];
     }
+}
+- (void)addNewNote:(NSNotification *)noti
+{
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
+    NSUInteger score = [[notidata objectForKey:@"score"]integerValue];
+    
+    for (GKEntity * entity in  [dataArrayDic objectForKey:@"best"]) {
+        if(entity.entity_id == entity_id)
+        {
+            entity.my_score = score;
+        }
+    }
+    for (GKEntity * entity in  [dataArrayDic objectForKey:@"new"]) {
+        if(entity.entity_id == entity_id)
+        {
+            entity.my_score = score;
+        }
+    }
+    [self.table reloadData];
+}
+- (void)cardLikeChange:(NSNotification *)noti
+{
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
+    NSUInteger index = -1;
+    GKEntity * e = [notidata objectForKey:@"entity"];
+
+    for (GKEntity * entity in  [dataArrayDic objectForKey:@"best"]) {
+        if(entity.entity_id == entity_id)
+        {
+            index = [[dataArrayDic objectForKey:@"best"]indexOfObject:entity];
+            break;
+        }
+    }
+    if(index!=-1)
+    {
+    [[dataArrayDic objectForKey:@"best"] setObject:e atIndex:index];
+    }
+    index = -1;
+    for (GKEntity * entity in  [dataArrayDic objectForKey:@"new"]) {
+        if(entity.entity_id == entity_id)
+        {
+            index = [[dataArrayDic objectForKey:@"new"]indexOfObject:entity];
+            break;
+        }
+    }
+    if(index!=-1)
+    {
+        [[dataArrayDic objectForKey:@"new"] setObject:e atIndex:index];
+    }
+    [self.table reloadData];
+    
 }
 
 @end

@@ -14,7 +14,6 @@
 
 @property (readonly) NSUInteger entity_id;
 @property (strong, nonatomic) GKDetail *data;
-@property (strong, nonatomic) GKEntity *entity;
 @property (strong, nonatomic) GKDetailHeaderView *detailHeaderView;
 @property (strong, nonatomic) UITableView *table;
 

@@ -99,7 +99,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         {
             _target_user_score = 0;
         }
-        _avg_score = [[attributes valueForKeyPath:@"avg_score"]integerValue];
+        _avg_score = [[attributes valueForKeyPath:@"avg_score"]doubleValue];
         _weight = 0;
         
         BOOL _like_status = [[attributes valueForKeyPath:@"liked_already"]boolValue];
@@ -167,6 +167,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _entity_id = [rs intForColumn:@"entity_id"];
         _pid = [rs intForColumn:@"pid"];
         _cid = [rs intForColumn:@"cid"];
+        _avg_score = [rs doubleForColumn:@"avg_score"];
         _score_user_num = [rs intForColumn:@"score_user_num"];
         _title = [rs stringForColumn:@"title"];
         _brand = [rs stringForColumn:@"brand"];

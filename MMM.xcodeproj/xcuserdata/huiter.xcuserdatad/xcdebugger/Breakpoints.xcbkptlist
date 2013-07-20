@@ -2,32 +2,4 @@
 <Bucket
    type = "1"
    version = "1.0">
-   <FileBreakpoints>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AppBase/GKDetailViewController.m"
-         timestampString = "396009749.55593"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "461"
-         endingLineNumber = "461"
-         landmarkName = "-notePokeChange:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AppBase/MMMFriendSelectViewController.m"
-         timestampString = "396005201.175155"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
-         landmarkName = "-viewDidAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-   </FileBreakpoints>
 </Bucket>

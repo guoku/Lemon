@@ -9,10 +9,14 @@
 #ifndef kGKN_EntityLikeChange
 #define kGKN_EntityLikeChange @"EntityLikeChangeNotification"
 #endif
+
+#ifndef kGKN_EntityScoreChange
+#define kGKN_EntityScoreChange @"EntityScoreChangeNotification"
+#endif
+
 #ifndef kGKN_NotePokeChange
 #define kGKN_NotePokeChange @"NotePokeChangeNotification"
 #endif
-
 
 #ifndef kGKN_UserFollowChange
 #define kGKN_UserFollowChange @"UserFollowChangeNotification"

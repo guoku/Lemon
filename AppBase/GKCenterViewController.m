@@ -21,6 +21,7 @@
 #import "GKEDCSettingViewController.h"
 #import "GKUserViewController.h"
 #import "UIViewController+MMDrawerController.h"
+#import "MMMTML.h"
 @interface GKCenterViewController ()
 
 @end
@@ -28,6 +29,7 @@
 @implementation GKCenterViewController
 {
 @private
+    NSMutableDictionary * _dataDic;
     NSMutableArray * _dataArray;
     NSMutableArray * _entityArray;
     NSMutableArray * _titleArray;
@@ -80,6 +82,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kGKN_EntityScoreChange  object:nil];
     _titleArray = [NSMutableArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"2",@"pid",nil],
@@ -134,46 +137,81 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    
-    if([_dataArray count] == 0)
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"table"])
     {
-        NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
-        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-        _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-      
-        _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
-        bool flag = NO;
-        for (GKEntity * entity in _entityArray)
+        if([_dataArray count] == 0)
         {
-            for (NSMutableDictionary * data  in _dataArray ) {
-                for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
-                    
-                    NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
-                    
-                    if([object isKindOfClass:[TMLKeyWord class]])
-                    {
-                        if(((TMLKeyWord *)object).kid == entity.cid)
+            NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+            NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
+            _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
+            _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+            bool flag = NO;
+            for (GKEntity * entity in _entityArray)
+            {
+                for (NSMutableDictionary * data  in _dataArray ) {
+                    for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                        
+                        NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+                        
+                        if([object isKindOfClass:[TMLKeyWord class]])
                         {
-                            [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"]  indexOfObjectIdenticalTo:object]+1)];
-                            i++;
-                            flag = YES;
-                            break;
+                            if(((TMLKeyWord *)object).kid == entity.cid)
+                            {
+                                [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"]  indexOfObjectIdenticalTo:object]+1)];
+                                i++;
+                                flag = YES;
+                                break;
+                            }
                         }
+                        
+                    }
+                    if(flag)
+                    {
+                        flag = NO;
+                        break;
                     }
                     
                 }
-                if(flag)
-                {
-                    flag = NO;
-                    break;
-                }
-                
             }
+            
+            [self.table reloadData];
         }
 
-        [self.table reloadData];
     }
+    else
+    {
+        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+        [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
+            if(!error)
+            {
+                _dataArray = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                _dataDic = [NSMutableArray arrayWithArray:array];
+                
+                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
+                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
+                [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
+                [GKMessageBoard hideMB];
+                
+            }
+            else
+            {
+                switch (error.code) {
+                    case -999:
+                        [GKMessageBoard hideMB];
+                        break;
+                    default:
+                    {
+                        NSString * errorMsg = [error localizedDescription];
+                        [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                    }
+                        break;
+                }
+            }
+        }];
+    }
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    
     [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
 }
 -(void)viewDidDisappear:(BOOL)animated
@@ -431,6 +469,10 @@
 }
 - (void)cardLikeChange:(NSNotification *)noti
 {
+    [self refresh];
+}
+- (void)refresh
+{
     NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
@@ -466,7 +508,6 @@
     
     [self.table reloadData];
 }
-
 - (void)showLeftMenu
 {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
@@ -490,7 +531,6 @@
 }
 - (void)GKLogout
 {
-    
     [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
         openLeftMenu = YES;
     }];

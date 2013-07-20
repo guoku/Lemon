@@ -211,33 +211,32 @@
                 _data.avg_score = sum/_data.score_user_num;
                 _data.my_score = score;
             }
-            BOOL needSave = NO;
+            if(entityLike.status)
+            {
+                _data.liked_count ++;
+            }
             GKEntity * entity = (GKEntity *)_data;
-            NSLog(@"%@",entity.pid_list);
             for(NSString  * pidString in entity.pid_list ) {
                 entity.pid = [pidString integerValue];
                 if(entity.entitylike.status)
                 {
-                    needSave = YES;
+                    [entity save];
                 }
-
             }
             if(entityLike.status)
             {
-                needSave = YES;
-                _data.liked_count ++;
                 [_message setValue:@(_data.entity_id) forKey:@"entityID"];
                 [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
                 [_message setValue:entityLike forKey:@"likeStatus"];
                 [_message setValue:_data forKey:@"entity"];
-                
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityLikeChange object:nil userInfo:_message];
             }
-        
-            if(needSave)
+            else
             {
-                [entity save];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityScoreChange object:nil userInfo:nil];
             }
+
+          
         }
         else
         {

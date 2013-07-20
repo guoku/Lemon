@@ -447,8 +447,6 @@
                         for(NSString  * pidString in entity.pid_list ) {
                             entity.pid = [pidString integerValue];
                             [entity save];
-                            //[NSThread detachNewThreadSelector:@selector(entitySave:) toTarget:self withObject:entity];
-                         
                         }
 
                     }
@@ -466,10 +464,6 @@
             loadingEntity = NO;
         }
     }
-}
--(void)entitySave:(GKEntity *)entity
-{
-    [entity save];
 }
 @end
 
