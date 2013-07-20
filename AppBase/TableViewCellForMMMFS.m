@@ -105,9 +105,15 @@
         NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _data.price];
         _price.text = priceTitle ;
     }
-    
+    UILabel *_count = [[UILabel alloc]initWithFrame:CGRectMake(20,110, 140, 30)];
+    _count.backgroundColor = [UIColor clearColor];
+    _count.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    _count.textAlignment = NSTextAlignmentLeft;
+    _count.textColor = UIColorFromRGB(0x666666);
+    [self addSubview:_count];
     if([_data.likes_user_list count])
     {
+        _count.text = [NSString stringWithFormat:@"%u位好友收藏",[_data.likes_user_list count]];
         [self showLikeUser];
     }
     else
@@ -119,13 +125,20 @@
             }
         }];
     }
+    CGFloat note_offset = 150;
     for (GKNote * note in _data.notes_list) {
+        
+        UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, note_offset, self.frame.size.width, 1)];
+        H.backgroundColor = UIColorFromRGB(0xf1f1f1);
+        [self addSubview:H];
+        
         GKUserButton * _avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
-        [_avatar setFrame:CGRectMake(10, 13, 35, 35)];
+        [_avatar setFrame:CGRectMake(20, note_offset+13, 35, 35)];
         _avatar.userBase = note.creator;
+        _avatar.delegate = _delegate;
         [self addSubview:_avatar];
         
-        UILabel *_nickname = [[UILabel alloc]initWithFrame:CGRectMake(53, 13, 240, 15)];
+        UILabel *_nickname = [[UILabel alloc]initWithFrame:CGRectMake(63, note_offset+13, 240, 15)];
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
@@ -136,11 +149,10 @@
         
         RatingView *_ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
         [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-        _ratingView.center = CGPointMake(_ratingView.center.x, 22);
         _ratingView.userInteractionEnabled = NO;
         [self addSubview:_ratingView];
         
-        UILabel * _note = [[UILabel alloc]initWithFrame:CGRectMake(53,y+2,240,400)];
+        UILabel * _note = [[UILabel alloc]initWithFrame:CGRectMake(63,y+2,240,400)];
         _note.font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
         _note.numberOfLines = 0;
         _note.textAlignment = NSTextAlignmentLeft;
@@ -151,9 +163,9 @@
         
         UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         CGSize size = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        _nickname.frame = CGRectMake(53, 13, size.width, size.height);
+        _nickname.frame = CGRectMake(63, note_offset+13, size.width, size.height);
         
-        _ratingView.frame = CGRectMake(53+size.width, 15,80 ,size.height);
+        _ratingView.frame = CGRectMake(63+size.width, note_offset+15,80 ,size.height);
         [_ratingView displayRating:note.score/2];
         
         font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
@@ -169,12 +181,12 @@
 {
     int i = 0;
     for (GKUserBase * user in _data.likes_user_list) {
-        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(20+i*34,110, 30, 30) useBg:NO cornerRadius:0];
+        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(160+i*34,110, 30, 30) useBg:NO cornerRadius:0];
         avatar.userBase = user;
         avatar.delegate = _delegate;
         [self addSubview:avatar];
         i++;
-        if(i>=9)
+        if(i>=6)
         {
             break;
         }

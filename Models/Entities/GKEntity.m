@@ -23,6 +23,7 @@ pid_list VARCHAR(255), \
 image_url VARCHAR(255), \
 price REAL, \
 avg_score REAL, \
+score_user_num INTEGER DEFAULT 0, \
 liked_count INTEGER DEFAULT 0, \
 used_count INTEGER DEFAULT 0, \
 my_score INTEGER DEFAULT 0, \
@@ -32,7 +33,7 @@ weight INTEGER DEFAULT 0)";
 static NSString * CREATE_ENTITY_INDEX = @"CREATE UNIQUE INDEX IF NOT EXISTS entity_pid_index ON entity (entity_id, pid)";
 
 
-static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,title, brand, image_url, price, avg_score,liked_count, used_count, weight,shop,remark,my_score,pid_list) VALUES(:entity_id,:pid ,:cid ,:title, :brand, :image_url, :price, :avg_score,:liked_count, :used_count, :weight,:shop,:remark,:my_score,:pid_list)";
+static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,title, brand, image_url, price, avg_score,score_user_num,liked_count, used_count, weight,shop,remark,my_score,pid_list) VALUES(:entity_id,:pid ,:cid ,:title, :brand, :image_url, :price, :avg_score,:score_user_num,:liked_count, :used_count, :weight,:shop,:remark,:my_score,:pid_list)";
 
 static NSString * INSERT_LITTLE_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid,weight) VALUES(:entity_id,:pid ,:cid ,:weight)";
 
@@ -134,8 +135,8 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _cid = [[attributes valueForKeyPath:@"cid"] intValue];
         _weight = 1;
         
-        //NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
-        //_entitylike = [[GKEntityLike alloc] initWithAttributes:a];
+        NSMutableDictionary * a = [[NSMutableDictionary alloc]initWithObjectsAndKeys:[attributes valueForKeyPath:@"entity_id"],@"entity_id",@"YES",@"status",nil];
+        _entitylike = [[GKEntityLike alloc] initWithAttributes:a];
         //[_entitylike saveToSQLite];
     }
     return self;

@@ -21,6 +21,7 @@
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
     [parameters setObject:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
     [parameters setObject:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
+     [parameters setObject:[NSString stringWithFormat:@"%u", 1] forKey:@"dedup"];
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/u/%d/folder/",user_id] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;

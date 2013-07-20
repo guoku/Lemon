@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKDetailViewController.m"
-         timestampString = "396003279.08056"
+         timestampString = "396009749.55593"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "450"
-         endingLineNumber = "450"
+         startingLineNumber = "461"
+         endingLineNumber = "461"
          landmarkName = "-notePokeChange:"
          landmarkType = "5">
       </FileBreakpoint>

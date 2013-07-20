@@ -30,6 +30,8 @@
     UIImageView *tabArrow;
     UIView * store;
     UIButton * mask;
+    RatingView *_ratingView;
+    UILabel *score;
 }
 
 @synthesize data = _data;
@@ -94,6 +96,15 @@
 {
     [super viewWillAppear:animated];
     self.detailHeaderView.detailData = _entity;
+    [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
+    if(_detailHeaderView.detailData.avg_score !=0)
+    {
+        score.text = [NSString stringWithFormat:@"%0.1f",_detailHeaderView.detailData.avg_score];
+    }
+    else
+    {
+        score.text = @"木有评分";
+    }
     [self.detailHeaderView.shareButton addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.detailHeaderView.buyInfoButton addTarget:self action:@selector(buyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -171,8 +182,8 @@
     else
     {
         _table.tableFooterView.hidden = NO;
-        [_table reloadData];
     }
+    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -306,14 +317,14 @@
     allnotelabel.text = @"  总体评价";
     [f5f4f4bg addSubview:allnotelabel];
     
-    RatingView *_ratingView = [[RatingView alloc]initWithFrame:CGRectMake(60, 0, 80, 40)];
+    _ratingView = [[RatingView alloc]initWithFrame:CGRectMake(60, 0, 80, 40)];
     [_ratingView setImagesDeselected:@"star_m.png" partlySelected:@"star_m_half.png" fullSelected:@"star_m_full.png" andDelegate:nil];
     _ratingView.center = CGPointMake(_ratingView.center.x, 20);
     _ratingView.userInteractionEnabled = NO;
     [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
     [f5f4f4bg addSubview:_ratingView];
     
-    UILabel *score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 80, 40)];
+    score = [[UILabel alloc]initWithFrame:CGRectMake(140, 0, 80, 40)];
     score.textAlignment = NSTextAlignmentLeft;
     score.backgroundColor = [UIColor clearColor];
     score.textColor =UIColorFromRGB(0x999999);

@@ -198,7 +198,6 @@
                 [self dismissViewControllerAnimated:YES completion:NULL];
             
             entityLike = [note valueForKeyPath:@"like_content"];
-            _data.liked_count = entityLike.status ? _data.liked_count + 1 : _data.liked_count - 1;
             if(_data.my_score)
             {
                 CGFloat sum = (_data.avg_score *_data.score_user_num) - _data.my_score + score;
@@ -226,23 +225,19 @@
             if(entityLike.status)
             {
                 needSave = YES;
-            }
-            else
-            {
-                [GKEntity deleteWithEntityID:entity.entity_id];
+                _data.liked_count ++;
+                [_message setValue:@(_data.entity_id) forKey:@"entityID"];
+                [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
+                [_message setValue:entityLike forKey:@"likeStatus"];
+                [_message setValue:_data forKey:@"entity"];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityLikeChange object:nil userInfo:_message];
             }
         
             if(needSave)
             {
                 [entity save];
             }
-            [_message setValue:@(_data.entity_id) forKey:@"entityID"];
-            [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
-            [_message setValue:entityLike forKey:@"likeStatus"];
-            [_message setValue:_data forKey:@"entity"];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityLikeChange object:nil userInfo:_message];
-
         }
         else
         {
