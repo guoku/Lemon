@@ -12,4 +12,5 @@
 @property (strong,nonatomic) NSObject *object;
 @property (nonatomic, weak) id<GKDelegate> delegate;
 @property (assign) NSUInteger pid;
+@property (assign) NSUInteger user_id;
 @end

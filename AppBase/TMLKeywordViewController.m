@@ -68,8 +68,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addNewNote:) name:GKAddNewNoteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityChange object:nil];
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
@@ -83,7 +83,6 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_EntityLikeChange object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:GKAddNewNoteNotification object:nil];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -509,19 +508,31 @@
 {
     NSDictionary *notidata = [noti userInfo];
     NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
-    NSUInteger score = [[notidata objectForKey:@"score"]integerValue];
+    NSUInteger index = -1;
+    GKEntity * e = [notidata objectForKey:@"entity"];
     
     for (GKEntity * entity in  [dataArrayDic objectForKey:@"best"]) {
         if(entity.entity_id == entity_id)
         {
-            entity.my_score = score;
+            index = [[dataArrayDic objectForKey:@"best"]indexOfObject:entity];
+            break;
         }
     }
+    if(index!=-1)
+    {
+        [[dataArrayDic objectForKey:@"best"] setObject:e atIndex:index];
+    }
+    index = -1;
     for (GKEntity * entity in  [dataArrayDic objectForKey:@"new"]) {
         if(entity.entity_id == entity_id)
         {
-            entity.my_score = score;
+            index = [[dataArrayDic objectForKey:@"new"]indexOfObject:entity];
+            break;
         }
+    }
+    if(index!=-1)
+    {
+        [[dataArrayDic objectForKey:@"new"] setObject:e atIndex:index];
     }
     [self.table reloadData];
 }

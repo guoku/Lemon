@@ -119,7 +119,6 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
                     GKLog(@"post result ------------%@", noteDict);
                     block([NSDictionary dictionaryWithDictionary:noteDict], nil);
                 }
-                [[NSNotificationCenter defaultCenter] postNotificationName:GKAddNewNoteNotification object:nil userInfo:noteDict];
             }
                 break;
             case NOTE_ID_ERROR:

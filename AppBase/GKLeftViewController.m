@@ -34,6 +34,7 @@
     UILabel * description;
     UILabel * tip;
     MMMCalendar * calendar;
+    BOOL flag;
 }
 @synthesize table = _table;
 #pragma mark - LifeCircle
@@ -44,6 +45,7 @@
         // Custom initialization
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         self.view.backgroundColor= UIColorFromRGB(0x403b3b);
+        flag = NO;
     }
     return self;
 }
@@ -207,6 +209,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    flag = NO;
   
 }
 
@@ -270,6 +273,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row+1) forKey:@"stage"];
+    if(flag)
+        return;
+    flag = YES;
     [self performSelector:@selector(close) withObject:self afterDelay:0.0];
     [self performSelector:@selector(PN) withObject:self afterDelay:0.05];
 

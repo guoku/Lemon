@@ -223,18 +223,24 @@
                     [entity save];
                 }
             }
-            if(entityLike.status)
+            if((entityLike.status)&&(!_data.entitylike.status))
             {
+                _data.entitylike = entityLike;
                 [_message setValue:@(_data.entity_id) forKey:@"entityID"];
                 [_message setValue:@(_data.liked_count) forKey: @"likeCount"];
-                [_message setValue:entityLike forKey:@"likeStatus"];
+                [_message setValue:_data.entitylike forKey:@"likeStatus"];
                 [_message setValue:_data forKey:@"entity"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityLikeChange object:nil userInfo:_message];
             }
             else
             {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityScoreChange object:nil userInfo:nil];
+                [_message setValue:@(_data.entity_id) forKey:@"entityID"];
+                [_message setValue:_data forKey:@"entity"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_EntityChange object:nil userInfo:_message];
             }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GKAddNewNoteNotification object:nil userInfo:note];
+            
 
           
         }

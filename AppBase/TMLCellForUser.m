@@ -147,6 +147,18 @@
         {
             [entitybg addSubview:check];
         }
+        else
+        {
+            GKUser * user = [[GKUser alloc]initFromNSU];
+            if(_user_id == user.user_id)
+            {
+                if(_entity.my_score)
+                {
+                    [entitybg addSubview:check];
+                }
+            }
+            
+        }
         
         UILabel * _brand = [[UILabel alloc]initWithFrame:CGRectZero];
         _brand.backgroundColor = [UIColor clearColor];

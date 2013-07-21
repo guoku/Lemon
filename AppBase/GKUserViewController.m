@@ -93,6 +93,7 @@
     [super viewDidLoad];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(entityChange:) name:kGKN_EntityChange object:nil];
     
     HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
     HeaderView.backgroundColor = UIColorFromRGB(0xf8f8f8);
@@ -362,7 +363,7 @@
                 }
                 NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
                 
-                for (int k = tmp_k; k< [array count];k++ ) {
+                for (int k = 0; k< [array count];k++ ) {
                     NSObject * object  =  [array objectAtIndex:k];
                     if([object isKindOfClass:[TMLKeyWord class]])
                     {
@@ -452,7 +453,7 @@
     NSUInteger section = [indexPath section];
     
     NSObject *object = [[[_dataArray objectAtIndex:section]objectForKey:@"row" ]objectAtIndex:row];
-    
+    cell.user_id = _user_id;
     if([object isKindOfClass:[GKEntity class]])
     {
         cell.object = object;
@@ -460,6 +461,8 @@
     else if ([object isKindOfClass:[TMLKeyWord class]])
     {
         cell.object = object;
+
+        
     }
     else if ([object isKindOfClass:[TMLCate class]])
     {
@@ -702,7 +705,7 @@
             }
             NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
             
-            for (int k = tmp_k; k< [array count];k++ ) {
+            for (int k = 0; k< [array count];k++ ) {
                 NSObject * object  =  [array objectAtIndex:k];
                 if([object isKindOfClass:[TMLKeyWord class]])
                 {
@@ -785,6 +788,48 @@
      [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
 
 }
+- (void)entityChange:(NSNotification *)noti
+{
+    
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
+    GKEntity * entity = [notidata objectForKey:@"entity"];
+    int index = -1;
+    for (GKEntity * e in  _entityArray) {
+        if(e.entity_id == entity_id)
+        {
+            index = [_entityArray indexOfObject:e];
+            entity.pid = e.pid;
+            break;
+        }
+    }
+    if(index!=-1)
+    {
+        [_entityArray replaceObjectAtIndex:index withObject:entity];
+    }
+    NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+    int i = -1;
+    for (int k = 0; k< [array count];k++ ) {
+        NSObject * object  =  [array objectAtIndex:k];
+        if([object isKindOfClass:[GKEntity class]])
+        {
+            i = k;
+            GKEntity * e =  (GKEntity * )object;
+            entity.pid = e.pid;
+            break;
+        }
+    }
+    if(i!=-1)
+    {
+        [[[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"] replaceObjectAtIndex:i withObject:entity];
+    }
+
+
+    
+    [self.table reloadData];
+    
+}
+
 - (void)shareButtonAction:(id)sender
 {
     UIActionSheet * shareOptionSheet = nil;

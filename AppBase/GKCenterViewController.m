@@ -82,7 +82,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kGKN_EntityScoreChange  object:nil];
     _titleArray = [NSMutableArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"2",@"pid",nil],
