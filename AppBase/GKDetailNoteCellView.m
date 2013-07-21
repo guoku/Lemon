@@ -201,7 +201,7 @@
 
     
     GKLog(@"%---------@", _noteData.created_time);
-    [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:yy"] forState:UIControlStateNormal];
+    [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
     [_time setFrame:CGRectMake(190,self.frame.size.height-30, 120, 30)];
     
     [_seperatorLineImageView setFrame:CGRectMake(0, self.frame.size.height-1, kScreenWidth, 1)];

@@ -336,6 +336,8 @@
                     [_entityArray addObject:entity];
                 }
             }
+            [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
+             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -358,12 +360,12 @@
                     }
                     else
                     {
-                        tmp_k = tmp_k + 1;
+                        tmp_k = tmp_k;
                     }
                 }
                 NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
                 
-                for (int k = 0; k< [array count];k++ ) {
+                for (int k = tmp_k; k< [array count];k++ ) {
                     NSObject * object  =  [array objectAtIndex:k];
                     if([object isKindOfClass:[TMLKeyWord class]])
                     {
@@ -680,6 +682,10 @@
         }
         entity.pid = pid;
         [_entityArray addObject:entity];
+        
+        [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
+         [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
+        
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
         _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         NSUInteger tmp_pid = 0;
@@ -700,12 +706,12 @@
                 }
                 else
                 {
-                    tmp_k = tmp_k + 1;
+                    tmp_k = tmp_k;
                 }
             }
             NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
             
-            for (int k = 0; k< [array count];k++ ) {
+            for (int k = tmp_k; k< [array count];k++ ) {
                 NSObject * object  =  [array objectAtIndex:k];
                 if([object isKindOfClass:[TMLKeyWord class]])
                 {
@@ -803,6 +809,7 @@
             break;
         }
     }
+    
     if(index!=-1)
     {
         [_entityArray replaceObjectAtIndex:index withObject:entity];

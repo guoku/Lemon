@@ -588,7 +588,6 @@
             
             [_message setValue:@(noteData.note_id) forKey:@"noteID"];
             [_message setValue:noteData forKey: @"note"];
-            
             [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_NotePokeChange object:nil userInfo:_message];
             
             [GKMessageBoard hideMB];

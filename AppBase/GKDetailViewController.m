@@ -32,6 +32,7 @@
     UIButton * mask;
     RatingView *_ratingView;
     UILabel *score;
+    __strong NSMutableDictionary * _message;
 }
 
 @synthesize data = _data;
@@ -47,6 +48,7 @@
         self.detailHeaderView = [[GKDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
         self.detailHeaderView.delegate =self;
         self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"商品"];
+        _message = [[NSMutableDictionary alloc]initWithCapacity:0];
     }
     return self;
 }
@@ -122,6 +124,9 @@
                 NSLog(@"%@",_data);
                 _friendarray = [[NSMutableArray alloc]initWithCapacity:0];
               
+                [_data.notes_list sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"poker_count" ascending:NO],
+                 [NSSortDescriptor sortDescriptorWithKey:@"created_time" ascending:YES]]];
+                
                 for (GKNote *note in _data.notes_list) {
                     if (note.creator.relation !=nil) 
                     {
@@ -137,6 +142,8 @@
                       
                     }
                 }
+                
+
              
                 self.detailHeaderView.detailData = _data;
                 GKEntity * entity = (GKEntity *)_data;
@@ -434,6 +441,8 @@
             {
 
             }
+            [_data.notes_list sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"poker_count" ascending:NO],
+             [NSSortDescriptor sortDescriptorWithKey:@"created_time" ascending:YES]]];
             [self.table reloadData];
         }
     }
@@ -470,11 +479,16 @@
         {
             int i =  [_data.notes_list indexOfObject:note];
             _data.notes_list[i] = noteData;
+            /*
             NSIndexPath * indexPath =  [NSIndexPath indexPathForRow:i inSection:0];
             NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
             [self.table reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+             */
         }
     }
+    [_data.notes_list sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"poker_count" ascending:NO],
+     [NSSortDescriptor sortDescriptorWithKey:@"created_time" ascending:YES]]];
+    [self.table reloadData];
 }
 
 #pragma mark - button action
@@ -823,6 +837,10 @@
             [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
             pokeBtn.selected = YES;
             pokeBtn.userInteractionEnabled = NO;
+            
+            [_message setValue:@(noteData.note_id) forKey:@"noteID"];
+            [_message setValue:noteData forKey: @"note"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGKN_NotePokeChange object:nil userInfo:_message];
             
             [GKMessageBoard hideMB];
         }
