@@ -117,12 +117,15 @@
     }
     else
     {
+        _count.text = [NSString stringWithFormat:@"好友都没收藏这件商品。"];
+        /*
         [GKUserBase getUserBaseByArray:_data.likes_list  Block:^(NSArray *list, NSError *error) {
             if(!error)
             {   _data.likes_user_list = [NSMutableArray arrayWithArray:list];
                 [self showLikeUser];
             }
         }];
+         */
     }
     CGFloat note_offset = 150;
     for (GKNote * note in _data.notes_list) {

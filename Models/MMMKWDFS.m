@@ -10,14 +10,13 @@
 
 @implementation MMMKWDFS
 @synthesize notes_list = _notes_list;
-@synthesize likes_list = _likes_list;
+@synthesize likes_user_list = _likes_user_list;
 
 - (id)initWithAttributes:(NSDictionary *)attributes
 {
     self = [super initWithAttributes:[attributes valueForKeyPath:@"entity"]];
     if (self)
     {
-        _likes_list = [NSMutableArray arrayWithArray:[attributes valueForKeyPath:@"collect_list"]];
         _likes_user_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"collect_list"] count]];
         _notes_list = [NSMutableArray arrayWithCapacity:[[attributes valueForKeyPath:@"note_list"] count]];
         for (NSDictionary * note_attrs in [attributes valueForKeyPath:@"note_list"] )
@@ -25,18 +24,23 @@
             GKNote * _note = [[GKNote alloc] initWithAttributes:note_attrs];
             [_notes_list addObject:_note];
         }
+        for(NSDictionary * userbase_attrs in [attributes valueForKeyPath:@"collect_list"] ){
+            
+            GKUserBase * user = [[GKUserBase alloc] initWithAttributes:attributes];
+            [_likes_user_list addObject:user];
+        }
 
     }
     return self;
 }
 
-+ (void)globalKWDFSWithPid:(NSUInteger)pid Cid:(NSUInteger)cid Page:(NSUInteger)page Date:(NSDate *)date
-                     Block:(void (^)(NSArray *array, NSError * error))block
++ (void)globalKWDFSWithPid:(NSUInteger)pid Cid:(NSUInteger)cid Offset:(NSUInteger)offset Date:(NSDate *)date
+                     Block:(void (^)(NSDictionary *dic, NSError * error))block
 {
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
     [parameters setObject:[NSString stringWithFormat:@"%u",pid] forKey:@"pid"];
     [parameters setObject:[NSString stringWithFormat:@"%u",cid] forKey:@"category_id"];
-    [parameters setObject:[NSString stringWithFormat:@"%u",page*30] forKey:@"offset"];
+    [parameters setObject:[NSString stringWithFormat:@"%u",offset] forKey:@"offset"];
     if (!date)
     {
         NSString * dataString = [NSDate now];
@@ -48,12 +52,13 @@
         GKLog(@"%@", JSON);
         NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
         NSMutableArray * array;
+        NSDate * date;
         for (NSDictionary *dic in _listresponse)
         {
             array = [NSMutableArray arrayWithCapacity:[[dic objectForKey:@"data"] count]];
+            date = [NSDate dateFromString:[dic objectForKey:@"last_since_time"]];
             for (NSDictionary * attributes in [dic objectForKey:@"data"])
             {
-                //NSLog(@"%@",attributes);
                 MMMKWDFS * entity = [[MMMKWDFS alloc] initWithAttributes:attributes];
                 [array addObject:entity];
             }
@@ -61,7 +66,7 @@
         
         if (block)
         {
-            block([NSArray arrayWithArray:array], nil);
+            block([NSDictionary dictionaryWithObjectsAndKeys:array,@"array",date,@"time",nil], nil);
         }
      
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

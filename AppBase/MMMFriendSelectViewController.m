@@ -13,9 +13,12 @@
 @interface MMMFriendSelectViewController ()
 {
 @private
+    NSDate * timestamp;
     NSUInteger _pid;
     NSUInteger _cid;
     NSMutableArray * _dataArray;
+    UIActivityIndicatorView *indicator;
+    BOOL _loadMoreflag;
 }
 @end
 
@@ -70,16 +73,26 @@
     _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
+    [self setFooterView:NO];
     
     [self.view addSubview:_table];
 }
 - (void)reload:(id)sender
 {
-    [MMMKWDFS globalKWDFSWithPid:_pid Cid:_cid Page:0 Date:nil Block:^(NSArray *array, NSError *error) {
+    [MMMKWDFS globalKWDFSWithPid:_pid Cid:_cid Offset:0 Date:nil Block:^(NSDictionary *dic, NSError *error) {
         if(!error)
         {
-            _dataArray = [[NSMutableArray alloc]initWithArray:array];
+            timestamp = [dic objectForKey:@"time"];
+            if([[dic objectForKey:@"array"] count]!=0)
+            {
+            _dataArray = [[NSMutableArray alloc]initWithArray:[dic objectForKey:@"array"]];
+            [self setFooterView:YES];
             [self.table reloadData];
+            }
+            else
+            {
+                [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
         }
     }];
 }
@@ -128,12 +141,86 @@
 {
     return [TableViewCellForMMMFS height:[_dataArray objectAtIndex:indexPath.row]];
 }
-/*
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+
+    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
+        if(!_loadMoreflag)
+        {
+            _loadMoreflag = YES;
+            [self loadMore];
+        }
+	}
+	
 }
- */
+- (void)setFooterView:(BOOL)yes
+{
+    if (yes) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44.0f)];
+        UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        LoadMoreBtn.frame = CGRectMake(0, 0, 320.0f, 44.0f);
+        [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
+        [LoadMoreBtn setUserInteractionEnabled:YES];
+        [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
+        LoadMoreBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        
+        [LoadMoreBtn addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:LoadMoreBtn];
+        
+        self.table.tableFooterView = footerView;
+    }
+    else {
+        self.table.tableFooterView = nil;
+    }
+}
+- (void)loadMore
+{
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0, 0, kScreenWidth, 44);
+    indicator.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    indicator.center = CGPointMake(kScreenWidth/2, 22.0f);
+    indicator.hidesWhenStopped = YES;
+    [indicator startAnimating];
+    [self.table.tableFooterView addSubview:indicator];
+    
+    [MMMKWDFS globalKWDFSWithPid:_pid Cid:_cid Offset:[_dataArray count] Date:timestamp Block:^(NSDictionary *dic, NSError *error) {
+        
+        if(!error)
+        {
+            timestamp = [dic objectForKey:@"time"];
+            [_dataArray addObjectsFromArray:[dic objectForKey:@"array"]];
+            [self.table reloadData];
+            [indicator stopAnimating];
+            _loadMoreflag = NO;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }
+        else
+        {
+            [indicator stopAnimating];
+            _loadMoreflag = NO;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+            
+        }
+    }];
+    
+}
+
 
 
 @end

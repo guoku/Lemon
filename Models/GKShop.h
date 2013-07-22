@@ -13,6 +13,10 @@
 @property (readonly) NSString * title;
 @property (readonly) float price;
 @property (readonly) NSString * url;
+@property (readonly) float item_score;
+@property (readonly) float delivery_score;
+@property (readonly) float service_score;
+@property (readonly) NSUInteger volume;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 @end

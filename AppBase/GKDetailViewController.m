@@ -565,7 +565,7 @@
     webview_toolbar_bg.frame = CGRectMake(0, store.frame.size.height - 44, kScreenWidth, 44);
     [store addSubview:webview_toolbar_bg];
     
-    UIButton * _cancel = [[UIButton alloc]initWithFrame:CGRectMake(10, store.frame.size.height - 37, 50, 30)];
+    UIButton * _cancel = [[UIButton alloc]initWithFrame:CGRectMake(10, store.frame.size.height - 35, 50, 30)];
     [_cancel setTitle:@"完成" forState:UIControlStateNormal];
     [_cancel.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
     [_cancel setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
@@ -603,19 +603,28 @@
         button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         [button.titleLabel setTextAlignment:NSTextAlignmentRight];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 15, 32)];
         [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [button setTitle:[NSString stringWithFormat:@"￥%.2f",shop.price] forState:UIControlStateNormal];
         button.tag = i;
         [button addTarget:self action:@selector(shopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(20,5,200 ,button.frame.size.height-10)];
+        UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(12,7,200 ,15)];
         name.backgroundColor = [UIColor clearColor];
         name.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         name.textAlignment = NSTextAlignmentLeft;
         name.textColor = UIColorFromRGB(0x666666);
         name.text = shop.title;
         [button addSubview:name];
+        
+        UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(12,23,kScreenWidth-12 ,15)];
+        description.backgroundColor = [UIColor clearColor];
+        description.font = [UIFont fontWithName:@"Helvetica" size:9.0f];
+        description.textAlignment = NSTextAlignmentLeft;
+        description.textColor = UIColorFromRGB(0x666666);
+        description.text = [NSString stringWithFormat:@"描述相符：%0.1f  服务态度：%0.1f 发货速度：%0.1f       最近售出：%u笔",shop.item_score,shop.service_score,shop.delivery_score,shop.volume];
+        [button addSubview:description];
+        
         
         UIImageView * arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
         arrow.center = CGPointMake(button.frame.size.width-20, button.frame.size.height/2);
