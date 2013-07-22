@@ -132,12 +132,12 @@
         [self addSubview:H];
         
         GKUserButton * _avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
-        [_avatar setFrame:CGRectMake(20, note_offset+13, 35, 35)];
+        [_avatar setFrame:CGRectMake(20, note_offset+8, 35, 35)];
         _avatar.userBase = note.creator;
         _avatar.delegate = _delegate;
         [self addSubview:_avatar];
         
-        UILabel *_nickname = [[UILabel alloc]initWithFrame:CGRectMake(63, note_offset+13, 240, 15)];
+        UILabel *_nickname = [[UILabel alloc]initWithFrame:CGRectMake(63, note_offset+8, 240, 15)];
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
@@ -162,9 +162,9 @@
         
         UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         CGSize size = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        _nickname.frame = CGRectMake(63, note_offset+13, size.width, size.height);
+        _nickname.frame = CGRectMake(63, note_offset+8, size.width, size.height);
         
-        _ratingView.frame = CGRectMake(63+size.width, note_offset+15,80 ,size.height);
+        _ratingView.frame = CGRectMake(63+size.width, note_offset+10,80 ,size.height);
         [_ratingView displayRating:note.score/2];
         
         font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
@@ -173,8 +173,14 @@
         [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+5)];
         _note.text = note.note;
         
-        note_offset = note_offset+size.height;
-
+        if(size.height>40)
+        {
+            note_offset = note_offset+size.height+10;
+        }
+        else
+        {
+            note_offset = note_offset+50;
+        }
 
     }
 }
@@ -196,12 +202,19 @@
 }
 + (float)height:(MMMKWDFS *)data;
 {
-    CGFloat y = 200;
+    CGFloat y = 160;
     for (GKNote * note in data.notes_list) {
         
         UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
         CGSize size = [note.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        y = y+size.height;
+        if(size.height>40)
+        {
+            y = y+size.height+10;
+        }
+        else
+        {
+            y = y+50;
+        }
     }
     return y;
 }
