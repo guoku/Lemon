@@ -362,7 +362,7 @@
         [f5f4f4bg addSubview:friendtab];
         friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
         
-        UIView * V = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 1, 40)];
+        UIView * V = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 1, 39)];
         V.backgroundColor = [UIColor colorWithRed:220.0f / 255.0f green:219.0f / 255.0f blue:219.0 / 255.0f alpha:1.0f];
         [f5f4f4bg addSubview:V];
         
@@ -561,20 +561,24 @@
     store = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight+20, kScreenWidth, 44+30+num*55)];
     store.backgroundColor = UIColorFromRGB(0xf9f9f9);
     
+    UIImageView * webview_toolbar_bg = [[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"webview_toolbar.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]];
+    webview_toolbar_bg.frame = CGRectMake(0, store.frame.size.height - 44, kScreenWidth, 44);
+    [store addSubview:webview_toolbar_bg];
+    
     UIButton * _cancel = [[UIButton alloc]initWithFrame:CGRectMake(10, store.frame.size.height - 37, 50, 30)];
     [_cancel setTitle:@"完成" forState:UIControlStateNormal];
     [_cancel.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
     [_cancel setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [_cancel setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
-    [_cancel setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
-    [_cancel setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+    [_cancel setBackgroundImage:[[UIImage imageNamed:@"webview_button.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateNormal];
+    [_cancel setBackgroundImage:[[UIImage imageNamed:@"webview_button_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10 ] forState:UIControlStateHighlighted];
     [_cancel addTarget:self action:@selector(HideShop) forControlEvents:UIControlEventTouchUpInside];
     [store addSubview:_cancel];
-    
+    /*
     UIImageView *H1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, store.frame.size.height - 44, kScreenWidth, 2)];
     [H1 setImage:[UIImage imageNamed:@"review_divider.png"]];
     [store addSubview:H1];
-    
+    */
     UIImageView *H2 = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 25, kScreenWidth, 2)];
     [H2 setImage:[UIImage imageNamed:@"review_divider.png"]];
     [store addSubview:H2];
@@ -593,7 +597,7 @@
     int i = 0;
     for (GKShop * shop in _detailHeaderView.detailData.purchase_list) {
 
-        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 35+i*55, kScreenWidth-20, 40)];
+        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 35+i*55, kScreenWidth-20, 44)];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
         button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
@@ -607,7 +611,7 @@
         
         UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(20,5,200 ,button.frame.size.height-10)];
         name.backgroundColor = [UIColor clearColor];
-        name.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
+        name.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         name.textAlignment = NSTextAlignmentLeft;
         name.textColor = UIColorFromRGB(0x666666);
         name.text = shop.title;
