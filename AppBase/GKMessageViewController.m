@@ -20,6 +20,9 @@
 {
 @private
     NSMutableArray * _dataArray;
+        BOOL _loadMoreflag;
+        UIActivityIndicatorView *indicator;
+        BOOL _canLoadMore;
 }
 @synthesize table = _table;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,6 +46,8 @@
         [friendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [friendBTN addTarget:self action:@selector(showRightMenu) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:friendBTN];
+        
+                _canLoadMore =NO;
     }
     return self;
 }
@@ -53,9 +58,21 @@
         if(!error)
         {
             _dataArray = [NSMutableArray arrayWithArray:messages];
+            [_dataArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"created_time" ascending:NO]]];
+            if([messages count]!=0)
+            {
+                [self setFooterView:YES];
+            }
+            else
+            {
+                [self setFooterView:NO];
+                [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
+            
 
             [self.table reloadData];
             [self doneLoadingTableViewData];
+       
         }
         else
         {
@@ -99,7 +116,7 @@
     _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
-    
+    [self setFooterView:NO];
     [self.view addSubview:_table];
     
     if(_refreshHeaderView == nil)
@@ -111,7 +128,6 @@
     }
     [_refreshHeaderView refreshLastUpdatedDate];
     
-    //self.table.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
 }
 
 - (void)viewDidLoad
@@ -181,8 +197,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //return [TableViewCellForMessage height:[_dataArray objectAtIndex:indexPath.row]];
-    return 100;
+    return [TableViewCellForMessage height:[_dataArray objectAtIndex:indexPath.row]];
+    //return 100;
 }
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -258,6 +274,14 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 	
 	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    
+    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
+        if((!_loadMoreflag&&!_reloading)&&_canLoadMore)
+        {
+            _loadMoreflag = YES;
+            [self loadMore];
+        }
+	}
 	
 }
 #pragma mark -
@@ -297,5 +321,84 @@
 - (void)showRightMenu
 {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideRight animated:YES completion:NULL];
+}
+- (void)setFooterView:(BOOL)yes
+{
+    if (yes) {
+               _canLoadMore =YES;
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44.0f)];
+        UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        LoadMoreBtn.frame = CGRectMake(0, 0, 320.0f, 44.0f);
+        [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
+        [LoadMoreBtn setUserInteractionEnabled:YES];
+        [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
+        LoadMoreBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        
+        [LoadMoreBtn addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:LoadMoreBtn];
+        
+        self.table.tableFooterView = footerView;
+    }
+    else {
+        _canLoadMore =NO;
+        self.table.tableFooterView = nil;
+    }
+}
+- (void)loadMore
+{
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0, 0, kScreenWidth, 44);
+    indicator.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    indicator.center = CGPointMake(kScreenWidth/2, 22.0f);
+    indicator.hidesWhenStopped = YES;
+    [indicator startAnimating];
+    [self.table.tableFooterView addSubview:indicator];
+    GKMessages *last = [_dataArray lastObject];
+    NSDate * timestamp = last.created_time;
+    
+    [GKMessages getUserMessageWithPostBefore:timestamp Block:^(NSArray *messages, NSError *error) {
+        if(!error)
+        {
+            if([messages count]!=0)
+            {
+                [_dataArray addObjectsFromArray:messages];
+                [_dataArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"created_time" ascending:NO]]];
+                [self setFooterView:YES];
+                [self.table reloadData];
+            }
+            else
+            {
+              //  [self setFooterView:NO];
+                [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
+
+            [indicator stopAnimating];
+            _loadMoreflag = NO;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }
+        else
+        {
+            [indicator stopAnimating];
+            _loadMoreflag = NO;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+            
+        }
+    }];
+    
 }
 @end

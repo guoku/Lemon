@@ -34,7 +34,6 @@
     UILabel * description;
     UILabel * tip;
     MMMCalendar * calendar;
-    BOOL flag;
 }
 @synthesize table = _table;
 #pragma mark - LifeCircle
@@ -45,7 +44,6 @@
         // Custom initialization
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         self.view.backgroundColor= UIColorFromRGB(0x403b3b);
-        flag = NO;
     }
     return self;
 }
@@ -209,7 +207,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    flag = NO;
+    _table.allowsSelection = YES;
   
 }
 
@@ -273,9 +271,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row+1) forKey:@"stage"];
-    if(flag)
-        return;
-    flag = YES;
+    _table.allowsSelection = NO;
+    
     [self performSelector:@selector(close) withObject:self afterDelay:0.0];
     [self performSelector:@selector(PN) withObject:self afterDelay:0.05];
 
@@ -313,6 +310,7 @@
 - (void)PN
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"stageChange" object:nil userInfo:nil];
+
 }
 #pragma mark - 按钮方法
 - (void)settingButtonAction

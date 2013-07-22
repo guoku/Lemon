@@ -19,6 +19,7 @@
     NSMutableArray * _dataArray;
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
+        BOOL _canLoadMore;
 }
 @end
 
@@ -30,6 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+                _canLoadMore =NO;
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
@@ -146,7 +148,7 @@
     
 
     if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
-        if(!_loadMoreflag)
+        if((!_loadMoreflag)&&_canLoadMore)
         {
             _loadMoreflag = YES;
             [self loadMore];
@@ -157,6 +159,7 @@
 - (void)setFooterView:(BOOL)yes
 {
     if (yes) {
+        _canLoadMore =YES;
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44.0f)];
         UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         LoadMoreBtn.frame = CGRectMake(0, 0, 320.0f, 44.0f);
@@ -174,6 +177,7 @@
         self.table.tableFooterView = footerView;
     }
     else {
+        _canLoadMore =NO;
         self.table.tableFooterView = nil;
     }
 }
@@ -193,7 +197,16 @@
         if(!error)
         {
             timestamp = [dic objectForKey:@"time"];
-            [_dataArray addObjectsFromArray:[dic objectForKey:@"array"]];
+            if([[dic objectForKey:@"array"] count]!=0)
+            {
+                [_dataArray addObjectsFromArray:[dic objectForKey:@"array"]];
+                [self setFooterView:YES];
+            }
+            else
+            {
+                //[self setFooterView:NO];
+                [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
             [self.table reloadData];
             [indicator stopAnimating];
             _loadMoreflag = NO;

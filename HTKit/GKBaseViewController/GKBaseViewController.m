@@ -39,6 +39,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    /*
     if([self.navigationController.viewControllers count] >3)
     {
 
@@ -49,6 +50,7 @@
             [alertView show];
         }
     }
+     */
 }
 - (void)viewDidDisappear:(BOOL)animated
 {

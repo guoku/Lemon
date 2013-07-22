@@ -77,9 +77,11 @@
 }
 
 - (void) motionWasRecognized:(NSNotification*)notif {
+    /*
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"果库小提示：\n摇晃设备可迅速返回最上层" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"返回最上层", nil];
     [alertView show];
+     */
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

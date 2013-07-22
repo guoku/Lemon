@@ -137,6 +137,10 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        [self addSubview:_avatar];
+        _avatar.userBase = message.user;
+        
         RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
         [message_label setParagraphReplacement:@""];
         
