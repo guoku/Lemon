@@ -72,7 +72,6 @@
     
     RatingView *_ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
     [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-    _ratingView.center = CGPointMake(_ratingView.center.x, 22);
     _ratingView.userInteractionEnabled = NO;
     [self addSubview:_ratingView];
     
@@ -173,6 +172,8 @@
         GKLog(@"%@",NSStringFromCGSize(size));
         [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+5)];
         _note.text = note.note;
+        
+        note_offset = note_offset+size.height;
 
 
     }
@@ -181,7 +182,7 @@
 {
     int i = 0;
     for (GKUserBase * user in _data.likes_user_list) {
-        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(160+i*34,110, 30, 30) useBg:NO cornerRadius:0];
+        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(100+i*34,110, 30, 30) useBg:NO cornerRadius:0];
         avatar.userBase = user;
         avatar.delegate = _delegate;
         [self addSubview:avatar];

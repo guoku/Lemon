@@ -30,7 +30,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(15, 10, 40, 40)];
+        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(15, 10, 40, 40) useBg:YES cornerRadius:20];
         [self addSubview:_avatar];
         
         

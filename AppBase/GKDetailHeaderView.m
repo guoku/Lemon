@@ -79,6 +79,7 @@
         [_entityImageView setFrame:CGRectMake(5,10,125,125)];
         _entityImageView.userInteractionEnabled = NO;
         [self addSubview:_entityImageView];
+
         
         self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectMake(220, 100, 70, 26)];
         UIEdgeInsets insets = UIEdgeInsetsMake(5, 15, 5, 5);
@@ -92,6 +93,12 @@
         y = _entityImageView.frame.origin.y + _entityImageView.frame.size.height;
 
         y = y+10;
+        
+        
+        UIView * H1 = [[UIView alloc]initWithFrame:CGRectMake(0,y-1, kScreenWidth, 1)];
+        H1.backgroundColor = UIColorFromRGB(0xECEAEA);
+        [self addSubview:H1];
+        
         UIView *f9f9f9bg = [[UIView alloc]initWithFrame:CGRectMake(0, y, kScreenWidth, 60)];
         f9f9f9bg.backgroundColor = UIColorFromRGB(0xf9f9f9);
         [self addSubview:f9f9f9bg];

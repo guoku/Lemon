@@ -317,6 +317,8 @@
     UIView *f5f4f4bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     f5f4f4bg.backgroundColor =UIColorFromRGB(0xf5f4f4);
     
+
+    
     UILabel *allnotelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-80, 40)];
     allnotelabel.textAlignment = NSTextAlignmentLeft;
     allnotelabel.textColor =UIColorFromRGB(0x999999);
@@ -345,7 +347,8 @@
     }
     [f5f4f4bg addSubview:score];
     
-    
+    tabArrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
+    tabArrow.frame = CGRectMake(0, 33, 12, 7);
     
     if([_friendarray count]!=0)
     {
@@ -380,9 +383,11 @@
     {
          tabArrow.hidden = YES;
     }
+    UIView * H2 = [[UIView alloc]initWithFrame:CGRectMake(0, f5f4f4bg.frame.size.height-1, kScreenWidth, 1)];
+    H2.backgroundColor = UIColorFromRGB(0xE3E2E2);
+    [f5f4f4bg addSubview:H2];
     
-    tabArrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
-    tabArrow.frame = CGRectMake(0, 33, 12, 7);
+
     if(friendonly)
     {
         tabArrow.center = CGPointMake(kScreenWidth-40, tabArrow.center.y);
@@ -394,6 +399,11 @@
     [f5f4f4bg addSubview:tabArrow];
 
     
+    UIView * H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    H1.backgroundColor = UIColorFromRGB(0xE0E0E0);
+    [f5f4f4bg addSubview:H1];
+    
+
     
     return f5f4f4bg;
 }

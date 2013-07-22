@@ -251,7 +251,7 @@
     cell.user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
     [[cell viewWithTag:4003]removeFromSuperview];
 
-        UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 42, 260, 2)];
+        UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height-2, 260, 2)];
         _seperatorLineImageView.tag = 4003;
         [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
         [cell addSubview:_seperatorLineImageView];
@@ -297,7 +297,7 @@
     }
     [view addSubview:tip];
     
-    UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, view.frame.size.width, 2)];
+    UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,view.frame.size.height-2 , view.frame.size.width, 2)];
     [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_shadow_down@2x.png"]];
     [view addSubview:_seperatorLineImageView];
     

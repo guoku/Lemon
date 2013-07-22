@@ -42,6 +42,7 @@
     MMMCalendar * calendar;
     UIButton * _shareButton;
     float y;
+    NSUInteger page;
 }
 @synthesize user = _user;
 
@@ -61,6 +62,7 @@
         [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+        page = 1;
         
     }
     return self;
@@ -187,7 +189,7 @@
     [likeNumBTN setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [likeNumBTN setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
     [likeNumBTN setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 20, 0)];
-    likeNumBTN.userInteractionEnabled = NO;
+    [likeNumBTN addTarget:self action:@selector(showLikeButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [user_bg addSubview:likeNumBTN];
     
     _shareButton = [[UIButton alloc]initWithFrame:CGRectMake(203, user_bg.frame.size.height-40, 50, 30)];
@@ -277,7 +279,10 @@
             [followNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.follows_count] forState:UIControlStateNormal];
             [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
             [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
-            [self loadEntityList];
+            if([_dataArray count]==0)
+            {
+                [self loadEntityList];
+            }
             GKUser * user = [[GKUser alloc]initFromNSU];
             if(user.user_id == _user.user_id)
             {
@@ -316,9 +321,8 @@
 }
 -(void)loadEntityList
 {
-    if([_dataArray count]==0)
-    {
-    [GKVisitedUser visitedUserWithUserID:_user_id Page:1 Block:^(NSArray *entitylist, NSError *error) {
+    page = 1;
+    [GKVisitedUser visitedUserWithUserID:_user_id Page:page Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
             _entityArray = [NSMutableArray arrayWithCapacity:0];
@@ -427,7 +431,118 @@
             }
         }
     }];
-    }
+}
+-(void)loadMoreEntityList
+{
+    page++;
+    [GKVisitedUser visitedUserWithUserID:_user_id Page:page Block:^(NSArray *entitylist, NSError *error) {
+        if(!error)
+        {
+            for (GKEntity * entity in entitylist) {
+                BOOL flag = YES;
+                for (GKEntity * e in _entityArray) {
+                    if(e.entity_id == entity.entity_id)
+                    {
+                        flag = NO;
+                        break;
+                    }
+                }
+                if(flag)
+                {
+                    [_entityArray addObject:entity];
+                }
+            }
+            [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
+             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
+            
+            NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
+            _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            NSUInteger tmp_pid = 0;
+            NSUInteger tmp_k = 0;
+            for (int i = 0;i< [_entityArray count];i++) {
+                GKEntity * entity = [_entityArray objectAtIndex:i];
+                
+                if(tmp_pid == 0)
+                {
+                    tmp_pid = entity.pid;
+                }
+                else
+                {
+                    if(entity.pid != tmp_pid)
+                    {
+                        tmp_pid = entity.pid;
+                        tmp_k = 0;
+                    }
+                    else
+                    {
+                        tmp_k = tmp_k;
+                    }
+                }
+                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+                
+                for (int k = tmp_k; k< [array count];k++ ) {
+                    NSObject * object  =  [array objectAtIndex:k];
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        if(((TMLKeyWord *)object).kid == entity.cid)
+                        {
+                            [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
+                            break;
+                        }
+                    }
+                }
+                
+            }
+            NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
+            for (NSMutableDictionary * dic in _dataArray) {
+                NSMutableArray *array =  [dic objectForKey:@"row"];
+                NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
+                for (NSObject * object  in array ) {
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        
+                        NSUInteger  i = [array indexOfObjectIdenticalTo:object];
+                        if(i< ([array count]-1))
+                        {
+                            if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
+                            {
+                                [k_array addObject:object];
+                                
+                            }
+                        }
+                        else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
+                        {
+                            [k_array addObject:object];
+                        }
+                    }
+                    
+                }
+                
+                [array removeObjectsInArray:k_array];
+                if([array count]==0)
+                {
+                    [s_array addObject:dic];
+                }
+            }
+            [_dataArray removeObjectsInArray:s_array];
+            [self.table reloadData];
+        }
+        else
+        {
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+        }
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -612,6 +727,11 @@
 - (void)goFansButtonAction:(id)sender
 {
         [self showUserFansWithUserID:_user_id];
+}
+- (void)showLikeButtonAction
+{
+    NSIndexPath * indexPath =  [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)userFollowChange:(NSNotification *)noti

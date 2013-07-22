@@ -141,15 +141,22 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
     view.backgroundColor = [UIColor clearColor];
     
-    UIImageView *backgroundView =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 42)];
-    backgroundView.image = [[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1];
-    [view addSubview:backgroundView];
+    //UIImageView *backgroundView =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 42)];
+    //backgroundView.image = [[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1];
+    //[view addSubview:backgroundView];
     
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     bg.backgroundColor =[UIColor clearColor];
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 90, 40)];
-    [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateNormal];
+    
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 90, 42)];
+    [button setImage:[UIImage imageNamed:@"category_icon_star.png"]forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"category_icon_star.png"] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [button addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
+    [button addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
+    [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
     
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -161,9 +168,11 @@
     [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     button.tag = 4001;
     
-    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(90, 0, 90, 40)];
+    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(90, 0, 90, 42)];
     [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateHighlighted];
+    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
     [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
@@ -172,11 +181,17 @@
     [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button2 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button2 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
+    [button2 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
+    [button2 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
+    [button2 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
     button2.tag = 4002;
     
-    UIButton *button3 = [[UIButton alloc]initWithFrame:CGRectMake(180, 0, 140, 40)];
+    UIButton *button3 = [[UIButton alloc]initWithFrame:CGRectMake(180, 0, 140, 42)];
     [button3 setImage:[UIImage imageNamed:@"category_icon_friends.png"] forState:UIControlStateNormal];
     [button3 setImage:[UIImage imageNamed:@"category_icon_friends.png"] forState:UIControlStateHighlighted];
+    [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+    [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
     [button3.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button3.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -185,6 +200,10 @@
     [button3 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button3 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button3 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button3 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
+    [button3 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
+    [button3 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
+    [button3 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
     button3.tag = 4003;
     
     UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
@@ -364,6 +383,7 @@
 
 - (void)TapButtonAction:(id)sender
 {
+    [self changeArrowNormal:sender];
     [yOffsetDictionary setObject:@(_table.contentOffset.y) forKey:group];
     switch (((UIButton *)sender).tag) {
         case 4001:
@@ -413,6 +433,42 @@
             break;
     }
 }
+- (void)changeArrowNormal:(id)sender
+{
+    cate_arrow.image = [UIImage imageNamed:@"category_arrow.png"];
+
+}
+- (void)changeArrowPress:(id)sender
+{
+
+    switch (((UIButton *)sender).tag) {
+        case 4001:
+        {
+            if([group isEqualToString:@"best"])
+            {
+                cate_arrow.image = [UIImage imageNamed:@"category_arrow_press.png"];
+            }
+        }
+            break;
+        case 4002:
+        {
+            if([group isEqualToString:@"new"])
+            {
+                cate_arrow.image = [UIImage imageNamed:@"category_arrow_press.png"];
+            }
+            
+        }
+            break;
+        case 4003:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)reloadDataWithYoffset
 {
     [self.table reloadData];
@@ -569,5 +625,6 @@
     [self.table reloadData];
     
 }
+
 
 @end
