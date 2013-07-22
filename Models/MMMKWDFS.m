@@ -26,7 +26,7 @@
         }
         for(NSDictionary * userbase_attrs in [attributes valueForKeyPath:@"collect_list"] ){
             
-            GKUserBase * user = [[GKUserBase alloc] initWithAttributes:attributes];
+            GKUserBase * user = [[GKUserBase alloc] initWithAttributes:userbase_attrs];
             [_likes_user_list addObject:user];
         }
 

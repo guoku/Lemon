@@ -110,7 +110,7 @@
     _count.textAlignment = NSTextAlignmentLeft;
     _count.textColor = UIColorFromRGB(0x666666);
     [self addSubview:_count];
-    if([_data.likes_user_list count])
+    if([_data.likes_user_list count]!=0)
     {
         _count.text = [NSString stringWithFormat:@"%u位好友收藏",[_data.likes_user_list count]];
         [self showLikeUser];

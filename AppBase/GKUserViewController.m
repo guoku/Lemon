@@ -43,6 +43,9 @@
     UIButton * _shareButton;
     float y;
     NSUInteger page;
+    UIActivityIndicatorView *indicator;
+    BOOL _loadMoreflag;
+    BOOL _canLoadMore;
 }
 @synthesize user = _user;
 
@@ -239,7 +242,8 @@
     [_table setDataSource:self];
     [self.view addSubview:_table];
     [self setTableHeaderView];
-    [self setTableFooterView];
+    //[self setTableFooterView];
+    [self setFooterView:NO];
     y = self.table.contentOffset.y;
     
     UIView * calendarTimelineBG = [[UIView alloc]initWithFrame:CGRectMake(0,0,40,50)];
@@ -414,118 +418,8 @@
                 }
             }
             [_dataArray removeObjectsInArray:s_array];
-            [self.table reloadData];
-        }
-        else
-        {
-            switch (error.code) {
-                case -999:
-                    [GKMessageBoard hideMB];
-                    break;
-                default:
-                {
-                    NSString * errorMsg = [error localizedDescription];
-                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
-                }
-                    break;
-            }
-        }
-    }];
-}
--(void)loadMoreEntityList
-{
-    page++;
-    [GKVisitedUser visitedUserWithUserID:_user_id Page:page Block:^(NSArray *entitylist, NSError *error) {
-        if(!error)
-        {
-            for (GKEntity * entity in entitylist) {
-                BOOL flag = YES;
-                for (GKEntity * e in _entityArray) {
-                    if(e.entity_id == entity.entity_id)
-                    {
-                        flag = NO;
-                        break;
-                    }
-                }
-                if(flag)
-                {
-                    [_entityArray addObject:entity];
-                }
-            }
-            [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
-             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
             
-            NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
-            _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            
-            NSUInteger tmp_pid = 0;
-            NSUInteger tmp_k = 0;
-            for (int i = 0;i< [_entityArray count];i++) {
-                GKEntity * entity = [_entityArray objectAtIndex:i];
-                
-                if(tmp_pid == 0)
-                {
-                    tmp_pid = entity.pid;
-                }
-                else
-                {
-                    if(entity.pid != tmp_pid)
-                    {
-                        tmp_pid = entity.pid;
-                        tmp_k = 0;
-                    }
-                    else
-                    {
-                        tmp_k = tmp_k;
-                    }
-                }
-                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
-                
-                for (int k = tmp_k; k< [array count];k++ ) {
-                    NSObject * object  =  [array objectAtIndex:k];
-                    if([object isKindOfClass:[TMLKeyWord class]])
-                    {
-                        if(((TMLKeyWord *)object).kid == entity.cid)
-                        {
-                            [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
-                            break;
-                        }
-                    }
-                }
-                
-            }
-            NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
-            for (NSMutableDictionary * dic in _dataArray) {
-                NSMutableArray *array =  [dic objectForKey:@"row"];
-                NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
-                for (NSObject * object  in array ) {
-                    if([object isKindOfClass:[TMLKeyWord class]])
-                    {
-                        
-                        NSUInteger  i = [array indexOfObjectIdenticalTo:object];
-                        if(i< ([array count]-1))
-                        {
-                            if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
-                            {
-                                [k_array addObject:object];
-                                
-                            }
-                        }
-                        else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
-                        {
-                            [k_array addObject:object];
-                        }
-                    }
-                    
-                }
-                
-                [array removeObjectsInArray:k_array];
-                if([array count]==0)
-                {
-                    [s_array addObject:dic];
-                }
-            }
-            [_dataArray removeObjectsInArray:s_array];
+            [self setFooterView:YES];
             [self.table reloadData];
         }
         else
@@ -712,6 +606,7 @@
     footerview.layer.masksToBounds = NO;
     [footerview addSubview:view];
     _table.tableFooterView = footerview;
+    
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     GKLog(@"offset:%f",scrollView.contentOffset.y);
@@ -1048,6 +943,174 @@
     else{
         [GKMessageBoard showMBWithText:@"图片太大，请关闭高清图片按钮" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
     }
+}
+
+- (void)setFooterView:(BOOL)yes
+{
+    UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0,self.view.frame.size.width, self.view.bounds.size.height)];
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
+    
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,view.frame.size.height)];
+    line.center = CGPointMake(20, line.center.y);
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
+    [view addSubview:line];
+    
+    UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
+    colorf9f9f9.backgroundColor =UIColorFromRGB(0xf9f9f9);
+    [view addSubview:colorf9f9f9];
+    
+    footerview.layer.masksToBounds = NO;
+    [footerview addSubview:view];
+    _table.tableFooterView = footerview;
+    if (yes) {
+        _canLoadMore =YES;
+        UIButton * LoadMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        LoadMoreBtn.frame = CGRectMake(40, 0, 320.0f-40, 44.0f);
+        [LoadMoreBtn setBackgroundColor:[UIColor clearColor]];
+        [LoadMoreBtn setUserInteractionEnabled:YES];
+        [LoadMoreBtn setTitle:@"点击查看更多" forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [LoadMoreBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateHighlighted];
+        LoadMoreBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        LoadMoreBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        LoadMoreBtn.tag = 9090;
+        [LoadMoreBtn addTarget:self action:@selector(loadMore) forControlEvents:UIControlEventTouchUpInside];
+        [footerview addSubview:LoadMoreBtn];
+    }
+    else {
+        _canLoadMore =NO;
+        [[footerview viewWithTag:9090]removeFromSuperview];
+
+    }
+}
+- (void)loadMore
+{
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(40, 0, kScreenWidth-40, 44);
+    indicator.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    indicator.center = CGPointMake(kScreenWidth/2+20, 22.0f);
+    indicator.hidesWhenStopped = YES;
+    [indicator startAnimating];
+    [self.table.tableFooterView addSubview:indicator];
+    
+    page++;
+    [GKVisitedUser visitedUserWithUserID:_user_id Page:page Block:^(NSArray *entitylist, NSError *error) {
+        if(!error)
+        {
+            for (GKEntity * entity in entitylist) {
+                BOOL flag = YES;
+                for (GKEntity * e in _entityArray) {
+                    if(e.entity_id == entity.entity_id)
+                    {
+                        flag = NO;
+                        break;
+                    }
+                }
+                if(flag)
+                {
+                    [_entityArray addObject:entity];
+                }
+            }
+            [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
+             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
+            
+            NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
+            _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            NSUInteger tmp_pid = 0;
+            NSUInteger tmp_k = 0;
+            for (int i = 0;i< [_entityArray count];i++) {
+                GKEntity * entity = [_entityArray objectAtIndex:i];
+                
+                if(tmp_pid == 0)
+                {
+                    tmp_pid = entity.pid;
+                }
+                else
+                {
+                    if(entity.pid != tmp_pid)
+                    {
+                        tmp_pid = entity.pid;
+                        tmp_k = 0;
+                    }
+                    else
+                    {
+                        tmp_k = tmp_k;
+                    }
+                }
+                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+                
+                for (int k = tmp_k; k< [array count];k++ ) {
+                    NSObject * object  =  [array objectAtIndex:k];
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        if(((TMLKeyWord *)object).kid == entity.cid)
+                        {
+                            [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
+                            break;
+                        }
+                    }
+                }
+                
+            }
+            NSMutableArray *s_array = [NSMutableArray arrayWithCapacity:0];
+            for (NSMutableDictionary * dic in _dataArray) {
+                NSMutableArray *array =  [dic objectForKey:@"row"];
+                NSMutableArray *k_array = [NSMutableArray arrayWithCapacity:0];
+                for (NSObject * object  in array ) {
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        
+                        NSUInteger  i = [array indexOfObjectIdenticalTo:object];
+                        if(i< ([array count]-1))
+                        {
+                            if([[array objectAtIndex:(i+1)]  isKindOfClass:[TMLKeyWord class]])
+                            {
+                                [k_array addObject:object];
+                                
+                            }
+                        }
+                        else if ((i == ([array count]-1))&&[[array objectAtIndex:i]  isKindOfClass:[TMLKeyWord class]] )
+                        {
+                            [k_array addObject:object];
+                        }
+                    }
+                    
+                }
+                
+                [array removeObjectsInArray:k_array];
+                if([array count]==0)
+                {
+                    [s_array addObject:dic];
+                }
+            }
+            [_dataArray removeObjectsInArray:s_array];
+            [self.table reloadData];
+            [indicator stopAnimating];
+            _loadMoreflag = NO;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }
+        else
+        {
+            [indicator stopAnimating];
+            _loadMoreflag = NO;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            switch (error.code) {
+                case -999:
+                    [GKMessageBoard hideMB];
+                    break;
+                default:
+                {
+                    NSString * errorMsg = [error localizedDescription];
+                    [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                }
+                    break;
+            }
+            
+        }
+    }];
 }
 
 @end
