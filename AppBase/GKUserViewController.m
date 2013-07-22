@@ -737,30 +737,29 @@
 - (void)userFollowChange:(NSNotification *)noti
 {
     NSDictionary *data = [noti userInfo];
-    NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
+    GKUser * me = [[GKUser alloc]initFromNSU];
     GKUserRelation *relation = [data objectForKey:@"relation"];
-    if (_user.user_id == user_id) {
-        _user.relation = relation;
+    if (_user_id == me.user_id) {
         followBTN.data = _user;
         switch (relation.status) {
             case kNoneRelation:
             {
-                _user.fans_count--;
+                _user.follows_count--;
             }
                 break;
             case kFOLLOWED:
             {
-                _user.fans_count++;
+                _user.follows_count++;
             }
                 break;
             case kFANS:
             {
-                _user.fans_count--;
+                _user.follows_count--;
             }
                 break;
             case kBothRelation:
             {
-                _user.fans_count++;
+                _user.follows_count++;
             }
                 break;
             case kMyself:
@@ -775,7 +774,8 @@
                 break;
         }
     }
-    [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
+    [_user save];
+    [followNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.follows_count] forState:UIControlStateNormal];
     
 }
 - (void)cardLikeChange:(NSNotification *)noti

@@ -381,10 +381,11 @@
     }
     else
     {
-         tabArrow.hidden = YES;
+         tabArrow.hidden = NO;
     }
-    UIView * H2 = [[UIView alloc]initWithFrame:CGRectMake(0, f5f4f4bg.frame.size.height-1, kScreenWidth, 1)];
-    H2.backgroundColor = UIColorFromRGB(0xE3E2E2);
+    UIImageView * H2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, f5f4f4bg.frame.size.height-3, kScreenWidth, 5)];
+    H2.backgroundColor = [UIColor clearColor];
+    H2.image = [[UIImage imageNamed:@"review_bg.png"]stretchableImageWithLeftCapWidth:1 topCapHeight:4];
     [f5f4f4bg addSubview:H2];
     
 

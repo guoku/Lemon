@@ -59,10 +59,12 @@
     if (self) {
         _userid = 0;
         _useBg = YES;
+        _padding = 2;
+        _cornerRadius = (frame.size.width/2-_padding);
         _avatarImage = [[UIImageView alloc] init];
         [_avatarImage setFrame:CGRectZero];
         [_avatarImage setContentMode:UIViewContentModeScaleAspectFit];
-        _avatarImage.layer.cornerRadius = radius;
+     
         _avatarImage.layer.masksToBounds = YES;
         [self addSubview:_avatarImage];
         
@@ -70,8 +72,9 @@
 
         if(yes)
         {
-        [_avatarBgImg setImage:[[UIImage imageNamed:@"avatar_s.png"] stretchableImageWithLeftCapWidth:31 topCapHeight:31]];
-        [self addSubview:_avatarBgImg];
+        [_avatarBgImg setImage:[UIImage imageNamed:@"avatar_s.png"]];
+           [self insertSubview:_avatarBgImg belowSubview:_avatarImage];
+               _avatarImage.layer.cornerRadius = _cornerRadius;
         }
         
         

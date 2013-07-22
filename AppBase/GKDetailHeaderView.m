@@ -54,7 +54,7 @@
         
         self.title = [[UILabel alloc]initWithFrame:CGRectZero];
         _title.backgroundColor = [UIColor clearColor];
-        
+        _title.numberOfLines = 2;
         _title.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         _title.textAlignment = NSTextAlignmentLeft;
         _title.textColor =UIColorFromRGB(0x555555);
@@ -174,8 +174,8 @@
         _brand.frame = CGRectMake(145, y, 145, 20);
         y = _brand.frame.origin.y+_brand.frame.size.height;
     }
-    _title.frame = CGRectMake(145, y, 145, 20);
-    y = _title.frame.origin.y+_title.frame.size.height+10;
+    _title.frame = CGRectMake(145, y, 145, 30);
+    y = _title.frame.origin.y+_title.frame.size.height;
     CGFloat remark_x = 0;
     CGFloat remark_y = 0;
     for(UIView * view in self.subviews)

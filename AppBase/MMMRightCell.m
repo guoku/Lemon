@@ -30,13 +30,13 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(15, 2, 40, 40) useBg:YES cornerRadius:20];
+        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10, 1, 40, 40) useBg:YES cornerRadius:20];
         [self addSubview:_avatar];
         
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectZero];
         _nickname.textColor =UIColorFromRGB(0x999999);
-        _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
+        _nickname.font = [UIFont fontWithName:@"Helvetica" size:14];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         

@@ -273,6 +273,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    me = [[GKUser alloc]initFromNSU];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0,220, 30)];
     view.backgroundColor = UIColorFromRGB(0x363131);
     
@@ -669,14 +670,20 @@
     switch (relation.status) {
         case kNoneRelation:
         {
+            int index = -1;
             for (GKUserBase * follow_user in [_dataArrayDic objectForKey:@"follow"])
             {
                 if(follow_user.user_id == user_id)
                 {
-                    [[_dataArrayDic objectForKey:@"follow"] removeObject:follow_user];
+                    index = [[_dataArrayDic objectForKey:@"follow"] indexOfObject:follow_user];
                 }
                 me.follows_count--;
                 [me save];
+                break;
+            }
+            if(index !=-1)
+            {
+                [[_dataArrayDic objectForKey:@"follow"] removeObjectAtIndex:index];
             }
         }
             break;
@@ -694,14 +701,20 @@
             break;
         case kFANS:
         {
+            int index = -1;
             for (GKUserBase * follow_user in [_dataArrayDic objectForKey:@"follow"])
             {
                 if(follow_user.user_id == user_id)
                 {
-                    [[_dataArrayDic objectForKey:@"follow"] removeObject:follow_user];
+                    index = [[_dataArrayDic objectForKey:@"follow"] indexOfObject:follow_user];
                 }
                 me.follows_count--;
                 [me save];
+                break;
+            }
+            if(index !=-1)
+            {
+                [[_dataArrayDic objectForKey:@"follow"] removeObjectAtIndex:index];
             }
         }
             break;
@@ -714,6 +727,8 @@
             [[_dataArrayDic objectForKey:@"follow"] addObject:userbase];
             me.follows_count++;
             [me save];
+  
+            break;
         }
             break;
         case kMyself:
