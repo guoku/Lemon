@@ -15,14 +15,15 @@
 
 
 
-+ (void)visitedUserWithUserID:(NSUInteger)user_id Page:(NSUInteger)page
++ (void)visitedUserWithUserID:(NSUInteger)user_id Offset:(NSUInteger)offset
                                 Block:(void (^)(NSArray * entitylist, NSError *error))block
 {
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:4];
     [parameters setObject:[NSString stringWithFormat:@"%u", user_id] forKey:@"user_id"];
-    [parameters setObject:[NSString stringWithFormat:@"%u", page] forKey:@"page"];
+    [parameters setObject:[NSString stringWithFormat:@"%u", offset] forKey:@"offset"];
      [parameters setObject:[NSString stringWithFormat:@"%u", 1] forKey:@"dedup"];
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/u/%d/folder/",user_id] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+       // NSLog(@"%@",JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {

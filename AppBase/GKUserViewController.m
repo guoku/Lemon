@@ -42,7 +42,6 @@
     MMMCalendar * calendar;
     UIButton * _shareButton;
     float y;
-    NSUInteger page;
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
     BOOL _canLoadMore;
@@ -65,7 +64,6 @@
         [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
         [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
-        page = 1;
         
     }
     return self;
@@ -325,8 +323,7 @@
 }
 -(void)loadEntityList
 {
-    page = 1;
-    [GKVisitedUser visitedUserWithUserID:_user_id Page:page Block:^(NSArray *entitylist, NSError *error) {
+    [GKVisitedUser visitedUserWithUserID:_user_id Offset:0 Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
             _entityArray = [NSMutableArray arrayWithCapacity:0];
@@ -345,7 +342,7 @@
                 }
             }
             [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
-             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
+             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"entity_id" ascending:NO]]];
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -699,7 +696,7 @@
         [_entityArray addObject:entity];
         
         [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
-         [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
+         [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"entity_id" ascending:NO]]];
         
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
         _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -995,8 +992,8 @@
     [indicator startAnimating];
     [self.table.tableFooterView addSubview:indicator];
     
-    page++;
-    [GKVisitedUser visitedUserWithUserID:_user_id Page:page Block:^(NSArray *entitylist, NSError *error) {
+
+    [GKVisitedUser visitedUserWithUserID:_user_id Offset:[_entityArray count] Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
             for (GKEntity * entity in entitylist) {
@@ -1014,7 +1011,7 @@
                 }
             }
             [_entityArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pid" ascending:YES],
-             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES]]];
+             [NSSortDescriptor sortDescriptorWithKey:@"cid" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"entity_id" ascending:NO]]];
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
