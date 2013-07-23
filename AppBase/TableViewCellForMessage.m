@@ -141,7 +141,7 @@
         [self addSubview:_avatar];
         _avatar.userBase = message.user;
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,175,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
@@ -153,7 +153,7 @@
         CGRect frame = [message_label frame];
         frame.size.height = (int)optimumSize.height+5;
         
-        [message_label setFrame:CGRectMake(message_label.frame.origin.x, message_label.frame.origin.y, 200, frame.size.height)];
+        [message_label setFrame:CGRectMake(message_label.frame.origin.x, message_label.frame.origin.y, 175, frame.size.height)];
         
         [self addSubview:message_label];
         
@@ -162,12 +162,12 @@
         _ratingView.frame = CGRectMake(50, message_label.frame.size.height + message_label.frame.origin.y,80 ,20);
         [_ratingView displayRating:message.entity.my_score/2];
         _ratingView.userInteractionEnabled = NO;
-        [self addSubview:_ratingView];
+        //[self addSubview:_ratingView];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(250, y+10, 60, 60)];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
 
@@ -220,7 +220,7 @@
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(40,y+10,40,40) useBg:NO cornerRadius:2];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.user = ((GKWeiboFriendJoinMessage *)_message.message_object).recommended_user;
         
@@ -259,7 +259,7 @@
         [self addSubview:_avatar];
         _avatar.userBase = message.user;
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,175,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
@@ -272,7 +272,7 @@
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(250, y+10, 60, 60)];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
@@ -287,7 +287,7 @@
         [self addSubview:_avatar];
         _avatar.userBase = message.user;
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,200,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,175,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
@@ -300,7 +300,7 @@
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(250, y+10, 60, 60)];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
@@ -340,6 +340,8 @@
     CGFloat y =0;
     if([data.type isEqual:@"post_entity_note"])
     {
+        y = 100;
+        /*
         GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         
         RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+15,200,100)];
@@ -351,19 +353,21 @@
         
         CGSize optimumSize = [message_label optimumSize];
         y = (int)optimumSize.height+30;
+         */
         
     }
     if([data.type isEqual:@"user_follow_message"])
     {
-        
+        y = 100;
     }
     if([data.type isEqual:@"friend_joined"])
     {
-
+        y = 60;
     }
     if([data.type isEqual:@"poke_note"])
     {
-        
+        y = 100;
+        /*
         GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         
         RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+15,200,100)];
@@ -375,9 +379,12 @@
         
         CGSize optimumSize = [message_label optimumSize];
         y = (int)optimumSize.height+25;
+         */
     }
     if([data.type isEqual:@"reply"])
-    {        
+    {
+        y = 100;
+        /*
         GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
         
         RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+15,200,100)];
@@ -390,10 +397,10 @@
         
         CGSize optimumSize = [message_label optimumSize];
         y = (int)optimumSize.height+25;
+         */
         
     }
-    if(y<80)
-        y = 80;
+
     return y;
 }
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url

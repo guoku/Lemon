@@ -44,7 +44,8 @@
     if((self = [super initWithFrame:frame])) {
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.backgroundColor = UIColorFromRGB(0xffffff);
+        //self.backgroundColor = UIColorFromRGB(0xffffff);
+        self.backgroundColor = UIColorFromRGB(0xf9f9f9);
 		//self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"refresh_bg_patter.png"]];
         
         UIImageView *bg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refresh_bg.png"]];
