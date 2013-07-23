@@ -172,45 +172,35 @@
         _img.entityBase = message .entity;
 
     }
-    if([_message.type isEqual:@"follwing"])
+    if([_message.type isEqual:@"following"])
     {
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
-        UIButton *_noteButton = [[UIButton alloc]initWithFrame:CGRectMake(8, y+10, 250, 14)];
-        [_noteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:14.0f]];
-        [_noteButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        [_noteButton setImage:[UIImage imageNamed:@"message_icon_user.png"] forState:UIControlStateNormal];
-        [_noteButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-        _noteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_noteButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
-        [_noteButton setTitle:@"有 1 个人开始关注你" forState:UIControlStateNormal];
-        _noteButton.userInteractionEnabled = NO;
-        [self addSubview:_noteButton];
-        
-        y =_noteButton.frame.origin.y+_noteButton.frame.size.height;
-
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40)];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.user = ((GKFollowerMessage*)_message.message_object).user;
       
         UILabel * _nickname = [[UILabel alloc]initWithFrame:CGRectZero];
-        _nickname.textColor = UIColorFromRGB(0x666666);
-        _nickname.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _nickname.textColor = UIColorFromRGB(0x555555);
+        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         _nickname.text = ((GKFollowerMessage*)_message.message_object).user.nickname;
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
-        UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
-        [_nickname setFrame:CGRectMake(63,y+10,labelsize.width, 25)];
-        UIButton * avatarButton = [[UIButton alloc]initWithFrame:CGRectZero];
-        [avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        avatarButton.frame = _nickname.frame;
-        [self addSubview:avatarButton];
+        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
+        
+        UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
+        _message_label.textColor = UIColorFromRGB(0x999999);
+        _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        _message_label.text = @"加入妈妈清单";
+        [_message_label setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_message_label];
   
         
         GKFollowButton * followBTN = [[GKFollowButton alloc]initWithFrame:CGRectZero];
-        [followBTN setFrame:CGRectMake(kScreenWidth-90,35, 70, 30)];
+        [followBTN setFrame:CGRectMake(kScreenWidth-90,15, 70, 30)];
         followBTN.data = ((GKFollowerMessage*)_message.message_object).user;
         [self addSubview:followBTN];
         
@@ -238,7 +228,7 @@
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
         _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        _message_label.text = @"加入妈妈清单";
+        _message_label.text = @"关注了你";
         [_message_label setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_message_label];
         
@@ -356,9 +346,9 @@
          */
         
     }
-    if([data.type isEqual:@"follwing"])
+    if([data.type isEqual:@"following"])
     {
-        y = 100;
+        y = 60;
     }
     if([data.type isEqual:@"friend_joined"])
     {

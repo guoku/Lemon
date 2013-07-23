@@ -65,7 +65,7 @@
         self.price = [[UILabel alloc]initWithFrame:CGRectZero];
         _price.backgroundColor = [UIColor clearColor];
         
-        _price.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
+        _price.font = [UIFont fontWithName:@"Georgia" size:16.0f];
         _price.textAlignment = NSTextAlignmentLeft;
         _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];
@@ -81,7 +81,7 @@
         [self addSubview:_entityImageView];
 
         
-        self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectMake(220, 100, 70, 26)];
+        self.buyInfoButton = [[UIButton alloc]initWithFrame:CGRectZero];
         UIEdgeInsets insets = UIEdgeInsetsMake(5, 15, 5, 5);
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy.png"]resizableImageWithCapInsets:insets] forState:UIControlStateNormal];
         [_buyInfoButton setBackgroundImage:[[UIImage imageNamed:@"button_buy_press.png"]resizableImageWithCapInsets:insets] forState:UIControlStateHighlighted];
@@ -111,13 +111,13 @@
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected|UIControlStateHighlighted];
-        [_usedButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [_usedButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal];
         [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-        [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0)];
         [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
@@ -172,10 +172,10 @@
     bg.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     y =10;
     if( !([_detailData.brand isEqualToString:@""])) {
-        _brand.frame = CGRectMake(145, y, 145, 20);
+        _brand.frame = CGRectMake(145, y, 175, 20);
         y = _brand.frame.origin.y+_brand.frame.size.height;
     }
-    _title.frame = CGRectMake(145, y, 145, 30);
+    _title.frame = CGRectMake(145, y, 175, 30);
     y = _title.frame.origin.y+_title.frame.size.height;
     CGFloat remark_x = 0;
     CGFloat remark_y = 0;
@@ -236,13 +236,21 @@
     _brand.text = _detailData.brand;
     _title.text = _detailData.title;
     NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _detailData.price];
+        //NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", 99999.99];
     _price.text = priceTitle ;
     _likeButton.data = _detailData;
     _entityImageView.entity = _detailData;
+        
+    CGSize size = [_price.text sizeWithFont:_price.font constrainedToSize:CGSizeMake(CGFLOAT_MAX,20) lineBreakMode:NSLineBreakByTruncatingTail];
+    [_price setFrame:CGRectMake(_price.frame.origin.x, _price.frame.origin.y,size.width, _price.frame.size.height)];
 
     NSString * liked_count = [NSString stringWithFormat:@"%u 个喜爱", _detailData.liked_count];
     [_likeButton.likeButton setTitle:liked_count forState:UIControlStateNormal];
+        
+    
     [_buyInfoButton setTitle:@"去购买" forState:UIControlStateNormal];
+    
+    _buyInfoButton.frame = CGRectMake(_price.frame.origin.x+_price.frame.size.width+10, 100, 70, 26);
     _buyInfoButton.enabled = YES;
     _shareButton.enabled = YES;
     _usedButton.enabled = YES;

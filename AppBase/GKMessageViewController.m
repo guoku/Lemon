@@ -134,13 +134,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:@"EntityLikeChange" object:nil];
 }
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"EntityLikeChange" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_UserFollowChange object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -210,9 +211,11 @@
         [self showDetailWithEntityID:message.entity.entity_id];
         return;
     }
-    if([data.type isEqual:@"user_follow_message"])
+    if([data.type isEqual:@"following"])
     {
-
+        GKFollowerMessage *message =  ((GKFollowerMessage*)data.message_object);
+        [self showUserWithUserID:message.user.user_id];
+        return;
     }
     if([data.type isEqual:@"friend_joined"])
     {
@@ -399,6 +402,24 @@
             
         }
     }];
+    
+}
+- (void)userFollowChange:(NSNotification *)noti
+{
+    NSDictionary *data = [noti userInfo];
+    NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
+    GKUserRelation *relation = [data objectForKey:@"relation"];
+    for (GKMessages * message in _dataArray) {
+        
+        if([message.type isEqual:@"following"])
+        {
+            GKFollowerMessage *followerMessage = ((GKFollowerMessage*)message.message_object);
+            if (user_id == followerMessage.user.user_id) {
+                followerMessage.user.relation = relation;
+            }
+        }
+    }
+    [self.table reloadData];
     
 }
 @end

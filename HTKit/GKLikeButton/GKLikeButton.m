@@ -23,13 +23,13 @@
     if (self) {
         self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectZero;
-        [_likeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [_likeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected];
         [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
         [_likeButton setImage:[UIImage imageNamed:@"star_gray.png"] forState:UIControlStateNormal];
          [_likeButton setImage:[UIImage imageNamed:@"star_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0)];
 
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:1 ]forState:UIControlStateNormal];
         [_likeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1  ]forState:UIControlStateHighlighted|UIControlStateNormal];
@@ -83,7 +83,7 @@
     
     _likeButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [_likeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    _likeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _likeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
     [_likeButton setTitle:_liked_count forState:UIControlStateNormal];
 }
