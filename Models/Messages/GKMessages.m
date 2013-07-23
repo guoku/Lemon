@@ -28,7 +28,7 @@
         if ([_type isEqualToString:@"entity_message"])
         {
             _message_object = [[GKEntityMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
-        } else if ([_type isEqualToString:@"user_follow_message"])
+        } else if ([_type isEqualToString:@"follwing"])
         {
             _message_object = [[GKFollowerMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         } else if ([_type isEqualToString:@"post_entity_note"])

@@ -17,7 +17,7 @@
     self = [super init];
     if (self)
     {
-        _user = [[GKUser alloc] initWithAttributes:[attributes valueForKeyPath:@"follower"]];
+        _user = [[GKUser alloc] initWithAttributes:[attributes valueForKeyPath:@"user"]];
     }
     return self;
 }

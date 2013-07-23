@@ -61,6 +61,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    [[self viewWithTag:4343] removeFromSuperview];
     self.followBTN.frame = CGRectMake(0, 0, self.frame.size.width,self.frame.size.height);
     self.unfollowBTN.frame = CGRectMake(0, 0, self.frame.size.width,self.frame.size.height);
     if(_data !=nil)
@@ -111,6 +112,7 @@
             [meBTN setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
             [meBTN setHidden:NO];
             meBTN.enabled = NO;
+            meBTN.tag = 4343;
             [self addSubview:meBTN];
         }
             break;

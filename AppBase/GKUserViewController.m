@@ -260,7 +260,8 @@
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_UserFollowChange object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGKN_EntityLikeChange object:nil];
+
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -672,9 +673,52 @@
             }
                 break;
         }
+        [me save];
+        [followNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.follows_count] forState:UIControlStateNormal];
     }
-    [_user save];
-    [followNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.follows_count] forState:UIControlStateNormal];
+    else
+    {
+        NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
+        GKUserRelation *relation = [data objectForKey:@"relation"];
+        if (_user.user_id == user_id) {
+            _user.relation = relation;
+            followBTN.data = _user;
+            switch (relation.status) {
+                case kNoneRelation:
+                {
+                    _user.fans_count--;
+                }
+                    break;
+                case kFOLLOWED:
+                {
+                    _user.fans_count++;
+                }
+                    break;
+                case kFANS:
+                {
+                    _user.fans_count--;
+                }
+                    break;
+                case kBothRelation:
+                {
+                    _user.fans_count++;
+                }
+                    break;
+                case kMyself:
+                {
+                    
+                }
+                    break;
+                default:
+                {
+                    
+                }
+                    break;
+            }
+        }
+        [fanNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.fans_count] forState:UIControlStateNormal];
+    }
+
     
 }
 - (void)cardLikeChange:(NSNotification *)noti

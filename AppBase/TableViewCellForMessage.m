@@ -172,7 +172,7 @@
         _img.entityBase = message .entity;
 
     }
-    if([_message.type isEqual:@"user_follow_message"])
+    if([_message.type isEqual:@"follwing"])
     {
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
@@ -324,7 +324,7 @@
         {
             
         }
-        if([_message.type isEqual:@"user_follow_message"])
+        if([_message.type isEqual:@"follwing"])
         {
             [_delegate showUserWithUserID:((GKFollowerMessage*)_message.message_object).user.user_id];
         }
@@ -356,7 +356,7 @@
          */
         
     }
-    if([data.type isEqual:@"user_follow_message"])
+    if([data.type isEqual:@"follwing"])
     {
         y = 100;
     }
