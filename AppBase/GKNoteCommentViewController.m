@@ -71,6 +71,7 @@
         
         self.table.tableHeaderView = [[UIView alloc]initWithFrame:_headerView.frame];
         [self.table.tableHeaderView addSubview:_headerView];
+        [self setTableHeaderView];
         
         [self.view addSubview:_table];
         [self reload:nil];
@@ -609,6 +610,13 @@
         
     }];
     
+}
+- (void)setTableHeaderView
+{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
+    view.backgroundColor =UIColorFromRGB(0xf2f2f2);
+    
+    [_table addSubview:view];
 }
 
 @end
