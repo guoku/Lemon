@@ -20,6 +20,7 @@
 @implementation GKFriendRecommendViewController
 {
 @private
+    CGFloat  search_y;
     NSUInteger page;
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
@@ -52,7 +53,8 @@
     self.trackedViewName = @"邀请好友";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     
-    self.view.backgroundColor =UIColorFromRGB(0xf2f2f2);
+    //self.view.backgroundColor =UIColorFromRGB(0xf2f2f2);
+    self.view.backgroundColor = [UIColor blackColor];
 	// Do any additional setup after loading the view.
     self.sectionDic = [NSMutableDictionary dictionaryWithCapacity:10];
     self.allFriends = [NSMutableArray arrayWithCapacity:5];
@@ -83,8 +85,10 @@
     view.backgroundColor = [UIColor clearColor];
     
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    bg.backgroundColor =UIColorFromRGB(0xf1f1f1);
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 160, 40)];
+    //bg.backgroundColor =UIColorFromRGB(0xf1f1f1);
+    bg.backgroundColor = [UIColor clearColor];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 160, 42)];
+    button.backgroundColor = [UIColor clearColor];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateHighlighted];
     
@@ -94,11 +98,20 @@
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button setTitle:@"邀请微博好友" forState:UIControlStateNormal];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
+    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
     button.tag = 4001;
     
-    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(160, 0, 160, 40)];
+    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(160, 0, 160, 42)];
+    button2.backgroundColor = [UIColor clearColor];
+    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
+    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateHighlighted];
     [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
@@ -107,7 +120,7 @@
     [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     [button2 setTitle:@"邀请微信好友" forState:UIControlStateNormal];
     [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [button2 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     button2.tag = 4002;
         
@@ -126,30 +139,37 @@
     [bg addSubview:H1];
     [bg addSubview:V1];
     
-    cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
-    cate_arrow.frame = CGRectMake(0,39, 15,8);
-    cate_arrow.center = CGPointMake(80, cate_arrow.center.y);
-    cate_arrow.backgroundColor = [UIColor clearColor];
-         [view addSubview:cate_arrow];
+    //cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
+    //cate_arrow.frame = CGRectMake(0,39, 15,8);
+    //cate_arrow.center = CGPointMake(80, cate_arrow.center.y);
+    //cate_arrow.backgroundColor = [UIColor clearColor];
+    //[view addSubview:cate_arrow];
     [view addSubview:bg];
-    [view addSubview:cate_arrow];
 
     
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-44-40) style:UITableViewStylePlain];
-    _table.backgroundColor =UIColorFromRGB(0xf2f2f2);
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
+    _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
+    _table.showsHorizontalScrollIndicator = NO;
+    _table.showsVerticalScrollIndicator = NO;
+
     [_table setDelegate:self];
     [_table setDataSource:self];
+    UIView * tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    tableHeaderView.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    self.table.tableHeaderView = tableHeaderView;
     
     [self.view addSubview:_table];
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 215.0f, 44.0f)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, -200.0f, 320.0f, 44.0f)];
+    search_y = -200.0f;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.keyboardType = UIKeyboardTypeDefault;
     _searchBar.showsSearchResultsButton = NO;
     //self.table.tableHeaderView = _searchBar;
+    //[self.view addSubview:_searchBar];
     
     self.searchDC = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _searchDC.searchResultsDataSource = self;
@@ -340,9 +360,14 @@
     NSDictionary *selectedUser = nil;
     
     if (tableView == self.table) {
+        /*
         NSDictionary *dic = [_sectionDic objectForKey:[_allKeys objectAtIndex:indexPath.section]];
+     
+
         NSArray *data = [dic objectForKey:@"data"];
         selectedUser = [data objectAtIndex:indexPath.row];
+            */
+        selectedUser =  [_allFriends objectAtIndex:indexPath.row];
     } else {
         selectedUser = [_filteredArray objectAtIndex:indexPath.row];
     }
@@ -351,13 +376,48 @@
 }
 
 #pragma mark - Table view data source
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView.contentOffset.y>44)
+    {
+        
+      
+        if(search_y !=40)
+        {
+            CGRect rect = _searchBar.frame;
+        rect.origin.y = 40;
+            search_y = 40;
+            
+        [scrollView layoutSubviews];
+            _searchBar.alpha = 0;
+            _searchBar.frame = rect;
+            [UIView animateWithDuration:0.3 animations:^{
+                _searchBar.alpha = 1;
+            }];
+        
+        }
+    }
+    else
+    {
+      
+        if(search_y !=-200)
+        {
+              CGRect rect = _searchBar.frame;
+              rect.origin.y = - 200;
+            search_y = -200;
+            [scrollView layoutSubviews];
+            _searchBar.frame = rect;
+        }
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    /*
     if (tableView == self.table) {
         return [_allKeys count];
     }
-    
+    */
     return 1;
 }
 
@@ -365,11 +425,14 @@
 {
     NSInteger count = 0;
     if (tableView == self.table) {
+        /*
         NSDictionary *dic = [_sectionDic objectForKey:[_allKeys objectAtIndex:section]];
         NSArray *array = [dic objectForKey:@"data"];
         count = [array count];
         if (section == [_allKeys count] - 1) {
         }
+         */
+        count = [_allFriends count];
     } else {
         if ([_filteredArray count] > 0) {
             [_filteredArray removeAllObjects];
@@ -383,24 +446,30 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    /*
     if (tableView == self.table) {
         return 20.0f;
     }
+     */
     return 0.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
+    /*
     if (title == UITableViewIndexSearch) {
         [self.table scrollRectToVisible:_searchBar.frame animated:NO];
         return -1;
     }
     
     return [kSearchString rangeOfString:title].location;
+     */
+    return 0;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
+    /*
     if (tableView == self.table) {
         NSMutableArray *index = [NSMutableArray arrayWithObject:UITableViewIndexSearch];
         for (int i = 0; i < 27; i++) {
@@ -408,10 +477,13 @@
         }
         return index;
     } else return nil;
+     */
+    return nil;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    /*
     NSString *title = nil;
     
     if (tableView == self.table) {
@@ -419,6 +491,8 @@
     }
     
     return title;
+     */
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -437,7 +511,7 @@
         {
             [view removeFromSuperview];
         }
-        [[SDImageCache sharedImageCache] clearMemory];
+       // [[SDImageCache sharedImageCache] clearMemory];
     }
     // Configure the cell...
     cell.backgroundColor =UIColorFromRGB(0xf9f9f9);
@@ -454,9 +528,12 @@
     
     NSDictionary *user = nil;
     if (tableView == self.table) {
+        /*
         NSDictionary *dic = [_sectionDic objectForKey:[_allKeys objectAtIndex:indexPath.section]];
         NSArray *data = [dic objectForKey:@"data"];
         user = [data objectAtIndex:indexPath.row];
+        */
+        user = [_allFriends objectAtIndex:indexPath.row];
         [userAvatar setImageWithURL:[NSURL URLWithString:[user valueForKey:@"profile_image_url"]]];
         [screenName setText:[user valueForKey:@"screen_name"]];
     } else {
@@ -465,7 +542,7 @@
     [userAvatar setImageWithURL:[NSURL URLWithString:[user valueForKey:@"profile_image_url"]]];
     [screenName setText:[user valueForKey:@"screen_name"]];
     
-    GKWeiboInviteButton *_invite= [[GKWeiboInviteButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 6, 50, 30)];
+    GKWeiboInviteButton *_invite= [[GKWeiboInviteButton alloc]initWithFrame:CGRectMake(kScreenWidth-60, 6, 50, 30)];
     _invite.name = screenName.text;
     [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
     [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10) ] forState:UIControlStateHighlighted];
@@ -478,7 +555,10 @@
     
     return cell;
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     if ([searchText length] == 0) {

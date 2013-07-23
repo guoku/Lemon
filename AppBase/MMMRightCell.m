@@ -31,6 +31,7 @@
     if (self) {
         
         _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10, 5, 40, 40) useBg:YES cornerRadius:20];
+        _avatar.userInteractionEnabled = NO;
         [self addSubview:_avatar];
         
         

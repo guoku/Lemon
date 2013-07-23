@@ -79,7 +79,7 @@
     }
     else
     {
-        y1 = 30;
+        y1 = 28;
     }
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
@@ -122,7 +122,7 @@
         
     button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-50, 40)];
     button.center = CGPointMake(kScreenWidth/2, headerView.frame.size.height+y1);
-    button.userInteractionEnabled = NO;
+    //button.userInteractionEnabled = NO;
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
@@ -151,7 +151,7 @@
     arrow.tag = 110;
     arrow.center = CGPointMake(button.frame.size.width-25, button.frame.size.height/2);
     
-    //[button addSubview:arrow];
+    [button addSubview:arrow];
     
     tip = [[UILabel alloc]initWithFrame:CGRectMake(155, 0, 80,12)];
     tip.center = CGPointMake(tip.center.x, button.frame.size.height/2+1);
@@ -275,7 +275,7 @@
 - (void)change
 {
     tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
-   // button.enabled = YES;
+    button.enabled = YES;
 }
 - (void)didReceiveMemoryWarning
 {
