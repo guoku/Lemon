@@ -613,19 +613,19 @@
     int i = 0;
     for (GKShop * shop in _detailHeaderView.detailData.purchase_list) {
 
-        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 35+i*55, kScreenWidth-20, 44)];
+        UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(10, 31+i*55, kScreenWidth-20, 50)];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
-        button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        button.titleLabel.font = [UIFont fontWithName:@"Georgia" size:18.0f];
         [button.titleLabel setTextAlignment:NSTextAlignmentRight];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 15, 32)];
-        [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 32)];
+        [button setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [button setTitle:[NSString stringWithFormat:@"￥%.2f",shop.price] forState:UIControlStateNormal];
         button.tag = i;
         [button addTarget:self action:@selector(shopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(12,7,200 ,15)];
+        UILabel * name = [[UILabel alloc]initWithFrame:CGRectMake(12,8,180 ,18)];
         name.backgroundColor = [UIColor clearColor];
         name.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         name.textAlignment = NSTextAlignmentLeft;
@@ -633,12 +633,13 @@
         name.text = shop.title;
         [button addSubview:name];
         
-        UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(12,23,kScreenWidth-12 ,15)];
+        UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(12,26,kScreenWidth-12 ,15)];
         description.backgroundColor = [UIColor clearColor];
         description.font = [UIFont fontWithName:@"Helvetica" size:9.0f];
         description.textAlignment = NSTextAlignmentLeft;
-        description.textColor = UIColorFromRGB(0x666666);
-        description.text = [NSString stringWithFormat:@"描述相符：%0.1f  服务态度：%0.1f 发货速度：%0.1f       最近售出：%u笔",shop.item_score,shop.service_score,shop.delivery_score,shop.volume];
+        description.textColor = UIColorFromRGB(0xA3A3A3);
+        //description.text = [NSString stringWithFormat:@"描述相符：%0.1f  服务态度：%0.1f 发货速度：%0.1f       最近售出：%u笔",shop.item_score,shop.service_score,shop.delivery_score,shop.volume];
+        description.text = [NSString stringWithFormat:@"最近售出：%u笔",shop.volume];
         [button addSubview:description];
         
         

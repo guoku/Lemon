@@ -247,11 +247,12 @@
     if (cell == nil) {
         cell = [[MMMRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: FollowTableIdentifier];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     cell.user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
     [[cell viewWithTag:4003]removeFromSuperview];
 
-        UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height-2, 260, 2)];
+        UIImageView *_seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 260, 2)];
         _seperatorLineImageView.tag = 4003;
         [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
         [cell addSubview:_seperatorLineImageView];
@@ -260,7 +261,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 50;
 }
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

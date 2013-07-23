@@ -50,8 +50,8 @@
     [closeWebBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
     [closeWebBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [closeWebBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
-    [closeWebBtn setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
-    [closeWebBtn setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
+    [closeWebBtn setBackgroundImage:[[UIImage imageNamed:@"webview_button.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
+    [closeWebBtn setBackgroundImage:[[UIImage imageNamed:@"webview_button_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
     UIBarButtonItem *closeWebview = [[UIBarButtonItem alloc] initWithCustomView:closeWebBtn] ;
     
     // refresh web view button
@@ -93,8 +93,12 @@
     fixedSpaceBarButton3.width = 50.0f;
     
     self.navigationController.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
+
+    [self.navigationController.toolbar setBackgroundImage:[[UIImage imageNamed:@"webview_toolbar.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIToolbarPositionAny];
     [self setToolbarItems:[NSArray arrayWithObjects:fixedSpaceBarButton1, closeWebview, fixedSpaceBarButton3, previousPage, fixedSpaceBarButton2, nextPage, fixedSpaceBarButton3, refreshWebview, fixedSpaceBarButton1, nil] animated:YES];
+
+    self.navigationController.toolbar.frame = CGRectMake(self.navigationController.toolbar.frame.origin.x,self.navigationController.toolbar.frame.origin.y, kScreenWidth, 44);
     
     
 }

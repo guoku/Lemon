@@ -30,7 +30,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10, 1, 40, 40) useBg:YES cornerRadius:20];
+        _avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10, 5, 40, 40) useBg:YES cornerRadius:20];
         [self addSubview:_avatar];
         
         
@@ -99,7 +99,7 @@
     [super layoutSubviews];
     NSLog(@"%f",self.frame.size.width);
     self.backgroundView.frame = CGRectMake(8, 0, self.frame.size.width, self.backgroundView.frame.size.height);
-    [_nickname setFrame:CGRectMake(60, 11, 100, 20)];
+    [_nickname setFrame:CGRectMake(60, 15, 100, 20)];
     //[_followBTN setFrame:CGRectMake(self.frame.size.width-85,15, 70, 30)];
     self.avatar.user =_user;
     //self.followBTN.data = _user;
