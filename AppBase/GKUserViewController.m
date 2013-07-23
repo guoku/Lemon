@@ -606,10 +606,17 @@
     
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    GKLog(@"offset:%f",scrollView.contentOffset.y);
-    GKLog(@"height:%f",scrollView.contentSize.height);
+    
+    
+    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
+        if((!_loadMoreflag)&&_canLoadMore)
+        {
+            _loadMoreflag = YES;
+            [self loadMore];
+        }
+	}
+	
 }
-
 - (void)goFollowButtonAction:(id)sender
 {
 

@@ -211,7 +211,7 @@
     }
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
-    [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
+    //[self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {

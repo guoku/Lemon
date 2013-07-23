@@ -28,6 +28,7 @@
     UIButton * message;
     UIButton * setting;
     GKUser *user;
+    BOOL selectCell;
     
     GKUserButton * avatar;
     UILabel * name;
@@ -42,6 +43,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        selectCell = YES;
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         self.view.backgroundColor= UIColorFromRGB(0x403b3b);
     }
@@ -202,7 +204,14 @@
     }
     [self.table reloadData];
     NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
-    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    if(selectCell)
+    {
+        [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    else
+    {
+        [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+    }
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
@@ -270,6 +279,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    selectCell = YES;
     [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row+1) forKey:@"stage"];
     _table.allowsSelection = NO;
     
@@ -315,18 +325,24 @@
 #pragma mark - 按钮方法
 - (void)settingButtonAction
 {
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+    selectCell = NO;
     GKSettingViewController *VC = [[GKSettingViewController alloc]init];
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     [self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
 }
 - (void)messageButtonAction
 {
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+    selectCell = NO;
     GKMessageViewController *VC = [[GKMessageViewController alloc]init];
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     [self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
 }
 - (void)backButtonAction:(id)sender
 {
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+    selectCell = NO;
     /*
     GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
     [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:YES completion:NULL];

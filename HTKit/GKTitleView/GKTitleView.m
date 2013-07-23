@@ -26,8 +26,8 @@
     tableViewTitleL.backgroundColor = [UIColor clearColor];
     tableViewTitleL.text = title;
     tableViewTitleL.textColor = [UIColor whiteColor];
-    tableViewTitleL.shadowColor = [UIColor blackColor];
-    tableViewTitleL.shadowOffset = CGSizeMake(0.0f,1.0f);
+    tableViewTitleL.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    tableViewTitleL.shadowOffset = CGSizeMake(0.0f,-1.0f);
     tableViewTitleL.textAlignment = NSTextAlignmentCenter;
     tableViewTitleL.adjustsFontSizeToFitWidth = YES;
     tableViewTitleL.font =  [UIFont fontWithName:@"STHeitiTC-Medium" size:22];
