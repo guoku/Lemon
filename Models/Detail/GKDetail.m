@@ -36,7 +36,7 @@
     NSMutableDictionary * parameters = [[NSMutableDictionary alloc] initWithCapacity:3];
     
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/entity/%d/detail/",entity_id] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        GKLog(@"detail data %@", JSON);
+        NSLog(@"detail data %@", JSON);
         NSArray *listFromResponse = [[JSON listResponse] valueForKey:@"data"];
         NSMutableDictionary * _resDict = [[NSMutableDictionary alloc] initWithCapacity:1];
         for ( NSDictionary * attribute in listFromResponse)
@@ -52,7 +52,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block)
         {
-            GKLog(@"%@", error);
+            NSLog(@"%@", error);
             block([NSDictionary dictionary], error);
         }
     }];

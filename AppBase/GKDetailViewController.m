@@ -28,6 +28,7 @@
     NSMutableArray *_friendarray;
     BOOL friendonly;
     UIImageView *tabArrow;
+    UIImageView * SectionBackground;
     UIView * store;
     UIButton * mask;
     RatingView *_ratingView;
@@ -317,9 +318,12 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *f5f4f4bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    f5f4f4bg.backgroundColor =UIColorFromRGB(0xf5f4f4);
+    //f5f4f4bg.backgroundColor =UIColorFromRGB(0xf5f4f4);
+    f5f4f4bg.backgroundColor = [UIColor clearColor];
     
-
+    SectionBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 640, 40)];
+    SectionBackground.image = [[UIImage imageNamed:@"review_bg.png"]stretchableImageWithLeftCapWidth:1 topCapHeight:1 ];
+    [f5f4f4bg addSubview:SectionBackground];
     
     UILabel *allnotelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-80, 40)];
     allnotelabel.textAlignment = NSTextAlignmentLeft;
@@ -351,10 +355,9 @@
     
     tabArrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
     tabArrow.frame = CGRectMake(0, 33, 12, 7);
-    
+    tabArrow.hidden = YES;
     if([_friendarray count]!=0)
     {
-        tabArrow.hidden = NO;
         UILabel *friendtab = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 80, 40)];
         friendtab.textAlignment = NSTextAlignmentCenter;
         friendtab.backgroundColor = [UIColor clearColor];
@@ -362,10 +365,11 @@
         friendtab.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
         friendtab.text = [NSString stringWithFormat:@"好友点评 %u",[_friendarray count]];
         [f5f4f4bg addSubview:friendtab];
-        friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
+        //friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
         
         UIView * V = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 1, 39)];
         V.backgroundColor = UIColorFromRGB(0xECEAEA);
+        //V.backgroundColor = [UIColor clearColor];
         [f5f4f4bg addSubview:V];
         
         UIButton * button1 = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -383,20 +387,25 @@
     }
     else
     {
-         tabArrow.hidden = NO;
+         
     }
+    /*
     UIImageView * H2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, f5f4f4bg.frame.size.height-3, kScreenWidth, 5)];
     H2.backgroundColor = [UIColor clearColor];
     H2.image = [[UIImage imageNamed:@"review_bg.png"]stretchableImageWithLeftCapWidth:1 topCapHeight:4];
     [f5f4f4bg addSubview:H2];
+    */
     
 
     if(friendonly)
     {
+        SectionBackground.center = CGPointMake(kScreenWidth-40, SectionBackground.center.y);
         tabArrow.center = CGPointMake(kScreenWidth-40, tabArrow.center.y);
     }
     else
     {
+
+        SectionBackground.center = CGPointMake(36, SectionBackground.center.y);
         tabArrow.center = CGPointMake(36, tabArrow.center.y);
     }
     [f5f4f4bg addSubview:tabArrow];
@@ -510,20 +519,25 @@
     switch (((UIButton *)sender).tag) {
         case 4001:
         {
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 tabArrow.center = CGPointMake(36, tabArrow.center.y);
+                SectionBackground.center = CGPointMake(36, SectionBackground.center.y);
             }completion:^(BOOL finished) {
                 friendonly = NO;
+                
                 [_table reloadData];
             }];
+
         }
             break;
         case 4002:
         {
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 tabArrow.center = CGPointMake(kScreenWidth-40, tabArrow.center.y);
+                SectionBackground.center = CGPointMake(kScreenWidth-40, SectionBackground.center.y);
             }completion:^(BOOL finished) {
                 friendonly = YES;
+
                 [_table reloadData];
             }];
         }

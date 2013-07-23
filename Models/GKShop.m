@@ -23,7 +23,15 @@
     if (self)
     {
         //NSLog(@"%@",attributes);
-        _title = [attributes valueForKeyPath:@"shop_title"];
+
+        if(![[attributes valueForKey:@"shop_title"] isEqual:[NSNull null]])
+        {
+            _title = [attributes valueForKeyPath:@"shop_title"];
+        }
+        else
+        {
+            _title = @"";
+        }
         _price = [[attributes valueForKey:@"price"] floatValue];
         _url = [attributes valueForKeyPath:@"url"];
         if(![[attributes valueForKey:@"volume"] isEqual:[NSNull null]])
@@ -34,9 +42,34 @@
         {
             _volume = 0;
         }
-        _delivery_score = [[attributes valueForKey:@"taobao_delivery_score"] floatValue];
-        _service_score = [[attributes valueForKey:@"taobao_service_score"] floatValue];
-        _item_score = [[attributes valueForKey:@"taobao_item_score"] floatValue];
+        if(![[attributes valueForKey:@"taobao_delivery_score"] isEqual:[NSNull null]])
+        {
+            _delivery_score = [[attributes valueForKey:@"taobao_delivery_score"] floatValue];
+        }
+        else
+        {
+            _delivery_score = 0;
+        }
+        if(![[attributes valueForKey:@"taobao_service_score"] isEqual:[NSNull null]])
+        {
+            _service_score = [[attributes valueForKey:@"taobao_service_score"] floatValue];
+        }
+        else
+        {
+            _delivery_score = 0;
+        }
+        if(![[attributes valueForKey:@"taobao_item_score"] isEqual:[NSNull null]])
+        {
+            _item_score = [[attributes valueForKey:@"taobao_item_score"] floatValue];
+        }
+        else
+        {
+            _item_score = 0;
+        }
+        
+
+
+
     }
     return self;
 }

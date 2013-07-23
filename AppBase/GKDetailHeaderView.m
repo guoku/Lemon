@@ -103,14 +103,15 @@
         f9f9f9bg.backgroundColor = UIColorFromRGB(0xf9f9f9);
         [self addSubview:f9f9f9bg];
         
-        self.likeButton = [[GKLikeButton alloc]initWithFrame:CGRectMake(8, y+14, 85,32)];
+        self.likeButton = [[GKLikeButton alloc]initWithFrame:CGRectMake(8, y+14, 75,32)];
         [self addSubview:_likeButton];
         
-        self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(100, y+14, 75, 32)];
+        self.usedButton = [[UIButton alloc]initWithFrame:CGRectMake(90, y+14, 75, 32)];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal];
         [_usedButton setTitle:@"用过" forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected];
         [_usedButton setTitle:@"已用过" forState:UIControlStateSelected|UIControlStateHighlighted];
+        [_usedButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal];
         [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
@@ -120,8 +121,8 @@
         [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
-        [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateSelected];
-        [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted|UIControlStateSelected];
+        [_usedButton setTitleColor:UIColorFromRGB(0x1fc19a) forState:UIControlStateSelected];
+        [_usedButton setTitleColor:UIColorFromRGB(0x1fc19a) forState:UIControlStateHighlighted|UIControlStateSelected];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateNormal];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateHighlighted];
         [_usedButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:1 ] forState:UIControlStateSelected];
@@ -224,6 +225,7 @@
     if(_detailData.my_score >0)
     {
         _usedButton.selected = YES;
+        
     }
     else
     {   
