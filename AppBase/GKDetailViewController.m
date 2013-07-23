@@ -49,6 +49,7 @@
         self.detailHeaderView.delegate =self;
         self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"商品"];
         _message = [[NSMutableDictionary alloc]initWithCapacity:0];
+        self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     }
     return self;
 }
@@ -226,11 +227,12 @@
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
-    _table.backgroundColor = [UIColor whiteColor];
+    _table.backgroundColor = UIColorFromRGB(0xffffff);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = YES;
     [_table setDelegate:self];
     [_table setDataSource:self];
+    [self setTableHeaderView];
     [self.view addSubview:_table];
     
     
@@ -358,12 +360,12 @@
         friendtab.backgroundColor = [UIColor clearColor];
         friendtab.textColor =UIColorFromRGB(0x999999);
         friendtab.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-        friendtab.text = [NSString stringWithFormat:@"好友推荐 %u",[_friendarray count]];
+        friendtab.text = [NSString stringWithFormat:@"好友点评 %u",[_friendarray count]];
         [f5f4f4bg addSubview:friendtab];
         friendtab.backgroundColor =UIColorFromRGB(0xf1f1f1);
         
         UIView * V = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 1, 39)];
-        V.backgroundColor = [UIColor colorWithRed:220.0f / 255.0f green:219.0f / 255.0f blue:219.0 / 255.0f alpha:1.0f];
+        V.backgroundColor = UIColorFromRGB(0xECEAEA);
         [f5f4f4bg addSubview:V];
         
         UIButton * button1 = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -401,7 +403,7 @@
 
     
     UIView * H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-    H1.backgroundColor = UIColorFromRGB(0xE0E0E0);
+    H1.backgroundColor = UIColorFromRGB(0xECEAEA);
     [f5f4f4bg addSubview:H1];
     
 
@@ -885,6 +887,14 @@
         
     }];
     
+}
+
+- (void)setTableHeaderView
+{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
+    view.backgroundColor =UIColorFromRGB(0xf2f2f2);
+
+    [_table addSubview:view];
 }
 
 @end

@@ -162,6 +162,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    self.backgroundColor = [UIColor whiteColor];
     
     self.backgroundView.frame = CGRectMake(0, 0, kScreenWidth, self.frame.size.height);
     

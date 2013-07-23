@@ -36,7 +36,7 @@
         _rating.frame = CGRectMake(0, y, 70, 10);
     [_rating setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
         _rating.userInteractionEnabled = NO;
-        _rating.center = CGPointMake(frame.size.width/2, _rating.center.y);
+        _rating.center = CGPointMake(frame.size.width/2, _rating.center.y+5);
         [self addSubview:_rating];
 
         
