@@ -14,6 +14,7 @@
 #import "GKAppDelegate.h"
 #import "GKSettingViewController.h"
 #import "GKMessageViewController.h"
+#import "GKUserViewController.h"
 
 @interface GKLeftViewController ()
 
@@ -341,13 +342,19 @@
 }
 - (void)backButtonAction:(id)sender
 {
+    
     [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
     selectCell = NO;
     /*
     GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
     [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:YES completion:NULL];
      */
-    [self showUserWithUserID:user.user_id];
+    //[self showUserWithUserID:user.user_id];
+    GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user.user_id];
+    VC.hidesBottomBarWhenPushed = YES;
+    [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:NO];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:NULL];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenRightMenu" object:nil userInfo:nil];
 }
 #pragma mark - 通知处理
 - (void)GKLogin

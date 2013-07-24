@@ -71,12 +71,12 @@
         UIView * noteView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, self.frame.size.height - 125)];
         noteView.backgroundColor = UIColorFromRGB(0xf9f9f9);
         self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
-        [_avatar setFrame:CGRectMake(9, 13, 35, 35)];
+        [_avatar setFrame:CGRectMake(10, 13, 40, 40)];
         [noteView addSubview:_avatar];
         
-        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(50, 10, 120, 20)];
+        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(55, 23, 120, 20)];
         _nickname.textColor = UIColorFromRGB(0x666666);
-        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [noteView addSubview:_nickname];
         
@@ -92,13 +92,13 @@
         
         self.noteRatingView = [[RatingView alloc]initWithFrame:CGRectZero];
         [_noteRatingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-        _noteRatingView.center = CGPointMake(_noteRatingView.center.x, 22);
+        _noteRatingView.center = CGPointMake(_noteRatingView.center.x, 34);
         _noteRatingView.userInteractionEnabled = NO;
         [noteView addSubview:_noteRatingView];
         
-        self.note = [[UILabel alloc]initWithFrame:CGRectMake(50,32, 250, 400)];
+        self.note = [[UILabel alloc]initWithFrame:CGRectMake(12,_avatar.frame.origin.y + _avatar.frame.size.height+2, 300, 400)];
         _note.backgroundColor = [UIColor clearColor];
-        _note.font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+        _note.font = [UIFont fontWithName:@"Helvetica" size:13];
         _note.textColor = UIColorFromRGB(0x666666);
         _note.numberOfLines = 0;
         [noteView addSubview:_note];
@@ -121,7 +121,7 @@
         [self addSubview:_seperatorLineImageView];
         
         UIImageView * arrow1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"review_arrow.png"]];
-        arrow1.frame = CGRectMake(20, self.frame.size.height - 52, 12, 7);
+        arrow1.frame = CGRectMake(24, self.frame.size.height - 52, 12, 7);
         [self addSubview:arrow1];
         
         _pokeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -176,7 +176,7 @@
                     int i = 0;
                     _poke_user_list = [NSMutableArray arrayWithArray:list];
                     for (GKUserBase * user in _poke_user_list) {
-                        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+                        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(9+i*34,self.frame.size.height-37, 30, 30) useBg:NO cornerRadius:0];
                         avatar.userBase = user;
                         avatar.tag = 1000;
                         avatar.delegate = _delegate;
@@ -199,7 +199,7 @@
         }
         int i = 0;
         for (GKUserBase * user in _poke_user_list) {
-            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(9+i*34,self.frame.size.height-37, 30, 30) useBg:NO cornerRadius:0];
             avatar.userBase = user;
             avatar.tag = 1000;
             avatar.delegate = _delegate;
@@ -242,7 +242,7 @@
                 int i = 0;
                 _poke_user_list = [NSMutableArray arrayWithArray:list];
                 for (GKUserBase * user in _poke_user_list) {
-                    GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+                    GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(9+i*34,self.frame.size.height-37, 30, 30) useBg:NO cornerRadius:0];
                     avatar.userBase = user;
                     avatar.tag = 1000;
                     avatar.delegate = _delegate;
@@ -265,7 +265,7 @@
         }
         int i = 0;
         for (GKUserBase * user in _poke_user_list) {
-            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(9+i*34,self.frame.size.height-37, 30, 30) useBg:NO cornerRadius:0];
             avatar.userBase = user;
             avatar.tag = 1000;
             avatar.delegate = _delegate;
@@ -330,13 +330,13 @@
     [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
     
     UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+10)];
+    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(200, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 300, size.height)];
     _note.text = _noteData.note;
     
     NSString * poke_count = [NSString stringWithFormat:@"%u", _noteData.poker_count];
     [_pokeButton setTitle:poke_count forState:UIControlStateNormal];
-    [_pokeButton setFrame:CGRectMake(8, self.frame.size.height - 77, 40, 25)];
+    [_pokeButton setFrame:CGRectMake(11, self.frame.size.height - 80, 40, 25)];
     if(_noteData.poker_already)
     {
         _pokeButton.selected = YES;
@@ -349,11 +349,11 @@
 }
 + (float)height:(GKNote *)data
 {
-    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];
     
-    CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return (size.height+200); // 10即消息上下的空间，可自由调整
+    return (size.height+220); // 10即消息上下的空间，可自由调整
 }
 - (void)goEntity
 {

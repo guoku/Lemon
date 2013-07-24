@@ -35,10 +35,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
-        [_avatar setFrame:CGRectMake(10, 13, 35, 35)];
+        [_avatar setFrame:CGRectMake(7, 7, 40, 40)];
         [self addSubview:_avatar];
         
-        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(53, 13, 240, 15)];
+        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(53, 10, 240, 15)];
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
@@ -52,7 +52,7 @@
         _ratingView.userInteractionEnabled = NO;
         [self addSubview:_ratingView];
         
-        self.note = [[UILabel alloc]initWithFrame:CGRectMake(53,y+2,240,400)];
+        self.note = [[UILabel alloc]initWithFrame:CGRectMake(50,y,240,400)];
         _note.font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
         _note.numberOfLines = 0;
         _note.textAlignment = NSTextAlignmentLeft;
@@ -174,9 +174,9 @@
     
     UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
     CGSize size = [self.nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    self.nickname.frame = CGRectMake(53, 13, size.width, size.height);
+    self.nickname.frame = CGRectMake(50, 8, size.width, size.height);
     
-    _ratingView.frame = CGRectMake(53+size.width, 15,80 ,size.height);
+    _ratingView.frame = CGRectMake(50+size.width, 10,80 ,size.height);
     [_ratingView displayRating:_noteData.score/2];
     
     font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
@@ -189,7 +189,7 @@
     
     NSString * poke_count = [NSString stringWithFormat:@"%u", _noteData.poker_count];
     [_pokeButton setTitle:poke_count forState:UIControlStateNormal];
-    [_pokeButton setFrame:CGRectMake(53., _note.frame.origin.y + _note.frame.size.height, 40, 25)];
+    [_pokeButton setFrame:CGRectMake(50., _note.frame.origin.y + _note.frame.size.height+10, 40, 25)];
     
     if(_noteData.poker_already)
     {
@@ -252,6 +252,6 @@
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return size.height + 65; // 10即消息上下的空间，可自由调整
+    return size.height + 72; // 10即消息上下的空间，可自由调整
 }
 @end

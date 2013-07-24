@@ -93,7 +93,8 @@
 	// Do any additional setup after loading the view.
     self.trackedViewName = @"设置页";
     
-    NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"账号设置",@"section",[NSArray arrayWithObjects:@"昵称设置",@"头像设置",@"重新设置我的阶段", nil], @"row", nil];
+    //NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"账号设置",@"section",[NSArray arrayWithObjects:@"昵称设置",@"头像设置",@"重新设置我的阶段", nil], @"row", nil];
+    NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"账号设置",@"section",[NSArray arrayWithObjects:@"重新设置我的阶段", nil], @"row", nil];
     
     NSDictionary *secondSection = [NSDictionary dictionaryWithObjectsAndKeys:@"推荐我们",@"section",[NSArray arrayWithObjects:@"给应用打个分",@"关注我们微博", nil], @"row", nil];
     if ([WXApi isWXAppSupportApi] && [WXApi isWXAppInstalled]) {
@@ -265,7 +266,7 @@
 - (void)settingSectionFunctionWithIndexpath:(NSIndexPath *)path
 {
     switch (path.row) {
-        case 0:
+        case 2:
         {
             
         }
@@ -275,7 +276,7 @@
 
         }
             break;
-        case 2:
+        case 0:
         {
             GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
             UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];

@@ -130,7 +130,7 @@
     CGFloat note_offset = 150;
     for (GKNote * note in _data.notes_list) {
         
-        UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, note_offset, self.frame.size.width, 1)];
+        UIView * H = [[UIView alloc]initWithFrame:CGRectMake(8, note_offset, self.frame.size.width-16, 1)];
         H.backgroundColor = UIColorFromRGB(0xf1f1f1);
         [self addSubview:H];
         
@@ -191,7 +191,7 @@
 {
     int i = 0;
     for (GKUserBase * user in _data.likes_user_list) {
-        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(100+i*34,110, 30, 30) useBg:NO cornerRadius:0];
+        GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(100+i*34,112, 30, 30) useBg:NO cornerRadius:0];
         avatar.userBase = user;
         avatar.delegate = _delegate;
         [self addSubview:avatar];
