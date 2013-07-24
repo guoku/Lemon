@@ -11,5 +11,7 @@
 @interface GKCenterViewController : GKBaseViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (strong,nonatomic) UITableView *table;
 @property (strong,nonatomic) UIImageView * icon;
+@property (assign) BOOL openLeftMenu;
+@property (assign) BOOL openRightMenu;
 - (void)stageChange;
 @end

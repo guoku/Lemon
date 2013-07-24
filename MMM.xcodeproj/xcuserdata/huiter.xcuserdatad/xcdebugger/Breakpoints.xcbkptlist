@@ -16,6 +16,58 @@
          landmarkName = "-setNoteData:"
          landmarkType = "5">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Models/Core/GKDBCore.m"
+         timestampString = "396342394.599571"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
+         landmarkName = "-insertDataWithSQL:ArgsDict:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Models/Core/GKDBCore.m"
+         timestampString = "396342419.720236"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "97"
+         endingLineNumber = "97"
+         landmarkName = "-insertDataWithSQL:ArgsDict:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Models/Entities/GKEntity.m"
+         timestampString = "396343272.53347"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "275"
+         endingLineNumber = "275"
+         landmarkName = "+deleteAllEntity"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Models/Messages/GKMessages.m"
+         timestampString = "396344079.588627"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "119"
+         endingLineNumber = "119"
+         landmarkName = "+getUserMessageWithPostBefore:Block:"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>
       <ExceptionBreakpoint

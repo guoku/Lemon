@@ -23,7 +23,7 @@
     if (self) {
         self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectZero;
-        [_likeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_likeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected];
         [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
         [_likeButton setImage:[UIImage imageNamed:@"star_gray.png"] forState:UIControlStateNormal];
@@ -83,7 +83,6 @@
     
     _likeButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [_likeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    _likeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
     [_likeButton setTitle:_liked_count forState:UIControlStateNormal];
 }

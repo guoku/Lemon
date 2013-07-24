@@ -124,6 +124,7 @@
                         GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
                         UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:VC];
                         [delegate.window.rootViewController presentViewController: nav animated:NO completion:NULL];
+                        [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
                     }
                     else
                     {
@@ -152,7 +153,7 @@
 
                     }
                 }];
-                [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+
             }
             else
             {

@@ -267,27 +267,13 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GKUser *user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
-    //[self showUserWithUserID:user.user_id];
     GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user.user_id];
     VC.hidesBottomBarWhenPushed = YES;
     [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:NO];
-    //GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
-    //[self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:YES completion:NULL];
     [self.mm_drawerController closeDrawerAnimated:YES completion:NULL];
-    //[self performSelector:@selector(close) withObject:self afterDelay:0.0];
-    //[self performSelector:@selector(PN) withObject:indexPath afterDelay:0.05];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenRightMenu" object:nil userInfo:nil];
 }
-- (void)close
-{
-    //GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
-    //[self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:YES completion:NULL];
-}
-- (void)PN:(id)sender
-{
-    NSIndexPath * indexPath = (NSIndexPath*)sender;
-    //GKUser *user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
-    //[self showUserWithUserID:user.user_id];
-}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 30;

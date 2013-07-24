@@ -114,10 +114,9 @@
     } else {
         [paramters setValue:[NSDate stringFromDate:postbefore] forKey:@"since_time"];
     }
-    GKLog(@"message messsage");
     [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/read_message/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         
-        GKLog(@"%@", JSON);
+       NSLog(@"%@", JSON);
         NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {
@@ -165,7 +164,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        if (block)
        {
-           GKLog(@"%@", error);
+           NSLog(@"%@", error);
            block([NSArray array], error);
        }
     }];

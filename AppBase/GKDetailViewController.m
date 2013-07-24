@@ -873,7 +873,7 @@
                 noteData.poker_already = YES;
                 noteData.poker_count++;
                 GKUser *me = [[GKUser alloc]initFromNSU];
-                [noteData.poke_id_list addObject:@(me.user_id)];
+                [noteData.poke_id_list insertObject:@(me.user_id) atIndex:0];
                 [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
                 pokeBtn.selected = YES;
             }
@@ -893,7 +893,6 @@
                 {
                     [noteData.poke_id_list removeObjectAtIndex:index];
                 }
-                [noteData.poke_id_list addObject:@(me.user_id)];
                 [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
                 pokeBtn.selected = YES;
             }

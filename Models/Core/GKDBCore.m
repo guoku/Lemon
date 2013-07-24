@@ -87,7 +87,17 @@
 {
     GKLog(@"%@ %@",sql, argsDict);
         FMDBQuickCheck([_db executeUpdate:sql withParameterDictionary:argsDict]);
-
+   /* [queue inTransaction:^(FMDatabase *db,BOOL *rollback) {
+        if([_db executeUpdate:sql withParameterDictionary:argsDict])
+        {
+            
+        }
+        else
+        {
+            *rollback = YES; return;  
+        }
+    }];
+*/ 
     return YES;
 }
 

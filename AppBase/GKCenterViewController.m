@@ -38,7 +38,6 @@
     BOOL headerChange;
     float y;
     GKUser *user;
-    BOOL openLeftMenu;
 }
 @synthesize table = _table;
 @synthesize icon = _icon;
@@ -50,7 +49,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        openLeftMenu = YES;
+        _openLeftMenu = YES;
+        _openRightMenu = NO;
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -78,6 +78,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setOpenRight) name: @"OpenRightMenu"  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
@@ -211,7 +212,7 @@
     }
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
-    //[self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
+    [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -423,7 +424,7 @@
 #pragma mark - 通知处理
 - (void)ProfileChange
 {
-    openLeftMenu = YES;
+    _openLeftMenu = YES;
 }
 - (void)stageChange
 {
@@ -517,23 +518,37 @@
 }
 - (void)checkShouldOpenMenu
 {
-    if(openLeftMenu)
+    if(_openLeftMenu)
     {
+        /*
         [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-            openLeftMenu = NO;
+            _openLeftMenu = NO;
         }];
+         */
+    }
+    if(_openRightMenu)
+    {
+        /*
+        [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
+            _openRightMenu = NO;
+        }];
+         */
     }
 }
 - (void)GKLogin
 {
-    openLeftMenu = YES;
+    _openLeftMenu = YES;
 }
 - (void)GKLogout
 {
     [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
-        openLeftMenu = YES;
+        _openLeftMenu = YES;
     }];
+    [self refresh];
 }
-
+- (void)setOpenRight
+{
+    _openRightMenu = YES;
+}
 
 @end

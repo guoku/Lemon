@@ -1050,6 +1050,11 @@
     [GKVisitedUser visitedUserWithUserID:_user_id Offset:[_entityArray count] Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
+            if ([entitylist count] == 0) {
+                [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
+            else
+            {
             for (GKEntity * entity in entitylist) {
                 BOOL flag = YES;
                 for (GKEntity * e in _entityArray) {
@@ -1139,6 +1144,7 @@
             }
             [_dataArray removeObjectsInArray:s_array];
             [self.table reloadData];
+            }
             [indicator stopAnimating];
             _loadMoreflag = NO;
             self.navigationItem.rightBarButtonItem.enabled = YES;
