@@ -22,6 +22,7 @@
 @property (nonatomic, strong) GKItemButton *entityImageView;
 @property (nonatomic,strong) UIButton * entityButton;
 @property (nonatomic,strong) UILabel *score;
+@property (nonatomic,strong) NSMutableArray * poke_user_list;
 
 
 @property (strong, nonatomic) UIButton *avatarButton;

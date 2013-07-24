@@ -20,6 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        _poke_user_list = [[NSMutableArray alloc]initWithCapacity:0];
         self.backgroundColor = UIColorFromRGB(0xffffff);
         self.entityButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,kScreenWidth , 85)];
         [_entityButton setBackgroundColor:UIColorFromRGB(0xf1f1f1)];
@@ -126,11 +127,13 @@
         _pokeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_pokeButton addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_pokeButton setImage:[UIImage imageNamed:@"poke.png"] forState:UIControlStateNormal];
+        [_pokeButton setImage:[UIImage imageNamed:@"poke.png"] forState:UIControlStateHighlighted|UIControlStateNormal];
         [_pokeButton setImage:[UIImage imageNamed:@"poked.png"] forState:UIControlStateSelected];
-        [_pokeButton setImage:[UIImage imageNamed:@"poked.png"] forState:UIControlStateDisabled];
+        [_pokeButton setImage:[UIImage imageNamed:@"poked.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal|UIControlStateHighlighted];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
-        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateHighlighted];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected|UIControlStateHighlighted];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
@@ -149,7 +152,7 @@
     _noteData = noteData;
     _entity = entity;
 
-    if([_noteData.poke_id_list count]!=0)
+    if([_noteData.poke_id_list count]!=[_poke_user_list count])
     {
         NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:0];
         int i =0;
@@ -162,13 +165,20 @@
                 break;
             }
         }
+        for (UIView * view in self.subviews) {
+            if (view.tag ==1000) {
+                [view removeFromSuperview];
+            }
+        }
             [GKUserBase getUserBaseByArray:array  Block:^(NSArray *list, NSError *error) {
                 if(!error)
                 {
                     int i = 0;
-                    for (GKUserBase * user in list) {
+                    _poke_user_list = [NSMutableArray arrayWithArray:list];
+                    for (GKUserBase * user in _poke_user_list) {
                         GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
                         avatar.userBase = user;
+                        avatar.tag = 1000;
                         avatar.delegate = _delegate;
                         [self addSubview:avatar];
                         i++;
@@ -180,12 +190,35 @@
                 }
             }];
     }
+    else
+    {
+        for (UIView * view in self.subviews) {
+            if (view.tag ==1000) {
+                [view removeFromSuperview];
+            }
+        }
+        int i = 0;
+        for (GKUserBase * user in _poke_user_list) {
+            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+            avatar.userBase = user;
+            avatar.tag = 1000;
+            avatar.delegate = _delegate;
+            [self addSubview:avatar];
+            i++;
+            if(i>=9)
+            {
+                break;
+            }
+        }
+
+    }
     [self setNeedsLayout];
 }
 - (void)setNoteData:(GKNote *)noteData
 {
-    _noteData = noteData;    
-    if([_noteData.poke_id_list count]!=0)
+    _noteData = noteData;
+    
+    if([_noteData.poke_id_list count]!=[_poke_user_list count])
     {
         NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:0];
         int i =0;
@@ -207,7 +240,8 @@
             if(!error)
             {
                 int i = 0;
-                for (GKUserBase * user in list) {
+                _poke_user_list = [NSMutableArray arrayWithArray:list];
+                for (GKUserBase * user in _poke_user_list) {
                     GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
                     avatar.userBase = user;
                     avatar.tag = 1000;
@@ -221,6 +255,28 @@
                 }
             }
         }];
+    }
+    else
+    {
+        for (UIView * view in self.subviews) {
+            if (view.tag ==1000) {
+                [view removeFromSuperview];
+            }
+        }
+        int i = 0;
+        for (GKUserBase * user in _poke_user_list) {
+            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
+            avatar.userBase = user;
+            avatar.tag = 1000;
+            avatar.delegate = _delegate;
+            [self addSubview:avatar];
+            i++;
+            if(i>=9)
+            {
+                break;
+            }
+        }
+        
     }
     [self setNeedsLayout];
 }

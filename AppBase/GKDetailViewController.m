@@ -98,6 +98,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
     [_ratingView displayRating:_detailHeaderView.detailData.avg_score/2];
     if(_detailHeaderView.detailData.avg_score !=0)
     {
@@ -195,7 +196,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:NO];
     [GKMessageBoard hideActivity];
     [self HideShop];
 }

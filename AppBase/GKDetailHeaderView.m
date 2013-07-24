@@ -116,8 +116,8 @@
         [_usedButton setImage:[UIImage imageNamed:@"check_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateSelected];
         [_usedButton setImage:[UIImage imageNamed:@"check_green.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-        [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0)];
+        [_usedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [_usedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_usedButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0f]];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_usedButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];

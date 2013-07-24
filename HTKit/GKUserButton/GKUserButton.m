@@ -124,6 +124,23 @@
     if(_userid !=0)
     {
         [_avatarImage setImageWithURL:_avatarURL];
+        /*
+        __block UIImageView *block_img = _avatarBgImg;
+        [_avatarImage setImageWithURL:_avatarURL placeholderImage:nil options:SDWebImageRetryFailed  progress:^(NSUInteger receivedSize, long long expectedSize) {
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            if (!error) {
+                if (image && cacheType == SDImageCacheTypeNone)
+                {
+                    block_img.alpha = 0.0;
+                    [UIView animateWithDuration:0.25
+                                     animations:^{
+                                         block_img.alpha = 1.0;
+                                     }];
+                }
+            }
+        }];
+        */
         _avatarButton.tag = _userid;
         _avatarButton.enabled = YES;
     }

@@ -22,11 +22,11 @@
 	float height, width; // of each image of the star!
 }
 
-@property (nonatomic, retain) UIImageView *s1;
-@property (nonatomic, retain) UIImageView *s2;
-@property (nonatomic, retain) UIImageView *s3;
-@property (nonatomic, retain) UIImageView *s4;
-@property (nonatomic, retain) UIImageView *s5;
+@property (nonatomic, strong) UIImageView *s1;
+@property (nonatomic, strong) UIImageView *s2;
+@property (nonatomic, strong) UIImageView *s3;
+@property (nonatomic, strong) UIImageView *s4;
+@property (nonatomic, strong) UIImageView *s5;
 
 -(void)setImagesDeselected:(NSString *)unselectedImage partlySelected:(NSString *)partlySelectedImage 
 			  fullSelected:(NSString *)fullSelectedImage andDelegate:(id<RatingViewDelegate>)d;

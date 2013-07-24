@@ -69,11 +69,13 @@
         _pokeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_pokeButton addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_pokeButton setImage:[UIImage imageNamed:@"poke.png"] forState:UIControlStateNormal];
+        [_pokeButton setImage:[UIImage imageNamed:@"poke.png"] forState:UIControlStateHighlighted|UIControlStateNormal];
         [_pokeButton setImage:[UIImage imageNamed:@"poked.png"] forState:UIControlStateSelected];
-        [_pokeButton setImage:[UIImage imageNamed:@"poked.png"] forState:UIControlStateDisabled];
+        [_pokeButton setImage:[UIImage imageNamed:@"poked.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateNormal|UIControlStateHighlighted];
         [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected];
-        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_pres.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateHighlighted];
+        [_pokeButton setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateSelected|UIControlStateHighlighted];
         [_pokeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [_pokeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [_pokeButton.titleLabel setTextAlignment:NSTextAlignmentLeft];

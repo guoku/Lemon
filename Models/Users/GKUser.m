@@ -90,7 +90,10 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     [a setObject:_nickname forKey:@"nickname"];
     [a setObject:_gender forKey:@"gender"];
     [a setObject:_location forKey:@"loaction"];
-    [a setObject:_relation forKey:@"relation"];
+    if(_relation)
+    {
+        [a setObject:_relation forKey:@"relation"];
+    }
     [a setObject:_city forKey:@"city"];
     [a setObject:_avatarImageURLString forKey:@"avatar_small"];
     

@@ -114,7 +114,7 @@
 
     containerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, 320, 40)];
     
-	textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(13, 6, 240, 29)];
+	textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(6, 6, 240, 29)];
     textView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     
 	textView.minNumberOfLines = 1;
@@ -131,13 +131,13 @@
     
 
 	
-    UIImage *rawEntryBackground = [UIImage imageNamed:@"comment_input.png"];
-    UIImage *entryBackground = [rawEntryBackground stretchableImageWithLeftCapWidth:13 topCapHeight:22];
+    UIImage *rawEntryBackground = [UIImage imageNamed:@"comment_bg.png"];
+    UIImage *entryBackground = [rawEntryBackground stretchableImageWithLeftCapWidth:5 topCapHeight:5];
     UIImageView *entryImageView = [[UIImageView alloc] initWithImage:entryBackground];
-    entryImageView.frame = CGRectMake(13, 6, 240, 29);
+    entryImageView.frame = CGRectMake(6, 6, 240, 29);
     entryImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    UIImage *rawBackground = [UIImage imageNamed:@"input.png"];
+    UIImage *rawBackground = [[UIImage imageNamed:@"comment_bar.png"]stretchableImageWithLeftCapWidth:0 topCapHeight:4];
     UIImage *background = rawBackground;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:background];
     imageView.frame = CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height);
@@ -154,7 +154,7 @@
     UIImage *sendBtnBackground = [[UIImage imageNamed:@"button_green.png"] stretchableImageWithLeftCapWidth:13 topCapHeight:0];
     
 	UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-	doneBtn.frame = CGRectMake(containerView.frame.size.width - 58, 6, 50, 29);
+	doneBtn.frame = CGRectMake(containerView.frame.size.width - 68, 7, 60, 29);
     doneBtn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
 	[doneBtn setTitle:@"发送" forState:UIControlStateNormal];
     
@@ -583,6 +583,7 @@
                 noteData.poker_count++;
                 GKUser *me = [[GKUser alloc]initFromNSU];
                 [noteData.poke_id_list insertObject:@(me.user_id) atIndex:0];
+                [self.headerView.poke_user_list insertObject:[me getUserBase] atIndex:0];
                 [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
                 self.headerView.noteData = noteData;
                 pokeBtn.selected = YES;
@@ -602,6 +603,17 @@
                 if(index != -1)
                 {
                     [noteData.poke_id_list removeObjectAtIndex:index];
+                }
+                index = -1;
+                for (GKUserBase * userbase in self.headerView.poke_user_list) {
+                    if(userbase.user_id == me.user_id)
+                    {
+                        index = [self.headerView.poke_user_list indexOfObject:userbase];
+                    }
+                }
+                if(index != -1)
+                {
+                    [self.headerView.poke_user_list removeObjectAtIndex:index];
                 }
                 [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
                 self.headerView.noteData = noteData;

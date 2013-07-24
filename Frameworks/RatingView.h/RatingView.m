@@ -12,15 +12,6 @@
 
 @synthesize s1, s2, s3, s4, s5;
 
-- (void)dealloc {
-	[s1 release];
-	[s2 release];
-	[s3 release];
-	[s4 release];
-	[s5 release];
-    [super dealloc];
-}
-
 -(void)setImagesDeselected:(NSString *)deselectedImage
 			partlySelected:(NSString *)halfSelectedImage
 			  fullSelected:(NSString *)fullSelectedImage

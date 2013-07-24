@@ -181,7 +181,7 @@
 		4E48F0F317716ECB009EF5AE /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E48F0EE17716ECB009EF5AE /* 0.png */; };
 		4E48F0F417716ECB009EF5AE /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E48F0EF17716ECB009EF5AE /* 1.png */; };
 		4E48F0F517716ECB009EF5AE /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E48F0F017716ECB009EF5AE /* 2.png */; };
-		4E48F0F617716ECB009EF5AE /* RatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48F0F217716ECB009EF5AE /* RatingView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4E48F0F617716ECB009EF5AE /* RatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48F0F217716ECB009EF5AE /* RatingView.m */; };
 		4E48F0FD17717083009EF5AE /* GKNotePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48F0FC17717083009EF5AE /* GKNotePostViewController.m */; };
 		4E48F100177184B9009EF5AE /* GKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48F0FF177184B9009EF5AE /* GKAlertView.m */; };
 		4E48F15E17719B24009EF5AE /* MMMCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48F15D17719B23009EF5AE /* MMMCalendar.m */; };
