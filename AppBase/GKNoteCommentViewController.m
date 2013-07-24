@@ -573,19 +573,40 @@
     
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
-    [GKNote pokeEntityNoteWithNoteID:noteData.note_id Block:^(NSDictionary *dict, NSError *error) {
+    [GKNote pokeEntityNoteWithNoteID:noteData.note_id Selected:pokeBtn.selected Block:^(NSDictionary *dict, NSError *error) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
         if (!error)
         {
-            
-            noteData.poker_already = YES;
-            noteData.poker_count++;
-            GKUser *me = [[GKUser alloc]initFromNSU];
-            [noteData.poke_id_list addObject:@(me.user_id)];
-            [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
-            self.headerView.noteData = noteData;
-            pokeBtn.selected = YES;
-            pokeBtn.userInteractionEnabled = NO;
+            if(!pokeBtn.selected)
+            {
+                noteData.poker_already = YES;
+                noteData.poker_count++;
+                GKUser *me = [[GKUser alloc]initFromNSU];
+                [noteData.poke_id_list addObject:@(me.user_id)];
+                [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
+                self.headerView.noteData = noteData;
+                pokeBtn.selected = YES;
+            }
+            else
+            {
+                noteData.poker_already = NO;
+                noteData.poker_count--;
+                GKUser *me = [[GKUser alloc]initFromNSU];
+                NSUInteger index = -1;
+                for (NSString * string in noteData.poke_id_list) {
+                     if([string isEqual:@(me.user_id)])
+                    {
+                        index = [noteData.poke_id_list indexOfObject:string];
+                    }
+                }
+                if(index != -1)
+                {
+                    [noteData.poke_id_list removeObjectAtIndex:index];
+                }
+                [pokeBtn setTitle:[NSString stringWithFormat:@"%u", noteData.poker_count] forState:UIControlStateNormal];
+                self.headerView.noteData = noteData;
+                pokeBtn.selected = YES;
+            }
             
             [_message setValue:@(noteData.note_id) forKey:@"noteID"];
             [_message setValue:noteData forKey: @"note"];

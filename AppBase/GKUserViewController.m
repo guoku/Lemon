@@ -631,7 +631,10 @@
 - (void)showLikeButtonAction
 {
     NSIndexPath * indexPath =  [NSIndexPath indexPathForRow:1 inSection:0];
-    [self.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if([self tableView:self.table numberOfRowsInSection:0]>1)
+    {
+        [self.table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 - (void)userFollowChange:(NSNotification *)noti

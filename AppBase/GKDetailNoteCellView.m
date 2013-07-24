@@ -192,7 +192,11 @@
     if(_noteData.poker_already)
     {
         _pokeButton.selected = YES;
-        _pokeButton.userInteractionEnabled = NO;
+        //_pokeButton.userInteractionEnabled = NO;
+    }
+    else
+    {
+        _pokeButton.selected = NO;
     }
     
     NSString * comment_count = [NSString stringWithFormat:@"%u", _noteData.comment_count];

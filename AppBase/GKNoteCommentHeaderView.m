@@ -198,6 +198,11 @@
                 break;
             }
         }
+        for (UIView * view in self.subviews) {
+            if (view.tag ==1000) {
+                [view removeFromSuperview];
+            }
+        }
         [GKUserBase getUserBaseByArray:array  Block:^(NSArray *list, NSError *error) {
             if(!error)
             {
@@ -205,6 +210,7 @@
                 for (GKUserBase * user in list) {
                     GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(11+i*34,self.frame.size.height-40, 30, 30) useBg:NO cornerRadius:0];
                     avatar.userBase = user;
+                    avatar.tag = 1000;
                     avatar.delegate = _delegate;
                     [self addSubview:avatar];
                     i++;
@@ -278,7 +284,11 @@
     if(_noteData.poker_already)
     {
         _pokeButton.selected = YES;
-        _pokeButton.userInteractionEnabled = NO;
+        //_pokeButton.userInteractionEnabled = NO;
+    }
+    else
+    {
+        _pokeButton.selected = NO;
     }
 }
 + (float)height:(GKNote *)data

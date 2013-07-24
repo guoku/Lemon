@@ -39,5 +39,6 @@ extern NSString * const QUERY_NOTE_SQL;
                            Content:(NSString *)content
                              Block:(void (^)(NSDictionary *note, NSError * error))block;
 + (void)pokeEntityNoteWithNoteID:(NSUInteger)note_id
+                        Selected:(BOOL)selected
                            Block:(void (^)(NSDictionary * dict, NSError * error))block;
 @end

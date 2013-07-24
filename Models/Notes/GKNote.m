@@ -164,14 +164,13 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 
 
 + (void)pokeEntityNoteWithNoteID:(NSUInteger)note_id
-                   
+                   Selected:(BOOL)selected
                            Block:(void (^)(NSDictionary * dict, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:2];
         
-    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/note/%u/poke",note_id] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/note/%u/poke/%u",note_id,selected] parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
        
-        GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {
