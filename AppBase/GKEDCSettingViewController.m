@@ -222,7 +222,7 @@
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
 
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您目前正处于预产阶段-%@\U0001F603",[[_dataArray objectAtIndex:i]objectForKey:@"name"]]  delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"妈妈清单，GO！", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您目前正处于预产阶段-%@\U0001F603",[[_dataArray objectAtIndex:i]objectForKey:@"name"]]  delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
     else if([[userDefault objectForKey:@"state"]isEqualToString:@"born"])

@@ -58,7 +58,7 @@
     //启动缓存区
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:1024 * 1024 diskCapacity:1024 * 1024 * 5 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
+    /*
     [GKVersion getAppVersionWithBlock:^(NSDictionary *dict, NSError *error) {
         if(!error)
         {
@@ -85,6 +85,7 @@
             }
         }
     }];
+     */
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];

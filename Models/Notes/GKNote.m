@@ -164,6 +164,7 @@ NSString * const GKAddNewNoteNotification = @"GKAddNewNoteNotification";
 
 
 + (void)pokeEntityNoteWithNoteID:(NSUInteger)note_id
+                   
                            Block:(void (^)(NSDictionary * dict, NSError * error))block
 {
     NSMutableDictionary * paramters = [NSMutableDictionary dictionaryWithCapacity:2];
