@@ -139,7 +139,7 @@
         
         if(((TMLKeyWord *)_object).necessary == YES)
         {
-               UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(button.frame.size.width-55,12, 25, 15)];
+               UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(button.frame.size.width-55,14, 25, 15)];
                necessary.layer.masksToBounds = YES;
                necessary.layer.cornerRadius = 2.0;
                necessary.textAlignment = NSTextAlignmentCenter;

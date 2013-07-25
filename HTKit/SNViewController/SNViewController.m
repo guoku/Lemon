@@ -118,11 +118,12 @@
                                                                  withLabel:nil
                                                                  withValue:nil];
                 GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:^{
+                
                     if(user.stage == 0)
                     {
                         GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
                         UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:VC];
+                        [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:NULL];
                         [delegate.window.rootViewController presentViewController: nav animated:NO completion:NULL];
                         [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
                     }
@@ -131,28 +132,34 @@
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"stage"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
-                        
-                        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
-                        
+           
+   
                         [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
                             if(!error)
                             {
+                                [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
                                 NSLog(@"%@",entitylist);
-                                GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                                [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                                [UIView animateWithDuration:1.2 animations:^{
                                     
-                                }];
+                                }
+                                                 completion:^(BOOL finished) {
+                                                     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                     [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                                                         
+                                                     }];
+                                                 }];
+           
                             }
                             else
                             {
-                                
+                                [GKMessageBoard hideMB];
                             }
-                         [GKMessageBoard hideMB];
+                            
                         }];
+
                         
 
                     }
-                }];
 
             }
             else

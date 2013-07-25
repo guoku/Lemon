@@ -38,6 +38,7 @@
     BOOL headerChange;
     float y;
     GKUser *user;
+    BOOL reload;
 }
 @synthesize table = _table;
 @synthesize icon = _icon;
@@ -49,8 +50,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _openLeftMenu = YES;
+        _openLeftMenu = NO;
         _openRightMenu = NO;
+        reload = NO;
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -181,7 +183,7 @@
     }
     else
     {
-        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+        [GKMessageBoard showMBWithText:@"稍等。" customView:[[UIView alloc]initWithFrame:CGRectZero] delayTime:10.0];
         [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
             if(!error)
             {
@@ -192,8 +194,9 @@
                 NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
                 [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
                 [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
-                [GKMessageBoard hideMB];
-                
+                reload = YES;
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"已同步完数据，页面即将刷新" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
             }
             else
             {
@@ -429,6 +432,10 @@
 }
 - (void)stageChange
 {
+    if(reload)
+    {
+        return; 
+    }
     _icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"stage_list_%@.png",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]];
     NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
@@ -510,6 +517,8 @@
     }
     
     [self.table reloadData];
+    [GKMessageBoard hideMB];
+    reload = NO;
 }
 - (void)showLeftMenu
 {
@@ -523,11 +532,11 @@
 {
     if(_openLeftMenu)
     {
-        /*
+        
         [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
             _openLeftMenu = NO;
         }];
-         */
+         
     }
     if(_openRightMenu)
     {
@@ -552,6 +561,10 @@
 - (void)setOpenRight
 {
     _openRightMenu = YES;
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self refresh];
 }
 
 @end

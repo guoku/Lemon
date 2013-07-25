@@ -398,11 +398,15 @@
             break;
         case ReachableViaWiFi:
         {
+            //[GKMessageBoard showMBWithText:@"WIFI已连接" customView:
+            // [[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             [userDefault setObject:@"WIFI" forKey:@"networkStatus"];
         }
             break;
         case ReachableViaWWAN:
         {
+           // [GKMessageBoard showMBWithText:@"蜂窝网络" customView:
+           //  [[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             [userDefault setObject:@"WWAN" forKey:@"networkStatus"];
         }
             break;
@@ -449,7 +453,6 @@
                             entity.pid = [pidString integerValue];
                             [entity save];
                         }
-
                     }
                     [self.centerViewController stageChange];
                 }

@@ -193,7 +193,7 @@
         }
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDate *startDate = [NSDate date];
-        NSDate *endDate = user.birth_date;
+        NSDate *endDate = datePicker.date;
         unsigned int unitFlags = NSDayCalendarUnit;
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
         int days = [comps day];
@@ -234,7 +234,7 @@
             return;
         }
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *startDate = user.birth_date;
+        NSDate *startDate = datePicker.date;
         NSDate *endDate = [NSDate date];
         unsigned int unitFlags = NSDayCalendarUnit;
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
@@ -268,7 +268,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i-1] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
 }

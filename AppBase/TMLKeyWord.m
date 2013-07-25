@@ -16,7 +16,7 @@
     {
         _name = [attributes valueForKeyPath:@"ctt"];
         _kid =  [[attributes valueForKeyPath:@"cid"]intValue];
-        _necessary = [[attributes valueForKeyPath:@"necessary"]boolValue];
+        _necessary = [[attributes valueForKeyPath:@"is_required"]boolValue];
         //_necessary = false;
         _count = 0;
         //_count = [[attributes valueForKeyPath:@"count"]intValue];

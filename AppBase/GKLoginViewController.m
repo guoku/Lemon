@@ -9,6 +9,7 @@
 #import "GKLoginViewController.h"
 #import "GKAppDelegate.h"
 #import "SMPageControl.h"
+#import "MMMTML.h"
 @interface GKLoginViewController ()
 {
     @private UIButton * _sinaBtn;
@@ -249,9 +250,7 @@
 {
     [super viewDidAppear:animated];
     logo.center = CGPointMake(logo.center.x, yoffest+55/2);
-    
     logo.hidden = NO;
-    
     [self performSelector:@selector(showEverything) withObject:nil afterDelay:0.4];
     
 }
