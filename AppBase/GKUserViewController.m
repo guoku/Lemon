@@ -377,6 +377,7 @@
                     {
                         if(((TMLKeyWord *)object).kid == entity.cid)
                         {
+                            ((TMLKeyWord *)object).count++;
                             [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
                             break;
                         }
@@ -783,6 +784,7 @@
                 {
                     if(((TMLKeyWord *)object).kid == entity.cid)
                     {
+                        ((TMLKeyWord *)object).count++;
                         [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
                         break;
                     }
@@ -795,6 +797,7 @@
     {
         bool flag = NO;
         _user.liked_count--;
+        int index = 0;
         for (NSMutableDictionary * dic in _dataArray) {
             NSMutableArray *array =  [dic objectForKey:@"row"];
             for (NSObject * object  in array ) {
@@ -803,6 +806,7 @@
                 {
                     if(((GKEntity *)object).entity_id == entity_id)
                     {
+                        index = [array indexOfObject:object];
                         [array removeObject:object];
                         flag = YES;
                         break;
@@ -810,9 +814,20 @@
                 }
             }
             if (flag) {
-                break;
+                {
+                    for (int k = index-1; k>=0; k--) {
+                        NSObject * obj = [array objectAtIndex:k];
+                        if([obj isKindOfClass:[TMLKeyWord class]])
+                        {
+                            ((TMLKeyWord *)obj).count--;
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
         }
+        
         NSMutableArray * r_array = [[NSMutableArray alloc]initWithCapacity:0];
         for (GKEntity * entity in _entityArray) {
             if(entity.entity_id == entity_id)
@@ -1104,6 +1119,7 @@
                     {
                         if(((TMLKeyWord *)object).kid == entity.cid)
                         {
+                            ((TMLKeyWord *)object).count++;
                             [array insertObject:entity atIndex:([array indexOfObjectIdenticalTo:object]+1)];
                             break;
                         }

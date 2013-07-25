@@ -158,6 +158,7 @@
                             if(((TMLKeyWord *)object).kid == entity.cid)
                             {
                                 [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"]  indexOfObjectIdenticalTo:object]+1)];
+                                ((TMLKeyWord *)object).count++;
                                 i++;
                                 flag = YES;
                                 break;
@@ -446,6 +447,7 @@
                     if(((TMLKeyWord *)object).kid == entity.cid)
                     {
                         [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"] indexOfObjectIdenticalTo:object]+1)];
+                        ((TMLKeyWord *)object).count++;
                         i++;
                         flag = YES;
                         break;
@@ -490,6 +492,7 @@
                     if(((TMLKeyWord *)object).kid == entity.cid)
                     {
                         [[data objectForKey:@"row"] insertObject:entity atIndex:([[data objectForKey:@"row"] indexOfObjectIdenticalTo:object]+1)];
+                        ((TMLKeyWord *)object).count++;
                         i++;
                         flag = YES;
                         break;

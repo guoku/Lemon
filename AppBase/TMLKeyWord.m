@@ -18,8 +18,8 @@
         _kid =  [[attributes valueForKeyPath:@"cid"]intValue];
         _necessary = [[attributes valueForKeyPath:@"necessary"]boolValue];
         //_necessary = false;
-        //_count = 0;
-        _count = [[attributes valueForKeyPath:@"count"]intValue];
+        _count = 0;
+        //_count = [[attributes valueForKeyPath:@"count"]intValue];
     }
     return self;
 }

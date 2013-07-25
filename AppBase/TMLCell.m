@@ -113,6 +113,30 @@
         [button setTitle:((TMLKeyWord *)_object).name forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goKeyWord) forControlEvents:UIControlEventTouchUpInside];
         
+        UIFont *font = [UIFont fontWithName:@"Helvetica" size:17.0f];
+        CGSize size = [((TMLKeyWord *)_object).name sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+
+
+        if(((TMLKeyWord *)_object).count !=0)
+        {
+
+            UILabel *  count= [[UILabel alloc]initWithFrame:CGRectMake(size.width+22,13, 16, 16)];
+            count.layer.masksToBounds = YES;
+            count.layer.cornerRadius = 2.0;
+            count.textAlignment = NSTextAlignmentCenter;
+            count.backgroundColor =UIColorFromRGB(0xfecbc4);
+            count.textColor = [UIColor whiteColor];
+            count.text = [NSString stringWithFormat:@"%u",((TMLKeyWord *)_object).count];
+            count.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
+            [button addSubview:count];
+            
+            UIFont *font = [UIFont fontWithName:@"Helvetica" size:10.0f];
+            CGSize size = [count.text sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+            count.frame = CGRectMake(count.frame.origin.x, count.frame.origin.y, size.width+12, count.frame.size.height);
+            
+        }
+        
+        
         if(((TMLKeyWord *)_object).necessary == YES)
         {
                UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(button.frame.size.width-55,12, 25, 15)];
