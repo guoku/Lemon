@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2CD990BD-F06D-4A39-8F5C-DE80C89ADD56</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MMM</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>45167F6D-A8FB-4824-812A-1359ED55B066</key>
+		<string>ssh://github.com/guoku/mamaqingdan.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MMM.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>45167F6D-A8FB-4824-812A-1359ED55B066</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/guoku/mamaqingdan.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>45167F6D-A8FB-4824-812A-1359ED55B066</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>45167F6D-A8FB-4824-812A-1359ED55B066</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MMM</string>
+		</dict>
+	</array>
+</dict>
+</plist>

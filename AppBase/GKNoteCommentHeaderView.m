@@ -265,7 +265,7 @@
         }
         int i = 0;
         for (GKUserBase * user in _poke_user_list) {
-            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(9+i*34,self.frame.size.height-37, 30, 30) useBg:NO cornerRadius:0];
+            GKUserButton *avatar = [[GKUserButton alloc]initWithFrame:CGRectMake(10+i*34,self.frame.size.height-37, 30, 30) useBg:NO cornerRadius:0];
             avatar.userBase = user;
             avatar.tag = 1000;
             avatar.delegate = _delegate;

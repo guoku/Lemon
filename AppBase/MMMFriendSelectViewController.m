@@ -20,6 +20,7 @@
     UIActivityIndicatorView *indicator;
     BOOL _loadMoreflag;
         BOOL _canLoadMore;
+    UIActivityIndicatorView * loading;
 }
 @end
 
@@ -78,9 +79,16 @@
     [self setFooterView:NO];
     
     [self.view addSubview:_table];
+    
+    loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    loading.frame = CGRectMake(0, 0, 44, 44);
+    loading.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    loading.center = CGPointMake(kScreenWidth/2, 150);
+    loading.hidesWhenStopped = YES;
+    [self.view addSubview:loading];
 }
 - (void)reload:(id)sender
-{
+{    [loading startAnimating];
     [MMMKWDFS globalKWDFSWithPid:_pid Cid:_cid Offset:0 Date:nil Block:^(NSDictionary *dic, NSError *error) {
         if(!error)
         {
@@ -96,6 +104,7 @@
                 [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             }
         }
+         [loading stopAnimating];
     }];
 }
 

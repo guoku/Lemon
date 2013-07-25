@@ -19,6 +19,7 @@
 @implementation GKMessageViewController
 {
 @private
+      UIActivityIndicatorView * loading;
     NSMutableArray * _dataArray;
         BOOL _loadMoreflag;
         UIActivityIndicatorView *indicator;
@@ -127,7 +128,7 @@
         [self.table addSubview:_refreshHeaderView];
     }
     [_refreshHeaderView refreshLastUpdatedDate];
-    
+        
 }
 
 - (void)viewDidLoad

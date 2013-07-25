@@ -81,13 +81,17 @@
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"邀请好友"];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-44-46, kScreenWidth, 46)];
     view.backgroundColor = [UIColor clearColor];
     
-    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 46)];
     //bg.backgroundColor =UIColorFromRGB(0xf1f1f1);
     bg.backgroundColor = [UIColor clearColor];
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 160, 42)];
+    UIImageView * webview_toolbar_bg = [[UIImageView alloc]initWithImage:[[UIImage imageNamed:@"webview_toolbar.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5]];
+    webview_toolbar_bg.frame = CGRectMake(0, 0, kScreenWidth, 46);
+    [bg addSubview:webview_toolbar_bg];
+    
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 160, 44)];
     button.backgroundColor = [UIColor clearColor];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"icon_sina.png"] forState:UIControlStateHighlighted];
@@ -106,18 +110,18 @@
     [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
     button.tag = 4001;
     
-    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(160, 0, 160, 42)];
+    UIButton *button2 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, view.frame.size.width, 46)];
     button2.backgroundColor = [UIColor clearColor];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
+    //[button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+    //[button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+    //[button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
+    //[button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"icon_weixin.png"] forState:UIControlStateHighlighted];
     [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
-    [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15.0f]];
     [button2 setTitle:@"邀请微信好友" forState:UIControlStateNormal];
     [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
@@ -125,9 +129,9 @@
     button2.tag = 4002;
         
     UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
-    arrow.frame = CGRectMake(300, 13, 8, 14);
+    arrow.frame = CGRectMake(300, 16, 8, 14);
     arrow.backgroundColor = [UIColor clearColor];
-    [bg addSubview:button];
+    //[bg addSubview:button];
     [bg addSubview:button2];
     [bg addSubview:arrow];
     
@@ -136,8 +140,8 @@
     UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
     H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
     
-    [bg addSubview:H1];
-    [bg addSubview:V1];
+    //[bg addSubview:H1];
+    //[bg addSubview:V1];
     
     //cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
     //cate_arrow.frame = CGRectMake(0,39, 15,8);
@@ -147,12 +151,12 @@
     [view addSubview:bg];
 
     
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44-42) style:UITableViewStylePlain];
     _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
     _table.showsHorizontalScrollIndicator = NO;
-    _table.showsVerticalScrollIndicator = NO;
+    _table.showsVerticalScrollIndicator = YES;
 
     [_table setDelegate:self];
     [_table setDataSource:self];
@@ -164,17 +168,24 @@
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, -200.0f, 320.0f, 44.0f)];
     search_y = -200.0f;
+    _searchBar.backgroundColor = UIColorFromRGB(0xf2f2f2);
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.keyboardType = UIKeyboardTypeDefault;
     _searchBar.showsSearchResultsButton = NO;
-    //self.table.tableHeaderView = _searchBar;
+    self.table.tableHeaderView = _searchBar;
     //[self.view addSubview:_searchBar];
+    for (UIView *subview in _searchBar.subviews) {
+		if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+			[subview removeFromSuperview];
+			break;
+		}
+	}
     
     self.searchDC = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _searchDC.searchResultsDataSource = self;
     _searchDC.searchResultsDelegate = self;
-    
+    //self.table.contentOffset = CGPointMake(0.0, 44.0);
     [self.view addSubview:view];
 
 }
@@ -304,7 +315,7 @@
 - (void)reload:(id)sender
 {
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    [GKMessageBoard showActivity];
+    [GKMessageBoard showMBWithText:@"" customView:nil delayTime:0];
     SinaWeibo *sinaweibo = [self sinaweibo];
     [sinaweibo requestWithURL:@"friendships/friends.json"
                        params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -315,7 +326,7 @@
 
 - (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error
 {
-    [GKMessageBoard hideActivity];
+    [GKMessageBoard hideMB];
     self.navigationItem.rightBarButtonItem.enabled = YES;
     if(error.code ==21315)
     {
@@ -342,7 +353,7 @@
             [NSKeyedArchiver archiveRootObject:_allFriends toFile:[GKFileManager getFullFileNameWithName:[NSString stringWithFormat:@"friends_%@",[self sinaweibo].userID]]];
             [self loadAllFriends];
             _recieveData = NO;
-            [GKMessageBoard hideActivity];
+            [GKMessageBoard hideMB];
             self.navigationItem.rightBarButtonItem.enabled = YES;
             return;
         }
@@ -378,6 +389,7 @@
 #pragma mark - Table view data source
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    /*/
     if(scrollView.contentOffset.y>44)
     {
         
@@ -409,6 +421,12 @@
             _searchBar.frame = rect;
         }
     }
+    */
+    /*
+    CGRect rect = _searchBar.frame;
+    rect.origin.y = MIN(0, scrollView.contentOffset.y);
+    _searchBar.frame = rect;
+     */
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -515,12 +533,12 @@
     }
     // Configure the cell...
     cell.backgroundColor =UIColorFromRGB(0xf9f9f9);
-    userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 4.0f, 32.0f, 32.0f)];
+    userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 8.0f, 32.0f, 32.0f)];
     userAvatar.layer.cornerRadius = 3.0f;
     userAvatar.layer.masksToBounds = YES;
     [cell.contentView addSubview:userAvatar];
     
-    screenName = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 0.0f, 150.0f, 42.0f)];
+    screenName = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 0.0f, 150.0f, 48.0f)];
     [screenName setBackgroundColor:[UIColor clearColor]];
     [screenName setTextAlignment:NSTextAlignmentLeft];
     [screenName setFont:[UIFont systemFontOfSize:15.0f]];
@@ -542,7 +560,7 @@
     [userAvatar setImageWithURL:[NSURL URLWithString:[user valueForKey:@"profile_image_url"]]];
     [screenName setText:[user valueForKey:@"screen_name"]];
     
-    GKWeiboInviteButton *_invite= [[GKWeiboInviteButton alloc]initWithFrame:CGRectMake(kScreenWidth-60, 6, 50, 30)];
+    GKWeiboInviteButton *_invite= [[GKWeiboInviteButton alloc]initWithFrame:CGRectMake(kScreenWidth-60, 10, 50, 30)];
     _invite.name = screenName.text;
     [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] forState:UIControlStateNormal];
     [_invite setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10) ] forState:UIControlStateHighlighted];
@@ -557,7 +575,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 51;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
@@ -622,7 +640,7 @@
                                postContent, @"status",nil]
                    httpMethod:@"POST"
                      delegate:nil];
-    [GKMessageBoard showMBWithText:[NSString  stringWithFormat:@"已发送"] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    [GKMessageBoard showMBWithText:[NSString  stringWithFormat:@"已成功邀请"] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
 }
 
 @end

@@ -123,7 +123,13 @@
     
     if(_userid !=0)
     {
-        [_avatarImage setImageWithURL:_avatarURL];
+        if ([[_avatarURL absoluteString]hasPrefix:@"http://image.guoku.com/avatar/default"]) {
+            _avatarImage.image = [UIImage imageNamed:@"user_icon.png"];
+        }
+        else
+        {
+            [_avatarImage setImageWithURL:_avatarURL];
+        }
         /*
         __block UIImageView *block_img = _avatarBgImg;
         [_avatarImage setImageWithURL:_avatarURL placeholderImage:nil options:SDWebImageRetryFailed  progress:^(NSUInteger receivedSize, long long expectedSize) {

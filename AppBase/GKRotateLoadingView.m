@@ -53,6 +53,7 @@
     if (_isAnimating) {
         return;
     }
+    [self repeatAnimation];
     _timer = [NSTimer scheduledTimerWithTimeInterval:_duration
                                               target:self
                                             selector:@selector(repeatAnimation)

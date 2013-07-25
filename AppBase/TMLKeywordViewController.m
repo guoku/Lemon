@@ -31,7 +31,7 @@
     NSMutableDictionary *pageDictionary;
     NSString *group;
     NSMutableDictionary *loadMoreBoolDictionary;
-    
+    UIActivityIndicatorView *loading;
     UIButton *button;
     UIButton *button2;
     UIButton *button3;
@@ -85,6 +85,13 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
     button.selected = YES;
     button2.selected = NO;
+    
+    loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    loading.frame = CGRectMake(0, 0, 44, 44);
+    loading.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    loading.center = CGPointMake(kScreenWidth/2, 150);
+    loading.hidesWhenStopped = YES;
+    [self.view addSubview:loading];
 }
 - (void)viewDidUnload
 {
@@ -98,6 +105,7 @@
 }
 - (void)reload:(id)sender
 {
+    [loading startAnimating];
     [pageDictionary setObject:@(1) forKey:@"best"];
     [pageDictionary setObject:@(1) forKey:@"new"];
     [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:1 Block:^(NSArray *array, NSError *error) {
@@ -130,6 +138,7 @@
             }
         }
         [self doneLoadingTableViewData];
+ 
     }];
 }
 
@@ -329,6 +338,7 @@
 }
 - (void)refresh
 {
+    [loading startAnimating];
     _reloading = YES;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.table.tableFooterView.hidden = YES;
@@ -370,6 +380,7 @@
         self.table.contentOffset = offset;
     }completion:^(BOOL finished) {
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.table];
+               [loading stopAnimating];
     }];
 }
 - (void)AllReset{

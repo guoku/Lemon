@@ -128,7 +128,7 @@
             count.textColor = [UIColor whiteColor];
             count.text = [NSString stringWithFormat:@"%u",((TMLKeyWord *)_object).count];
             count.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
-            [button addSubview:count];
+            //[button addSubview:count];
             
             UIFont *font = [UIFont fontWithName:@"Helvetica" size:10.0f];
             CGSize size = [count.text sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];

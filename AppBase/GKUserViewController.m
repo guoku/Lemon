@@ -43,6 +43,7 @@
     UIButton * _shareButton;
     float y;
     UIActivityIndicatorView *indicator;
+    UIActivityIndicatorView *loading;
     BOOL _loadMoreflag;
     BOOL _canLoadMore;
 }
@@ -255,6 +256,13 @@
     //[self.view addSubview:calendarTimelineBG];
     //[self.view addSubview:calendarLine];
        [HeaderView addSubview:calendar];
+    
+    loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    loading.frame = CGRectMake(0, 0, 44, 44);
+    loading.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    loading.center = CGPointMake(kScreenWidth/2+20, 200);
+    loading.hidesWhenStopped = YES;
+    [self.view addSubview:loading];
 }
 - (void)viewDidUnload
 {
@@ -271,6 +279,7 @@
 }
 - (void)reload:(id)sender
 {
+    [loading startAnimating];
     [GKUser globalUserProfileWithUserID:_user_id Block:^(NSDictionary *dict, NSError *error) {
         if (!error){
             _user = [dict valueForKeyPath:@"content"];
@@ -286,6 +295,10 @@
             {
                 [self loadEntityList];
             }
+            else
+            {
+                [loading stopAnimating];
+            }
             GKUser * user = [[GKUser alloc]initFromNSU];
             if(user.user_id == _user.user_id)
             {
@@ -300,6 +313,7 @@
         }
         else
         {
+            [loading stopAnimating];
             switch (error.code) {
                 case -999:
                     [GKMessageBoard hideMB];
@@ -312,6 +326,7 @@
                     break;
             }
         }
+
     }];
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -324,6 +339,7 @@
 }
 -(void)loadEntityList
 {
+    [loading startAnimating];
     [GKVisitedUser visitedUserWithUserID:_user_id Offset:0 Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
@@ -418,7 +434,14 @@
             }
             [_dataArray removeObjectsInArray:s_array];
             
-            [self setFooterView:YES];
+            if([_entityArray count] == _user.liked_count)
+            {
+                [self setFooterView:NO];
+            }
+            else
+            {
+                [self setFooterView:YES];
+            }
             [self.table reloadData];
         }
         else
@@ -435,6 +458,7 @@
                     break;
             }
         }
+        [loading stopAnimating];
     }];
 }
 
@@ -502,6 +526,10 @@
             {
                 height = 88;
             }
+        }
+        if(indexPath.row == [[[_dataArray objectAtIndex:section]objectForKey:@"row" ]count]-1)
+        {
+            height = height +10;
         }
     }
     else if ([object isKindOfClass:[TMLKeyWord class]])
@@ -1163,6 +1191,14 @@
             }
             [indicator stopAnimating];
             _loadMoreflag = NO;
+            if([_entityArray count] == _user.liked_count)
+            {
+                [self setFooterView:NO];
+            }
+            else
+            {
+                [self setFooterView:YES];
+            }
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }
         else
