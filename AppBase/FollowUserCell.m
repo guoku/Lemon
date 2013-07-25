@@ -34,9 +34,9 @@
         [self addSubview:_avatar];
         
         
-        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 160, 15)];
+        self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 160, 20)];
         _nickname.textColor = UIColorFromRGB(0x666666);
-        _nickname.font = [UIFont fontWithName:@"Helvetica" size:13];
+        _nickname.font = [UIFont fontWithName:@"Helvetica" size:15];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
@@ -60,7 +60,37 @@
     }
     return self;
 }
+/*
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    if(selected)
+    {
+        [self viewWithTag:4003].hidden = YES;
+        self.backgroundColor = UIColorFromRGB(0x363131);
+    }
+    else
+    {
+        [self viewWithTag:4003].hidden = NO;
+        self.backgroundColor = UIColorFromRGB(0x403B3B);
+    }
+}
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if(highlighted)
+    {
+        [self viewWithTag:4003].hidden = YES;
+        self.backgroundColor = UIColorFromRGB(0x363131);
+    }
+    else
+    {
+        [self viewWithTag:4003].hidden = NO;
+        self.backgroundColor = UIColorFromRGB(0x403B3B);
+    }
+}
+ */
 - (void)setData:(GKUser *)user
 {
     _user  = user;

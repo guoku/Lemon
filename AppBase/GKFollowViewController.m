@@ -253,10 +253,11 @@
     if (cell == nil) {
         cell = [[FollowUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: FollowTableIdentifier];
     }
+    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     cell.user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
     UIView *bg =[[UIView alloc]initWithFrame:CGRectZero];
-    [bg setBackgroundColor:UIColorFromRGB(0xb0a498)];
+    [bg setBackgroundColor:UIColorFromRGB(0xededed)];
     cell.selectedBackgroundView =bg;
     return cell;
 }
