@@ -218,7 +218,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                     is_success = [[attributes valueForKeyPath:@"is_logout"] boolValue];
                     break;
                 }
-                [GKEntityLike DeleteAllData];
+                //[GKEntityLike DeleteAllData];
                 if(is_success && block)
                 {
                     block(is_success, nil);

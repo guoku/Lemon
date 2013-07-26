@@ -20,18 +20,18 @@
 #endif
 // guoku api base url
 //#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
-#define kGKAppBaseURL @"http://pre.guoku.com/mobile/"
-//#define kGKAppBaseURL @"http://api.guoku.com/mobile/"
+//#define kGKAppBaseURL @"http://pre.guoku.com/mobile/"
+#define kGKAppBaseURL @"http://api.guoku.com/mobile/"
 //#define kGKAppBaseURL @"http://10.0.1.74/mobile/"
 //#define kGuokuApiKey @"49396e9f3573727649f7c9651d0450ed"///@"4abe75e4aa7a7ec59976400e5e3b8fcf"
 //#define kGuokuApiSecret @"733f16fde4d1b5876c943ddd85bd214d"//@"a3b4abb1ac8c43cc6095b25a9751a3b3"
-
+#define UMENG_APPKEY @"51f215d556240b3094053a48"
 //Pre
-#define kGuokuApiKey @"e7b9472ae626613bab0d049929d3ecc5"
-#define kGuokuApiSecret @"b28c087aa2973da5451321406938e5e1"
+//#define kGuokuApiKey @"e7b9472ae626613bab0d049929d3ecc5"
+//#define kGuokuApiSecret @"b28c087aa2973da5451321406938e5e1"
 //API
-//#define kGuokuApiKey @"07fac3e6f494b98fd9482c80882d405a"
-//#define kGuokuApiSecret @"8bdf3f81ae642ef5852a2073f99efdcf"
+#define kGuokuApiKey @"07fac3e6f494b98fd9482c80882d405a"
+#define kGuokuApiSecret @"8bdf3f81ae642ef5852a2073f99efdcf"
 // guoku user session
 #define kUserDefault  [NSUserDefaults standardUserDefaults]
 #define kSession @"session"

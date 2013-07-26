@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface GKFeedBackViewController : GKBaseViewController
+
 @property (nonatomic,retain) UITextView *textView;
 @end

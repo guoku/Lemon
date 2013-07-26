@@ -14,12 +14,12 @@
 @property (readonly) BOOL status;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
-- (BOOL)saveToSQLite;
+//- (BOOL)saveToSQLite;
 //- (void)saveToSQLite;
-- (BOOL)deleteWithEntityID:(NSUInteger)entity_id UserID:(NSUInteger)user_id;
+//- (BOOL)deleteWithEntityID:(NSUInteger)entity_id UserID:(NSUInteger)user_id;
 
-+ (BOOL)createTableAndIndex;
-+ (void)DeleteAllData;
+//+ (BOOL)createTableAndIndex;
+//+ (void)DeleteAllData;
 + (GKEntityLike *)getEntityLikeStatusFromSQLiteWithEntityID:(NSUInteger)entity_id;
 + (void)changeLikeActionWithEntityID:(NSUInteger)entity_id
                             Selected:(BOOL)selected

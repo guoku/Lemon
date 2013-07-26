@@ -16,14 +16,15 @@
 #import "GAI.h"
 #import "GKRootViewController.h"
 #import "GKCenterViewController.h"
+#import "UMFeedback.h"
 
 @class SNViewController;
 
-@interface GKAppDelegate : UIResponder <UIApplicationDelegate,MBProgressHUDDelegate,WXApiDelegate>
+@interface GKAppDelegate : UIResponder <UIApplicationDelegate,MBProgressHUDDelegate,WXApiDelegate,UMFeedbackDataDelegate>
 {
     SinaWeibo *sinaweibo;
 }
-
+@property(nonatomic, strong) UMFeedback *umFeedback;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) GKStatusBar *statusBar;
 @property (strong, nonatomic) MBProgressHUD *HUD;
