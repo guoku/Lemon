@@ -55,7 +55,7 @@
     [MobClick startWithAppkey:@"51f215d556240b3094053a48"];
     [MobClick beginEvent:@"app_launch"];
     [UMFeedback setLogEnabled:YES];
-    [UMFeedback checkWithAppkey:UMENG_APPKEY];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(umCheck:) name:UMFBCheckFinishedNotification object:nil];
 
     //[MobClick startWithAppkey:@"51f215d556240b3094053a48" reportPolicy:REALTIME channelId:nil];
@@ -217,12 +217,22 @@
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
-    [self getEntity];
     
     
-    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:120.0f
+                                                       target:self
+                                                     selector:@selector(checkUM)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+
+
     [MobClick endEvent:@"app_launch"];
     return YES;
+}
+- (void)checkUM
+{
+    [UMFeedback checkWithAppkey:UMENG_APPKEY];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -455,11 +465,11 @@
     }
     else
     {
-    if(buttonIndex == 1)
-    {
-        NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
-    }
+        if(buttonIndex == 1)
+        {
+            NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+        }
     }
 }
 
@@ -502,21 +512,23 @@
 }
 - (void)umCheck:(NSNotification *)notification {
     UIAlertView *alertView;
-    alertView.tag = 10086;
+
     if (notification.userInfo) {
         NSArray *newReplies = [notification.userInfo objectForKey:@"newReplies"];
         NSLog(@"newReplies = %@", newReplies);
-        NSString *title = [NSString stringWithFormat:@"有%d条新回复", [newReplies count]];
+        NSString *title = [NSString stringWithFormat:@"%d条新消息", [newReplies count]];
         NSMutableString *content = [NSMutableString string];
         for (NSUInteger i = 0; i < [newReplies count]; i++) {
-            NSString *dateTime = [[newReplies objectAtIndex:i] objectForKey:@"datetime"];
+          //  NSString *dateTime = [[newReplies objectAtIndex:i] objectForKey:@"datetime"];
             NSString *_content = [[newReplies objectAtIndex:i] objectForKey:@"content"];
-            [content appendString:[NSString stringWithFormat:@"%d .......%@.......\r\n", i + 1, dateTime]];
-            [content appendString:_content];
+    
+            //[content appendString:[NSString stringWithFormat:@"%d .......%@.......\r\n", i + 1, dateTime]];
+            [content appendString:[NSString  stringWithFormat:@"意见反馈回复：%@",_content ]];
             [content appendString:@"\r\n\r\n"];
         }
         
         alertView = [[UIAlertView alloc] initWithTitle:title message:content delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
+        alertView.tag = 10086;
         ((UILabel *) [[alertView subviews] objectAtIndex:1]).textAlignment = NSTextAlignmentLeft;
             [alertView show];
     } else {

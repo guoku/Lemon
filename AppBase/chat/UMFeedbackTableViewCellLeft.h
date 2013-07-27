@@ -14,5 +14,6 @@
 }
 
 @property(nonatomic, retain) UILabel *timestampLabel;
+@property(nonatomic, retain) UIImageView * avatar;
 
 @end

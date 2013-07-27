@@ -17,7 +17,10 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
+        _avatar = [[UIImageView alloc]initWithFrame:CGRectMake(5, 34, 30, 30)];
+        _avatar.image = [UIImage imageNamed:@"user_icon.png"];
+        [self.contentView addSubview:_avatar];
+        
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = [UIFont systemFontOfSize:14.0f];
         self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -36,7 +39,8 @@
         [self.contentView addSubview:_timestampLabel];
 
         messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
-        messageBackgroundView.image = [[UIImage imageNamed:@"messages_left_bubble.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
+        messageBackgroundView.backgroundColor = [UIColor whiteColor];
+        //messageBackgroundView.image = [[UIImage imageNamed:@"messages_left_bubble.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
         [self.contentView insertSubview:messageBackgroundView belowSubview:self.textLabel];
 
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -49,7 +53,7 @@
     [super layoutSubviews];
 
     CGRect textLabelFrame = self.textLabel.frame;
-    textLabelFrame.origin.x = 18;
+    textLabelFrame.origin.x = 50;
     textLabelFrame.size.width = 226;
 
     CGSize labelSize = [self.textLabel.text sizeWithFont:[UIFont systemFontOfSize:14.0f]
@@ -60,7 +64,7 @@
     textLabelFrame.origin.y = 20.0f + TOP_MARGIN;
     self.textLabel.frame = textLabelFrame;
 
-    messageBackgroundView.frame = CGRectMake(10, textLabelFrame.origin.y - 12, labelSize.width + 16, labelSize.height + 18);;
+    messageBackgroundView.frame = CGRectMake(44, textLabelFrame.origin.y -6, labelSize.width +12, labelSize.height + 12);;
 }
 
 - (void)drawRect:(CGRect)rect {

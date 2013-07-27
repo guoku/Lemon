@@ -446,7 +446,7 @@ static UITapGestureRecognizer *tapRecognizer;
 }
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(UMEGORefreshTableHeaderView *)view {
-    _shouldScrollToBottom = NO;
+    _shouldScrollToBottom = YES;
     [self reloadTableViewDataSource];
 }
 
