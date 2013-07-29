@@ -291,6 +291,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
                     
                     GKEntity * entity = [[GKEntity alloc] initWithAttributes:attributes];
                     [mutableList addObject:entity];
+                    [entity save];
                 }
                 GKLog(@"%@", mutableList);
                 if(block) {
