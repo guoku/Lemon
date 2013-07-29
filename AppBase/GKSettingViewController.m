@@ -220,6 +220,10 @@
             bgV.image = [[UIImage imageNamed:@"tables_middle.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:2];
         }
     }
+    if(indexPath.section == 0)
+    {
+           bgV.image = [[UIImage imageNamed:@"tables_single.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
+    }
     cell.backgroundView = bgV;
 }
 
