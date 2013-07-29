@@ -15,6 +15,8 @@
 #import "UIViewController+MMDrawerController.h"
 #import "GKStateChooseViewController.h"
 #import "GKLoginViewController.h"
+#import "UMFeedback.h"
+#import "UMFeedbackViewController.h"
 @interface GKSettingViewController ()
 
 @end
@@ -373,8 +375,16 @@
 }
 - (void)showFeedBack
 {
-    GKFeedBackViewController *feedBackVC= [[GKFeedBackViewController alloc]init];
-    [self.navigationController pushViewController:feedBackVC animated:YES];
+    [self showNativeFeedbackWithAppkey:UMENG_APPKEY];
+    //GKFeedBackViewController *feedBackVC= [[GKFeedBackViewController alloc]init];
+    //[self.navigationController pushViewController:feedBackVC animated:YES];
+    
+}
+- (void)showNativeFeedbackWithAppkey:(NSString *)appkey {
+    UMFeedbackViewController *feedbackViewController = [[UMFeedbackViewController alloc] initWithNibName:@"UMFeedbackViewController" bundle:nil];
+    feedbackViewController.appkey = appkey;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
+    [self presentModalViewController:navigationController animated:YES];
 }
 - (void)followGouku
 {

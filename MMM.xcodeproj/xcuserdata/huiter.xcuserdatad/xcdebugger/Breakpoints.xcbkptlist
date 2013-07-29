@@ -7,127 +7,170 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Models/Entities/GKEntity.m"
-         timestampString = "396343272.53347"
+         filePath = "AppBase/GKNotePostViewController.m"
+         timestampString = "396766714.604035"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "275"
-         endingLineNumber = "275"
-         landmarkName = "+deleteAllEntity"
+         startingLineNumber = "236"
+         endingLineNumber = "236"
+         landmarkName = "-submit"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKNoteCommentCell.m"
-         timestampString = "396353759.030726"
+         filePath = "Models/Notes/GKNote.m"
+         timestampString = "396763021.386815"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "145"
-         endingLineNumber = "145"
-         landmarkName = "-layoutSubviews"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
+         landmarkName = "+postEntityNoteWithEntityID:NoteID:Score:Content:Block:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKNoteCommentCell.m"
-         timestampString = "396353759.030726"
+         filePath = "AppBase/GKCenterViewController.m"
+         timestampString = "396763447.405907"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
-         landmarkName = "-layoutSubviews"
+         startingLineNumber = "485"
+         endingLineNumber = "485"
+         landmarkName = "-refresh"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKEDCSettingViewController.m"
-         timestampString = "396447168.543795"
+         filePath = "AppBase/GKCenterViewController.m"
+         timestampString = "396763759.012009"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "270"
-         endingLineNumber = "270"
-         landmarkName = "-TapButtonAction:"
+         startingLineNumber = "481"
+         endingLineNumber = "481"
+         landmarkName = "-cardLikeChange:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKEDCSettingViewController.m"
-         timestampString = "396447179.516088"
+         filePath = "AppBase/GKCenterViewController.m"
+         timestampString = "396763765.930501"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "247"
-         endingLineNumber = "247"
-         landmarkName = "-TapButtonAction:"
+         startingLineNumber = "521"
+         endingLineNumber = "521"
+         landmarkName = "-refresh"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKEDCSettingViewController.m"
-         timestampString = "396447180.999984"
+         filePath = "AppBase/GKCenterViewController.m"
+         timestampString = "396763781.044401"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "252"
-         endingLineNumber = "252"
-         landmarkName = "-TapButtonAction:"
+         startingLineNumber = "488"
+         endingLineNumber = "488"
+         landmarkName = "-refresh"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKEDCSettingViewController.m"
-         timestampString = "396447182.92738"
+         filePath = "AppBase/TMLKeywordViewController.m"
+         timestampString = "396764000.763227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "257"
-         endingLineNumber = "257"
-         landmarkName = "-TapButtonAction:"
+         startingLineNumber = "642"
+         endingLineNumber = "642"
+         landmarkName = "-cardLikeChange:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKEDCSettingViewController.m"
-         timestampString = "396447184.169776"
+         filePath = "Models/Users/GKUser.m"
+         timestampString = "396764874.034705"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "262"
-         endingLineNumber = "262"
-         landmarkName = "-TapButtonAction:"
+         startingLineNumber = "507"
+         endingLineNumber = "507"
+         landmarkName = "+registerByWeiboOrTaobaoWithParamters:Block:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKEDCSettingViewController.m"
-         timestampString = "396447185.717738"
+         filePath = "Models/Users/GKUser.m"
+         timestampString = "396764876.208358"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "267"
-         endingLineNumber = "267"
-         landmarkName = "-TapButtonAction:"
+         startingLineNumber = "506"
+         endingLineNumber = "506"
+         landmarkName = "+registerByWeiboOrTaobaoWithParamters:Block:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Models/Users/GKUser.m"
+         timestampString = "396764878.586913"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "447"
+         endingLineNumber = "447"
+         landmarkName = "+registerByWeiboOrTaobaoWithParamters:Block:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HTKit/SNViewController/SNViewController.m"
+         timestampString = "396765158.716323"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "138"
+         endingLineNumber = "138"
+         landmarkName = "-request:didFinishLoadingWithResult:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HTKit/SNViewController/SNViewController.m"
+         timestampString = "396765182.013308"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "147"
+         endingLineNumber = "147"
+         landmarkName = "-request:didFinishLoadingWithResult:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKNotePostViewController.m"
+         timestampString = "396766714.604035"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "242"
+         endingLineNumber = "242"
+         landmarkName = "-submit"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
-   <ExceptionBreakpoints>
-      <ExceptionBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         scope = "0"
-         stopOnStyle = "0">
-      </ExceptionBreakpoint>
-   </ExceptionBreakpoints>
 </Bucket>

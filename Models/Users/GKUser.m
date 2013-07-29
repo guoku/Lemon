@@ -218,7 +218,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
                     is_success = [[attributes valueForKeyPath:@"is_logout"] boolValue];
                     break;
                 }
-                [GKEntityLike DeleteAllData];
+                //[GKEntityLike DeleteAllData];
                 if(is_success && block)
                 {
                     block(is_success, nil);
@@ -444,7 +444,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     NSMutableDictionary * _paramters = [NSMutableDictionary dictionaryWithDictionary:paramters];
     [_paramters setValue:[kUserDefault valueForKeyPath:kDeviceToken] forKey:@"dev_token"];
     [[GKAppDotNetAPIClient sharedClient] postPath:@"maria/register_by_weibo" parameters:[_paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        GKLog(@"%@", JSON);
+        NSLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {
@@ -503,7 +503,7 @@ NSString * const GKUserLoginNotification = @"GKUserLoginNotification";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        if (block)
        {
-           GKLog(@"%@", error);
+           NSLog(@"%@", error);
            block([NSDictionary dictionary], error);
        }
         

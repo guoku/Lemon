@@ -532,18 +532,19 @@
 {
     if(_openLeftMenu)
     {
-        
+        /*
         [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
             _openLeftMenu = NO;
         }];
          
+         */
     }
     if(_openRightMenu)
     {
         /*
         [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
             _openRightMenu = NO;
-        }];
+        }];Z
          */
     }
 }

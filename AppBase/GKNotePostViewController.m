@@ -215,15 +215,18 @@
             {
                 _data.liked_count ++;
             }
+            BOOL status = _data.entitylike.status;
             GKEntity * entity = (GKEntity *)_data;
             for(NSString  * pidString in entity.pid_list ) {
                 entity.pid = [pidString integerValue];
-                if(entity.entitylike.status)
+                if(entityLike.status)
                 {
+                    _data.entitylike = entityLike;
                     [entity save];
                 }
             }
-            if((entityLike.status)&&(!_data.entitylike.status))
+
+            if((entityLike.status)&&(!status))
             {
                 _data.entitylike = entityLike;
                 [_message setValue:@(_data.entity_id) forKey:@"entityID"];
