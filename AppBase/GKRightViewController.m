@@ -672,21 +672,22 @@
     NSUInteger user_id = [[data objectForKey:@"userID"]integerValue];
     GKUserRelation *relation = [data objectForKey:@"relation"];
     GKUser *user = [data objectForKey:@"user"];
-    GKUserBase *userbase = [user getUserBase];
+    //GKUserBase *userbase = [user getUserBase];
     
     switch (relation.status) {
         case kNoneRelation:
         {
             int index = -1;
-            for (GKUserBase * follow_user in [_dataArrayDic objectForKey:@"follow"])
+            for (GKUser * follow_user in [_dataArrayDic objectForKey:@"follow"])
             {
                 if(follow_user.user_id == user_id)
                 {
                     index = [[_dataArrayDic objectForKey:@"follow"] indexOfObject:follow_user];
+                    me.follows_count--;
+                    [me save];
+                    break;
                 }
-                me.follows_count--;
-                [me save];
-                break;
+
             }
             if(index !=-1)
             {
@@ -700,7 +701,7 @@
             {
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
-            [[_dataArrayDic objectForKey:@"follow"] addObject:userbase];
+            [[_dataArrayDic objectForKey:@"follow"] insertObject:user atIndex:0];
             me.follows_count++;
             [me save];
             
@@ -714,10 +715,11 @@
                 if(follow_user.user_id == user_id)
                 {
                     index = [[_dataArrayDic objectForKey:@"follow"] indexOfObject:follow_user];
+                    me.follows_count--;
+                    [me save];
+                    break;
                 }
-                me.follows_count--;
-                [me save];
-                break;
+
             }
             if(index !=-1)
             {
@@ -731,7 +733,7 @@
             {
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
-            [[_dataArrayDic objectForKey:@"follow"] addObject:userbase];
+            [[_dataArrayDic objectForKey:@"follow"] insertObject:user atIndex:0git ];
             me.follows_count++;
             [me save];
   
