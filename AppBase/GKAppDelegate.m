@@ -204,8 +204,16 @@
     }
     else
     {
+        GKUser * me = [[GKUser alloc]initFromNSU];
+        if (me.stage == 0) {
+            GKLoginViewController * _loginVC = [[GKLoginViewController alloc] init];
+            [self.window.rootViewController presentViewController: _loginVC animated:NO completion:NULL];
+        }
+        else
+        {
         GKLoadingViewController * VC = [[GKLoadingViewController alloc] init];
         [self.window.rootViewController presentViewController: VC animated:NO completion:NULL];
+        }
     }
     self.hostReach = [Reachability reachabilityForInternetConnection];
     [self updateInterfaceWithReachability:self.hostReach];

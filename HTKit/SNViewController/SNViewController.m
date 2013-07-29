@@ -11,6 +11,7 @@
 #import "GKUser.h"
 #import "GKAppDelegate.h"
 #import "GKStateChooseViewController.h"
+#import "MMMTML.h"
 
 @interface SNViewController ()
 
@@ -133,37 +134,73 @@
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"stage"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
            
-   
-                        [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
+                        [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
                             if(!error)
                             {
-                                [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
-                                NSLog(@"%@",entitylist);
-                                [UIView animateWithDuration:1.2 animations:^{
+                                NSMutableDictionary *_dataArray = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                                NSMutableArray *_dataDic = [NSMutableArray arrayWithArray:array];
+                                
+                                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
+                                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                                [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
+                                [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
+                                [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
+                                    if(!error)
+                                    {
+                                        [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                        [UIView animateWithDuration:1.2 animations:^{
+                                            
+                                        }
+                                                         completion:^(BOOL finished) {
+                                                             GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                             [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                                                                 
+                                                             }];
+                                                         }];
+                                        
+                                    }
+                                    else
+                                    {
+                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
+                                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                        [delegate.sinaweibo logOut];
+                                        [kUserDefault removeObjectForKey:@"sina_user_id"];
+                                        [kUserDefault removeObjectForKey:@"sina_access_token"];
+                                        [kUserDefault removeObjectForKey:@"sina_expires_in"];
+                                        [GKMessageBoard showMBWithText:@"登录失败" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                    }
                                     
-                                }
-                                                 completion:^(BOOL finished) {
-                                                     GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-                                                     [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
-                                                         
-                                                     }];
-                                                 }];
-           
+                                }];
+                
                             }
                             else
                             {
-                                [GKMessageBoard hideMB];
+                                switch (error.code) {
+                                    case -999:
+                                        [GKMessageBoard hideMB];
+                                        break;
+                                    default:
+                                    {
+                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
+                                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                        [delegate.sinaweibo logOut];
+                                        [kUserDefault removeObjectForKey:@"sina_user_id"];
+                                        [kUserDefault removeObjectForKey:@"sina_access_token"];
+                                        [kUserDefault removeObjectForKey:@"sina_expires_in"];
+                                        NSString * errorMsg = [error localizedDescription];
+                                        
+                                        [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                                    }
+                                        break;
+                                }
                             }
-                            
                         }];
 
-                        
-
                     }
-
             }
             else
             {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
                 GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
                 [delegate.sinaweibo logOut];
                 [kUserDefault removeObjectForKey:@"sina_user_id"];
