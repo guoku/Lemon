@@ -194,7 +194,7 @@
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
         _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        _message_label.text = @"加入妈妈清单";
+        _message_label.text = @"关注了你";
         [_message_label setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_message_label];
   
@@ -228,7 +228,7 @@
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
         _message_label.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        _message_label.text = @"关注了你";
+        _message_label.text = @"加入妈妈清单";
         [_message_label setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_message_label];
         

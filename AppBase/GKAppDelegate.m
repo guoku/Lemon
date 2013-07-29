@@ -233,7 +233,7 @@
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-
+    [self checkUM];
 
     [MobClick endEvent:@"app_launch"];
     return YES;
