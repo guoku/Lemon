@@ -733,7 +733,7 @@
             {
                 [_dataArrayDic setObject:[[NSMutableArray alloc]init] forKey:@"follow"];
             }
-            [[_dataArrayDic objectForKey:@"follow"] insertObject:user atIndex:0git ];
+            [[_dataArrayDic objectForKey:@"follow"] insertObject:user atIndex:0];
             me.follows_count++;
             [me save];
   
