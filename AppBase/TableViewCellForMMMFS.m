@@ -117,7 +117,7 @@
     }
     else
     {
-        _count.text = [NSString stringWithFormat:@"好友都没收藏这件商品。"];
+       // _count.text = [NSString stringWithFormat:@"好友都没收藏这件商品。"];
         /*
         [GKUserBase getUserBaseByArray:_data.likes_list  Block:^(NSArray *list, NSError *error) {
             if(!error)
@@ -128,6 +128,15 @@
          */
     }
     CGFloat note_offset = 150;
+    if([_data.likes_user_list count] !=0)
+    {
+        note_offset = 150;
+    }
+    else
+    {
+        note_offset = 110;
+    }
+
     for (GKNote * note in _data.notes_list) {
         
         UIView * H = [[UIView alloc]initWithFrame:CGRectMake(8, note_offset, self.frame.size.width-16, 1)];
@@ -144,7 +153,7 @@
         _nickname.textColor = UIColorFromRGB(0x666666);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
         [_nickname setBackgroundColor:[UIColor clearColor]];
-        [_nickname setText:note.creator.nickname];
+        [_nickname setText:[NSString stringWithFormat:@"%@: ",note.creator.nickname ]];
         [self addSubview:_nickname];
         
         y = _nickname.frame.origin.y + _nickname.frame.size.height;
@@ -206,6 +215,16 @@
 + (float)height:(MMMKWDFS *)data;
 {
     CGFloat y = 160;
+    if([data.likes_user_list count] !=0)
+    {
+        y = 160;
+    }
+    else
+    {
+        y = 120;
+    }
+
+
     for (GKNote * note in data.notes_list) {
         
         UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
