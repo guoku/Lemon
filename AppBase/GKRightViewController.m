@@ -264,14 +264,42 @@
 {
     return 50;
 }
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GKUser *user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
+    
+     GKUser *user = [[_dataArrayDic objectForKey:_group] objectAtIndex:indexPath.row];
+    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+
     GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user.user_id];
+    
+    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+    [backBTN addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+    
     VC.hidesBottomBarWhenPushed = YES;
+    
     [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:NO];
     [self.mm_drawerController closeDrawerAnimated:YES completion:NULL];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenRightMenu" object:nil userInfo:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"OpenRightMenu" object:nil userInfo:nil];
+}
+- (void)backButtonAction:(id)sender
+{
+    [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) popViewControllerAnimated:NO];
+    [self performSelector:@selector(open) withObject:nil afterDelay:0.1];
+
+    
+}
+- (void)open
+{
+    [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

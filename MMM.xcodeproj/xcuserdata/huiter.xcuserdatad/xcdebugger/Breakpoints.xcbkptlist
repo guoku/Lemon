@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKRightViewController.m"
-         timestampString = "396773504.104257"
+         timestampString = "396869093.068499"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "671"
-         endingLineNumber = "671"
+         startingLineNumber = "699"
+         endingLineNumber = "699"
          landmarkName = "-userFollowChange:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKRightViewController.m"
-         timestampString = "396775227.844294"
+         timestampString = "396869093.068499"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "716"
-         endingLineNumber = "716"
+         startingLineNumber = "744"
+         endingLineNumber = "744"
          landmarkName = "-userFollowChange:"
          landmarkType = "5">
       </FileBreakpoint>
