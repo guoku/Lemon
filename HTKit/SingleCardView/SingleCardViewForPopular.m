@@ -44,7 +44,7 @@
         self.brand = [[UILabel alloc]initWithFrame:CGRectZero];
         _brand.backgroundColor = [UIColor clearColor];
 
-        _brand.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+        _brand.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
         _brand.textAlignment = NSTextAlignmentCenter;
         _brand.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_brand];
@@ -64,7 +64,7 @@
         self.price = [[UILabel alloc]initWithFrame:CGRectZero];
         _price.backgroundColor = [UIColor clearColor];
      
-        _price.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+        _price.font = [UIFont fontWithName:@"Georgia" size:12.0f];
         _price.textAlignment = NSTextAlignmentCenter;
         _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];        
@@ -91,9 +91,9 @@
         _brand.frame = CGRectMake(5, y, 145, 20);
         y = _brand.frame.origin.y+_brand.frame.size.height;
     }
-    _title.frame = CGRectMake(5, y, 145, 20);
+    _title.frame = CGRectMake(5, y, 145, 15);
     y = _title.frame.origin.y+_title.frame.size.height;
-    _price.frame = CGRectMake(5, y, 145, 20);
+    _price.frame = CGRectMake(5, y, 145, 15);
     
     _img.entity = _entity;
     _likeButton.data = _entity;
