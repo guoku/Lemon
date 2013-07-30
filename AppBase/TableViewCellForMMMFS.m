@@ -193,6 +193,14 @@
         {
             note_offset = note_offset+50;
         }
+        if (note.note_id) {
+
+        }
+        else
+        {
+            _nickname.center = CGPointMake(_nickname.center.x, _nickname.center.y+9);
+            _ratingView.center = CGPointMake(_ratingView.center.x, _ratingView.center.y+9);
+        }
 
     }
 }

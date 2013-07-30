@@ -343,6 +343,8 @@
     [GKVisitedUser visitedUserWithUserID:_user_id Offset:0 Block:^(NSArray *entitylist, NSError *error) {
         if(!error)
         {
+            if([entitylist count] != 0)
+            {
             _entityArray = [NSMutableArray arrayWithCapacity:0];
             for (GKEntity * entity in entitylist) {
                 BOOL flag = YES;
@@ -443,6 +445,11 @@
                 [self setFooterView:YES];
             }
             [self.table reloadData];
+            }
+            else
+            {
+                [self setTableFooterView:@"暂时还没有任何喜爱" flag:YES];
+            }
         }
         else
         {
@@ -766,6 +773,7 @@
   }
     if(entitylike.status)
     {
+
         _user.liked_count++;
         GKEntity * entity = [notidata objectForKey:@"entity"];
         int pid = 20;
@@ -897,7 +905,18 @@
             [s_array addObject:dic];
         }
     }
-    
+    if([_entityArray count] == _user.liked_count)
+    {
+        [self setFooterView:NO];
+    }
+    else
+    {
+        [self setFooterView:YES];
+    }
+    if([_entityArray count]==0)
+    {
+        [self setTableFooterView:@"暂时还没有任何喜爱" flag:YES];
+    }
     [_dataArray removeObjectsInArray:s_array];
     [self.table reloadData];
      [likeNumBTN setTitle:[NSString stringWithFormat:@"%d",_user.liked_count] forState:UIControlStateNormal];
@@ -1225,6 +1244,49 @@
             
         }
     }];
+}
+- (void)setTableFooterView:(NSString *)string flag:(BOOL)flag
+{
+    UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0,self.view.frame.size.width, self.view.bounds.size.height)];
+    view.backgroundColor =UIColorFromRGB(0xebe7e4);
+    
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0,0, 2,view.frame.size.height)];
+    line.center = CGPointMake(20, line.center.y);
+    line.backgroundColor =UIColorFromRGB(0xe2ddd9);
+    [view addSubview:line];
+    
+    UIView * colorf9f9f9 = [[UIView alloc]initWithFrame:CGRectMake(40,0,view.frame.size.width-40,view.frame.size.height)];
+    colorf9f9f9.backgroundColor =UIColorFromRGB(0xf9f9f9);
+    [view addSubview:colorf9f9f9];
+    
+    footerview.layer.masksToBounds = NO;
+    [footerview addSubview:view];
+    _table.tableFooterView = footerview;
+    if (flag) {
+        UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, 59, 62)];
+        [imageview1 setCenter:CGPointMake(160+20.0f,40)];
+        [imageview1 setImage:[UIImage imageNamed:@"nomore.png"]];
+        imageview1.userInteractionEnabled = YES;
+        [footerview addSubview:imageview1];
+        
+        UIButton * tip = [UIButton buttonWithType:UIButtonTypeCustom];
+        tip.userInteractionEnabled = NO;
+        tip.frame = CGRectMake(40, imageview1.frame.size.height+imageview1.frame.origin.y, kScreenWidth-40, 20.0f);
+        [tip setBackgroundColor:[UIColor clearColor]];
+        [tip setUserInteractionEnabled:YES];
+        [tip setTitle:string forState:UIControlStateNormal];
+        [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+        tip.titleLabel.textAlignment = NSTextAlignmentCenter;
+        tip.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        tip.tag = 9090;
+        [footerview addSubview:tip];
+        
+
+    }
+    self.table.tableFooterView = footerview;
+
 }
 
 @end

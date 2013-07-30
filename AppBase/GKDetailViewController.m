@@ -163,6 +163,14 @@
                 {
                     [GKEntity deleteWithEntityID:entity.entity_id];
                 }
+                if([_data.notes_list count] == 0)
+                {
+                    [self setTableFooterView:@"还没有人点评" flag:YES];
+                }
+                else
+                {
+                    [self setTableFooterView:@"" flag:NO];
+                }
                 
                 [self.table reloadData];
                 [self hideActivity];
@@ -522,7 +530,14 @@
                 SectionBackground.center = CGPointMake(36, SectionBackground.center.y);
             }completion:^(BOOL finished) {
                 friendonly = NO;
-                
+                if([_data.notes_list count] == 0)
+                {
+                    [self setTableFooterView:@"还没有人点评" flag:YES];
+                }
+                else
+                {
+                    [self setTableFooterView:@"" flag:NO];
+                }
                 [_table reloadData];
             }];
 
@@ -535,6 +550,14 @@
                 SectionBackground.center = CGPointMake(kScreenWidth-40, SectionBackground.center.y);
             }completion:^(BOOL finished) {
                 friendonly = YES;
+                if([_data.notes_list count] == 0)
+                {
+                    [self setTableFooterView:@"还没有好友点评" flag:YES];
+                }
+                else
+                {
+                    [self setTableFooterView:@"" flag:NO];
+                }
 
                 [_table reloadData];
             }];
@@ -545,6 +568,7 @@
     }
 
 }
+
 - (void)moreButtonAction:(id)sender
 {
     UIActionSheet * shareOptionSheet = nil;
@@ -929,5 +953,35 @@
 
     [_table addSubview:view];
 }
+- (void)setTableFooterView:(NSString *)string flag:(BOOL)flag
+{
+    if(!flag)
+    {
+       self.table.tableFooterView = nil;
+        return ;
+    }
+    UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
+    /*
+    UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 59, 62)];
+    [imageview1 setCenter:CGPointMake(160.0f,40)];
+    [imageview1 setImage:[UIImage imageNamed:@"nomore.png"]];
+    imageview1.userInteractionEnabled = YES;
+    [footerview addSubview:imageview1];
+     */
+    
+    UIButton * tip = [UIButton buttonWithType:UIButtonTypeCustom];
+    tip.userInteractionEnabled = NO;
+    tip.frame = CGRectMake(0,10, kScreenWidth, 20.0f);
+    [tip setBackgroundColor:[UIColor clearColor]];
+    [tip setUserInteractionEnabled:YES];
+    [tip setTitle:string forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+    tip.titleLabel.textAlignment = NSTextAlignmentCenter;
+    tip.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    tip.tag = 9090;
+    [footerview addSubview:tip];
 
+    self.table.tableFooterView = footerview;
+}
 @end

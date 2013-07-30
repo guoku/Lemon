@@ -105,11 +105,13 @@
                 {
                     [self setFooterView:YES]; 
                 }
+
                 [self.table reloadData];
             }
             else
             {
-                [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                [self setTableFooterView:@"暂时还没有好友关注此类产品" flag:YES];
+                //[GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             }
         }
          [loading stopAnimating];
@@ -250,7 +252,36 @@
     }];
     
 }
-
+- (void)setTableFooterView:(NSString *)string flag:(BOOL)flag
+{
+    if(!flag)
+    {
+        self.table.tableFooterView = nil;
+        return ;
+    }
+    UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 280)];
+    
+    UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, 59, 62)];
+    [imageview1 setCenter:CGPointMake(160.0f,140)];
+    [imageview1 setImage:[UIImage imageNamed:@"nomore.png"]];
+    imageview1.userInteractionEnabled = YES;
+    [footerview addSubview:imageview1];
+    
+    UIButton * tip = [UIButton buttonWithType:UIButtonTypeCustom];
+    tip.userInteractionEnabled = NO;
+    tip.frame = CGRectMake(0, imageview1.frame.size.height+imageview1.frame.origin.y, kScreenWidth, 20.0f);
+    [tip setBackgroundColor:[UIColor clearColor]];
+    [tip setUserInteractionEnabled:YES];
+    [tip setTitle:string forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+    tip.titleLabel.textAlignment = NSTextAlignmentCenter;
+    tip.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    tip.tag = 9090;
+    [footerview addSubview:tip];
+    
+    self.table.tableFooterView = footerview;
+}
 
 
 @end

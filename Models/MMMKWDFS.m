@@ -49,7 +49,7 @@
         [parameters  setObject:[NSDate stringFromDate:date] forKey:@"since_time"];
     }
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/read_friends_collection/"] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
-        GKLog(@"%@", JSON);
+        NSLog(@"%@", JSON);
         NSArray * _listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
         NSMutableArray * array;
         NSDate * date;
