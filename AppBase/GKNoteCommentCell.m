@@ -40,12 +40,12 @@
         */
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 250, 15)];
-        _nickname.textColor = UIColorFromRGB(0x666666);
+        _nickname.textColor = UIColorFromRGB(0x555555);
         _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         //[self addSubview:_nickname];
         
-        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(50,15, 240, 400)];
+        self.comment = [[RTLabel alloc]initWithFrame:CGRectMake(50,8, 240, 400)];
         [_comment setParagraphReplacement:@""];
         
         _comment.lineSpacing = 4.0;
@@ -60,7 +60,7 @@
         self.time = [[UIButton alloc]initWithFrame:CGRectZero];
         [_time addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
-        [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
+        [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
         [_time setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_time.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
@@ -120,11 +120,11 @@
 
     if(_data.reply_user.user_id)
     {
-        [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>回复了:</font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>%@</font>",_data.creator.user_id,_data.creator.nickname,_data.reply_user.user_id,_data.reply_user.nickname,_data.comment]];
+        [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#777777' size=14> 回复了 </font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@: </font></a><font face='Helvetica' color='#999999' size=14>%@</font>",_data.creator.user_id,_data.creator.nickname,_data.reply_user.user_id,_data.reply_user.nickname,_data.comment]];
     }
     else
     {
-        [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>:%@</font>",_data.creator.user_id,_data.creator.nickname,_data.comment]];
+        [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@: </font></a><font face='Helvetica' color='#777777' size=14>%@</font>",_data.creator.user_id,_data.creator.nickname,_data.comment]];
         NSLog(@"%@",_data.comment);
     }
     CGSize optimumSize = [self.comment optimumSize];
@@ -134,7 +134,7 @@
     [_comment setFrame:CGRectMake(_comment.frame.origin.x, _comment.frame.origin.y, 240, frame.size.height)];
     
     [_time setTitle:[NSDate stringFromDate:_data.created_time WithFormatter:@"MM-dd HH:mm"] forState:UIControlStateNormal];
-    [_time setFrame:CGRectMake(51, self.frame.size.height-18, 120, 10)];
+    [_time setFrame:CGRectMake(51, self.frame.size.height-12, 120, 10)];
     
     [self.seperatorLineImageView setFrame:CGRectMake(0,self.frame.size.height, kScreenWidth, 1)];
     reply.center = CGPointMake(reply.center.x, self.frame.size.height/2);
@@ -158,15 +158,15 @@
     if(data.reply_user.user_id)
     {
         NSLog(@"%@",data.reply_user);
-        [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=13>回复了:</font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=13>%@</font></a><font face='Helvetica' color='#999999' size=13>%@</font>",data.creator.user_id,data.creator.nickname,data.reply_user.user_id,data.reply_user.nickname,data.comment]];
+        [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#777777' size=14> 回复了 </font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@: </font></a><font face='Helvetica' color='#7777777' size=14>%@</font>",data.creator.user_id,data.creator.nickname,data.reply_user.user_id,data.reply_user.nickname,data.comment]];
     }
     else
     {
-        [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=13>:%@</font>",data.creator.user_id,data.creator.nickname,data.comment]];
+        [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@: </font></a><font face='Helvetica' color='#777777' size=14>%@</font>",data.creator.user_id,data.creator.nickname,data.comment]];
     }
     CGSize optimumSize = [rtlabel optimumSize];
 	CGRect frame = [rtlabel frame];
-    frame.size.height = (int)optimumSize.height+5;
+    frame.size.height = (int)optimumSize.height;
     
     if(frame.size.height>=15)
     {
@@ -182,7 +182,7 @@
 {
 	NSLog(@"did select url %@", url);
     
-    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
+    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@"："];
     if([array[0] isEqualToString:@"user"])
     {
         if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {

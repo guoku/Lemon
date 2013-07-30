@@ -82,7 +82,7 @@
         
         self.time = [[UIButton alloc]initWithFrame:CGRectMake(190, noteView.frame.size.height-20,125, 20)];
         [_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
-        [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:9.0f]];
+        [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
         [_time setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [_time.titleLabel setTextAlignment:NSTextAlignmentLeft];
         [_time setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
@@ -98,7 +98,7 @@
         
         self.note = [[UILabel alloc]initWithFrame:CGRectMake(12,_avatar.frame.origin.y + _avatar.frame.size.height+2, 300, 400)];
         _note.backgroundColor = [UIColor clearColor];
-        _note.font = [UIFont fontWithName:@"Helvetica" size:13];
+        _note.font = [UIFont fontWithName:@"Helvetica" size:14];
         _note.textColor = UIColorFromRGB(0x666666);
         _note.numberOfLines = 0;
         [noteView addSubview:_note];
@@ -311,7 +311,7 @@
     
     _ratingView.frame = CGRectMake(80, y, 60, 20);
     [_ratingView displayRating:_entity.avg_score/2];
-    _score.frame = CGRectMake(_ratingView.frame.origin.x+_ratingView.frame.size.width , _ratingView.frame.origin.y-6, 40, 20);
+    _score.frame = CGRectMake(_ratingView.frame.origin.x+_ratingView.frame.size.width+1 , _ratingView.frame.origin.y-4, 40, 20);
     _score.text = [NSString stringWithFormat:@"%0.1f",_entity.avg_score];
 
 
@@ -322,15 +322,14 @@
    
     CGSize size = [_nickname.text sizeWithFont:_nickname.font constrainedToSize:CGSizeMake(CGFLOAT_MAX,20) lineBreakMode:NSLineBreakByWordWrapping];
     _nickname.frame = CGRectMake(_nickname.frame.origin.x, _nickname.frame.origin.y, size.width, 20);
-    _noteRatingView.frame = CGRectMake(_nickname.frame.origin.x + _nickname.frame.size.width, _nickname.frame.origin.y+5, 60, 20);
+    _noteRatingView.frame = CGRectMake(_nickname.frame.origin.x + _nickname.frame.size.width+2, _nickname.frame.origin.y+5, 60, 20);
     [_noteRatingView displayRating:_noteData.score/2];
     
     
     
     [_time setTitle:[NSDate stringFromDate:_noteData.created_time WithFormatter:@"yyyy-MM-dd HH:mm"] forState:UIControlStateNormal];
     
-    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
-    size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(200, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    size = [_noteData.note sizeWithFont:_note.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 300, size.height)];
     _note.text = _noteData.note;
     
@@ -349,7 +348,7 @@
 }
 + (float)height:(GKNote *)data
 {
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     

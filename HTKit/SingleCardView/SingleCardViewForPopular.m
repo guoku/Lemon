@@ -93,7 +93,7 @@
     }
     _title.frame = CGRectMake(5, y, 145, 15);
     y = _title.frame.origin.y+_title.frame.size.height;
-    _price.frame = CGRectMake(5, y, 145, 15);
+    _price.frame = CGRectMake(5, y+5, 145, 15);
     
     _img.entity = _entity;
     _likeButton.data = _entity;

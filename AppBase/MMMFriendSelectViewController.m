@@ -33,7 +33,7 @@
     if (self) {
         // Custom initialization
                 _canLoadMore =NO;
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
         UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
         [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
@@ -74,6 +74,7 @@
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 40) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = YES;
+    _table.backgroundColor = UIColorFromRGB(0xf9f9f9);
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self setFooterView:NO];
@@ -96,8 +97,15 @@
             if([[dic objectForKey:@"array"] count]!=0)
             {
             _dataArray = [[NSMutableArray alloc]initWithArray:[dic objectForKey:@"array"]];
-            [self setFooterView:YES];
-            [self.table reloadData];
+                if([[dic objectForKey:@"array"] count]<30)
+                {
+                    [self setFooterView:NO];
+                }
+                else
+                {
+                    [self setFooterView:YES]; 
+                }
+                [self.table reloadData];
             }
             else
             {
@@ -213,7 +221,7 @@
             }
             else
             {
-                //[self setFooterView:NO];
+                [self setFooterView:NO];
                 [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             }
             [self.table reloadData];

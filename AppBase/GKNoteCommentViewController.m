@@ -114,13 +114,13 @@
 
     containerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, 320, 40)];
     
-	textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(6, 6, 240, 29)];
-    textView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
+	textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(6, 4, 240, 30)];
+    textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 5);
     
 	textView.minNumberOfLines = 1;
 	textView.maxNumberOfLines = 2;
 	textView.returnKeyType = UIReturnKeyDefault; //just as an example
-	textView.font = [UIFont fontWithName:@"Helvetica" size:12];
+	textView.font = [UIFont fontWithName:@"Helvetica" size:14];
     textView.textColor = UIColorFromRGB(0x666666);
 	textView.delegate = self;
     textView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);

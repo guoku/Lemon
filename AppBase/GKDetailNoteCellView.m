@@ -35,12 +35,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
-        [_avatar setFrame:CGRectMake(7, 7, 40, 40)];
+        [_avatar setFrame:CGRectMake(6, 7, 40, 40)];
         [self addSubview:_avatar];
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(53, 10, 240, 15)];
-        _nickname.textColor = UIColorFromRGB(0x666666);
-        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+        _nickname.textColor = UIColorFromRGB(0x555555);
+        _nickname.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         [_nickname setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_nickname];
         
@@ -48,15 +48,15 @@
         
         _ratingView = [[RatingView alloc]initWithFrame:CGRectZero];
         [_ratingView setImagesDeselected:@"star_s.png" partlySelected:@"star_s_half.png" fullSelected:@"star_s_full.png" andDelegate:nil];
-        _ratingView.center = CGPointMake(_ratingView.center.x, 22);
+        _ratingView.center = CGPointMake(_ratingView.center.x, 23);
         _ratingView.userInteractionEnabled = NO;
         [self addSubview:_ratingView];
         
         self.note = [[UILabel alloc]initWithFrame:CGRectMake(50,y,240,400)];
-        _note.font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+        _note.font = [UIFont fontWithName:@"Helvetica" size:14];
         _note.numberOfLines = 0;
         _note.textAlignment = NSTextAlignmentLeft;
-        _note.textColor = UIColorFromRGB(0x666666);
+        _note.textColor = UIColorFromRGB(0x777777);
         _note.backgroundColor = [UIColor clearColor];
         _note.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_note];
@@ -172,14 +172,14 @@
     
     [self.nickname setText:[NSString stringWithFormat:@"%@ :",_noteData.creator.nickname]];
     
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     CGSize size = [self.nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(250, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     self.nickname.frame = CGRectMake(50, 8, size.width, size.height);
     
-    _ratingView.frame = CGRectMake(50+size.width, 10,80 ,size.height);
+    _ratingView.frame = CGRectMake(52+size.width, 12,80 ,size.height);
     [_ratingView displayRating:_noteData.score/2];
     
-    font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+    font = [UIFont fontWithName:@"Helvetica" size:14];
     size = [_noteData.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     GKLog(@"%@",NSStringFromCGSize(size));
     [_note setFrame:CGRectMake(_note.frame.origin.x, _note.frame.origin.y, 240, size.height+5)];
@@ -248,7 +248,7 @@
 #pragma mark -
 + (float)height:(GKNote *)data
 {
-    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Light" size:13];
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
     
     CGSize size = [data.note sizeWithFont:font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     

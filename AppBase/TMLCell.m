@@ -192,7 +192,7 @@
         UILabel *_price = [[UILabel alloc]initWithFrame:CGRectZero];
         _price.backgroundColor = [UIColor clearColor];
         
-        _price.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+        _price.font = [UIFont fontWithName:@"Georgia" size:12.0f];
         _price.textAlignment = NSTextAlignmentLeft;
         _price.textColor = UIColorFromRGB(0x666666);
         [self addSubview:_price];

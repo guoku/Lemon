@@ -923,7 +923,11 @@
     {
         [_entityArray replaceObjectAtIndex:index withObject:entity];
     }
-    NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+    
+    
+    for (NSMutableDictionary *dic in _dataArray) {
+
+    NSMutableArray *array =  [dic objectForKey:@"row"];
     int i = -1;
     for (int k = 0; k< [array count];k++ ) {
         NSObject * object  =  [array objectAtIndex:k];
@@ -938,9 +942,10 @@
     if(i!=-1)
     {
         [[[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"] replaceObjectAtIndex:i withObject:entity];
+        break;
     }
 
-
+    }
     
     [self.table reloadData];
     
