@@ -19,6 +19,7 @@
 @implementation GKStateChooseViewController
 {
     @private GKUser *user;
+    CGFloat h1;
     UIView * bg;
 }
 
@@ -44,8 +45,15 @@
     bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     bg.backgroundColor = UIColorFromRGB(0xf2f2f2);
     [self.view addSubview:bg];
-    
-    UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,145)];
+    if(kScreenHeight == 548)
+    {
+        h1 = 145;
+    }
+    else
+    {
+        h1 = 120;
+    }
+    UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,h1)];
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
     [bg addSubview:headerView];
     
@@ -90,7 +98,7 @@
     NSArray * dataArray = [NSArray arrayWithObjects:@"准备怀孕",@"怀孕了",@"宝宝降生",nil];
     for (i= 1 ; i<=3; i++) {
     
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(30, tip.frame.origin.y+tip.frame.size.height+29-50+i*50, kScreenWidth-50, 40)];
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(30, tip.frame.origin.y+tip.frame.size.height+29-50+i*50, kScreenWidth-50, 44)];
         [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",i]] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",i]] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];

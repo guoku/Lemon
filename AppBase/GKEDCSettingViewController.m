@@ -18,8 +18,13 @@
     @private UIDatePicker *datePicker;
     NSMutableArray * _dataArray;
     CGFloat y1;
+    CGFloat h1;
     UILabel * tip;
+    UILabel * _year;
+    UILabel * _month;
+    UILabel * _day;
     UIButton *button;
+    UIButton *sendBTN;
     NSUInteger state;
     GKUser * user;
     UIView * bg;
@@ -30,17 +35,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
-        self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"最后一步"];
-        UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
-        [sendBTN setTitle:@"保存" forState:UIControlStateNormal];
-        [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
-        [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
-        [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
-        [sendBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
-        [sendBTN addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *followBtnItem = [[UIBarButtonItem alloc] initWithCustomView:sendBTN];
-        [self.navigationItem setRightBarButtonItem:followBtnItem animated:YES];
+                self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"最后一步"];
+
+       // UIBarButtonItem *followBtnItem = [[UIBarButtonItem alloc] initWithCustomView:sendBTN];
+        //[self.navigationItem setRightBarButtonItem:followBtnItem animated:YES];
     }
     return self;
 }
@@ -76,10 +74,12 @@
     if(kScreenHeight == 548)
     {
         y1 = 60;
+        h1 = 145;
     }
     else
     {
-        y1 = 28;
+        y1 = 48;
+        h1 = 120;
     }
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
@@ -90,7 +90,7 @@
     [self.view addSubview:bg];
     
     
-    UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,145)];
+    UIView * headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth,h1)];
     headerView.backgroundColor = UIColorFromRGB(0xe6e1de);
     [bg addSubview:headerView];
     
@@ -110,6 +110,8 @@
     name.text = user.nickname;
     [bg addSubview:name];
     
+
+    
     UILabel * description = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-100,30)];
     description.center = CGPointMake(kScreenWidth/2, name.frame.origin.y+name.frame.size.height+4);
     description.backgroundColor = [UIColor clearColor];
@@ -120,38 +122,49 @@
     description.text = user.bio;
     [bg addSubview:description];
         
-    button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-50, 40)];
+    button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-20, 50)];
     button.center = CGPointMake(kScreenWidth/2, headerView.frame.size.height+y1);
     //button.userInteractionEnabled = NO;
-    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateHighlighted];
+    //[button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateNormal];
+    //[button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_button_icon%d.png",4]] forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateNormal];
-    [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
-    [button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateDisabled];
-    button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
+    [button setBackgroundImage:[UIImage imageNamed:@"tables_single.png"] forState:UIControlStateHighlighted];
+    //[button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateHighlighted];
+    //[button setBackgroundImage:[UIImage imageNamed:@"tables_single_press.png"]forState:UIControlStateDisabled];
+    button.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [button setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateDisabled];
-    [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
+    [button setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-    [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"                  年               月              日" forState:UIControlStateNormal];
+    //button.userInteractionEnabled = NO;
+    //[button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    if([[userDefault objectForKey:@"state"]isEqualToString:@"pregnant"])
-    {
-        [button setTitle:@"设定宝宝预产期" forState:UIControlStateNormal];
-    }
-    else if([[userDefault objectForKey:@"state"]isEqualToString:@"born"])
-    {
-        [button setTitle:@"设定宝宝生日" forState:UIControlStateNormal];
-    }
     
-    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
-    arrow.tag = 110;
-    arrow.center = CGPointMake(button.frame.size.width-25, button.frame.size.height/2);
+    sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(button.frame.size.width-60,9, 50, 32)];
+    [sendBTN setTitle:@"保存" forState:UIControlStateNormal];
+  
+    [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"] resizableImageWithCapInsets:insets]forState:UIControlStateDisabled];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_flat_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     
-    [button addSubview:arrow];
+    
+    
+    //[sendBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
+    [sendBTN addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button addSubview:sendBTN];
+    sendBTN.enabled = NO;
+    
+
+    
+    //UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
+    //arrow.tag = 110;
+    //arrow.center = CGPointMake(button.frame.size.width-25, button.frame.size.height/2);
+    
+    //[button addSubview:arrow];
     
     tip = [[UILabel alloc]initWithFrame:CGRectMake(155, 0, 80,12)];
     tip.center = CGPointMake(tip.center.x, button.frame.size.height/2+1);
@@ -161,11 +174,59 @@
     [tip setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     tip.textColor = UIColorFromRGB(0x999999);
     
-    [button addSubview:tip];
+    //[button addSubview:tip];
     
-    button.enabled = NO;
+    
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(12, button.frame.origin.y-18,100,15)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12.0f]];
+    label.textColor = UIColorFromRGB(0x777777);
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    if([[userDefault objectForKey:@"state"]isEqualToString:@"pregnant"])
+    {
+        //[button setTitle:@"设定宝宝预产期" forState:UIControlStateNormal];
+        label.text = @"宝宝预产期";
+    }
+    else if([[userDefault objectForKey:@"state"]isEqualToString:@"born"])
+    {
+        //[button setTitle:@"设定宝宝生日" forState:UIControlStateNormal];
+        label.text = @"宝宝的生日";
+    }
+    [bg addSubview:label];
 
     [bg addSubview:button];
+    
+    _year = [[UILabel alloc]initWithFrame:CGRectMake(6, 9,60,32)];
+    _year.backgroundColor = UIColorFromRGB(0xededed);
+    _year.numberOfLines = 0;
+    _year.layer.cornerRadius = 2;
+    _year.textAlignment = NSTextAlignmentCenter;
+    [_year setFont:[UIFont fontWithName:@"Arial-BoldMT" size:18.0f]];
+    _year.textColor = UIColorFromRGB(0x777777);
+    
+    _month = [[UILabel alloc]initWithFrame:CGRectMake(94, 9,36,32)];
+    _month.backgroundColor = UIColorFromRGB(0xededed);
+    _month.numberOfLines = 0;
+    _month.layer.cornerRadius = 2;
+    _month.textAlignment = NSTextAlignmentCenter;
+    [_month setFont:[UIFont fontWithName:@"Arial-BoldMT" size:18.0f]];
+    _month.textColor = UIColorFromRGB(0x777777);
+    
+    _day = [[UILabel alloc]initWithFrame:CGRectMake(153, 9,36,32)];
+    _day.backgroundColor = UIColorFromRGB(0xededed);
+    _day.numberOfLines = 0;
+    _day.layer.cornerRadius = 2;
+    _day.textAlignment = NSTextAlignmentCenter;
+    [_day setFont:[UIFont fontWithName:@"Arial-BoldMT" size:18.0f]];
+    _day.textColor = UIColorFromRGB(0x777777);
+    
+    [button addSubview:_year];
+    [button addSubview:_month];
+    [button addSubview:_day];
+    
 
     datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, kScreenHeight-260, kScreenWidth, 200)];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -173,8 +234,11 @@
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
     [datePicker addTarget:self action:@selector(change) forControlEvents:UIControlEventValueChanged];
+    _year.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy"];
+    _month.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"MM"];
+    _day.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"dd"];
 
-    tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
+    //tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
     
 }
 - (void)TapButtonAction:(id)sender
@@ -274,8 +338,12 @@
 }
 - (void)change
 {
-    tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
-    button.enabled = YES;
+    //tip.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy.MM.dd"];
+    _year.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"yyyy"];
+    _month.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"MM"];
+    _day.text = [NSDate stringFromDate:datePicker.date WithFormatter:@"dd"];
+    sendBTN.enabled = YES;
+    
 }
 - (void)didReceiveMemoryWarning
 {
@@ -320,5 +388,17 @@
     }
     
 }
-
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 @end
