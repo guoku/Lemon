@@ -73,7 +73,7 @@
     
     if(kScreenHeight == 548)
     {
-        y1 = 60;
+        y1 = 80;
         h1 = 145;
     }
     else
