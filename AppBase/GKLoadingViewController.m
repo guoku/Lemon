@@ -48,7 +48,7 @@
     }
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     
     logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_logo.png"]];
     logo.frame = CGRectMake(0, y1, 140, 55);

@@ -44,7 +44,7 @@
 {
     [super viewDidLoad];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     
     NSLog(@"%f",kScreenHeight);
     if(kScreenHeight == 548)
