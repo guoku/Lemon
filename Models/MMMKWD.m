@@ -17,6 +17,7 @@
 {
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithCapacity:1];
     [parameters setValue:group forKey:@"method"];
+    [parameters setValue:@((page-1)*60) forKey:@"offset"];
     [[GKAppDotNetAPIClient sharedClient] getPath:[NSString stringWithFormat:@"maria/phase/%d/category/%d/entities/",pid,cid] parameters:[parameters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSArray * Response = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];

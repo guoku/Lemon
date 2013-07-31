@@ -54,6 +54,7 @@
         loadMoreBoolDictionary = [[NSMutableDictionary alloc] init];
         [loadMoreBoolDictionary setObject:@(NO) forKey:@"best"];
         [loadMoreBoolDictionary setObject:@(NO) forKey:@"new"];
+   
         group = @"best";
         _canLoadMore = NO;
     }
@@ -92,6 +93,8 @@
     loading.center = CGPointMake(kScreenWidth/2, 150);
     loading.hidesWhenStopped = YES;
     [self.view addSubview:loading];
+    
+    [self setLoadMore];
 }
 - (void)viewDidUnload
 {
@@ -112,8 +115,8 @@
         if(!error)
         {
             [dataArrayDic setObject: [NSMutableArray arrayWithArray:array] forKey:group];
-            [self.table reloadData];
-            if([array count] >25 )
+         
+            if([array count] == 60 )
             {
                 [loadMoreBoolDictionary setObject:@(YES) forKey:group];
             }
@@ -122,6 +125,7 @@
                 [loadMoreBoolDictionary setObject:@(NO) forKey:group];
             }
             [self setLoadMore];
+            [self.table reloadData];
         }
         else
         {
@@ -563,12 +567,10 @@
     [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:([[pageDictionary objectForKey:group] intValue]+1)  Block:^(NSArray *array, NSError *error) {
         if(!error)
         {
-            
-            [indicator stopAnimating];
             [pageDictionary setObject:@([[pageDictionary objectForKey:group] intValue]+1) forKey:group];
             [[dataArrayDic  objectForKey:group ] addObjectsFromArray:[NSMutableArray arrayWithArray:array] ];
-            [self.table reloadData];
-            if([array count] >25 )
+         
+            if([array count] == 60 )
             {
                 [loadMoreBoolDictionary setObject:@(YES) forKey:group];
             }
@@ -577,6 +579,7 @@
                 [loadMoreBoolDictionary setObject:@(NO) forKey:group];
             }
             [self setLoadMore];
+
         }
         else
         {
@@ -592,7 +595,10 @@
                     break;
             }
         }
-        [self doneLoadingTableViewData];
+    [self.table reloadData];
+     [indicator stopAnimating];
+     _loadMoreflag = NO;
+     self.navigationItem.rightBarButtonItem.enabled = YES;
     }];
 }
 - (void)setLoadMore

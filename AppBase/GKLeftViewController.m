@@ -97,7 +97,7 @@
     [back addTarget:self action:@selector(showMeAction:) forControlEvents:UIControlEventTouchUpInside];
     [tableHeaderView addSubview:back];
     
-    name = [[UILabel alloc]initWithFrame:CGRectMake(80, 15, tableHeaderView.frame.size.width-100, 20)];
+    name = [[UILabel alloc]initWithFrame:CGRectMake(80, 30, tableHeaderView.frame.size.width-100, 20)];
     name.backgroundColor = [UIColor clearColor];
     name.textAlignment = NSTextAlignmentLeft;
     [name setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
@@ -110,7 +110,7 @@
     description.textAlignment = NSTextAlignmentLeft;
     [description setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
     description.textColor = UIColorFromRGB(0x999999);
-    [tableHeaderView addSubview:description];
+    //[tableHeaderView addSubview:description];
     
     UIView *tipView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, 320, 40)];
     tipView.backgroundColor = UIColorFromRGB(0x363131);
