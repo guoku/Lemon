@@ -37,6 +37,7 @@
 @property(nonatomic,strong) GKNavigationController * navigationController;
 @property(nonatomic,strong)GKCenterViewController * centerViewController;
 @property (nonatomic,strong) NSMutableArray *needRequestEntityArray;
+@property (nonatomic,strong) UIButton * messageRemind;
 
 - (GKStatusBar *)sharedStatusBar;
 - (MBProgressHUD *)sharedHUD;

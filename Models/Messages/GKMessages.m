@@ -58,7 +58,7 @@
     {
         return;
     }
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"user/unread/message/" parameters:[paramaters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/unread_message_count" parameters:[paramaters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;

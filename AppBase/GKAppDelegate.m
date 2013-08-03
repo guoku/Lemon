@@ -29,11 +29,14 @@
 #import "GKMessages.h"
 #import "MobClick.h"
 #import "UMFeedbackViewController.h"
+#import "GKMessageViewController.h"
+#import "UIViewController+MMDrawerController.h"
 
 
 @implementation GKAppDelegate
 {
 @private bool loadingEntity;
+    int _count;
 }
 
 @synthesize window = _window;
@@ -47,6 +50,7 @@
 @synthesize needRequestEntityArray = _needRequestEntityArray;
 @synthesize navigationController = _navigationController;
 @synthesize centerViewController = _centerViewController;
+@synthesize messageRemind = _messageRemind;
 
 #pragma mark- 系统
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -67,7 +71,7 @@
     //启动缓存区
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:1024 * 1024 diskCapacity:1024 * 1024 * 5 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    /*
+    
     [GKVersion getAppVersionWithBlock:^(NSDictionary *dict, NSError *error) {
         if(!error)
         {
@@ -94,7 +98,7 @@
             }
         }
     }];
-     */
+    
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -233,14 +237,59 @@
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
+    NSTimer *_timer2 = [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                                       target:self
+                                                     selector:@selector(checkNewMessage)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:_timer2 forMode:NSRunLoopCommonModes];
+    
     [self checkUM];
 
     [MobClick endEvent:@"app_launch"];
+    
+    _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 30)];
+    _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
+    _messageRemind.backgroundColor = UIColorFromRGB(0xed5c49);
+    _messageRemind.layer.cornerRadius = 5.0;
+    [_messageRemind.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
+    _messageRemind.titleLabel.textAlignment = UITextAlignmentCenter;
+    [_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
+    [_messageRemind addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    //_messageRemind.hidden = YES;
+    _count = 1;
+    [self.window addSubview:_messageRemind];
+    
     return YES;
 }
 - (void)checkUM
 {
     [UMFeedback checkWithAppkey:UMENG_APPKEY];
+}
+-(void)checkNewMessage
+{
+    [GKMessages getUserUnreadMessageCountWithBlock:^(NSUInteger count, NSError * error)
+     {
+         if (!error) {
+
+             if (_count>0) {
+                [_messageRemind setTitle:[NSString stringWithFormat:@"%d条新消息",2000] forState:UIControlStateNormal];
+                 [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                     _messageRemind.center = CGPointMake(kScreenWidth-40, kScreenHeight-20);
+                 } completion:^(BOOL finished) {
+                     
+                 }];
+             }
+             else
+             {
+                 [UIView animateWithDuration:0.3 animations:^{
+                     _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
+                 }];
+             }
+             _count = !_count;
+         }
+     }];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -337,7 +386,7 @@
         GKDetailViewController *detailVC = [[GKDetailViewController alloc] init];
         GKNavigationController *navi = [[GKNavigationController alloc] initWithRootViewController:detailVC];
         UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
-        [backBTN setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+        [backBTN setImage:[UIImage imageNamed:@"icon_back.png"] forState:UIControlStateNormal];
         [backBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
         [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithCustomView:backBTN];
@@ -543,6 +592,23 @@
     //alertView = [[UIAlertView alloc] initWithTitle:@"没有新回复" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
     }
 
+}
+- (void)messageButtonAction
+{
+    GKMessageViewController *VC = [[GKMessageViewController alloc]init];
+    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+    [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+    VC.navigationItem.rightBarButtonItem = nil;
+    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+    [self.window.rootViewController presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 @end
 

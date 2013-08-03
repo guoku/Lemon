@@ -58,8 +58,6 @@
 		4E387B3E17607C89005DA2EC /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387ABE17607C89005DA2EC /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4E387B3F17607C89005DA2EC /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC017607C89005DA2EC /* blackArrow.png */; };
 		4E387B4017607C89005DA2EC /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC117607C89005DA2EC /* blackArrow@2x.png */; };
-		4E387B4117607C89005DA2EC /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC217607C89005DA2EC /* blueArrow.png */; };
-		4E387B4217607C89005DA2EC /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC317607C89005DA2EC /* blueArrow@2x.png */; };
 		4E387B4317607C89005DA2EC /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC417607C89005DA2EC /* grayArrow.png */; };
 		4E387B4417607C89005DA2EC /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC517607C89005DA2EC /* grayArrow@2x.png */; };
 		4E387B4517607C89005DA2EC /* refresh_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E387AC617607C89005DA2EC /* refresh_bg.png */; };
@@ -3002,8 +3000,6 @@
 				4E387A8417607A38005DA2EC /* InfoPlist.strings in Resources */,
 				4E387B3F17607C89005DA2EC /* blackArrow.png in Resources */,
 				4E387B4017607C89005DA2EC /* blackArrow@2x.png in Resources */,
-				4E387B4117607C89005DA2EC /* blueArrow.png in Resources */,
-				4E387B4217607C89005DA2EC /* blueArrow@2x.png in Resources */,
 				4E387B4317607C89005DA2EC /* grayArrow.png in Resources */,
 				4E387B4417607C89005DA2EC /* grayArrow@2x.png in Resources */,
 				4E387B4517607C89005DA2EC /* refresh_bg.png in Resources */,
@@ -3584,8 +3580,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3600,8 +3596,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "79969E50-9079-45C9-A58B-9751030DDB90";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "79969E50-9079-45C9-A58B-9751030DDB90";
+				PROVISIONING_PROFILE = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3618,8 +3614,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3627,8 +3623,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "79969E50-9079-45C9-A58B-9751030DDB90";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "79969E50-9079-45C9-A58B-9751030DDB90";
+				PROVISIONING_PROFILE = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3637,8 +3633,8 @@
 		4E387A9417607A38005DA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3654,8 +3650,8 @@
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "79969E50-9079-45C9-A58B-9751030DDB90";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "79969E50-9079-45C9-A58B-9751030DDB90";
+				PROVISIONING_PROFILE = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3664,8 +3660,8 @@
 		4E387A9517607A38005DA2EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3681,8 +3677,8 @@
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "79969E50-9079-45C9-A58B-9751030DDB90";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "79969E50-9079-45C9-A58B-9751030DDB90";
+				PROVISIONING_PROFILE = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

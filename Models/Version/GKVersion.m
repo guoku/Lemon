@@ -39,7 +39,7 @@
     {
         [paramters setValue:@"iPhone" forKey:@"dev"];
     }
-    [[GKAppDotNetAPIClient sharedClient] getPath:@"update/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/update/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         NSUInteger res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         switch (res_code) {

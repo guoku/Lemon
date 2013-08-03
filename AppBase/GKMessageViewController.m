@@ -48,7 +48,7 @@
         [friendBTN addTarget:self action:@selector(showRightMenu) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:friendBTN];
         
-                _canLoadMore =NO;
+        _canLoadMore =NO;
     }
     return self;
 }
