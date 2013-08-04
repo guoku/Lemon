@@ -16,6 +16,7 @@
 #import "GKLeftViewController.h"
 #import "GKRightViewController.h"
 #import "MMExampleDrawerVisualStateManager.h"
+#import "NewTMLKeywordViewController.h"
 @interface GKUserGuideViewController ()
 
 @end
@@ -193,11 +194,13 @@
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
     UIViewController * leftSideDrawerViewController = [[GKLeftViewController alloc] init];
     
-    UIViewController * centerViewController = [[GKCenterViewController alloc] init];
+    //UIViewController * centerViewController = [[GKCenterViewController alloc] init];
+    
+    NewTMLKeywordViewController * newTMLVC = [[NewTMLKeywordViewController alloc]init];
     
     UIViewController * rightSideDrawerViewController = [[GKRightViewController alloc] init];
     
-    GKNavigationController * navigationController = [[GKNavigationController alloc] initWithRootViewController:centerViewController];
+    GKNavigationController * navigationController = [[GKNavigationController alloc] initWithRootViewController:newTMLVC];
     
     GKRootViewController  * drawerController = [[GKRootViewController alloc]
                                                 initWithCenterViewController:navigationController

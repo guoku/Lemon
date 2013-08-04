@@ -20,26 +20,39 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "397137448.521574"
+         filePath = "AppBase/NewTMLKeywordViewController.m"
+         timestampString = "397210621.707439"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "287"
-         endingLineNumber = "287"
-         landmarkName = "-checkNewMessage"
+         startingLineNumber = "633"
+         endingLineNumber = "633"
+         landmarkName = "-changeCateAction:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "397137304.641213"
+         filePath = "AppBase/NewTMLKeywordViewController.m"
+         timestampString = "397212794.789949"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "272"
-         endingLineNumber = "272"
-         landmarkName = "-checkNewMessage"
+         startingLineNumber = "665"
+         endingLineNumber = "665"
+         landmarkName = "-changeCateAction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/NewTMLKeywordViewController.m"
+         timestampString = "397212864.736703"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "669"
+         endingLineNumber = "669"
+         landmarkName = "-changeCateAction:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

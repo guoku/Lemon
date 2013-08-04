@@ -19,6 +19,7 @@
 #import "GKDevice.h"
 #import "GKAppDotNetAPIClient.h"
 #import "GKDetailViewController.h"
+#import "NewTMLKeywordViewController.h"
 
 #import "MMDrawerController.h"
 #import "GKCenterViewController.h"
@@ -71,7 +72,7 @@
     //启动缓存区
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:1024 * 1024 diskCapacity:1024 * 1024 * 5 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
+    /*
     [GKVersion getAppVersionWithBlock:^(NSDictionary *dict, NSError *error) {
         if(!error)
         {
@@ -99,7 +100,7 @@
         }
     }];
     
-    
+    */
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -165,7 +166,9 @@
         
         UIViewController * rightSideDrawerViewController = [[GKRightViewController alloc] init];
         
-        _navigationController = [[GKNavigationController alloc] initWithRootViewController:_centerViewController];
+        
+        NewTMLKeywordViewController * newTMLVC = [[NewTMLKeywordViewController alloc]init];
+        _navigationController = [[GKNavigationController alloc] initWithRootViewController:newTMLVC];
         
         self.drawerController = [[GKRootViewController alloc]
                                                     initWithCenterViewController:_navigationController
@@ -237,14 +240,14 @@
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
+    /*
     NSTimer *_timer2 = [NSTimer scheduledTimerWithTimeInterval:10.0f
                                                        target:self
                                                      selector:@selector(checkNewMessage)
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer2 forMode:NSRunLoopCommonModes];
-    
+    */
     [self checkUM];
 
     [MobClick endEvent:@"app_launch"];
