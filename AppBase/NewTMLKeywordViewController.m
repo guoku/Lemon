@@ -43,6 +43,7 @@
     UIScrollView * gSV;
     UIButton * Sortbutton; 
     UIButton * Sortbutton2;
+    UIView *bg;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -94,8 +95,7 @@
         //[menu addSubview:bg];
         
         gSV = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0 , 110, 308)];
-        gSV.backgroundColor = [UIColor clearColor];
-        gSV.bounces = NO;
+        gSV.backgroundColor = [UIColor whiteColor];
 
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
         NSMutableArray * pArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(_pid)];
@@ -123,7 +123,7 @@
 
         for (NSDictionary * dic in pArray) {
             TMLCate * cate= [dic objectForKey:@"section"];
-            UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 110, 43)];
+            UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 110, 44)];
             Cbutton.backgroundColor = [UIColor whiteColor];
             
             
@@ -141,19 +141,24 @@
             [Cbutton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
             Cbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [gSV addSubview:Cbutton];
+            
+            UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, i*44-1, 110, 1)];
+            H.backgroundColor = UIColorFromRGB(0xededed);
+            [gSV addSubview:H];
+            
             i++;
         }
         if(i*44>308)
         {
-            gSV.contentSize = CGSizeMake(100, i*44);
+            gSV.contentSize = CGSizeMake(110, i*44);
         }
         else
         {
-            gSV.contentSize = CGSizeMake(100, 308);
+            gSV.contentSize = CGSizeMake(110, 308);
         }
         [menu addSubview:gSV];
         
-        cSV = [[UIScrollView alloc]initWithFrame:CGRectMake(100,0 , 220,308)];
+        cSV = [[UIScrollView alloc]initWithFrame:CGRectMake(110,0 , 220,308)];
         cSV.backgroundColor = UIColorFromRGB(0xf3f3f3);
         cSV.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [menu addSubview:cSV];
@@ -197,6 +202,145 @@
         [Sortbutton2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         Sortbutton2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [menu2 addSubview:Sortbutton2];
+        
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
+        view.backgroundColor = [UIColor clearColor];
+        
+        bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+        bg.backgroundColor =[UIColor clearColor];
+        
+        button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 42)];
+        [button setImage:[UIImage imageNamed:@"category_icon_category.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateSelected];
+        [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+        [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
+        [button addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
+        [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
+        [button addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
+        [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
+        
+        [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+        [button setTitle:@"全部" forState:UIControlStateNormal];
+        [button setImageEdgeInsets:UIEdgeInsetsMake(-2, 0, 0, 0)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = 4001;
+        
+        button2 = [[UIButton alloc]initWithFrame:CGRectMake(80, 0, 100, 42)];
+        
+        [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
+        [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateSelected];
+        [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+        [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
+        [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
+        button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
+        [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+        [button2 setTitle:@"新上架" forState:UIControlStateNormal];
+        [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
+        [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [button2 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [button2 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
+        [button2 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
+        [button2 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
+        [button2 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
+        button2.tag = 4002;
+        
+        button3 = [[UIButton alloc]initWithFrame:CGRectMake(180, 0, 140, 42)];
+        [button3 setImage:[UIImage imageNamed:@"category_icon_friends.png"] forState:UIControlStateNormal];
+        [button3 setImage:[UIImage imageNamed:@"category_icon_friends_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [button3 setImage:[UIImage imageNamed:@"category_icon_friends_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [button3 setImage:[UIImage imageNamed:@"category_icon_friends_red.png"] forState:UIControlStateSelected];
+        [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
+        [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
+        [button3.titleLabel setTextAlignment:NSTextAlignmentLeft];
+        button3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [button3.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+        [button3 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
+        [button3 setTitle:@"好友的精选" forState:UIControlStateNormal];
+        [button3 setImageEdgeInsets:UIEdgeInsetsMake(-2, -10, 0, 0)];
+        [button3 setTitleEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
+        [button3 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [button3 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
+        [button3 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
+        [button3 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
+        [button3 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
+        button3.tag = 4003;
+        
+        button3_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
+        button3_arrow.frame = CGRectMake(300, 13, 8, 14);
+        [bg addSubview:button];
+        [bg addSubview:button2];
+        [bg addSubview:button3];
+        [bg addSubview:button3_arrow];
+        
+        UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(80, 0, 1, 40)];
+        V1.backgroundColor =UIColorFromRGB(0xe4e4e4);
+        UIView *V2 = [[UIView alloc]initWithFrame:CGRectMake(180, 0, 1, 40)];
+        V2.backgroundColor =UIColorFromRGB(0xe4e4e4);
+        //UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
+        //H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
+        
+        //UIImageView *V1 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 0, 2, 39)];
+        //V1.image = [UIImage imageNamed:@"category_divider.png"];
+        //UIImageView *V2 = [[UIImageView alloc]initWithFrame:CGRectMake(180, 0, 2, 39)];
+        //V2.image = [UIImage imageNamed:@"category_divider.png"];
+        //[bg addSubview:H1];
+        [bg addSubview:V1];
+        [bg addSubview:V2];
+        
+        cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
+        cate_arrow.frame = CGRectMake(0,39, 15,10);
+        cate_arrow.center = CGPointMake(45, cate_arrow.center.y);
+        cate_arrow.backgroundColor = [UIColor clearColor];
+        
+        [view addSubview:bg];
+        //[view addSubview:cate_arrow];
+        
+        
+        self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStylePlain];
+        _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _table.separatorColor =UIColorFromRGB(0xf9f9f9);
+        _table.allowsSelection = NO;
+        _table.showsVerticalScrollIndicator = NO;
+        [_table setDelegate:self];
+        [_table setDataSource:self];
+        [self.view  insertSubview:_table belowSubview:mask];
+        
+        /*
+         if(_refreshHeaderView == nil)
+         {
+         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
+         view.delegate = self;
+         _refreshHeaderView = view;
+         [self.table addSubview:_refreshHeaderView];
+         }
+         [_refreshHeaderView refreshLastUpdatedDate];
+         */
+        UIView * tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+        tableHeaderView.backgroundColor = UIColorFromRGB(0xf9f9f9);
+        self.table.tableHeaderView = tableHeaderView;
+        
+        [self.view addSubview:view];
+        
+        UIView * fixBUG =[[UIView alloc] initWithFrame:CGRectMake(0, -100, kScreenWidth, 100)];
+        fixBUG.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:fixBUG];
+
         
     }
     return self;
@@ -277,143 +421,7 @@
 - (void)loadView
 {
     [super loadView];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 48)];
-    view.backgroundColor = [UIColor clearColor];
-    
-    //UIImageView *backgroundView =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 42)];
-    //backgroundView.image = [[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1];
-    //[view addSubview:backgroundView];
-    
-    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    bg.backgroundColor =[UIColor clearColor];
-    
-    button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 42)];
-    [button setImage:[UIImage imageNamed:@"category_icon_category.png"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateSelected];
-    [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
-    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
-    [button addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
-    [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
-    [button addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
-    [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
-    
-    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    [button setTitle:@"全部" forState:UIControlStateNormal];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(-2, 0, 0, 0)];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-    [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    button.tag = 4001;
-    
-    button2 = [[UIButton alloc]initWithFrame:CGRectMake(80, 0, 100, 42)];
-
-    [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
-    [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateSelected];
-    [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button2 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
-    [button2.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    button2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
-    [button2.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    [button2 setTitle:@"新上架" forState:UIControlStateNormal];
-    [button2 setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-    [button2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [button2 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [button2 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
-    [button2 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
-    [button2 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
-    [button2 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
-    button2.tag = 4002;
-    
-    button3 = [[UIButton alloc]initWithFrame:CGRectMake(180, 0, 140, 42)];
-    [button3 setImage:[UIImage imageNamed:@"category_icon_friends.png"] forState:UIControlStateNormal];
-    [button3 setImage:[UIImage imageNamed:@"category_icon_friends_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button3 setImage:[UIImage imageNamed:@"category_icon_friends_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button3 setImage:[UIImage imageNamed:@"category_icon_friends_red.png"] forState:UIControlStateSelected];
-    [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateNormal];
-    [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg_press.png"]  stretchableImageWithLeftCapWidth:1 topCapHeight:1] forState:UIControlStateSelected|UIControlStateHighlighted];
-    [button3 setBackgroundImage:[[UIImage imageNamed:@"category_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1]  forState:UIControlStateSelected];
-    [button3.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    button3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [button3.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    [button3 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
-    [button3 setTitle:@"好友的精选" forState:UIControlStateNormal];
-    [button3 setImageEdgeInsets:UIEdgeInsetsMake(-2, -10, 0, 0)];
-    [button3 setTitleEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-    [button3 addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [button3 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDown];
-    [button3 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchDragOutside];
-    [button3 addTarget:self action:@selector(changeArrowPress:) forControlEvents:UIControlEventTouchDragInside];
-    [button3 addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
-    button3.tag = 4003;
-    
-    button3_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow.png"]];
-    button3_arrow.frame = CGRectMake(300, 13, 8, 14);
-    [bg addSubview:button];
-    [bg addSubview:button2];
-    [bg addSubview:button3];
-    [bg addSubview:button3_arrow];
-    
-    UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(80, 0, 1, 40)];
-    V1.backgroundColor =UIColorFromRGB(0xe4e4e4);
-    UIView *V2 = [[UIView alloc]initWithFrame:CGRectMake(180, 0, 1, 40)];
-    V2.backgroundColor =UIColorFromRGB(0xe4e4e4);
-    //UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
-    //H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
-    
-    //UIImageView *V1 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 0, 2, 39)];
-    //V1.image = [UIImage imageNamed:@"category_divider.png"];
-    //UIImageView *V2 = [[UIImageView alloc]initWithFrame:CGRectMake(180, 0, 2, 39)];
-    //V2.image = [UIImage imageNamed:@"category_divider.png"];
-    //[bg addSubview:H1];
-    [bg addSubview:V1];
-    [bg addSubview:V2];
-    
-    cate_arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"category_arrow.png"]];
-    cate_arrow.frame = CGRectMake(0,39, 15,10);
-    cate_arrow.center = CGPointMake(45, cate_arrow.center.y);
-    cate_arrow.backgroundColor = [UIColor clearColor];
-    
-    [view addSubview:bg];
-    //[view addSubview:cate_arrow];
-
-    
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStylePlain];
-    _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
-    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.separatorColor =UIColorFromRGB(0xf9f9f9);
-    _table.allowsSelection = NO;
-    _table.showsVerticalScrollIndicator = NO;
-    [_table setDelegate:self];
-    [_table setDataSource:self];
-    [self.view addSubview:_table];
-    
-    /*
-    if(_refreshHeaderView == nil)
-    {
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,self.view.frame.size.width, self.view.bounds.size.height)];
-        view.delegate = self;
-        _refreshHeaderView = view;
-        [self.table addSubview:_refreshHeaderView];
-    }
-    [_refreshHeaderView refreshLastUpdatedDate];
-     */
-    UIView * tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    tableHeaderView.backgroundColor = UIColorFromRGB(0xf9f9f9);
-    self.table.tableHeaderView = tableHeaderView;
-    
-    [self.view addSubview:view];
+   
 }
 #pragma mark 重载tableview必选方法
 //返回一共有多少个Section
@@ -462,9 +470,6 @@
 - (void)refresh
 {
     _page = 1;
-    mask.hidden = YES;
-    menu.hidden = YES;
-    menu2.hidden = YES;
     button.selected = NO;
     button2.selected = NO;
     [loading startAnimating];
@@ -762,7 +767,8 @@
     if(b.tag == 0)
     {
         _cid = 0;
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3];
+        [self performSelector:@selector(hideAll) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:0.55];
         return;
     }
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
@@ -779,7 +785,7 @@
     int i =0;
     for (TMLKeyWord * keyword in kArray) {
     
-        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 220, 44)];
+        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 220, 43)];
         Cbutton.backgroundColor = [UIColor clearColor];
         Cbutton.tag = keyword.kid;
         if(Cbutton.tag == _cid)
@@ -814,11 +820,11 @@
     }
     if(i*44>308)
     {
-        cSV.contentSize = CGSizeMake(100, i*44);
+        cSV.contentSize = CGSizeMake(110, i*44);
     }
     else
     {
-        cSV.contentSize = CGSizeMake(100, 310);
+        cSV.contentSize = CGSizeMake(110, 310);
     }
     
 }
@@ -834,7 +840,8 @@
     UIButton * b = ((UIButton *)sender);
     [button setTitle:b.titleLabel.text forState:UIControlStateNormal];
     b.selected = YES;
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(hideAll) withObject:nil afterDelay:0.2];
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.55];
 }
 - (void)changeSortAction:(id)sender
 {
@@ -864,16 +871,45 @@
         Sortbutton2.selected = NO;
     }
     button2.selected = NO;
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(hideAll) withObject:nil afterDelay:0.2];
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.55];
+
 
 }
 -(void)hideAll
 {
-    mask.hidden = YES;
-    menu.hidden = YES;
-    menu2.hidden = YES;
     button.selected = NO;
     button2.selected = NO;
+    bg.backgroundColor = [UIColor whiteColor];
+    [UIView animateWithDuration:0.35 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+        menu.frame = CGRectMake(0,-308, kScreenWidth, 308);
+        menu2.frame = CGRectMake(0, -87, kScreenWidth, 87);
+       
+        mask.alpha = 0;
+         /*
+        menu.alpha = 0;
+        menu2.alpha = 0;
+        cSV.alpha = 0;
+        gSV.alpha = 0;
+         */
+    } completion:^(BOOL finished) {
+
+        mask.hidden = YES;
+        menu.hidden = YES;
+        menu2.hidden = YES;
+        mask.alpha = 0.5;
+        /*
+        cSV.alpha = 1;
+        gSV.alpha = 1;
+        
+        menu.alpha = 1;
+        menu2.alpha = 1;
+         */
+        menu.frame = CGRectMake(0, 40, kScreenWidth, 308);
+        menu2.frame = CGRectMake(0, 40, kScreenWidth, 87);
+        bg.backgroundColor = [UIColor clearColor];
+
+    }];
 }
 - (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
