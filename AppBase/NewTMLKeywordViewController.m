@@ -61,7 +61,7 @@
         _page = 0;
         group = @"new";
         _canLoadMore = NO;
-        
+        [self setFooterView:NO];
         _titleArray = [NSMutableArray arrayWithObjects:
                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"怀孕中",@"name",@"0",@"count",@"2",@"pid",nil],
@@ -896,13 +896,13 @@
         [cSV addSubview:Cbutton];
         i++;
     }
-    if(i*44>308)
+    if(i*44>308+39)
     {
-        cSV.contentSize = CGSizeMake(130, i*44);
+        cSV.contentSize = CGSizeMake(130, i*44+39);
     }
     else
     {
-        cSV.contentSize = CGSizeMake(130, 310);
+        cSV.contentSize = CGSizeMake(130, 310+39);
     }
     
 }
@@ -1031,10 +1031,14 @@
 }
 - (void)stageChange
 {
+    [_dataArray removeAllObjects];
+    [self.table reloadData];
     _pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
     _cid = 0;
     _gid = 0;
     group =@"new";
+    _canLoadMore = NO;
+    [self setFooterView:NO];
     [button setTitle:@"全部" forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
@@ -1160,6 +1164,7 @@
     _openLeftMenu = YES;
     [_dataArray removeAllObjects];
     [self.table reloadData];
+    [self stageChange];
 }
 - (void)GKLogout
 {
