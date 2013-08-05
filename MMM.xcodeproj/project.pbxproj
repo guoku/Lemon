@@ -568,7 +568,7 @@
 		4EFD64B217AE38AA00BB5778 /* heart_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD64A417AE38AA00BB5778 /* heart_gray@2x.png */; };
 		4EFD64B317AE38AA00BB5778 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD64A517AE38AA00BB5778 /* heart.png */; };
 		4EFD64B417AE38AA00BB5778 /* heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD64A617AE38AA00BB5778 /* heart@2x.png */; };
-		4EFD64B617AE9A8C00BB5778 /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD64B517AE9A8C00BB5778 /* 1@2x.png */; };
+		4EFD64B617AE9A8C00BB5778 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD64B517AE9A8C00BB5778 /* 1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1329,7 +1329,7 @@
 		4EFD64A417AE38AA00BB5778 /* heart_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart_gray@2x.png"; sourceTree = "<group>"; };
 		4EFD64A517AE38AA00BB5778 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		4EFD64A617AE38AA00BB5778 /* heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart@2x.png"; sourceTree = "<group>"; };
-		4EFD64B517AE9A8C00BB5778 /* 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1@2x.png"; sourceTree = "<group>"; };
+		4EFD64B517AE9A8C00BB5778 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2214,7 +2214,7 @@
 		4E387BFC176085FC005DA2EC /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				4EFD64B517AE9A8C00BB5778 /* 1@2x.png */,
+				4EFD64B517AE9A8C00BB5778 /* 1.png */,
 				4E7286F6179CDB2C00E5995D /* 切图 */,
 				4E820F3117965A0F00B0806A /* splitline.png */,
 				4E820F3217965A0F00B0806A /* splitline@2x.png */,
@@ -3430,7 +3430,7 @@
 				4EFD64B217AE38AA00BB5778 /* heart_gray@2x.png in Resources */,
 				4EFD64B317AE38AA00BB5778 /* heart.png in Resources */,
 				4EFD64B417AE38AA00BB5778 /* heart@2x.png in Resources */,
-				4EFD64B617AE9A8C00BB5778 /* 1@2x.png in Resources */,
+				4EFD64B617AE9A8C00BB5778 /* 1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

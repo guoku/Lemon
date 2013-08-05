@@ -94,12 +94,13 @@
         //bg.image = [[UIImage imageNamed:@"category_bg.png"]stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         //[menu addSubview:bg];
         
-        gSV = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0 , 110, 308)];
+        gSV = [[UIScrollView alloc]initWithFrame:CGRectMake(0,0 , 130, 308)];
         gSV.backgroundColor = [UIColor whiteColor];
+        gSV.showsVerticalScrollIndicator = NO;
 
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
         NSMutableArray * pArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(_pid)];
-        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 110, 43)];
+        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 130, 43)];
         Cbutton.backgroundColor = [UIColor whiteColor];
         
         
@@ -123,7 +124,7 @@
 
         for (NSDictionary * dic in pArray) {
             TMLCate * cate= [dic objectForKey:@"section"];
-            UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 110, 44)];
+            UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 130, 44)];
             Cbutton.backgroundColor = [UIColor whiteColor];
             
             
@@ -142,7 +143,7 @@
             Cbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [gSV addSubview:Cbutton];
             
-            UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, i*44-1, 110, 1)];
+            UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, i*44-1, 130, 1)];
             H.backgroundColor = UIColorFromRGB(0xededed);
             [gSV addSubview:H];
             
@@ -150,15 +151,15 @@
         }
         if(i*44>308)
         {
-            gSV.contentSize = CGSizeMake(110, i*44);
+            gSV.contentSize = CGSizeMake(130, i*44);
         }
         else
         {
-            gSV.contentSize = CGSizeMake(110, 308);
+            gSV.contentSize = CGSizeMake(130, 308);
         }
         [menu addSubview:gSV];
         
-        cSV = [[UIScrollView alloc]initWithFrame:CGRectMake(110,0 , 220,308)];
+        cSV = [[UIScrollView alloc]initWithFrame:CGRectMake(130,0 , 220,308)];
         cSV.backgroundColor = UIColorFromRGB(0xf3f3f3);
         cSV.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [menu addSubview:cSV];
@@ -208,8 +209,8 @@
         
         bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
         bg.backgroundColor =[UIColor clearColor];
-        
-        button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 42)];
+    
+        button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 90, 42)];
         [button setImage:[UIImage imageNamed:@"category_icon_category.png"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [button setImage:[UIImage imageNamed:@"category_icon_category_red.png"] forState:UIControlStateSelected];
@@ -224,16 +225,16 @@
         [button addTarget:self action:@selector(changeArrowNormal:) forControlEvents:UIControlEventTouchUpOutside];
         
         [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [button setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [button setTitle:@"全部" forState:UIControlStateNormal];
-        [button setImageEdgeInsets:UIEdgeInsetsMake(-2, 0, 0, 0)];
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [button setImageEdgeInsets:UIEdgeInsetsMake(-2, 10, 0, 0)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         [button addTarget:self action:@selector(TapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = 4001;
         
-        button2 = [[UIButton alloc]initWithFrame:CGRectMake(80, 0, 100, 42)];
+        button2 = [[UIButton alloc]initWithFrame:CGRectMake(90, 0, 90, 42)];
         
         [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
         [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
@@ -287,9 +288,9 @@
         [bg addSubview:button3];
         [bg addSubview:button3_arrow];
         
-        UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(80, 0, 1, 40)];
+        UIView *V1 = [[UIView alloc]initWithFrame:CGRectMake(90, 0, 1, 39)];
         V1.backgroundColor =UIColorFromRGB(0xe4e4e4);
-        UIView *V2 = [[UIView alloc]initWithFrame:CGRectMake(180, 0, 1, 40)];
+        UIView *V2 = [[UIView alloc]initWithFrame:CGRectMake(180, 0, 1, 39)];
         V2.backgroundColor =UIColorFromRGB(0xe4e4e4);
         //UIView *H1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
         //H1.backgroundColor =UIColorFromRGB(0xe4e4e4);
@@ -340,6 +341,16 @@
         UIView * fixBUG =[[UIView alloc] initWithFrame:CGRectMake(0, -100, kScreenWidth, 100)];
         fixBUG.backgroundColor = [UIColor blackColor];
         [self.view addSubview:fixBUG];
+        
+        
+        loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        loading.frame = CGRectMake(0, 0, 44, 44);
+        //loading.backgroundColor = UIColorFromRGB(0xf9f9f9);
+        loading.backgroundColor = [UIColor blackColor];
+        loading.layer.cornerRadius = 4.0;
+        loading.center = CGPointMake(kScreenWidth/2, 150);
+        loading.hidesWhenStopped = YES;
+        [self.view addSubview:loading];
 
         
     }
@@ -350,13 +361,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    loading.frame = CGRectMake(0, 0, 44, 44);
-    loading.backgroundColor = UIColorFromRGB(0xf9f9f9);
-    //loading.backgroundColor = [UIColor blackColor];
-    loading.center = CGPointMake(kScreenWidth/2, 150);
-    loading.hidesWhenStopped = YES;
-    [self.view addSubview:loading];
+
+    
     [self setFooterView:NO];
 }
 - (void)viewDidUnload
@@ -470,12 +476,16 @@
 - (void)refresh
 {
     _page = 1;
+    [_dataArray removeAllObjects];
+    [self.table reloadData];
     button.selected = NO;
     button2.selected = NO;
     [loading startAnimating];
+
     _reloading = YES;
     //self.navigationItem.rightBarButtonItem.enabled = NO;
     self.table.tableFooterView.hidden = YES;
+  
    // [self makeHearderReloading];
     [self performSelector:@selector(reload:) withObject:nil afterDelay:0.3];
 }
@@ -820,11 +830,11 @@
     }
     if(i*44>308)
     {
-        cSV.contentSize = CGSizeMake(110, i*44);
+        cSV.contentSize = CGSizeMake(130, i*44);
     }
     else
     {
-        cSV.contentSize = CGSizeMake(110, 310);
+        cSV.contentSize = CGSizeMake(130, 310);
     }
     
 }
@@ -881,7 +891,7 @@
     button.selected = NO;
     button2.selected = NO;
     bg.backgroundColor = [UIColor whiteColor];
-    [UIView animateWithDuration:0.35 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+    [UIView animateWithDuration:0.35 delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
         menu.frame = CGRectMake(0,-308, kScreenWidth, 308);
         menu2.frame = CGRectMake(0, -87, kScreenWidth, 87);
        
