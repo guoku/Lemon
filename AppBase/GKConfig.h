@@ -20,7 +20,7 @@
 #endif
 // guoku api base url
 //#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
-#define kGKAppBaseURL @"http://pre.guoku.com/mobile/"
+#define kGKAppBaseURL @"http://119.167.225.32/mobile/"
 //#define kGKAppBaseURL @"http://api.guoku.com/mobile/"
 //#define kGKAppBaseURL @"http://10.0.1.74/mobile/"
 //#define kGuokuApiKey @"49396e9f3573727649f7c9651d0450ed"///@"4abe75e4aa7a7ec59976400e5e3b8fcf"

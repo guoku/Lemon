@@ -60,16 +60,9 @@
 
     _dataArray = [NSMutableArray arrayWithObjects:
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"0",@"count",@"2",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"0",@"count",@"3",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"0",@"count",@"4",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"0",@"count",@"6",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"0",@"count",@"7",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"0",@"count",@"9",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
-                  , nil];
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"怀孕中",@"name",@"0",@"count",@"2",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"生啦",@"name",@"0",@"count",@"3",@"pid",nil],
+                  nil];
     
     NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
     for (NSMutableDictionary *dic in _dataArray) {
@@ -198,11 +191,13 @@
     for (NSMutableDictionary * dic in _dataArray) {
         [dic setObject:@"0" forKey:@"count"];
     }
+    /*
     for (NSDictionary * dic in [GKEntity getEntityCountGroupByPid]) {
         NSUInteger pid = [[dic objectForKey:@"pid"]integerValue];
         NSUInteger count = [[dic objectForKey:@"count"]integerValue];
         [[_dataArray objectAtIndex:(pid-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
     }
+     */
     [self.table reloadData];
     NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
     if(selectCell)

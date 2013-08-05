@@ -137,13 +137,48 @@
                         [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
                             if(!error)
                             {
-                                NSMutableDictionary *_dataArray = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-                                NSMutableArray *_dataDic = [NSMutableArray arrayWithArray:array];
+                                NSMutableDictionary *_dataDic = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                                NSMutableArray *_dataArray = [NSMutableArray arrayWithArray:array];
                                 
-                                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
-                                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
                                 [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
                                 [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
+                                
+                                [MMMTML globalNewTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
+                                    if(!error)
+                                    {
+                                        NSMutableDictionary *_dataDic = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                                        //NSMutableArray *_dataArray = [NSMutableArray arrayWithArray:array];
+                                        
+                                        NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                                        [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table3"];
+                                        [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                        [UIView animateWithDuration:1.2 animations:^{
+                                            
+                                        }
+                                                         completion:^(BOOL finished) {
+                                                             GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                             [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                                                                 
+                                                             }];
+                                                         }];
+
+                                        
+                                    }
+                                    else
+                                    {
+                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
+                                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                        [delegate.sinaweibo logOut];
+                                        [kUserDefault removeObjectForKey:@"sina_user_id"];
+                                        [kUserDefault removeObjectForKey:@"sina_access_token"];
+                                        [kUserDefault removeObjectForKey:@"sina_expires_in"];
+                                        [GKMessageBoard showMBWithText:@"登录失败" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                    }
+                                    
+                                }];
+                                /*
                                 [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
                                     if(!error)
                                     {
@@ -171,6 +206,7 @@
                                     }
                                     
                                 }];
+                                 */
                 
                             }
                             else

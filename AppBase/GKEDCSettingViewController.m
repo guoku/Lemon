@@ -266,18 +266,18 @@
         //int year = days/365;
         if(week<2)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         else if(month<3)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(4) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(4) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         else if(month<6)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         else
         {
@@ -308,28 +308,28 @@
         //int year = days/365;
         if(month<3)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
         }
         else if(month<6)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
         }
         else if(month<12)
         {
             [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
         }
         else if(month<24)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
         }
         else
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i-1] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];

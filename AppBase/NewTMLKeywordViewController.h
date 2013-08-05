@@ -16,6 +16,9 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
 }
 @property (strong, nonatomic) UITableView *table;
+@property (assign) BOOL openLeftMenu;
+@property (assign) BOOL openRightMenu;
+- (void)stageChange;
 
 -(void)reloadTableViewDataSource;
 -(void)doneLoadingTableViewData;

@@ -36,6 +36,7 @@
     UIButton *button2;
     UIButton *button3;
     UIImageView *button3_arrow ;
+    NSMutableArray * _titleArray;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,6 +55,19 @@
         loadMoreBoolDictionary = [[NSMutableDictionary alloc] init];
         [loadMoreBoolDictionary setObject:@(NO) forKey:@"best"];
         [loadMoreBoolDictionary setObject:@(NO) forKey:@"new"];
+        
+        _titleArray = [NSMutableArray arrayWithObjects:
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"2",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"3",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"4",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"5",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"6",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"7",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"8",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"9",@"pid",nil],
+                       [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"10",@"pid",nil]
+                       , nil];
    
         group = @"best";
         _canLoadMore = NO;
@@ -66,7 +80,8 @@
     {
         _pid = pid;
         _cid = cate.kid;
-        self.navigationItem.titleView = [GKTitleView  setTitleLabel:cate.name];
+        
+        self.navigationItem.titleView = [GKTitleView  setTitleLabel:[NSString stringWithFormat:@"%@-%@",[[_titleArray objectAtIndex:(_pid-1)] objectForKey:@"name"],cate.name]];
     }
     return self;
 }
@@ -409,6 +424,13 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     
 	//[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
+        if((!_loadMoreflag)&&_canLoadMore)
+        {
+            _loadMoreflag = YES;
+            [self loadMore];
+        }
+	}
 }
 #pragma mark -
 #pragma mark 重载EGORefreshTableHeaderView必选方法

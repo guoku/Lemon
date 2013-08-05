@@ -29,6 +29,7 @@
     UIImageView *cate_arrow;
     NSUInteger _pid;
     NSUInteger _cid;
+    NSUInteger _gid;
     NSUInteger _page;
     NSString *group;
     UIActivityIndicatorView *loading;
@@ -44,6 +45,7 @@
     UIButton * Sortbutton; 
     UIButton * Sortbutton2;
     UIView *bg;
+    NSMutableArray * _titleArray;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -53,13 +55,20 @@
         // Custom initialization
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-
-        _pid = 5;
-        _cid = 257;
+        _pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+        _cid = 0;
+        _gid = 0;
         _page = 0;
         group = @"new";
         _canLoadMore = NO;
-        self.navigationItem.titleView = [GKTitleView setTitleLabel:@"准备怀孕"];
+        
+        _titleArray = [NSMutableArray arrayWithObjects:
+                      [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
+                      [NSMutableDictionary dictionaryWithObjectsAndKeys:@"怀孕中",@"name",@"0",@"count",@"2",@"pid",nil],
+                      [NSMutableDictionary dictionaryWithObjectsAndKeys:@"生啦",@"name",@"0",@"count",@"3",@"pid",nil],
+                      nil];
+        
+        self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:_pid -1] objectForKey:@"name"]];
         
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
         
@@ -98,7 +107,7 @@
         gSV.backgroundColor = [UIColor whiteColor];
         gSV.showsVerticalScrollIndicator = NO;
 
-        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
+        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table3"];
         NSMutableArray * pArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(_pid)];
         UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 130, 43)];
         Cbutton.backgroundColor = [UIColor whiteColor];
@@ -144,6 +153,7 @@
             [gSV addSubview:Cbutton];
             
             UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, i*44-1, 130, 1)];
+            H.tag = 18746;
             H.backgroundColor = UIColorFromRGB(0xededed);
             [gSV addSubview:H];
             
@@ -361,7 +371,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setOpenRight) name: @"OpenRightMenu"  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stageChange) name:@"stageChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityChange object:nil];
     
     [self setFooterView:NO];
 }
@@ -374,6 +390,13 @@
 {
     [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     button3_arrow.image = [UIImage imageNamed:@"arrow.png"];
+    if([_dataArray count]==0)
+    {
+        [self refresh];
+    }
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    
+    [self performSelector:@selector(checkShouldOpenMenu) withObject:nil afterDelay:0.4];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -390,7 +413,7 @@
 {
     [loading startAnimating];
 
-    [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:1 Block:^(NSArray *array, NSError *error) {
+    [MMMKWD globalNewKWDWithGroup:group Pid:_pid Gid:_gid Cid:_cid Page:1 Block:^(NSArray *array, NSError *error) {
         if(!error)
         {
             _dataArray = [NSMutableArray arrayWithArray:array];
@@ -549,6 +572,13 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     
 	//[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    if (scrollView.contentOffset.y+scrollView.frame.size.height >= scrollView.contentSize.height) {
+        if((!_loadMoreflag)&&_canLoadMore)
+        {
+            _loadMoreflag = YES;
+            [self loadMore];
+        }
+	}
 }
 #pragma mark -
 #pragma mark 重载EGORefreshTableHeaderView必选方法
@@ -582,6 +612,7 @@
             menu.hidden = NO;
             button.selected = YES;
             mask.hidden = NO;
+            bg.backgroundColor = [UIColor whiteColor];
             }
             else
             {
@@ -593,6 +624,7 @@
                 menu.hidden = YES;
                 button.selected = NO;
                 mask.hidden = YES;
+                bg.backgroundColor = [UIColor clearColor];
             }
 
             
@@ -618,6 +650,7 @@
                 menu2.hidden = NO;
                 button2.selected = YES;
                 mask.hidden = NO;
+                bg.backgroundColor = [UIColor whiteColor];
             }
             else
             {
@@ -629,6 +662,7 @@
                 menu2.hidden = YES;
                 button2.selected = NO;
                 mask.hidden = YES;
+                bg.backgroundColor = [UIColor clearColor];
             }
 
 
@@ -680,7 +714,7 @@
     [indicator startAnimating];
     [self.table.tableFooterView addSubview:indicator];
     
-    [MMMKWD globalKWDWithGroup:group Pid:_pid Cid:_cid Page:(_page+1)  Block:^(NSArray *array, NSError *error) {
+    [MMMKWD globalNewKWDWithGroup:group Pid:_pid Gid:_gid Cid:_cid Page:(_page+1)  Block:^(NSArray *array, NSError *error) {
         if(!error)
         {
             _page = _page+1;
@@ -776,14 +810,22 @@
     
     if(b.tag == 0)
     {
+        _gid = 0;
         _cid = 0;
+        for (UIView * view in cSV.subviews) {
+            if([view isKindOfClass:[UIButton class]])
+            {
+                [view removeFromSuperview];
+            }
+        }
+        [button setTitle:@"全部" forState:UIControlStateNormal];
         [self performSelector:@selector(hideAll) withObject:nil afterDelay:0.2];
         [self performSelector:@selector(refresh) withObject:nil afterDelay:0.55];
         return;
     }
-    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table3"];
     NSMutableArray * pArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(_pid)];
-    
+    TMLCate * cate= [[pArray objectAtIndex:index] objectForKey:@"section"];
     NSMutableArray * kArray = [[pArray objectAtIndex:index] objectForKey:@"row"];
     
     for (UIView * view in cSV.subviews) {
@@ -792,10 +834,36 @@
             [view removeFromSuperview];
         }
     }
+    UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 220, 43)];
+    Cbutton.backgroundColor = [UIColor clearColor];
+    [Cbutton setBackgroundImage:[[self imageWithColor:UIColorFromRGB(0xed5c49)]stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateHighlighted|UIControlStateNormal];
+    [Cbutton setBackgroundImage:[[self imageWithColor:UIColorFromRGB(0xed5c49)]stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateSelected];
+    [Cbutton setBackgroundImage:[[self imageWithColor:UIColorFromRGB(0xed5c49)]stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateHighlighted|UIControlStateSelected];
+    [Cbutton setTitleColor:UIColorFromRGB(0x777777) forState:UIControlStateNormal];
+    [Cbutton setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal|UIControlStateHighlighted];
+    [Cbutton setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateSelected|UIControlStateHighlighted];
+    [Cbutton setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateSelected];
+    [Cbutton setTitle:@"全部" forState:UIControlStateNormal];
+    [Cbutton addTarget:self action:@selector(changeKeyWordAction:) forControlEvents:UIControlEventTouchUpInside];
+    [Cbutton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
+    Cbutton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [Cbutton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    Cbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    Cbutton.tag = cate.cid;;
+    if((_cid == 0)&&(Cbutton.tag == _gid))
+    {
+        Cbutton.selected = YES;
+    }
+    else
+    {
+        Cbutton.selected = NO;
+    }
+    [cSV addSubview:Cbutton];
+
     int i =0;
     for (TMLKeyWord * keyword in kArray) {
     
-        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 220, 43)];
+        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44+44, 220, 43)];
         Cbutton.backgroundColor = [UIColor clearColor];
         Cbutton.tag = keyword.kid;
         if(Cbutton.tag == _cid)
@@ -846,9 +914,30 @@
             ((UIButton *)view).selected = NO;
         }
     }
-     _cid = (((UIButton *)sender).tag);
     UIButton * b = ((UIButton *)sender);
-    [button setTitle:b.titleLabel.text forState:UIControlStateNormal];
+    if([b.titleLabel.text isEqualToString:@"全部"])
+    {
+        _gid =  b.tag;
+        _cid = 0;
+        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table3"];
+        NSMutableArray * pArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(_pid)];
+        for (NSDictionary * dic in pArray) {
+            TMLCate * cate= [dic objectForKey:@"section"];
+            if(cate.cid == _gid)
+            {
+                [button setTitle:cate.name forState:UIControlStateNormal];
+                break;
+            }
+        }
+    }
+    else
+    {
+        _gid =  0;
+        _cid =  b.tag;
+        [button setTitle:b.titleLabel.text forState:UIControlStateNormal];
+    }
+
+ 
     b.selected = YES;
     [self performSelector:@selector(hideAll) withObject:nil afterDelay:0.2];
     [self performSelector:@selector(refresh) withObject:nil afterDelay:0.55];
@@ -934,4 +1023,154 @@
     
     return image;
 }
+
+#pragma mark - 通知处理
+- (void)ProfileChange
+{
+    _openLeftMenu = YES;
+}
+- (void)stageChange
+{
+    _pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    _cid = 0;
+    _gid = 0;
+    group =@"new";
+    [button setTitle:@"全部" forState:UIControlStateNormal];
+    [button2 setImage:[UIImage imageNamed:@"category_icon_new.png"] forState:UIControlStateNormal];
+    [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateSelected];
+    [button2 setImage:[UIImage imageNamed:@"category_icon_new_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+    [button2 setTitle:@"新上架" forState:UIControlStateNormal];
+    Sortbutton.selected = YES;
+    Sortbutton2.selected = NO;
+    
+    for (UIView * view in gSV.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+        if (view.tag == 18746) {
+            [view removeFromSuperview];
+        }
+    }
+    for (UIView * view in cSV.subviews) {
+        if([view isKindOfClass:[UIButton class]])
+        {
+            [view removeFromSuperview];
+        }
+    }
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table3"];
+    NSMutableArray * pArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(_pid)];
+    UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 130, 43)];
+    Cbutton.backgroundColor = [UIColor whiteColor];
+    
+    
+    //[Cbutton setBackgroundImage:[UIImage imageNamed:@"tables_middle.png"] forState:UIControlStateNormal];
+    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+    
+    [Cbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
+    [Cbutton setTitle:@"全部" forState:UIControlStateNormal];
+    [Cbutton addTarget:self action:@selector(changeCateAction:) forControlEvents:UIControlEventTouchUpInside];
+    [Cbutton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
+    Cbutton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [Cbutton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    Cbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    Cbutton.selected = YES;
+    Cbutton.tag = 0;
+    [gSV addSubview:Cbutton];
+    
+    int i =1;
+    
+    for (NSDictionary * dic in pArray) {
+        TMLCate * cate= [dic objectForKey:@"section"];
+        UIButton * Cbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, i*44, 130, 44)];
+        Cbutton.backgroundColor = [UIColor whiteColor];
+        
+        
+        //[Cbutton setBackgroundImage:[UIImage imageNamed:@"tables_middle.png"] forState:UIControlStateNormal];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+        
+        [Cbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
+        Cbutton.tag = [pArray indexOfObject:dic]+1;
+        [Cbutton setTitle:cate.name forState:UIControlStateNormal];
+        [Cbutton addTarget:self action:@selector(changeCateAction:) forControlEvents:UIControlEventTouchUpInside];
+        [Cbutton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:13]];
+        Cbutton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [Cbutton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        Cbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [gSV addSubview:Cbutton];
+        
+        UIView * H = [[UIView alloc]initWithFrame:CGRectMake(0, i*44-1, 130, 1)];
+        H.tag = 18746;
+        H.backgroundColor = UIColorFromRGB(0xededed);
+        [gSV addSubview:H];
+        
+        i++;
+    }
+    if(i*44>308)
+    {
+        gSV.contentSize = CGSizeMake(130, i*44);
+    }
+    else
+    {
+        gSV.contentSize = CGSizeMake(130, 308);
+    }
+
+    self.navigationItem.titleView = [GKTitleView setTitleLabel:[[_titleArray objectAtIndex:_pid -1] objectForKey:@"name"]];
+    [self performSelector:@selector(hideAll) withObject:nil afterDelay:0.2];
+    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.55];
+}
+- (void)cardLikeChange:(NSNotification *)noti
+{
+    NSDictionary *notidata = [noti userInfo];
+    NSUInteger entity_id = [[notidata objectForKey:@"entityID"]integerValue];
+    NSUInteger index = -1;
+    GKEntity * e = [notidata objectForKey:@"entity"];
+    
+    for (GKEntity * entity in  _dataArray) {
+        if(entity.entity_id == entity_id)
+        {
+            index = [_dataArray indexOfObject:entity];
+            break;
+        }
+    }
+    if(index!=-1)
+    {
+        [_dataArray setObject:e atIndexedSubscript:index];
+    }
+    [self.table reloadData];
+}
+- (void)checkShouldOpenMenu
+{
+    if(_openLeftMenu)
+    {
+        
+        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+            _openLeftMenu = NO;
+        }];
+        
+    }
+
+}
+- (void)GKLogin
+{
+    _openLeftMenu = YES;
+    [_dataArray removeAllObjects];
+    [self.table reloadData];
+}
+- (void)GKLogout
+{
+    [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
+        _openLeftMenu = YES;
+    }];
+
+}
+- (void)setOpenRight
+{
+    _openRightMenu = YES;
+}
+
 @end
