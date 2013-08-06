@@ -133,7 +133,7 @@
         {
             [userDefault setObject:@"prepare" forKey:@"state"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"pid"];
          
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段，偷偷告诉你生孩子老费钱了!!!\uE411" delegate:self cancelButtonTitle:@"重新选择" otherButtonTitles:@"进入妈妈清单", nil];
             [alertView show];

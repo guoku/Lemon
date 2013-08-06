@@ -124,9 +124,9 @@
     //设置状态栏为黑色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
-    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"stage"])
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"pid"])
     {
-        [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"stage"];
+        [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"pid"];
     }
     
     //如果是第一次启动则开启引导页，否则进入rootViewController

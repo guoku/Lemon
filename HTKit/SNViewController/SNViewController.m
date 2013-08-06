@@ -131,7 +131,7 @@
                     else
                     {
                         [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
-                        [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"stage"];
+                        [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"pid"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserProfileChange" object:nil userInfo:nil];
            
                         [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {

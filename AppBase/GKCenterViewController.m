@@ -87,9 +87,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     _titleArray = [NSMutableArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"2",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"3",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"4",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"2",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"5",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"6",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"7",@"pid",nil],
@@ -143,10 +141,15 @@
     {
         if([_dataArray count] == 0)
         {
-            NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+            NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
+            if(stage >2)
+            {
+                stage = stage - 2;
+            }
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-            _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-            _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+            NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
+            _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
+            _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
             bool flag = NO;
             for (GKEntity * entity in _entityArray)
             {
@@ -248,7 +251,7 @@
     if (cell == nil) {
         cell = [[TMLCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
-    cell.pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    cell.pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     NSUInteger row = [indexPath row];
@@ -436,11 +439,16 @@
     {
         return; 
     }
-    _icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"stage_list_%@.png",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]];
-    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    _icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"stage_list_%@.png",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]];
+    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
+    if(stage >2)
+    {
+        stage = stage - 2;
+    }
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+    NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
+    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
+    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
     bool flag = NO;
     for (GKEntity * entity in _entityArray)
     {
@@ -482,10 +490,15 @@
 }
 - (void)refresh
 {
-    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"] intValue];
+    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(stage)];
-    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:stage]];
+    if(stage >2)
+    {
+        stage = stage - 2;
+    }
+    NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
+    _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
+    _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
     bool flag = NO;
     for (GKEntity * entity in _entityArray)
     {

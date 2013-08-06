@@ -49,7 +49,7 @@
     
     _dataArray = [NSMutableArray arrayWithObjects:
                                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"0",@"count",@"2",@"pid",nil],
+                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
                                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"0",@"count",@"3",@"pid",nil],
                                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"0",@"count",@"4",@"pid",nil],
                                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
@@ -266,22 +266,22 @@
         //int year = days/365;
         if(week<2)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"userstage"];
         }
         else if(month<3)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(4) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(4) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"pid"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         else if(month<6)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"stage"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(3) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"pid"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         else
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
@@ -308,27 +308,27 @@
         //int year = days/365;
         if(month<3)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"userstage"];
         }
         else if(month<6)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"userstage"];
         }
         else if(month<12)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"userstage"];
         }
         else if(month<24)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"userstage"];
         }
         else
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"stage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];

@@ -60,9 +60,7 @@
 
     _dataArray = [NSMutableArray arrayWithObjects:
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕早期",@"name",@"0",@"count",@"2",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"0",@"count",@"3",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"0",@"count",@"4",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"0",@"count",@"6",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"0",@"count",@"7",@"pid",nil],
@@ -71,9 +69,11 @@
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
                   , nil];
     
-    NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
+    //NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
+  
     for (NSMutableDictionary *dic in _dataArray) {
-        
+      [dic setObject:@"YES" forKey:@"open"];
+          /*
         if([[dic objectForKey:@"pid"] intValue]<i)
         {
             [dic setObject:@"NO" forKey:@"open"];
@@ -82,8 +82,10 @@
         {
             [dic setObject:@"YES" forKey:@"open"];
         }
+                */
         
     }
+
     user =[[GKUser alloc ]initFromNSU];
     
     tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 120)];
@@ -182,7 +184,11 @@
     [_table setDataSource:self];
     [self.view addSubview:_table];
     
-    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
+    if(stage>2)
+    {
+        stage = stage -2;
+    }
     [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 
 }
@@ -201,10 +207,21 @@
     for (NSDictionary * dic in [GKEntity getEntityCountGroupByPid]) {
         NSUInteger pid = [[dic objectForKey:@"pid"]integerValue];
         NSUInteger count = [[dic objectForKey:@"count"]integerValue];
-        [[_dataArray objectAtIndex:(pid-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
+        NSUInteger stage = pid;
+        if(stage>2)
+        {
+            stage = stage -2;
+        }
+        
+        
+        [[_dataArray objectAtIndex:(stage-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
     }
     [self.table reloadData];
-    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
+    if(stage>2)
+    {
+        stage = stage -2;
+    }
     if(selectCell)
     {
         [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -258,7 +275,12 @@
         [_seperatorLineImageView setImage:[UIImage imageNamed:@"sidebar_divider.png"]];
         [cell addSubview:_seperatorLineImageView];
     }
-    if(row == ([[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue]-1))
+    NSUInteger userstage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"] integerValue];
+    if(userstage >2)
+    {
+        userstage = userstage - 2;
+    }
+    if(row == (userstage -1))
     {
         UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 18, 14)];
         UIFont *font = [UIFont fontWithName:@"Helvetica" size:15.0f];
@@ -281,7 +303,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectCell = YES;
-    [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row+1) forKey:@"stage"];
+    NSUInteger stage  = indexPath.row+1;
+    if(stage>2)
+    {
+        stage = stage + 2;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:@(stage) forKey:@"pid"];
     _table.allowsSelection = NO;
     
     [self performSelector:@selector(close) withObject:self afterDelay:0.0];
@@ -392,7 +419,8 @@
 
 - (void)ProfileChange
 {
-    NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
+    //NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
+    /*
     for (NSMutableDictionary *dic in _dataArray) {
         if([[dic objectForKey:@"pid"] intValue]<i)
         {
@@ -403,8 +431,13 @@
             [dic setObject:@"YES" forKey:@"open"];
         }
     }
+     */
     [self.table reloadData];
-    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"stage"]]integerValue];
+    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
+    if(stage>2)
+    {
+        stage = stage -2;
+    }
     [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self refresh];
 }
