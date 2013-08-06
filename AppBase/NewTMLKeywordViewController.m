@@ -114,9 +114,9 @@
         
         
         //[Cbutton setBackgroundImage:[UIImage imageNamed:@"tables_middle.png"] forState:UIControlStateNormal];
-        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
-        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
         
         [Cbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
         [Cbutton setTitle:@"全部" forState:UIControlStateNormal];
@@ -138,9 +138,9 @@
             
             
             //[Cbutton setBackgroundImage:[UIImage imageNamed:@"tables_middle.png"] forState:UIControlStateNormal];
-            [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
-            [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
-            [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+            [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+            [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+            [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
             
             [Cbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
             Cbutton.tag = [pArray indexOfObject:dic]+1;
@@ -182,9 +182,9 @@
         Sortbutton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0*44, kScreenWidth, 44)];
         Sortbutton.backgroundColor = [UIColor whiteColor];
         
-        [Sortbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [Sortbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
-        [Sortbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+        [Sortbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [Sortbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+        [Sortbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
         
         [Sortbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
         Sortbutton.tag = 1;
@@ -200,9 +200,9 @@
         Sortbutton2 = [[UIButton alloc]initWithFrame:CGRectMake(0, 1*44, kScreenWidth, 44)];
         Sortbutton2.backgroundColor = [UIColor whiteColor];
         
-        [Sortbutton2 setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [Sortbutton2 setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
-        [Sortbutton2 setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+        [Sortbutton2 setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [Sortbutton2 setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+        [Sortbutton2 setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
         
         [Sortbutton2 setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
         Sortbutton2.tag = 2;
@@ -1069,9 +1069,9 @@
     
     
     //[Cbutton setBackgroundImage:[UIImage imageNamed:@"tables_middle.png"] forState:UIControlStateNormal];
-    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
-    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
-    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+    [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
     
     [Cbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
     [Cbutton setTitle:@"全部" forState:UIControlStateNormal];
@@ -1093,9 +1093,9 @@
         
         
         //[Cbutton setBackgroundImage:[UIImage imageNamed:@"tables_middle.png"] forState:UIControlStateNormal];
-        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
-        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"1.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateHighlighted|UIControlStateSelected];
+        [Cbutton setBackgroundImage:[[UIImage imageNamed:@"category_select.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:2]  forState:UIControlStateSelected];
         
         [Cbutton setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
         Cbutton.tag = [pArray indexOfObject:dic]+1;
@@ -1162,8 +1162,6 @@
 - (void)GKLogin
 {
     _openLeftMenu = YES;
-    [_dataArray removeAllObjects];
-    [self.table reloadData];
     [self stageChange];
 }
 - (void)GKLogout

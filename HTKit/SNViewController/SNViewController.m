@@ -154,6 +154,7 @@
                                         NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
                                         [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table3"];
                                         [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:@"stageChange" object:nil userInfo:nil];
                                         [UIView animateWithDuration:1.2 animations:^{
                                             
                                         }

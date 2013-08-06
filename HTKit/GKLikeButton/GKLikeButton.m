@@ -25,10 +25,10 @@
         self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectZero;
         [_likeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-        [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected];
-        [_likeButton setImage:[UIImage imageNamed:@"star_red.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
-        [_likeButton setImage:[UIImage imageNamed:@"star_gray.png"] forState:UIControlStateNormal];
-         [_likeButton setImage:[UIImage imageNamed:@"star_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
+        [_likeButton setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateSelected];
+        [_likeButton setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateSelected|UIControlStateHighlighted];
+        [_likeButton setImage:[UIImage imageNamed:@"heart_gray.png"] forState:UIControlStateNormal];
+         [_likeButton setImage:[UIImage imageNamed:@"heart_gray.png"] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_likeButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         [_likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
 

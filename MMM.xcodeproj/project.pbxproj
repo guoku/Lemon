@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E02099D17B0C4A00080A6F7 /* category_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E02099B17B0C4730080A6F7 /* category_select.png */; };
+		4E02099E17B0C4A00080A6F7 /* category_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E02099C17B0C48B0080A6F7 /* category_select@2x.png */; };
 		4E07E15E176323700060AFCD /* GKDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E15B176323700060AFCD /* GKDetailHeaderView.m */; };
 		4E07E15F176323700060AFCD /* GKDetailNoteCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E15D176323700060AFCD /* GKDetailNoteCellView.m */; };
 		4E07E169176323B20060AFCD /* GKNoteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E162176323B20060AFCD /* GKNoteLabel.m */; };
@@ -572,6 +574,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E02099B17B0C4730080A6F7 /* category_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = category_select.png; sourceTree = "<group>"; };
+		4E02099C17B0C48B0080A6F7 /* category_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category_select@2x.png"; sourceTree = "<group>"; };
 		4E07E15A176323700060AFCD /* GKDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKDetailHeaderView.h; sourceTree = "<group>"; };
 		4E07E15B176323700060AFCD /* GKDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKDetailHeaderView.m; sourceTree = "<group>"; };
 		4E07E15C176323700060AFCD /* GKDetailNoteCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKDetailNoteCellView.h; sourceTree = "<group>"; };
@@ -2525,6 +2529,8 @@
 		4E7286F6179CDB2C00E5995D /* 切图 */ = {
 			isa = PBXGroup;
 			children = (
+				4E02099B17B0C4730080A6F7 /* category_select.png */,
+				4E02099C17B0C48B0080A6F7 /* category_select@2x.png */,
 				4EFD649917AE38A900BB5778 /* button_icon_close_red_press 2.png */,
 				4EFD649A17AE38A900BB5778 /* button_icon_close_red_press@2x.png */,
 				4EFD649B17AE38A900BB5778 /* button_icon_close_red.png */,
@@ -3431,6 +3437,8 @@
 				4EFD64B317AE38AA00BB5778 /* heart.png in Resources */,
 				4EFD64B417AE38AA00BB5778 /* heart@2x.png in Resources */,
 				4EFD64B617AE9A8C00BB5778 /* 1.png in Resources */,
+				4E02099D17B0C4A00080A6F7 /* category_select.png in Resources */,
+				4E02099E17B0C4A00080A6F7 /* category_select@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3654,8 +3662,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3670,8 +3678,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "40944DC4-D129-4BD0-A0BD-5DCD026CE199";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "40944DC4-D129-4BD0-A0BD-5DCD026CE199";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3688,8 +3696,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QIN Network Technology Co., Ltd. (4W26QSGX3M)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3697,8 +3705,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "40944DC4-D129-4BD0-A0BD-5DCD026CE199";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "40944DC4-D129-4BD0-A0BD-5DCD026CE199";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3707,8 +3715,8 @@
 		4E387A9417607A38005DA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3724,8 +3732,8 @@
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3734,8 +3742,8 @@
 		4E387A9517607A38005DA2EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3751,8 +3759,8 @@
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8E55EDCF-B203-4DFB-A67A-53DDA9B6B93B";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
