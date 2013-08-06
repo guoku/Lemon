@@ -69,7 +69,7 @@
                 NSArray * listresponse = [[JSON valueForKeyPath:@"results"] valueForKeyPath:@"data"];
                 for (NSDictionary * attributes in listresponse)
                 {
-                    unread_count = [[attributes valueForKeyPath:@"unread_message"] integerValue];
+                    unread_count = [[attributes valueForKeyPath:@"unread_message_count"] integerValue];
                 }
                 if (block)
                 {

@@ -30,6 +30,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.view.backgroundColor = UIColorFromRGB(0xf2f2f2);
         UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
         
         UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
@@ -62,12 +63,20 @@
             [_dataArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"created_time" ascending:NO]]];
             if([messages count]!=0)
             {
-                [self setFooterView:YES];
+             
             }
             else
             {
-                [self setFooterView:NO];
+                
                 [GKMessageBoard showMBWithText:@"没有更多。" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+            }
+            if([messages count]<30)
+            {
+                [self setFooterView:NO];
+            }
+            else
+            {
+                 [self setFooterView:YES];
             }
             
 
@@ -108,7 +117,7 @@
 {
     [super loadView];
     
-    self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    self.view.backgroundColor = UIColorFromRGB(0xf2f2f2);
     
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"我的消息"];
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
