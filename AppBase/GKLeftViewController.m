@@ -357,15 +357,42 @@
     selectCell = NO;
     GKSettingViewController *VC = [[GKSettingViewController alloc]init];
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
-    [self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
+    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateNormal];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+    [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+    VC.navigationItem.rightBarButtonItem = nil;
+    
+    //[self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
+    [kAppDelegate.window.rootViewController presentModalViewController:nav animated:YES];
 }
 - (void)messageButtonAction
 {
     [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
     selectCell = NO;
+    /*
     GKMessageViewController *VC = [[GKMessageViewController alloc]init];
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     [self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
+     */
+    GKMessageViewController *VC = [[GKMessageViewController alloc]init];
+    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateNormal];
+    [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+    [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+    VC.navigationItem.rightBarButtonItem = nil;
+    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+
+    [kAppDelegate.window.rootViewController presentViewController:nav animated:YES completion:^{
+    }];
 }
 - (void)showMeAction:(id)sender
 {
@@ -398,6 +425,10 @@
 {
     [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) popViewControllerAnimated:YES];
     //[self performSelector:@selector(open) withObject:nil afterDelay:0.4];
+}
+- (void)cancelButtonAction:(id)sender
+{
+    [kAppDelegate.window.rootViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 - (void)open
 {

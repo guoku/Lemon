@@ -209,7 +209,7 @@
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
-    NSTimer *_timer2 = [NSTimer scheduledTimerWithTimeInterval:10.0f
+    NSTimer *_timer2 = [NSTimer scheduledTimerWithTimeInterval:20.0f
                                                        target:self
                                                      selector:@selector(checkNewMessage)
                                                      userInfo:nil
@@ -243,7 +243,7 @@
 {
     [GKMessages getUserUnreadMessageCountWithBlock:^(NSUInteger count, NSError * error)
      {
-         if (!error) {
+        // if (!error) {
              count = 1;
              if (count>0) {
                 [_messageRemind setTitle:[NSString stringWithFormat:@"%d条新消息",count] forState:UIControlStateNormal];
@@ -259,7 +259,7 @@
                      _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
                  }];
              }
-         }
+       //  }
      }];
 }
 
@@ -579,6 +579,7 @@
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
     [_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [self.window.rootViewController dismissModalViewControllerAnimated:NO];
     [self.window.rootViewController presentViewController:nav animated:YES completion:^{
         [UIView animateWithDuration:0.3 animations:^{
             _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
