@@ -171,7 +171,7 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -253,6 +253,7 @@
 - (void)refresh
 {
     _reloading = YES;
+    [kAppDelegate hideMessageRemind];
     //self.navigationItem.rightBarButtonItem.enabled = NO;
     [self makeHearderReloading];
     //[self reload:nil];

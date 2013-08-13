@@ -248,7 +248,7 @@
              if (count>0) {
                 [_messageRemind setTitle:[NSString stringWithFormat:@"%d条新消息",count] forState:UIControlStateNormal];
                  [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                     _messageRemind.center = CGPointMake(kScreenWidth-40, kScreenHeight-20);
+                     _messageRemind.center = CGPointMake(kScreenWidth-48, kScreenHeight-20);
                  } completion:^(BOOL finished) {
                      
                  }];
@@ -256,7 +256,7 @@
              else
              {
                  [UIView animateWithDuration:0.3 animations:^{
-                     _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
+                     _messageRemind.center = CGPointMake(kScreenWidth+48, kScreenHeight-20);
                  }];
              }
        //  }
@@ -581,12 +581,16 @@
     [_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [self.window.rootViewController dismissModalViewControllerAnimated:NO];
     [self.window.rootViewController presentViewController:nav animated:YES completion:^{
-        [UIView animateWithDuration:0.3 animations:^{
-            _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
-        } completion:^(BOOL finished) {
-            [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
-            [_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
-        }];
+
+    }];
+}
+- (void)hideMessageRemind
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
+    } completion:^(BOOL finished) {
+        [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
+        [_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     }];
 }
 @end

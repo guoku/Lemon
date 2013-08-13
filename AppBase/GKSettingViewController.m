@@ -134,7 +134,7 @@
 {
     [super viewDidDisappear:animated];
     [GKMessageBoard hideActivity];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
 }
 #pragma mark 重载tableview必选方法
 //返回一共有多少个Section

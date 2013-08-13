@@ -45,5 +45,5 @@
 
 - (void)hudWasHidden:(MBProgressHUD *)hud;
 - (void)showLoginView;
-
+- (void)hideMessageRemind;
 @end
