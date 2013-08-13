@@ -149,8 +149,38 @@
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
             NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
             _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
+            NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
+            TMLCate *cate = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"必备",@"gtt",@"0",@"gid",nil]];
+            [necessaryDic setObject:cate forKey:@"section"];
+            NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
+            [necessaryDic setObject:necessaryArray forKey:@"row"];
+            
+            for (NSMutableDictionary * data  in _dataArray ) {
+                for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                    
+                    NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+                    
+                    if([object isKindOfClass:[TMLKeyWord class]])
+                    {
+                        if(((TMLKeyWord *)object).necessary)
+                        {
+                            [necessaryArray addObject:object];
+                            [[data objectForKey:@"row"] removeObject:object];
+                        }
+                    }
+                    
+                }
+                
+            }
+            if([necessaryArray count]!=0)
+            {
+                [_dataArray insertObject:necessaryDic atIndex:0];
+            }
+
+            
             _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
             bool flag = NO;
+            
             for (GKEntity * entity in _entityArray)
             {
                 for (NSMutableDictionary * data  in _dataArray ) {
@@ -448,6 +478,34 @@
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
     NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
+    NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
+    TMLCate *cate = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"必备",@"gtt",@"0",@"gid",nil]];
+    [necessaryDic setObject:cate forKey:@"section"];
+    NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
+    [necessaryDic setObject:necessaryArray forKey:@"row"];
+    
+    for (NSMutableDictionary * data  in _dataArray ) {
+        for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+            
+            NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+            
+            if([object isKindOfClass:[TMLKeyWord class]])
+            {
+                if(((TMLKeyWord *)object).necessary)
+                {
+                    [necessaryArray addObject:object];
+                    [[data objectForKey:@"row"] removeObject:object];
+                }
+            }
+            
+        }
+        
+    }
+    if([necessaryArray count]!=0)
+    {
+        [_dataArray insertObject:necessaryDic atIndex:0];
+    }
+
     _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
     bool flag = NO;
     for (GKEntity * entity in _entityArray)
@@ -498,6 +556,35 @@
     }
     NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
+    
+    NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
+    TMLCate *cate = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"必备",@"gtt",@"0",@"gid",nil]];
+    [necessaryDic setObject:cate forKey:@"section"];
+    NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
+    [necessaryDic setObject:necessaryArray forKey:@"row"];
+    
+    for (NSMutableDictionary * data  in _dataArray ) {
+        for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+            
+            NSObject * object  = [[data objectForKey:@"row"]objectAtIndex:i];
+            
+            if([object isKindOfClass:[TMLKeyWord class]])
+            {
+                if(((TMLKeyWord *)object).necessary)
+                {
+                    [necessaryArray addObject:object];
+                    [[data objectForKey:@"row"] removeObject:object];
+                }
+            }
+            
+        }
+        
+    }
+    if([necessaryArray count]!=0)
+    {
+        [_dataArray insertObject:necessaryDic atIndex:0];
+    }
+
     _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
     bool flag = NO;
     for (GKEntity * entity in _entityArray)

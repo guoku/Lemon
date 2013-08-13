@@ -129,35 +129,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"pid"];
     }
     
-    //如果是第一次启动则开启引导页，否则进入rootViewController
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"hadTipShake"];
-    }
-    //用了判断是不是正在同步请求
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])//判读是否为第一次启动
-    {
-        if([GKDevice isRetinaScreen])
-        {
-            [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"useBigImg"];
-        }
-        else
-        {
-            [[NSUserDefaults standardUserDefaults] setBool:NO  forKey:@"useBigImg"];
-        }
-        GKLog(@"是第一次启动");
-        [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"新用户"
-                                                        withAction:nil
-                                                         withLabel:nil
-                                                         withValue:nil];
-        GKUserGuideViewController *userGuideViewController = [[GKUserGuideViewController alloc] init];
-        self.window.rootViewController = userGuideViewController;
-    }
-    else
-    {
-        GKLog(@"不是第一次启动");
+
         UIViewController * leftSideDrawerViewController = [[GKLeftViewController alloc] init];
         
         _centerViewController = [[GKCenterViewController alloc] init];
@@ -187,9 +159,7 @@
          }];
 
         self.window.rootViewController = _drawerController;
-    }
-    
- 
+
 
     [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"打开应用"
                                                     withAction:nil
@@ -214,10 +184,12 @@
         }
         else
         {
-        GKLoadingViewController * VC = [[GKLoadingViewController alloc] init];
-        [self.window.rootViewController presentViewController: VC animated:NO completion:NULL];
+            GKLoadingViewController * VC = [[GKLoadingViewController alloc] init];
+            [self.window.rootViewController presentViewController: VC animated:NO completion:NULL];
         }
     }
+    
+    //检测网络状况
     self.hostReach = [Reachability reachabilityForInternetConnection];
     [self updateInterfaceWithReachability:self.hostReach];
     [_hostReach startNotifier];
@@ -251,10 +223,8 @@
     
     _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 30)];
     _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
-    //_messageRemind.backgroundColor = UIColorFromRGB(0xed5c49);
     [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
     [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_press.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal|UIControlStateHighlighted];
-    //[_messageRemind setBackgroundImage:[UIImage imageNamed:@"button_flat.png"] forState:UIControlStateNormal];
     _messageRemind.layer.cornerRadius = 5.0;
     [_messageRemind.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
     _messageRemind.titleLabel.textAlignment = UITextAlignmentCenter;
@@ -274,7 +244,7 @@
     [GKMessages getUserUnreadMessageCountWithBlock:^(NSUInteger count, NSError * error)
      {
          if (!error) {
-
+             count = 1;
              if (count>0) {
                 [_messageRemind setTitle:[NSString stringWithFormat:@"%d条新消息",count] forState:UIControlStateNormal];
                  [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
