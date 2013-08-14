@@ -396,7 +396,7 @@
     SinaWeibo *sinaweibo = [self sinaweibo];
     [sinaweibo requestWithURL:@"friendships/create.json"
                        params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                               @"2179686555", @"uid", nil]
+                               @"3562485445", @"uid", nil]
                    httpMethod:@"POST"
                      delegate:self];
 }
@@ -415,7 +415,7 @@
     }
     else if(error.code ==20506)
     {
-        [GKMessageBoard showMBWithText:@"已关注果库\U0001F603" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+        [GKMessageBoard showMBWithText:@"已关注妈妈清单\U0001F603" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
     }
     else
     {
@@ -455,7 +455,7 @@
     [GKUser globalUserLogoutWithBlock:^(BOOL is_logout, NSError *error) {
 
     }];
-    [self.mm_drawerController setCenterViewController:delegate.navigationController withCloseAnimation:NO completion:NULL];
+    [kAppDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:NULL];
     GKLoginViewController * _loginVC = [[GKLoginViewController alloc] init];
     [delegate.window.rootViewController presentViewController: _loginVC animated:NO completion:NULL];
 }

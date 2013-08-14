@@ -221,8 +221,8 @@
 
     [MobClick endEvent:@"app_launch"];
     UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
-    _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 36)];
-    _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-40);
+    _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
+    _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
     //_messageRemind.backgroundColor = UIColorFromRGB(0x98d9cb);
     //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
     //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal|UIControlStateHighlighted];
@@ -231,6 +231,7 @@
     _messageRemind.layer.cornerRadius = 5.0;
     [_messageRemind.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
     _messageRemind.titleLabel.textAlignment = UITextAlignmentCenter;
+    _messageRemind.titleLabel.numberOfLines = 0;
     [_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [_messageRemind addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
     //_messageRemind.hidden = YES;
@@ -246,12 +247,13 @@
 {
     [GKMessages getUserUnreadMessageCountWithBlock:^(NSUInteger count, NSError * error)
      {
-        // if (!error) {
+         if (!error) {
              count = 1;
              if (count>0) {
-                [_messageRemind setTitle:[NSString stringWithFormat:@"%d条新消息",count] forState:UIControlStateNormal];
+                [_messageRemind setTitle:[NSString stringWithFormat:@"新消息\
+                                          %d条",count] forState:UIControlStateNormal];
                  [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                     _messageRemind.center = CGPointMake(kScreenWidth-48, kScreenHeight-40);
+                     _messageRemind.center = CGPointMake(kScreenWidth-30, kScreenHeight-20);
                  } completion:^(BOOL finished) {
                      
                  }];
@@ -259,10 +261,10 @@
              else
              {
                  [UIView animateWithDuration:0.3 animations:^{
-                     _messageRemind.center = CGPointMake(kScreenWidth+48, kScreenHeight-40);
+                     _messageRemind.center = CGPointMake(kScreenWidth+30, kScreenHeight-20);
                  }];
              }
-       //  }
+         }
      }];
 }
 
@@ -626,7 +628,7 @@
 - (void)hideMessageRemind
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-40);
+        _messageRemind.center = CGPointMake(kScreenWidth+30, kScreenHeight-20);
     } completion:^(BOOL finished) {
         //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
         //[_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];

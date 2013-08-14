@@ -113,13 +113,13 @@
     }
     UIImageView * icon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 22, 22)];
 
-    
+
     UIImageView * _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 2, kScreenWidth, 2)];
     _seperatorLineImageView.tag = 4003;
     [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
     [self addSubview:_seperatorLineImageView];
     
-    UIButton *_time = [[UIButton alloc]initWithFrame:CGRectMake(48, self.frame.size.height-15, 60, 10)];
+    UIButton *_time = [[UIButton alloc]initWithFrame:CGRectMake(55, self.frame.size.height-15, 60, 10)];
     //[_time setImage:[UIImage imageNamed:@"icon_clock"] forState:UIControlStateNormal];
     [_time.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
     [_time setTitleColor:UIColorFromRGB(0xb8b8b8) forState:UIControlStateNormal];
@@ -137,23 +137,23 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.userBase = message.user;
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,175,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(60,y+10,165,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 点评了 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 点评了 </font><a href='entity:%u'><font face='Helvetica' color='#999999' size=14>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         CGSize optimumSize = [message_label optimumSize];
         CGRect frame = [message_label frame];
         frame.size.height = (int)optimumSize.height+5;
         
-        [message_label setFrame:CGRectMake(message_label.frame.origin.x, message_label.frame.origin.y, 175, frame.size.height)];
+        [message_label setFrame:CGRectMake(message_label.frame.origin.x, message_label.frame.origin.y, 165, frame.size.height)];
         
         [self addSubview:message_label];
         
@@ -167,7 +167,7 @@
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
+        [_img setFrame:CGRectMake(230, y+5, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
 
@@ -176,7 +176,7 @@
     {
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.user = ((GKFollowerMessage*)_message.message_object).user;
       
@@ -189,7 +189,7 @@
         
         UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
-        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
+        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+10,y+15,labelsize.width, 25)];
         
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
@@ -210,7 +210,7 @@
         icon.image = [UIImage imageNamed:@"message_icon2.png"];
         CGFloat y = 0;
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.user = ((GKWeiboFriendJoinMessage *)_message.message_object).recommended_user;
         
@@ -223,7 +223,7 @@
         
         UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         CGSize labelsize = [_nickname.text sizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, _nickname.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
-        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+5,y+15,labelsize.width, 25)];
+        [_nickname setFrame:CGRectMake(_avatar.frame.origin.x+_avatar.frame.size.width+10,y+15,labelsize.width, 25)];
         
         UILabel * _message_label = [[UILabel alloc]initWithFrame:CGRectMake(_nickname.frame.origin.x+_nickname.frame.size.width+5, _nickname.frame.origin.y, 120, 25)];
         _message_label.textColor = UIColorFromRGB(0x999999);
@@ -245,24 +245,24 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.userBase = message.user;
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,175,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(60,y+10,165,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 顶了你对 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 顶了你对 </font><a href='entity:%u'><font face='Helvetica' color='#999999' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         [self addSubview:message_label];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
+        [_img setFrame:CGRectMake(230, y+5, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
@@ -273,28 +273,28 @@
         
         GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
         
-        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,34,34) useBg:NO cornerRadius:2];
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40) useBg:NO cornerRadius:2];
         [self addSubview:_avatar];
         _avatar.userBase = message.user;
         
-        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(50,y+10,175,100)];
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(60,y+10,165,100)];
         [message_label setParagraphReplacement:@""];
         
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-       [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 回复了你对 </font><a href='entity:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+       [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 回复了你对 </font><a href='entity:%u'><font face='Helvetica' color='#999999' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         [self addSubview:message_label];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
+        [_img setFrame:CGRectMake(230, y+5, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
-    icon.center = CGPointMake(40,40);
+    icon.center = CGPointMake(46,46);
     //[self addSubview:icon];
 
     self.delegate = _delegate;
@@ -348,11 +348,11 @@
     }
     if([data.type isEqual:@"following"])
     {
-        y = 60;
+        y = 70;
     }
     if([data.type isEqual:@"friend_joined"])
     {
-        y = 60;
+        y = 70;
     }
     if([data.type isEqual:@"poke_note"])
     {

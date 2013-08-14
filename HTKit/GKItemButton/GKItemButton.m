@@ -183,7 +183,7 @@
             activityIndicator.center = _img.center;
             activityIndicator.hidesWhenStopped = YES;
             activityIndicator.tag = 30325;
-            activityIndicator.color = UIColorFromRGB(0x666666);
+            activityIndicator.color = UIColorFromRGB(0x999999);
             [self insertSubview:activityIndicator belowSubview:_img];
             
             [activityIndicator startAnimating];
