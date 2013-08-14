@@ -56,6 +56,7 @@
 
 - (void)reload:(id)sender
 {
+    [kAppDelegate hideMessageRemind];
     [GKMessages getUserMessageWithPostBefore:nil Block:^(NSArray *messages, NSError *error) {
         if(!error)
         {
@@ -124,6 +125,7 @@
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 40) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = YES;
+    _table.backgroundColor = UIColorFromRGB(0xf9f9f9);
     [_table setDelegate:self];
     [_table setDataSource:self];
     [self setFooterView:NO];
@@ -163,7 +165,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    //[((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     if([_dataArray count] == 0)
     {
         [self refresh];
@@ -171,7 +173,7 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    //[((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -253,7 +255,6 @@
 - (void)refresh
 {
     _reloading = YES;
-    [kAppDelegate hideMessageRemind];
     //self.navigationItem.rightBarButtonItem.enabled = NO;
     [self makeHearderReloading];
     //[self reload:nil];

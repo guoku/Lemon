@@ -18,4 +18,5 @@
 @property (strong, nonatomic) UITableView *table;
 -(void)reloadTableViewDataSource;
 -(void)doneLoadingTableViewData;
+-(void)refresh;
 @end

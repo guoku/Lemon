@@ -26,7 +26,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _img = [[GKItemButton alloc] initWithFrame:CGRectMake(5, 5, 145, 145)];
-        [_img setType:kItemButtonWithNumProgress];
+        [_img setType:kItemButtonWithActivityIndicator];
         [self addSubview:_img];
         
 
@@ -102,6 +102,25 @@
     _title.text = _entity.title;
     NSString * priceTitle = [NSString stringWithFormat:@"￥%.2f", _entity.price];
     _price.text = priceTitle ;
+    
+    if(_entity.entitylike.status)
+    {
+        UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(_img.frame.size.width-42, 6, 38, 16)];
+        necessary.layer.masksToBounds = YES;
+        necessary.layer.cornerRadius = 2.0;
+        necessary.tag = 9999;
+        necessary.textAlignment = NSTextAlignmentCenter;
+        necessary.backgroundColor =UIColorFromRGB(0xed5c49);
+        necessary.textColor = [UIColor whiteColor];
+        necessary.text = @"已收藏";
+        necessary.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
+        [_img addSubview:necessary];
+    }
+    else
+    {
+        [[_img viewWithTag:9999]removeFromSuperview];
+        
+    }
 
 }
 @end

@@ -95,9 +95,14 @@
     avatar.center = CGPointMake(40, 40);
     [tableHeaderView addSubview:avatar];
     
-    UIButton * back = [[UIButton alloc]initWithFrame:avatar.frame];
-    [back addTarget:self action:@selector(showMeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [tableHeaderView addSubview:back];
+    UIButton * GoMyList = [[UIButton alloc]initWithFrame:tableHeaderView.bounds];
+    [GoMyList setImage:[UIImage imageNamed:@"arrow.png"] forState:UIControlStateNormal];
+    [GoMyList setImage:[UIImage imageNamed:@"arrow_press.png"] forState:UIControlStateHighlighted];
+    [GoMyList setImageEdgeInsets:UIEdgeInsetsMake(0, 220, 40, 0)];
+    GoMyList.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    GoMyList.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [GoMyList addTarget:self action:@selector(showMeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [tableHeaderView addSubview:GoMyList];
     
     name = [[UILabel alloc]initWithFrame:CGRectMake(80, 30, tableHeaderView.frame.size.width-100, 20)];
     name.backgroundColor = [UIColor clearColor];
@@ -399,11 +404,27 @@
     
     [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
     selectCell = NO;
-    /*
-    GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
-    [self.mm_drawerController setCenterViewController:delegate.navigationController withFullCloseAnimation:YES completion:NULL];
-     */
+    
+    //GKAppDelegate *delegate = ((GKAppDelegate *)[UIApplication sharedApplication].delegate);
+
+    GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user.user_id];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
+    VC.navigationItem.titleView = [GKTitleView setTitleLabel:@"我的清单"];
+    UIButton *menuBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+    [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateNormal];
+    [menuBTN setImage:[UIImage imageNamed:@"button_icon_menu.png"] forState:UIControlStateHighlighted];
+    [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [menuBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+    [menuBTN addTarget:self action:@selector(showLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+    VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:menuBTN];
+    GKNavigationController * nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+    
+    
+    //[self.mm_drawerController setCenterViewController:nav withFullCloseAnimation:YES completion:NULL];
+    [self.mm_drawerController setCenterViewController:nav withCloseAnimation:YES completion:NULL];
+
     //[self showUserWithUserID:user.user_id];
+    /*
     GKUserViewController *VC = [[GKUserViewController alloc] initWithUserID:user.user_id];
     
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
@@ -420,6 +441,11 @@
     [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) pushViewController:VC  animated:NO];
     [self.mm_drawerController closeDrawerAnimated:YES completion:NULL];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"OpenRightMenu" object:nil userInfo:nil];
+     */
+}
+- (void)showLeftMenu
+{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:NULL];
 }
 - (void)backButtonAction:(id)sender
 {

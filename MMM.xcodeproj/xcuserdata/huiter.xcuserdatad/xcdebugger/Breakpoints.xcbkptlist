@@ -60,12 +60,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "398083162.358752"
+         timestampString = "398153441.946099"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "244"
-         endingLineNumber = "244"
-         landmarkName = "-checkNewMessage"
+         startingLineNumber = "572"
+         endingLineNumber = "572"
+         landmarkName = "-messageButtonAction"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKAppDelegate.m"
+         timestampString = "398153441.946099"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "602"
+         endingLineNumber = "602"
+         landmarkName = "-messageButtonAction"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

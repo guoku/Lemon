@@ -220,15 +220,18 @@
     [self checkUM];
 
     [MobClick endEvent:@"app_launch"];
-    
-    _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 30)];
-    _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
-    [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
-    [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_press.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal|UIControlStateHighlighted];
+    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
+    _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 36)];
+    _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-40);
+    //_messageRemind.backgroundColor = UIColorFromRGB(0x98d9cb);
+    //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
+    //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal|UIControlStateHighlighted];
+    [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_normal.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     _messageRemind.layer.cornerRadius = 5.0;
     [_messageRemind.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
     _messageRemind.titleLabel.textAlignment = UITextAlignmentCenter;
-    [_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
+    [_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [_messageRemind addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
     //_messageRemind.hidden = YES;
     [self.window addSubview:_messageRemind];
@@ -248,7 +251,7 @@
              if (count>0) {
                 [_messageRemind setTitle:[NSString stringWithFormat:@"%d条新消息",count] forState:UIControlStateNormal];
                  [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                     _messageRemind.center = CGPointMake(kScreenWidth-48, kScreenHeight-20);
+                     _messageRemind.center = CGPointMake(kScreenWidth-48, kScreenHeight-40);
                  } completion:^(BOOL finished) {
                      
                  }];
@@ -256,7 +259,7 @@
              else
              {
                  [UIView animateWithDuration:0.3 animations:^{
-                     _messageRemind.center = CGPointMake(kScreenWidth+48, kScreenHeight-20);
+                     _messageRemind.center = CGPointMake(kScreenWidth+48, kScreenHeight-40);
                  }];
              }
        //  }
@@ -566,31 +569,67 @@
 }
 - (void)messageButtonAction
 {
-    GKMessageViewController *VC = [[GKMessageViewController alloc]init];
-    UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
-    [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateNormal];
-    [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateHighlighted];
-    UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
-    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
-    [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
-    [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
-    VC.navigationItem.rightBarButtonItem = nil;
-    GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
-    [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
-    [_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
-    [self.window.rootViewController dismissModalViewControllerAnimated:NO];
-    [self.window.rootViewController presentViewController:nav animated:YES completion:^{
+    if([kAppDelegate.window.rootViewController.presentedViewController isKindOfClass:[GKNavigationController class]])
+    {
+    
+        GKNavigationController * nav = (GKNavigationController *)(kAppDelegate.window.rootViewController.presentedViewController);
+        if([nav.viewControllers[0] isKindOfClass:[GKMessageViewController class]])
+        {
+            [nav popToRootViewControllerAnimated:YES];
+            [nav.viewControllers[0] refresh];
+            return;
+        }
+        else
+        {
+            [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                GKMessageViewController *VC = [[GKMessageViewController alloc]init];
+                UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+                [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateNormal];
+                [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateHighlighted];
+                UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+                [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+                [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+                [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+                VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+                VC.navigationItem.rightBarButtonItem = nil;
+                GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+                //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
+                //[_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                [self.window.rootViewController presentViewController:nav animated:YES completion:^{
+                    
+                }];
+            }];
+        }
+    }
+    else
+    {
 
-    }];
+        GKMessageViewController *VC = [[GKMessageViewController alloc]init];
+        UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
+        [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateNormal];
+        [backBTN setImage:[UIImage imageNamed:@"button_icon_close.png"] forState:UIControlStateHighlighted];
+        UIEdgeInsets insets = UIEdgeInsetsMake(10,10, 10, 10);
+        [backBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+        [backBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
+        [backBTN addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        VC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBTN];
+        VC.navigationItem.rightBarButtonItem = nil;
+        GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
+        //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat_gray.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
+        //[_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        [self.window.rootViewController presentViewController:nav animated:YES completion:^{
+
+        }];
+    }
+    
 }
 - (void)hideMessageRemind
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
+        _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-40);
     } completion:^(BOOL finished) {
-        [_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
-        [_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
+        //[_messageRemind setBackgroundImage:[[UIImage imageNamed:@"button_flat.png"]stretchableImageWithLeftCapWidth:5 topCapHeight:5 ] forState:UIControlStateNormal];
+        //[_messageRemind setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     }];
 }
 @end

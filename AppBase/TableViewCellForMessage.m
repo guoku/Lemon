@@ -200,7 +200,7 @@
   
         
         GKFollowButton * followBTN = [[GKFollowButton alloc]initWithFrame:CGRectZero];
-        [followBTN setFrame:CGRectMake(kScreenWidth-90,15, 70, 30)];
+        [followBTN setFrame:CGRectMake(kScreenWidth-84,15, 70, 30)];
         followBTN.data = ((GKFollowerMessage*)_message.message_object).user;
         [self addSubview:followBTN];
         
