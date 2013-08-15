@@ -104,7 +104,7 @@
     [GoMyList addTarget:self action:@selector(showMeAction:) forControlEvents:UIControlEventTouchUpInside];
     [tableHeaderView addSubview:GoMyList];
     
-    name = [[UILabel alloc]initWithFrame:CGRectMake(80, 30, tableHeaderView.frame.size.width-100, 20)];
+    name = [[UILabel alloc]initWithFrame:CGRectMake(80, 30, tableHeaderView.frame.size.width-200, 20)];
     name.backgroundColor = [UIColor clearColor];
     name.textAlignment = NSTextAlignmentLeft;
     [name setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];

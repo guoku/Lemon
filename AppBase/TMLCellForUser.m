@@ -116,7 +116,7 @@
         if(((TMLKeyWord *)_object).count !=0)
         {
             
-            UILabel *  count= [[UILabel alloc]initWithFrame:CGRectMake(size.width+22,13, 16, 16)];
+            UILabel *  count= [[UILabel alloc]initWithFrame:CGRectMake(size.width+22,14, 16, 16)];
             count.layer.masksToBounds = YES;
             count.layer.cornerRadius = 2.0;
             count.textAlignment = NSTextAlignmentCenter;
