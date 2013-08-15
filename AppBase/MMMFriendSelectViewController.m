@@ -261,22 +261,22 @@
     }
     UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 280)];
     
-    UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, 59, 62)];
-    [imageview1 setCenter:CGPointMake(160.0f,140)];
+    UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, 130, 113)];
+    [imageview1 setCenter:CGPointMake(160.0f,120)];
     [imageview1 setImage:[UIImage imageNamed:@"nomore.png"]];
     imageview1.userInteractionEnabled = YES;
     [footerview addSubview:imageview1];
     
     UIButton * tip = [UIButton buttonWithType:UIButtonTypeCustom];
     tip.userInteractionEnabled = NO;
-    tip.frame = CGRectMake(0, imageview1.frame.size.height+imageview1.frame.origin.y, kScreenWidth, 20.0f);
+    tip.frame = CGRectMake(5, imageview1.frame.size.height+imageview1.frame.origin.y+15, kScreenWidth-5, 20.0f);
     [tip setBackgroundColor:[UIColor clearColor]];
     [tip setUserInteractionEnabled:YES];
-    [tip setTitle:string forState:UIControlStateNormal];
-    [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
-    [tip setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateHighlighted];
+    [tip setTitle:@"这啥都没有！" forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0xb0a498) forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0xb0a498) forState:UIControlStateHighlighted];
     tip.titleLabel.textAlignment = NSTextAlignmentCenter;
-    tip.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    tip.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     tip.tag = 9090;
     [footerview addSubview:tip];
     
