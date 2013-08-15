@@ -12,7 +12,7 @@
 @implementation GKItemButton
 {
 @private
-    UIImageView * _cardBgImg;
+    
     ItemButtonType type;
     NSUInteger _entityid;
     NSURL *_imgURL;

@@ -105,6 +105,13 @@
     
     if(_entity.entitylike.status)
     {
+        UIImageView * like = [[UIImageView alloc]initWithFrame:CGRectMake(_img.frame.size.width-21, 1,20, 20)];
+        like.image = [UIImage imageNamed:@"listview_liked.png"];
+        like.tag = 9999;
+        [_img addSubview:like];
+
+
+        /*
         UILabel *  necessary= [[UILabel alloc]initWithFrame:CGRectMake(_img.frame.size.width-42, 6, 38, 16)];
         necessary.layer.masksToBounds = YES;
         necessary.layer.cornerRadius = 2.0;
@@ -115,6 +122,7 @@
         necessary.text = @"已收藏";
         necessary.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
         [_img addSubview:necessary];
+        */
     }
     else
     {

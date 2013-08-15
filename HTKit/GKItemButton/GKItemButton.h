@@ -21,6 +21,7 @@ typedef enum {
 @property (strong,nonatomic) GKNote *note;
 
 @property (nonatomic, strong) UIImageView *img;
+@property (nonatomic, strong) UIImageView *cardBgImg;
 @property (nonatomic, strong) UIButton *itemImageButton;
 @property (nonatomic,weak) id <GKDelegate> delegate;
 
