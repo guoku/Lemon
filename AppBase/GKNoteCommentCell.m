@@ -55,7 +55,7 @@
         
         self.avatarButton = [[UIButton alloc]initWithFrame:_nickname.frame];
         [_avatarButton addTarget:self action:@selector(avatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_avatarButton];
+        //[self addSubview:_avatarButton];
         
         self.time = [[UIButton alloc]initWithFrame:CGRectZero];
         [_time addTarget:self action:@selector(pokeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -182,7 +182,7 @@
 {
 	NSLog(@"did select url %@", url);
     
-    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@"："];
+    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
     if([array[0] isEqualToString:@"user"])
     {
         if (_delegate && [_delegate respondsToSelector:@selector(showUserWithUserID:)]) {
