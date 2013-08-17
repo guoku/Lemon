@@ -273,8 +273,8 @@
     [tip setBackgroundColor:[UIColor clearColor]];
     [tip setUserInteractionEnabled:YES];
     [tip setTitle:@"这啥都没有！" forState:UIControlStateNormal];
-    [tip setTitleColor:UIColorFromRGB(0xb0a498) forState:UIControlStateNormal];
-    [tip setTitleColor:UIColorFromRGB(0xb0a498) forState:UIControlStateHighlighted];
+    [tip setTitleColor:UIColorFromRGB(0xe4ded7) forState:UIControlStateNormal];
+    [tip setTitleColor:UIColorFromRGB(0xe4ded7) forState:UIControlStateHighlighted];
     tip.titleLabel.textAlignment = NSTextAlignmentCenter;
     tip.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
     tip.tag = 9090;
