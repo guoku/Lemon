@@ -40,7 +40,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.guoku.iphone.mmm</string>
+			<string>com.mamaqingdan.iphone</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>sinaweibosso.2925244096</string>
@@ -50,10 +50,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.guoku.iphone.mmm</string>
+			<string>com.mamaqingdan.iphone</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx59118ccde8270caa</string>
+				<string>wx5f5547cb207011de</string>
 				<string>mmm</string>
 			</array>
 		</dict>

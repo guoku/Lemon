@@ -48,17 +48,13 @@
     [super viewDidLoad];
     
     _dataArray = [NSMutableArray arrayWithObjects:
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕中期",@"name",@"0",@"count",@"3",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕晚期",@"name",@"0",@"count",@"4",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"0",@"count",@"6",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"0",@"count",@"7",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"0",@"count",@"9",@"pid",nil],
-                                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
-                                   , nil];
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"0",@"count",@"6",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
+                  , nil];
 
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
     [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
@@ -262,22 +258,12 @@
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
         int days = [comps day];
         int week = days/7;
-        int month = days/30;
+        //int month = days/30;
         //int year = days/365;
         if(week<2)
         {
             [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"userstage"];
-        }
-        else if(month<3)
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"pid"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
-        }
-        else if(month<6)
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"pid"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         else
         {
@@ -285,8 +271,9 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
+        NSUInteger stage = [self getIndexByPid:i];
 
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您目前正处于预产阶段-%@\U0001F603",[[_dataArray objectAtIndex:(i-1)]objectForKey:@"name"]]  delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您目前正处于『%@』\U0001F603",[[_dataArray objectAtIndex:(stage-1)]objectForKey:@"name"]]  delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
     else if([[userDefault objectForKey:@"state"]isEqualToString:@"born"])
@@ -306,25 +293,15 @@
         //int week = days/7;
         int month = days/30;
         //int year = days/365;
-        if(month<3)
+        if(month<6)
         {
             [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"userstage"];
-        }
-        else if(month<6)
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"pid"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(7) forKey:@"userstage"];
         }
         else if(month<12)
         {
             [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"userstage"];
-        }
-        else if(month<24)
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"pid"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"userstage"];
         }
         else
         {
@@ -332,7 +309,8 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"userstage"];
         }
         int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:i-1] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
+        NSUInteger stage = [self getIndexByPid:i];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:stage-1] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
 }
@@ -362,10 +340,13 @@
         {
             state = 3;
         }
+        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
         [user changeStageWithStage:state Date:datePicker.date Block:^(NSDictionary *dict, NSError *error) {
             if(!error)
             {
-
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
+                [GKMessageBoard showMBWithText:@"阶段设置成功" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
                 [UIView animateWithDuration:0.5 animations:^{
                     bg.alpha = 0;
                 } completion:^(BOOL finished) {
@@ -400,5 +381,15 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+- (NSUInteger)getIndexByPid:(NSUInteger)pid
+{
+    for (NSDictionary * dic in _dataArray) {
+        if([[dic objectForKey:@"pid"] integerValue] == pid)
+        {
+            return [_dataArray indexOfObject:dic]+1;
+        }
+    }
+    return 1;
 }
 @end

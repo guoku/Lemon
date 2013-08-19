@@ -89,11 +89,9 @@
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"2",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"5",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"6",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"7",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"6",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"8",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"9",@"pid",nil],
-                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"10",@"pid",nil]
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"10",@"pid",nil]
                    , nil];
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44) style:UITableViewStylePlain];
@@ -141,13 +139,9 @@
     {
         if([_dataArray count] == 0)
         {
-            NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
-            if(stage >2)
-            {
-                stage = stage - 2;
-            }
+            NSInteger pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
+            NSUInteger stage = [self getIndexByPid:pid];
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-            NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
             _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
             NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
             TMLCate *cate = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"必备",@"gtt",@"0",@"gid",nil]];
@@ -462,6 +456,7 @@
 - (void)ProfileChange
 {
     _openLeftMenu = YES;
+    [self stageChange];
 }
 - (void)stageChange
 {
@@ -470,13 +465,9 @@
         return; 
     }
     _icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"stage_list_%@.png",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]];
-    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
-    if(stage >2)
-    {
-        stage = stage - 2;
-    }
+    NSInteger pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
+    NSUInteger stage = [self getIndexByPid:pid];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-    NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
     NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
     TMLCate *cate = [[TMLCate alloc]initWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:@"必备",@"gtt",@"0",@"gid",nil]];
@@ -548,13 +539,8 @@
 }
 - (void)refresh
 {
-    NSInteger stage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
+    NSInteger pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
-    if(stage >2)
-    {
-        stage = stage - 2;
-    }
-    NSUInteger pid = [[[_titleArray objectAtIndex:(stage-1)]objectForKey:@"pid"]integerValue];
     _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
     
     NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
@@ -666,5 +652,14 @@
 {
     [self refresh];
 }
-
+- (NSUInteger)getIndexByPid:(NSUInteger)pid
+{
+    for (NSDictionary * dic in _titleArray) {
+        if([[dic objectForKey:@"pid"] integerValue] == pid)
+        {
+            return [_titleArray indexOfObject:dic]+1;
+        }
+    }
+    return 1;
+}
 @end

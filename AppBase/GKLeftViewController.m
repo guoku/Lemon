@@ -62,11 +62,9 @@
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-3个月",@"name",@"0",@"count",@"6",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"3-6个月",@"name",@"0",@"count",@"7",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"0",@"count",@"6",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-2岁",@"name",@"0",@"count",@"9",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"2-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
                   , nil];
     
     //NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
@@ -108,7 +106,9 @@
     name.backgroundColor = [UIColor clearColor];
     name.textAlignment = NSTextAlignmentLeft;
     [name setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+    [name setMinimumFontSize:10];
     name.textColor = UIColorFromRGB(0xFFFFFF);
+    name.adjustsFontSizeToFitWidth = YES;
     [tableHeaderView addSubview:name];
     
     description = [[UILabel alloc]initWithFrame:CGRectMake(80, 35, tableHeaderView.frame.size.width-100,30)];
@@ -189,11 +189,8 @@
     [_table setDataSource:self];
     [self.view addSubview:_table];
     
-    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
-    if(stage>2)
-    {
-        stage = stage -2;
-    }
+    NSUInteger pid =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
+    NSUInteger stage = [self getIndexByPid:pid];
     [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 
 }
@@ -212,21 +209,12 @@
     for (NSDictionary * dic in [GKEntity getEntityCountGroupByPid]) {
         NSUInteger pid = [[dic objectForKey:@"pid"]integerValue];
         NSUInteger count = [[dic objectForKey:@"count"]integerValue];
-        NSUInteger stage = pid;
-        if(stage>2)
-        {
-            stage = stage -2;
-        }
-        
-        
+        NSUInteger stage = [self getIndexByPid:pid];
         [[_dataArray objectAtIndex:(stage-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
     }
     [self.table reloadData];
-    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
-    if(stage>2)
-    {
-        stage = stage -2;
-    }
+    NSUInteger pid =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
+    NSUInteger stage = [self getIndexByPid:pid];
     if(selectCell)
     {
         [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -308,12 +296,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectCell = YES;
-    NSUInteger stage  = indexPath.row+1;
-    if(stage>2)
-    {
-        stage = stage + 2;
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:@(stage) forKey:@"pid"];
+    NSUInteger pid = [[[_dataArray objectAtIndex:indexPath.row]objectForKey:@"pid"]integerValue];
+    [[NSUserDefaults standardUserDefaults] setObject:@(pid) forKey:@"pid"];
     _table.allowsSelection = NO;
     
     [self performSelector:@selector(close) withObject:self afterDelay:0.0];
@@ -358,8 +342,8 @@
 #pragma mark - 按钮方法
 - (void)settingButtonAction
 {
-    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
-    selectCell = NO;
+    //[self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+    //selectCell = NO;
     GKSettingViewController *VC = [[GKSettingViewController alloc]init];
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
@@ -377,8 +361,8 @@
 }
 - (void)messageButtonAction
 {
-    [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
-    selectCell = NO;
+    //[self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
+    //selectCell = NO;
     /*
     GKMessageViewController *VC = [[GKMessageViewController alloc]init];
     GKNavigationController *nav = [[GKNavigationController alloc]initWithRootViewController:VC];
@@ -476,27 +460,11 @@
 
 - (void)ProfileChange
 {
-    //NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];
-    /*
-    for (NSMutableDictionary *dic in _dataArray) {
-        if([[dic objectForKey:@"pid"] intValue]<i)
-        {
-            [dic setObject:@"NO" forKey:@"open"];
-        }
-        else
-        {
-            [dic setObject:@"YES" forKey:@"open"];
-        }
-    }
-     */
     [self.table reloadData];
-    NSUInteger stage =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
-    if(stage>2)
-    {
-        stage = stage -2;
-    }
-    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self refresh];
+    NSUInteger pid =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
+    NSUInteger stage = [self getIndexByPid:pid];
+    [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark - 其他方法
@@ -546,5 +514,14 @@
     }
 
 }
-
+- (NSUInteger)getIndexByPid:(NSUInteger)pid
+{
+    for (NSDictionary * dic in _dataArray) {
+        if([[dic objectForKey:@"pid"] integerValue] == pid)
+        {
+            return [_dataArray indexOfObject:dic]+1;
+        }
+    }
+    return 1;
+}
 @end

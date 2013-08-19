@@ -62,11 +62,11 @@
 
 //weixin
 #ifndef kGK_WeixinShareKey
-#define kGK_WeixinShareKey	@"wx59118ccde8270caa"		//REPLACE ME
+#define kGK_WeixinShareKey	@"wx5f5547cb207011de"		//REPLACE ME
 #endif
 
 #ifndef kGK_WeixinShareURL
-#define kGK_WeixinShareURL @"http://www.guoku.com/weixin/present/"  //apisent
+#define kGK_WeixinShareURL @"http://www.mamaqingdan.com"  //apisent
 #endif
 
 // taobao

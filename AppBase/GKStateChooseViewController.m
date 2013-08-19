@@ -135,7 +135,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"pid"];
          
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段，偷偷告诉你生孩子老费钱了!!!\uE411" delegate:self cancelButtonTitle:@"重新选择" otherButtonTitles:@"进入妈妈清单", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了准备怀孕阶段。" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
             [alertView show];
         }
             break;
@@ -170,9 +170,13 @@
 {
     if(buttonIndex == 1)
     {
+        [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sync"];
         [user changeStageWithStage:1 Date:nil Block:^(NSDictionary *dict, NSError *error) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
             if(!error)
             {
+                [GKMessageBoard showMBWithText:@"阶段设置成功" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
                 [UIView animateWithDuration:0.5 animations:^{
                     bg.alpha = 0;
                 } completion:^(BOOL finished) {
