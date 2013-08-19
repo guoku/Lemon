@@ -66,7 +66,7 @@
 #endif
 
 #ifndef kGK_WeixinShareURL
-#define kGK_WeixinShareURL @"http://www.mamaqingdan.com"  //apisent
+#define kGK_WeixinShareURL @"http://www.mamaqingdan.com/"  //apisent
 #endif
 
 // taobao

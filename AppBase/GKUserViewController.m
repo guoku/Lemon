@@ -1014,10 +1014,48 @@
 }
 - (void)sinaShare
 {
-   // GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
-    
+    [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"ItemAction"
+                                                    withAction:@"sina_share"
+                                                     withLabel:nil
+                                                     withValue:nil];
+    NSString *clickUrl = [NSString stringWithFormat:@"%@的妈妈清单 http://mamaqingdan.com/user/%d (分享自@妈妈清单) ",_user.nickname,_user_id];
+    NSString *postContent = [NSString stringWithFormat:@"%@%@",@"",clickUrl];
+    [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
+    SinaWeibo *sinaweibo = [self sinaweibo];
+    [sinaweibo requestWithURL:@"statuses/upload.json"
+                       params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                               postContent, @"status",
+                               [UIImage imageNamed: @"wxshare.png"], @"pic", nil]
+                   httpMethod:@"POST"
+                     delegate:self];
 }
-
+- (SinaWeibo *)sinaweibo
+{
+    GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+    return delegate.sinaweibo;
+}
+- (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error
+{
+    [GKMessageBoard hideMB];
+    if((error.code ==21315)||(error.code == 10006))
+    {
+        SinaWeibo *sinaweibo = [self sinaweibo];
+        [sinaweibo logIn];
+    }
+    else if(error.code ==10007)
+    {
+        [GKMessageBoard showMBWithText:@"图片加载异常，不能进行微博分享" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    }
+    else
+    {
+        [GKMessageBoard showMBWithText:[NSString stringWithFormat:@"网络错误%u",error.code] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    }
+}
+- (void)request:(SinaWeiboRequest *)request didFinishLoadingWithResult:(id)result
+{
+    [GKMessageBoard hideActivity];
+    [GKMessageBoard showMBWithText:@"分享成功" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+}
 - (void)wxShare:(int)scene
 {
     if(scene ==0)
@@ -1036,19 +1074,22 @@
     }
     WXMediaMessage *message = [WXMediaMessage message];
     
-    
+    [message setThumbImage:[UIImage imageNamed: @"wxshare.png"]];
 
     WXWebpageObject *webPage = [WXWebpageObject object];
+    webPage.webpageUrl = [NSString stringWithFormat:@"%@user/%u",kGK_WeixinShareURL,_user.user_id];
     GKLog(@"webpageUrl---%@",webPage.webpageUrl);
     message.mediaObject = webPage;
-    message.title = @"果库 - 尽收世上好物";
+    message.title = @"妈妈清单 - iPhone上最好用的妈妈购物APP";
     if(scene ==1)
     {
+        message.title = [NSString stringWithFormat:@"%@的清单",_user.nickname];
         message.description = @"";
     }
     else
     {
-        message.title = @"果库 - 尽收世上好物";
+        message.title = @"妈妈清单 - iPhone上最好用的妈妈购物APP";
+        message.description = [NSString stringWithFormat:@"%@的清单",_user.nickname];
     }
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
@@ -1062,7 +1103,6 @@
         [GKMessageBoard showMBWithText:@"图片太大，请关闭高清图片按钮" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
     }
 }
-
 - (void)setFooterView:(BOOL)yes
 {
     UIView *footerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];

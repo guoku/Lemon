@@ -48,7 +48,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.trackedViewName = @"商品微博页";
-    _textView.text = [NSString stringWithFormat:@"在果库里发现「%@」",_detailData.title];
+    _textView.text = [NSString stringWithFormat:@"在『妈妈清单』里发现「%@」",_detailData.title];
     NSURL *_imgURL = [_detailData imageURL];
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"useBigImg"])
     {
@@ -97,7 +97,8 @@
     UIButton *sendBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 32)];
     [sendBTN setTitle:@"发送" forState:UIControlStateNormal];
     [sendBTN.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
-    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"green_btn_bg.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
+    [sendBTN setBackgroundImage:[[UIImage imageNamed:@"button_press.png"] resizableImageWithCapInsets:insets]forState:UIControlStateHighlighted];
     [sendBTN setImageEdgeInsets:UIEdgeInsetsMake(0, -20.0f, 0, 0)];
     [sendBTN addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *followBtnItem = [[UIBarButtonItem alloc] initWithCustomView:sendBTN];
@@ -180,8 +181,8 @@
     
     UIButton *weiboFriendsBtn = [[UIButton alloc] initWithFrame:CGRectMake(textNumLeftL_text2.frame.origin.x + 20.0f, textNumLeftL_text2.frame.origin.y - 2.0f, 53.0f, 20.0f)] ;
     [weiboFriendsBtn setBackgroundColor:[UIColor clearColor]];
-    [weiboFriendsBtn setBackgroundImage:[UIImage imageNamed:@"share_at_f.png"] forState:UIControlStateNormal];
-    [weiboFriendsBtn setBackgroundImage:[UIImage imageNamed:@"share_at_f_press.png"] forState:UIControlStateHighlighted];
+    [weiboFriendsBtn setBackgroundImage:[[UIImage imageNamed:@"button_green.png"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal];
+    [weiboFriendsBtn setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateHighlighted];
     [weiboFriendsBtn setTitle:@"@好友" forState:UIControlStateNormal];
     [weiboFriendsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     [weiboFriendsBtn setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -230,7 +231,7 @@
                                                      withLabel:nil
                                                      withValue:nil];
         [self resignTextView:nil];
-    NSString *clickUrl = [NSString stringWithFormat:@" 详情 http://guoku.com/detail/%d (分享自@果库) ",_detailData.entity_id];
+    NSString *clickUrl = [NSString stringWithFormat:@" 详情 http://mamaqingdan.com/detail/%d (分享自@妈妈清单) ",_detailData.entity_id];
     NSString *postContent = [NSString stringWithFormat:@"%@%@",_textView.text,clickUrl];
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
             SinaWeibo *sinaweibo = [self sinaweibo];

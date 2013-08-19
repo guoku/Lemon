@@ -842,10 +842,10 @@
     }
     
     WXWebpageObject *webPage = [WXWebpageObject object];
-    webPage.webpageUrl = [NSString stringWithFormat:@"%@%u",kGK_WeixinShareURL,_data.entity_id];
+    webPage.webpageUrl = [NSString stringWithFormat:@"%@detail/%u",kGK_WeixinShareURL,_data.entity_id];
     GKLog(@"webpageUrl---%@",webPage.webpageUrl);
     message.mediaObject = webPage;
-    message.title = @"果库 - 尽收世上好物";
+    message.title = @"妈妈清单 - iPhone上最好用的妈妈购物APP";
     if(scene ==1)
     {
         message.title = _data.title;
@@ -853,7 +853,7 @@
     }
     else
     {
-        message.title = @"果库 - 尽收世上好物";
+        message.title = @"妈妈清单 - iPhone上最好用的妈妈购物APP";
         message.description = _data.title;
     }
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];

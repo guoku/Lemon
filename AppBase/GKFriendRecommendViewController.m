@@ -633,7 +633,7 @@
 - (void)invite:(id)sender
 {
     GKWeiboInviteButton * button = (GKWeiboInviteButton *)sender;
-    NSString *postContent = [NSString stringWithFormat:@"我在使用果库很不错 @%@",button.name];
+    NSString *postContent = [NSString stringWithFormat:@"我在使用『妈妈清单』很不错，@%@。传送门：http://mamaqingdan.com ",button.name];
     SinaWeibo *sinaweibo = [self sinaweibo];
     [sinaweibo requestWithURL:@"statuses/update.json"
                        params:[NSMutableDictionary dictionaryWithObjectsAndKeys:

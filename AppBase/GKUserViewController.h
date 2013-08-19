@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SinaWeibo.h"
 
-@interface GKUserViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
+@interface GKUserViewController : GKBaseViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate>
 @property (nonatomic) NSUInteger user_id;
 @property (nonatomic) GKUser *user;
 @property (nonatomic,strong) UITableView *table;
