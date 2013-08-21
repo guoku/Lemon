@@ -147,7 +147,7 @@
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 点评了 </font><a href='entity:%u'><font face='Helvetica' color='#999999' size=14>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14><br>点评了 </font><a href='entity:%u'><font face='Helvetica' color='#555555' size=14>%@</font></a>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         CGSize optimumSize = [message_label optimumSize];
         CGRect frame = [message_label frame];
@@ -167,7 +167,7 @@
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(230, y+5, 80, 80)];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
 
@@ -255,14 +255,14 @@
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 顶了你对 </font><a href='entity:%u'><font face='Helvetica' color='#999999' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14><br>顶了你对 </font><a href='entity:%u'><font face='Helvetica' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         [self addSubview:message_label];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(230, y+5, 80, 80)];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
@@ -283,19 +283,19 @@
         message_label.lineSpacing = 4.0;
         message_label.delegate = self;
         
-       [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 回复了你对 </font><a href='entity:%u'><font face='Helvetica' color='#999999' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+       [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14><br>回复了你对 </font><a href='entity:%u'><font face='Helvetica' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的点评</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
         
         [self addSubview:message_label];
         
         GKItemButton *_img = [[GKItemButton alloc] init];
         [_img setType:kItemButtonWithNumProgress];
         [_img setPadding:4];
-        [_img setFrame:CGRectMake(230, y+5, 80, 80)];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
     icon.center = CGPointMake(46,46);
-    //[self addSubview:icon];
+    [self addSubview:icon];
 
     self.delegate = _delegate;
 }

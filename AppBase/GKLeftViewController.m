@@ -228,7 +228,6 @@
 {
     [super viewDidDisappear:animated];
     _table.allowsSelection = YES;
-  
 }
 
 #pragma mark - TableView

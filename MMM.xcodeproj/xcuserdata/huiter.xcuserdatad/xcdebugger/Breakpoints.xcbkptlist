@@ -85,19 +85,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKLeftViewController.m"
-         timestampString = "398584198.047925"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "522"
-         endingLineNumber = "522"
-         landmarkName = "-getIndexByPid:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
          timestampString = "398752901.497024"
          startingColumnNumber = "9223372036854775807"
@@ -124,13 +111,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "398752901.497024"
+         filePath = "AppBase/TableViewCellForMessage.m"
+         timestampString = "398764091.013646"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "667"
-         endingLineNumber = "667"
-         landmarkName = "-getIndexByPid:"
+         startingLineNumber = "73"
+         endingLineNumber = "73"
+         landmarkName = "-setMessage:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
