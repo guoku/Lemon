@@ -140,7 +140,7 @@
         if([_dataArray count] == 0)
         {
             NSInteger pid = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"] intValue];
-            NSUInteger stage = [self getIndexByPid:pid];
+            //NSUInteger stage = [self getIndexByPid:pid];
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table"];
             _dataArray = [[NSKeyedUnarchiver unarchiveObjectWithData:data]objectForKey:@(pid)];
             NSMutableDictionary * necessaryDic = [[NSMutableDictionary alloc]init];
@@ -347,7 +347,14 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    
+    if ([[[_dataArray objectAtIndex:section]objectForKey:@"row" ]count]!=0) {
+        return 30;
+    }
+    else
+    {
+        return 0;
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

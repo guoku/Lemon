@@ -111,7 +111,7 @@
     [BgImg setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:BgImg];
     
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15.0f,15.0f,295, BgImg.frame.size.height-65-15)];
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15.0f,15.0f,295, BgImg.frame.size.height-65-20)];
     [_textView setKeyboardType:UIKeyboardTypeDefault];
     [_textView setReturnKeyType:UIReturnKeyDefault];
     [_textView setFont:[UIFont fontWithName:@"Helvetica" size:15.0f]];
@@ -119,6 +119,9 @@
     [_textView setEditable:YES];
     [_textView becomeFirstResponder];
     [_textView setBounces:NO];
+    _textView.layer.shadowOffset = CGSizeMake(2, 2);
+    _textView.layer.shadowColor = [[UIColor greenColor]CGColor];
+    _textView.layer.shadowOpacity = 0.5;
     _textView.delegate = self;
     _textView.textColor = UIColorFromRGB(0x666666);
     _textView.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -126,7 +129,7 @@
     _textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self.view addSubview:_textView];
     
-    _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8,BgImg.frame.size.height-20, kScreenWidth-16, 2)];
+    _seperatorLineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8,BgImg.frame.size.height-60, kScreenWidth-16, 2)];
     [_seperatorLineImageView setImage:[UIImage imageNamed:@"splitline.png"]];
     [self.view addSubview:_seperatorLineImageView];
     
@@ -141,18 +144,18 @@
     [self.view addSubview:noteL];
     
     self.entityImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [_entityImageView setFrame:CGRectMake(250, BgImg.frame.size.height-60, 50, 50)];
+    [_entityImageView setFrame:CGRectMake(250, BgImg.frame.size.height-130, 50, 50)];
     [_entityImageView setContentMode:UIViewContentModeScaleAspectFit];
     
     [self.view addSubview:_entityImageView];
     
     
     UIImageView * _cardBgImg = [[UIImageView alloc] initWithFrame:CGRectMake(_entityImageView.frame.origin.x - 5.0f, _entityImageView.frame.origin.y - 5.0f, _entityImageView.frame.size.width + 10.0f, _entityImageView.frame.size.height + 10.0f)];
-    [_cardBgImg setImage:[[UIImage imageNamed:@"item_bg.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:20]];
+    [_cardBgImg setImage:[[UIImage imageNamed:@"item_bg.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:4]];
     
     [self.view insertSubview:_cardBgImg belowSubview:_entityImageView];
     
-    UILabel *textNumLeftL_text1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, BgImg.frame.size.height-14, 90.0f, 15.0f)];
+    UILabel *textNumLeftL_text1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, BgImg.frame.size.height-54, 90.0f, 15.0f)];
     [textNumLeftL_text1 setBackgroundColor:[UIColor clearColor]];
     [textNumLeftL_text1 setTextColor:UIColorFromRGB(0x666666)];
     [textNumLeftL_text1 setText:@"还可以输入"];
@@ -182,9 +185,9 @@
     UIButton *weiboFriendsBtn = [[UIButton alloc] initWithFrame:CGRectMake(textNumLeftL_text2.frame.origin.x + 20.0f, textNumLeftL_text2.frame.origin.y - 2.0f, 53.0f, 20.0f)] ;
     [weiboFriendsBtn setBackgroundColor:[UIColor clearColor]];
     [weiboFriendsBtn setBackgroundImage:[[UIImage imageNamed:@"button_green.png"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal];
-    [weiboFriendsBtn setBackgroundImage:[[UIImage imageNamed:@"button_green_press.png"]stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateHighlighted];
+    [weiboFriendsBtn setBackgroundImage:[[UIImage imageNamed:@"button_normal_press.png"]stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateHighlighted];
     [weiboFriendsBtn setTitle:@"@好友" forState:UIControlStateNormal];
-    [weiboFriendsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+    [weiboFriendsBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [weiboFriendsBtn setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [weiboFriendsBtn.titleLabel setShadowOffset:CGSizeMake(0.5f, 0.5f)];
     [weiboFriendsBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];

@@ -248,7 +248,6 @@
     [GKMessages getUserUnreadMessageCountWithBlock:^(NSUInteger count, NSError * error)
      {
          if (!error) {
-             count = 1;
              if (count>0) {
                 [_messageRemind setTitle:[NSString stringWithFormat:@"新消息\
                                           %d条",count] forState:UIControlStateNormal];
