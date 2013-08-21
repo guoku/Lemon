@@ -17,6 +17,9 @@
 #import "GKLoginViewController.h"
 #import "UMFeedback.h"
 #import "UMFeedbackViewController.h"
+
+#import "UMTableViewController.h"
+
 @interface GKSettingViewController ()
 
 @end
@@ -95,15 +98,15 @@
 	// Do any additional setup after loading the view.
     self.trackedViewName = @"设置页";
     
-    //NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"账号设置",@"section",[NSArray arrayWithObjects:@"昵称设置",@"头像设置",@"重新设置我的阶段", nil], @"row", nil];
-    NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"账号设置",@"section",[NSArray arrayWithObjects:@"重新设置我的阶段", nil], @"row", nil];
+    //NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"帐号设置",@"section",[NSArray arrayWithObjects:@"昵称设置",@"头像设置",@"重新设置我的阶段", nil], @"row", nil];
+    NSDictionary *firstSection = [NSDictionary dictionaryWithObjectsAndKeys:@"帐号设置",@"section",[NSArray arrayWithObjects:@"重新设置我的阶段", nil], @"row", nil];
     
     NSDictionary *secondSection = [NSDictionary dictionaryWithObjectsAndKeys:@"推荐我们",@"section",[NSArray arrayWithObjects:@"给应用打个分",@"关注我们微博", nil], @"row", nil];
     if ([WXApi isWXAppSupportApi] && [WXApi isWXAppInstalled]) {
         secondSection = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"推荐", @"section", [NSArray arrayWithObjects:@"给应用打个分", @"关注我们的新浪微博", @"发给微信好友",@"分享到朋友圈", nil], @"row", nil];
     }
 
-    NSDictionary * thirdSection = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"系统",@"section", [NSArray arrayWithObjects:@"意见反馈",@"清除图片缓存",@"版本",nil], @"row", nil];
+    NSDictionary * thirdSection = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"系统",@"section", [NSArray arrayWithObjects:@"应用推荐",@"意见反馈",@"清除图片缓存",@"版本",nil], @"row", nil];
     
     _dataArray = [NSMutableArray arrayWithObjects:firstSection,secondSection,thirdSection, nil];
     
@@ -256,10 +259,14 @@
     if (indexPath.section == 2) {
         if(indexPath.row == 0)
         {
+            [self showTableView];
+        }
+        if(indexPath.row == 1)
+        {
             [self showFeedBack];
         }
          
-        if(indexPath.row == 1)
+        if(indexPath.row == 2)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否清除图片缓存?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认清除", nil];
             alertView.tag =20001;
@@ -269,6 +276,14 @@
 }
 #pragma mark 绑定设置处理方法
 #pragma mark 推荐处理方法
+- (void)showTableView {
+    
+    UMTableViewController *controller = [[UMTableViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+
 - (void)settingSectionFunctionWithIndexpath:(NSIndexPath *)path
 {
     switch (path.row) {

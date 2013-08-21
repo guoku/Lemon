@@ -64,7 +64,7 @@
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"0",@"count",@"6",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"9",@"pid",nil]
                   , nil];
     
     //NSUInteger i = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"]integerValue];

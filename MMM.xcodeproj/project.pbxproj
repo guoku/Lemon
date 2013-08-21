@@ -551,6 +551,10 @@
 		4EA55242178C763500E679B7 /* GKLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA55241178C763500E679B7 /* GKLoadingViewController.m */; };
 		4EA55248178D501300E679B7 /* GKWeiboInviteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA55247178D501300E679B7 /* GKWeiboInviteButton.m */; };
 		4EA5524B178D57CA00E679B7 /* GKRotateLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5524A178D57CA00E679B7 /* GKRotateLoadingView.m */; };
+		4EAAAAA917C48C15000445B8 /* libUMAppNetwork_3.5.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EAAAA9F17C48C15000445B8 /* libUMAppNetwork_3.5.5.a */; };
+		4EAAAAAA17C48C15000445B8 /* UMUFP.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4EAAAAA017C48C15000445B8 /* UMUFP.bundle */; };
+		4EAAAAB017C48D8F000445B8 /* UMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAAAAD17C48D8F000445B8 /* UMTableViewCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4EAAAAB117C48D8F000445B8 /* UMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAAAAF17C48D8F000445B8 /* UMTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4EB8478117731E8100071B95 /* GKEDCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8478017731E8100071B95 /* GKEDCSettingViewController.m */; };
 		4ECA408A178FC1F40049E54E /* icon_zan_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECA4086178FC1ED0049E54E /* icon_zan_press.png */; };
 		4ECA408B178FC1F40049E54E /* icon_zan_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECA4087178FC1EF0049E54E /* icon_zan_press@2x.png */; };
@@ -1297,6 +1301,20 @@
 		4EA55247178D501300E679B7 /* GKWeiboInviteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKWeiboInviteButton.m; sourceTree = "<group>"; };
 		4EA55249178D57CA00E679B7 /* GKRotateLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKRotateLoadingView.h; sourceTree = "<group>"; };
 		4EA5524A178D57CA00E679B7 /* GKRotateLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKRotateLoadingView.m; sourceTree = "<group>"; };
+		4EAAAA9F17C48C15000445B8 /* libUMAppNetwork_3.5.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMAppNetwork_3.5.5.a; sourceTree = "<group>"; };
+		4EAAAAA017C48C15000445B8 /* UMUFP.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMUFP.bundle; sourceTree = "<group>"; };
+		4EAAAAA117C48C15000445B8 /* UMUFPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPBadgeView.h; sourceTree = "<group>"; };
+		4EAAAAA217C48C15000445B8 /* UMUFPBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPBannerView.h; sourceTree = "<group>"; };
+		4EAAAAA317C48C15000445B8 /* UMUFPGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPGridCell.h; sourceTree = "<group>"; };
+		4EAAAAA417C48C15000445B8 /* UMUFPGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPGridView.h; sourceTree = "<group>"; };
+		4EAAAAA517C48C15000445B8 /* UMUFPHandleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPHandleView.h; sourceTree = "<group>"; };
+		4EAAAAA617C48C15000445B8 /* UMUFPImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPImageView.h; sourceTree = "<group>"; };
+		4EAAAAA717C48C15000445B8 /* UMUFPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPTableView.h; sourceTree = "<group>"; };
+		4EAAAAA817C48C15000445B8 /* UMUFPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPWebView.h; sourceTree = "<group>"; };
+		4EAAAAAC17C48D8F000445B8 /* UMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTableViewCell.h; sourceTree = "<group>"; };
+		4EAAAAAD17C48D8F000445B8 /* UMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTableViewCell.m; sourceTree = "<group>"; };
+		4EAAAAAE17C48D8F000445B8 /* UMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTableViewController.h; sourceTree = "<group>"; };
+		4EAAAAAF17C48D8F000445B8 /* UMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTableViewController.m; sourceTree = "<group>"; };
 		4EB8477F17731E8100071B95 /* GKEDCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKEDCSettingViewController.h; sourceTree = "<group>"; };
 		4EB8478017731E8100071B95 /* GKEDCSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKEDCSettingViewController.m; sourceTree = "<group>"; };
 		4ECA4086178FC1ED0049E54E /* icon_zan_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_zan_press.png; sourceTree = "<group>"; };
@@ -1354,6 +1372,7 @@
 				4E52A569179931AF000D4513 /* EGG.framework in Frameworks */,
 				4E58848D17A262020085FF3C /* libMobClickLibrary.a in Frameworks */,
 				4E58848E17A262020085FF3C /* libUMFeedback.a in Frameworks */,
+				4EAAAAA917C48C15000445B8 /* libUMAppNetwork_3.5.5.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1603,6 +1622,7 @@
 		4E387A7817607A38005DA2EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EAAAA9E17C48C15000445B8 /* UM_UNION_SDK */,
 				4E58848717A262020085FF3C /* UMeng */,
 				4E52A568179931AF000D4513 /* EGG.framework */,
 				4E820F3C1796882600B0806A /* RTLabel.h */,
@@ -2914,6 +2934,35 @@
 			name = "载入动画页";
 			sourceTree = "<group>";
 		};
+		4EAAAA9E17C48C15000445B8 /* UM_UNION_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				4EAAAAAB17C48D8F000445B8 /* TableView */,
+				4EAAAA9F17C48C15000445B8 /* libUMAppNetwork_3.5.5.a */,
+				4EAAAAA017C48C15000445B8 /* UMUFP.bundle */,
+				4EAAAAA117C48C15000445B8 /* UMUFPBadgeView.h */,
+				4EAAAAA217C48C15000445B8 /* UMUFPBannerView.h */,
+				4EAAAAA317C48C15000445B8 /* UMUFPGridCell.h */,
+				4EAAAAA417C48C15000445B8 /* UMUFPGridView.h */,
+				4EAAAAA517C48C15000445B8 /* UMUFPHandleView.h */,
+				4EAAAAA617C48C15000445B8 /* UMUFPImageView.h */,
+				4EAAAAA717C48C15000445B8 /* UMUFPTableView.h */,
+				4EAAAAA817C48C15000445B8 /* UMUFPWebView.h */,
+			);
+			path = UM_UNION_SDK;
+			sourceTree = "<group>";
+		};
+		4EAAAAAB17C48D8F000445B8 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				4EAAAAAC17C48D8F000445B8 /* UMTableViewCell.h */,
+				4EAAAAAD17C48D8F000445B8 /* UMTableViewCell.m */,
+				4EAAAAAE17C48D8F000445B8 /* UMTableViewController.h */,
+				4EAAAAAF17C48D8F000445B8 /* UMTableViewController.m */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 		4EB8477E17731DE700071B95 /* 预产期设定 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3422,6 +3471,7 @@
 				4E8B930317BF1FC20052DD39 /* logo.png in Resources */,
 				4E8B930517BF1FC70052DD39 /* logo@2x.png in Resources */,
 				4E8B930717BF25F40052DD39 /* wxshare.png in Resources */,
+				4EAAAAAA17C48C15000445B8 /* UMUFP.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3615,6 +3665,8 @@
 				4E58851417A2AEC90085FF3C /* UMFeedbackTableViewCellLeft.m in Sources */,
 				4E58851517A2AEC90085FF3C /* UMFeedbackTableViewCellRight.m in Sources */,
 				4E58851A17A2F27A0085FF3C /* UMFeedbackViewController.m in Sources */,
+				4EAAAAB017C48D8F000445B8 /* UMTableViewCell.m in Sources */,
+				4EAAAAB117C48D8F000445B8 /* UMTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3712,6 +3764,7 @@
 					"\"$(SRCROOT)/Frameworks/GA\"",
 					"\"$(SRCROOT)/Frameworks/WeiXin\"",
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
+					"\"$(SRCROOT)/UM_UNION_SDK\"",
 				);
 				PRODUCT_NAME = MMM;
 				PROVISIONING_PROFILE = "";
@@ -3739,6 +3792,7 @@
 					"\"$(SRCROOT)/Frameworks/GA\"",
 					"\"$(SRCROOT)/Frameworks/WeiXin\"",
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
+					"\"$(SRCROOT)/UM_UNION_SDK\"",
 				);
 				PRODUCT_NAME = MMM;
 				PROVISIONING_PROFILE = "";

@@ -53,7 +53,7 @@
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"0",@"count",@"6",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"10",@"pid",nil]
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"9",@"pid",nil]
                   , nil];
 
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
@@ -189,7 +189,7 @@
     else if([[userDefault objectForKey:@"state"]isEqualToString:@"born"])
     {
         //[button setTitle:@"设定宝宝生日" forState:UIControlStateNormal];
-        label.text = @"宝宝的生日";
+        label.text = @"宝宝生日";
     }
     [bg addSubview:label];
 

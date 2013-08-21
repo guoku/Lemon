@@ -12,7 +12,7 @@
 #import "GKNotificationConfig.h"
 
 #ifndef kGK_GAnalyticsAccountId
-#define kGK_GAnalyticsAccountId @"UA-33667018-1"
+#define kGK_GAnalyticsAccountId @"UA-42384690-1"
 #endif
 
 #ifndef kGK_AppID_iPhone
