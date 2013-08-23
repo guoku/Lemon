@@ -111,12 +111,12 @@
     name.adjustsFontSizeToFitWidth = YES;
     [tableHeaderView addSubview:name];
     
-    description = [[UILabel alloc]initWithFrame:CGRectMake(80, 35, tableHeaderView.frame.size.width-100,30)];
-    description.backgroundColor = [UIColor clearColor];
+    description = [[UILabel alloc]initWithFrame:CGRectMake(10, 55, tableHeaderView.frame.size.width,30)];
+    description.backgroundColor = [UIColor blackColor];
     description.numberOfLines = 0;
     description.textAlignment = NSTextAlignmentLeft;
     [description setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-    description.textColor = UIColorFromRGB(0x999999);
+    description.textColor = UIColorFromRGB(0xffffff);
     //[tableHeaderView addSubview:description];
     
     UIView *tipView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, 320, 40)];
@@ -472,7 +472,8 @@
     user =[[GKUser alloc ]initFromNSU];
    avatar.user = user;
    name.text = user.nickname;
-   description.text = user.bio;
+   //description.text = user.bio;
+    description.text = [kUserDefault stringForKey:kSession];
     if((user.birth_date)&&(user.stage !=1))
     {
         calendar.date = user.birth_date;

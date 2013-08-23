@@ -115,6 +115,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+     //   self.navigationItem.titleView = [GKTitleView  setTitleLabel:[NSString stringWithFormat:@"%d",_entity_id]];
     if(_data == nil)
     {
         GKLog(@"entity --- id --------------- %u", self.entity_id);

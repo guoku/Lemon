@@ -95,6 +95,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _titleArray = [NSMutableArray arrayWithObjects:
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"2",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"5",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"6",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"8",@"pid",nil],
+                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"9",@"pid",nil]
+                   , nil];
+    
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(entityChange:) name:kGKN_EntityChange object:nil];
@@ -365,6 +375,7 @@
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                NSLog(@"%@",_dataArray);
             
             NSUInteger tmp_pid = 0;
             NSUInteger tmp_k = 0;
@@ -387,7 +398,7 @@
                         tmp_k = tmp_k;
                     }
                 }
-                NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+                NSMutableArray *array =  [[_dataArray objectAtIndex:[self getIndexByPid:entity.pid]-1]objectForKey:@"row"];
                 
                 for (int k = tmp_k; k< [array count];k++ ) {
                     NSObject * object  =  [array objectAtIndex:k];
@@ -476,7 +487,15 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[[_dataArray objectAtIndex:section]objectForKey:@"row"]count];
+
+    if([_dataArray count]!=0)
+    {
+        return [[[_dataArray objectAtIndex:section]objectForKey:@"row"]count];
+    }
+    else
+    {
+        return 0;
+    }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
@@ -812,7 +831,7 @@
                     tmp_k = tmp_k;
                 }
             }
-            NSMutableArray *array =  [[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"];
+            NSMutableArray *array =  [[_dataArray objectAtIndex:[self getIndexByPid:entity.pid]-1]objectForKey:@"row"];
             
             for (int k = tmp_k; k< [array count];k++ ) {
                 NSObject * object  =  [array objectAtIndex:k];
@@ -1327,6 +1346,16 @@
     }
     self.table.tableFooterView = footerview;
 
+}
+- (NSUInteger)getIndexByPid:(NSUInteger)pid
+{
+    for (NSDictionary * dic in _titleArray) {
+        if([[dic objectForKey:@"pid"] integerValue] == pid)
+        {
+            return [_titleArray indexOfObject:dic]+1;
+        }
+    }
+    return 1;
 }
 
 @end
