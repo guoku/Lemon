@@ -149,6 +149,7 @@
             NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
             [necessaryDic setObject:necessaryArray forKey:@"row"];
             
+            NSMutableArray * removeArray = [[NSMutableArray alloc]init];
             for (NSMutableDictionary * data  in _dataArray ) {
                 for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
                     
@@ -158,14 +159,21 @@
                     {
                         if(((TMLKeyWord *)object).necessary)
                         {
+                            NSLog(@"必备%@",((TMLKeyWord *)object).name);
                             [necessaryArray addObject:object];
-                            [[data objectForKey:@"row"] removeObject:object];
+                            [removeArray addObject:object];
+                            
+                        }
+                        else
+                        {
+                            NSLog(@"%@",((TMLKeyWord *)object).name);
                         }
                     }
                     
                 }
-                
+                [[data objectForKey:@"row"] removeObjectsInArray:removeArray];
             }
+
             if([necessaryArray count]!=0)
             {
                 [_dataArray insertObject:necessaryDic atIndex:0];
@@ -481,7 +489,7 @@
     [necessaryDic setObject:cate forKey:@"section"];
     NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
     [necessaryDic setObject:necessaryArray forKey:@"row"];
-    
+    NSMutableArray * removeArray = [[NSMutableArray alloc]init];
     for (NSMutableDictionary * data  in _dataArray ) {
         for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
             
@@ -491,13 +499,19 @@
             {
                 if(((TMLKeyWord *)object).necessary)
                 {
+                    NSLog(@"必备%@",((TMLKeyWord *)object).name);
                     [necessaryArray addObject:object];
-                    [[data objectForKey:@"row"] removeObject:object];
+                    [removeArray addObject:object];
+                   
+                }
+                else
+                {
+                    NSLog(@"%@",((TMLKeyWord *)object).name);
                 }
             }
             
         }
-        
+        [[data objectForKey:@"row"] removeObjectsInArray:removeArray];
     }
     if([necessaryArray count]!=0)
     {
@@ -555,7 +569,7 @@
     [necessaryDic setObject:cate forKey:@"section"];
     NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
     [necessaryDic setObject:necessaryArray forKey:@"row"];
-    
+    NSMutableArray * removeArray = [[NSMutableArray alloc]init];
     for (NSMutableDictionary * data  in _dataArray ) {
         for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
             
@@ -565,14 +579,21 @@
             {
                 if(((TMLKeyWord *)object).necessary)
                 {
+                    NSLog(@"必备%@",((TMLKeyWord *)object).name);
                     [necessaryArray addObject:object];
-                    [[data objectForKey:@"row"] removeObject:object];
+                    [removeArray addObject:object];
+                    
+                }
+                else
+                {
+                    NSLog(@"%@",((TMLKeyWord *)object).name);
                 }
             }
             
         }
-        
+        [[data objectForKey:@"row"] removeObjectsInArray:removeArray];
     }
+
     if([necessaryArray count]!=0)
     {
         [_dataArray insertObject:necessaryDic atIndex:0];

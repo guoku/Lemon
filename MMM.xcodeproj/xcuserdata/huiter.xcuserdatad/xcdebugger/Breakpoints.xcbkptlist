@@ -21,37 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "398580920.333834"
+         timestampString = "398938665.665039"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "161"
-         endingLineNumber = "161"
-         landmarkName = "-viewDidAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "398580920.333834"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "162"
-         endingLineNumber = "162"
-         landmarkName = "-viewDidAppear:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "398580920.333834"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "171"
-         endingLineNumber = "171"
+         startingLineNumber = "179"
+         endingLineNumber = "179"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "398752901.497024"
+         timestampString = "398938665.665039"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "475"
-         endingLineNumber = "475"
+         startingLineNumber = "483"
+         endingLineNumber = "483"
          landmarkName = "-stageChange"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +73,37 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "398752901.497024"
+         timestampString = "398938665.665039"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "476"
-         endingLineNumber = "476"
+         startingLineNumber = "484"
+         endingLineNumber = "484"
+         landmarkName = "-stageChange"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKCenterViewController.m"
+         timestampString = "398938665.665039"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "501"
+         endingLineNumber = "501"
+         landmarkName = "-stageChange"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKCenterViewController.m"
+         timestampString = "398938665.665039"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "509"
+         endingLineNumber = "509"
          landmarkName = "-stageChange"
          landmarkType = "5">
       </FileBreakpoint>
