@@ -72,7 +72,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
             GKLog(@"%@", error);
-            block([NSArray array], error);
+            block([NSDictionary dictionary], error);
         }
     }];
     

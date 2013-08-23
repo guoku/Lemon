@@ -7,6 +7,15 @@
 //
 
 #import "GKNoteLabel.h"
+static inline NSRegularExpression * ParenthesisRegularExpression() {
+    static NSRegularExpression *_parenthesisRegularExpression = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _parenthesisRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"(#|＃)([A-Z0-9a-z\u4e00-\u9fa5(é|ë|ê|è|à|â|ä|á|ù|ü|û|ú|ì|ï|î|í)_]+)" options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+    
+    return _parenthesisRegularExpression;
+}
 static inline NSRegularExpression * EnglishRegularExpression() {
     static NSRegularExpression *_englishRegularExpression = nil;
     static dispatch_once_t onceToken;
@@ -33,7 +42,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
     NSString *text;
 }
 @synthesize content = _content;
-@synthesize note = _note;
+@synthesize data = _data;
 @synthesize gkdelegate = _gkdelegate;
 - (id)initWithFrame:(CGRect)frame
 {
@@ -41,18 +50,12 @@ static inline NSRegularExpression * UrlRegularExpression() {
     if (self) {
         fontsize = 14;
         self.backgroundColor = [UIColor clearColor];
-        _content = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-
-        [_content setAdjustsFontSizeToFitWidth:NO];
-        [_content setNumberOfLines:3];
+        _content = [[RTLabel alloc] initWithFrame:CGRectZero];
         [_content setBackgroundColor:[UIColor clearColor]];
-        [_content setLineBreakMode:NSLineBreakByTruncatingTail];
-        [_content setTextAlignment:NSTextAlignmentLeft];
-        [_content setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
-        [_content setLeading:4];
-        
-        [_content setTextColor:UIColorFromRGB(0x666666)];
+        [_content setParagraphReplacement:@""];
+        _content.lineSpacing = 4.0;
         _content.delegate = self;
+        [_content setTextColor:UIColorFromRGB(0x666666)];
         
         [self addSubview:_content];
         
@@ -65,12 +68,12 @@ static inline NSRegularExpression * UrlRegularExpression() {
     }
     return self;
 }
-- (void)setNote:(GKNote *)note
+- (void)setData:(GKNote *)data
 {
-    if([note isKindOfClass:[GKNote class]])
+    if([data isKindOfClass:[GKNote class]])
     {
-        _note = note;
-        text = _note.note;
+        _data = data;
+        text = _data.note;
     }
     [self setNeedsLayout];
 }
@@ -92,26 +95,38 @@ static inline NSRegularExpression * UrlRegularExpression() {
     [super layoutSubviews];
     [_content setFrame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height)];
     [_content setFont:[UIFont fontWithName:@"STHeitiTC-Light" size:fontsize]];
-    if(text != nil)
+    
+    if(text!=nil)
     {
-    UIFont *italicSystemFont = [UIFont fontWithName:@"Helvetica" size:fontsize-1];
-    [self.content setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
+    NSMutableString * resultText = [NSMutableString stringWithString:text];
+          /*
+    NSRegularExpression *regexp =  ParenthesisRegularExpression();
+    NSArray *array = [regexp matchesInString: text
+                                     options: 0
+                                       range: NSMakeRange( 0, [text length])];
 
-        NSRegularExpression *regexp = EnglishRegularExpression();
-        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-
-            CTFontRef italicFont = CTFontCreateWithName((__bridge CFStringRef)italicSystemFont.fontName, italicSystemFont.pointSize, NULL);
-            if (italicFont) {
-                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)italicFont range:result.range];
-                CFRelease(italicFont);
-            }
-        }];
+    NSUInteger i = 0;
+    NSUInteger j = 0;
+      
+    for (NSTextCheckingResult *match in array)
+    {
+        j = match.range.location+i;
         
-        return mutableAttributedString;
-    }];
- 
+        NSString * a = [NSString stringWithFormat:@"<a href='tag:%@'><font color='#4b7189'>",[[text substringWithRange:NSMakeRange(match.range.location+1,match.range.length-1)] encodeBase64String]];
+        
+        [resultText insertString:a atIndex:j];
+        NSString * b = [NSString stringWithFormat:@"</font></a>"];
+        j = match.range.length+j+a.length;
+        [resultText insertString:b atIndex:j];
+        
+        i = i + b.length + a.length;
+        NSLog(@"%@",resultText);
+    }
+    */
+        NSLog(@"%@",resultText);
+        [_content setText:resultText];
+    }
+    /*
     NSRegularExpression *urlregexp =  UrlRegularExpression();
     NSArray *urlarray = [urlregexp matchesInString: _content.text
                                          options: 0
@@ -119,16 +134,32 @@ static inline NSRegularExpression * UrlRegularExpression() {
         for (NSTextCheckingResult *match in urlarray)
         {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [self.content.text substringWithRange:match.range]]];
-            [self.content addLinkToURL:url withRange:match.range];
+    
         }
-        
-    }
+     */       
+}
 
-}
+
 #pragma mark - TTTAttributedLabelDelegate
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    [[[UIActionSheet alloc] initWithTitle:[url absoluteString] delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"在Safari中打开", nil), nil] showInView:self];
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
+{
+    /*
+	NSLog(@"did select url %@", url);
+    
+    NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
+    if([array[0] isEqualToString:@"http"])
+    {
+        [[[UIActionSheet alloc] initWithTitle:[url absoluteString] delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"在Safari中打开", nil), nil] showInView:self];
+    }
+    if([array[0] isEqualToString:@"tag"])
+    {
+        if (_gkdelegate && [_gkdelegate respondsToSelector:@selector(showTagWithTagString:)]) {
+            [_gkdelegate showTagWithTagString:[[[array[1] decodeBase64String]stringByReplacingOccurrencesOfString:@"#" withString:@""]stringByReplacingOccurrencesOfString:@"＃" withString:@""]];
+        }
+    }
+     */
 }
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;

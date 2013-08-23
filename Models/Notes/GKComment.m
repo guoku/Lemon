@@ -81,7 +81,7 @@ NSString * const GKDeleteNoteCommentNotification = @"GKDeleteNoteCommentNotifica
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block)
         {
-            block([NSDictionary dictionary], error);
+            block([NSArray array], error);
         }
     }];
 }

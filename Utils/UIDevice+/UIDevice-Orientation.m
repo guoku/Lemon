@@ -42,6 +42,7 @@ CGFloat device_angle;
 	}
 #else
     // supercede current delegate
+    /*
 	id priorDelegate = [UIAccelerometer sharedAccelerometer].delegate;
 	[UIAccelerometer sharedAccelerometer].delegate = self;
 	
@@ -50,7 +51,7 @@ CGFloat device_angle;
     
     // restore delgate
 	[UIAccelerometer sharedAccelerometer].delegate = priorDelegate;
-	
+	*/
 	return device_angle;
 #endif
 }

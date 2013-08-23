@@ -19,7 +19,6 @@
 		4E0209B217B0EA940080A6F7 /* heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0209AE17B0EA940080A6F7 /* heart@2x.png */; };
 		4E07E15E176323700060AFCD /* GKDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E15B176323700060AFCD /* GKDetailHeaderView.m */; };
 		4E07E15F176323700060AFCD /* GKDetailNoteCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E15D176323700060AFCD /* GKDetailNoteCellView.m */; };
-		4E07E169176323B20060AFCD /* GKNoteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E162176323B20060AFCD /* GKNoteLabel.m */; };
 		4E07E16A176323B20060AFCD /* GKItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E165176323B20060AFCD /* GKItemButton.m */; };
 		4E07E16B176323B20060AFCD /* GKLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E168176323B20060AFCD /* GKLikeButton.m */; };
 		4E07E171176325FA0060AFCD /* GKUserButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E07E170176325FA0060AFCD /* GKUserButton.m */; };
@@ -45,6 +44,7 @@
 		4E2EC2981793E29E00B41DDE /* input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EC2961793E29D00B41DDE /* input@2x.png */; };
 		4E2EC29C17951A3B00B41DDE /* GKMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EC29B17951A3B00B41DDE /* GKMessageViewController.m */; };
 		4E2EC29F17951C6400B41DDE /* TableViewCellForMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EC29E17951C6300B41DDE /* TableViewCellForMessage.m */; };
+		4E352FD317C71FA400376463 /* GKNoteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E352FD217C71FA400376463 /* GKNoteLabel.m */; };
 		4E387A7A17607A38005DA2EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A7917607A38005DA2EC /* UIKit.framework */; };
 		4E387A7C17607A38005DA2EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A7B17607A38005DA2EC /* Foundation.framework */; };
 		4E387A7E17607A38005DA2EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A7D17607A38005DA2EC /* CoreGraphics.framework */; };
@@ -108,7 +108,6 @@
 		4E387B6E17607C89005DA2EC /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2317607C89005DA2EC /* SVSegmentedControl.m */; };
 		4E387B6F17607C89005DA2EC /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2517607C89005DA2EC /* SVSegmentedThumb.m */; };
 		4E387B7017607C89005DA2EC /* GKTaobaoOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2917607C89005DA2EC /* GKTaobaoOAuthViewController.m */; };
-		4E387B7117607C89005DA2EC /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2C17607C89005DA2EC /* TTTAttributedLabel.m */; };
 		4E387B7217607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387B2E17607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a */; };
 		4E387B7317607C9A005DA2EC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A9617607C29005DA2EC /* CoreData.framework */; };
 		4E387B7517607CA2005DA2EC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387B7417607CA2005DA2EC /* CoreText.framework */; };
@@ -590,8 +589,6 @@
 		4E07E15B176323700060AFCD /* GKDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKDetailHeaderView.m; sourceTree = "<group>"; };
 		4E07E15C176323700060AFCD /* GKDetailNoteCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKDetailNoteCellView.h; sourceTree = "<group>"; };
 		4E07E15D176323700060AFCD /* GKDetailNoteCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKDetailNoteCellView.m; sourceTree = "<group>"; };
-		4E07E161176323B20060AFCD /* GKNoteLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKNoteLabel.h; sourceTree = "<group>"; };
-		4E07E162176323B20060AFCD /* GKNoteLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKNoteLabel.m; sourceTree = "<group>"; };
 		4E07E164176323B20060AFCD /* GKItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKItemButton.h; sourceTree = "<group>"; };
 		4E07E165176323B20060AFCD /* GKItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKItemButton.m; sourceTree = "<group>"; };
 		4E07E167176323B20060AFCD /* GKLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKLikeButton.h; sourceTree = "<group>"; };
@@ -640,6 +637,8 @@
 		4E2EC29B17951A3B00B41DDE /* GKMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKMessageViewController.m; sourceTree = "<group>"; };
 		4E2EC29D17951C6300B41DDE /* TableViewCellForMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellForMessage.h; sourceTree = "<group>"; };
 		4E2EC29E17951C6300B41DDE /* TableViewCellForMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellForMessage.m; sourceTree = "<group>"; };
+		4E352FD117C71FA400376463 /* GKNoteLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKNoteLabel.h; sourceTree = "<group>"; };
+		4E352FD217C71FA400376463 /* GKNoteLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKNoteLabel.m; sourceTree = "<group>"; };
 		4E387A7617607A38005DA2EC /* MMM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E387A7917607A38005DA2EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4E387A7B17607A38005DA2EC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -765,8 +764,6 @@
 		4E387B2717607C89005DA2EC /* GKTaobaoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKTaobaoConfig.h; sourceTree = "<group>"; };
 		4E387B2817607C89005DA2EC /* GKTaobaoOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKTaobaoOAuthViewController.h; sourceTree = "<group>"; };
 		4E387B2917607C89005DA2EC /* GKTaobaoOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKTaobaoOAuthViewController.m; sourceTree = "<group>"; };
-		4E387B2B17607C89005DA2EC /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
-		4E387B2C17607C89005DA2EC /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		4E387B2E17607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK_armv7_armv7s.a; sourceTree = "<group>"; };
 		4E387B2F17607C89005DA2EC /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		4E387B3017607C89005DA2EC /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1427,15 +1424,6 @@
 			name = "用户页";
 			sourceTree = "<group>";
 		};
-		4E07E160176323B10060AFCD /* CKNoteLabel */ = {
-			isa = PBXGroup;
-			children = (
-				4E07E161176323B20060AFCD /* GKNoteLabel.h */,
-				4E07E162176323B20060AFCD /* GKNoteLabel.m */,
-			);
-			path = CKNoteLabel;
-			sourceTree = "<group>";
-		};
 		4E07E163176323B20060AFCD /* GKItemButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1597,6 +1585,15 @@
 			name = "消息页";
 			sourceTree = "<group>";
 		};
+		4E352FD017C71FA400376463 /* CKNewNoteLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4E352FD117C71FA400376463 /* GKNoteLabel.h */,
+				4E352FD217C71FA400376463 /* GKNoteLabel.m */,
+			);
+			path = CKNewNoteLabel;
+			sourceTree = "<group>";
+		};
 		4E387A6D17607A38005DA2EC = {
 			isa = PBXGroup;
 			children = (
@@ -1663,7 +1660,6 @@
 				4E387B1E17607C89005DA2EC /* SMPageControl */,
 				4E387B2117607C89005DA2EC /* SVSegmentedControl */,
 				4E387B2617607C89005DA2EC /* Taobao */,
-				4E387B2A17607C89005DA2EC /* TTTAttributedLabel */,
 				4E387B2D17607C89005DA2EC /* WeiXin */,
 				4E387A7917607A38005DA2EC /* UIKit.framework */,
 				4E387A7B17607A38005DA2EC /* Foundation.framework */,
@@ -1987,16 +1983,6 @@
 			path = Frameworks/Taobao;
 			sourceTree = "<group>";
 		};
-		4E387B2A17607C89005DA2EC /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				4E387B2B17607C89005DA2EC /* TTTAttributedLabel.h */,
-				4E387B2C17607C89005DA2EC /* TTTAttributedLabel.m */,
-			);
-			name = TTTAttributedLabel;
-			path = Frameworks/TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
 		4E387B2D17607C89005DA2EC /* WeiXin */ = {
 			isa = PBXGroup;
 			children = (
@@ -2011,6 +1997,7 @@
 		4E387B8417607E6B005DA2EC /* HTKit */ = {
 			isa = PBXGroup;
 			children = (
+				4E352FD017C71FA400376463 /* CKNewNoteLabel */,
 				4E387B8B17607E6B005DA2EC /* GKDelegate.h */,
 				4E387B9817607E6B005DA2EC /* GKNotificationConfig.h */,
 				4E48F1651772C5D4009EF5AE /* GKFollowButton */,
@@ -2018,7 +2005,6 @@
 				4E07E1D81763695F0060AFCD /* TableViewCell */,
 				4E07E17C17632B0E0060AFCD /* GKTitleView */,
 				4E07E16E176325F90060AFCD /* GKUserButton */,
-				4E07E160176323B10060AFCD /* CKNoteLabel */,
 				4E07E163176323B20060AFCD /* GKItemButton */,
 				4E07E166176323B20060AFCD /* GKLikeButton */,
 				4E387C6E176091BE005DA2EC /* TaobaoWebViewController */,
@@ -3538,11 +3524,11 @@
 				4E387B6A17607C89005DA2EC /* SinaWeibo.m in Sources */,
 				4E387B6B17607C89005DA2EC /* SinaWeiboAuthorizeView.m in Sources */,
 				4E387B6C17607C89005DA2EC /* SinaWeiboRequest.m in Sources */,
+				4E352FD317C71FA400376463 /* GKNoteLabel.m in Sources */,
 				4E387B6D17607C89005DA2EC /* SMPageControl.m in Sources */,
 				4E387B6E17607C89005DA2EC /* SVSegmentedControl.m in Sources */,
 				4E387B6F17607C89005DA2EC /* SVSegmentedThumb.m in Sources */,
 				4E387B7017607C89005DA2EC /* GKTaobaoOAuthViewController.m in Sources */,
-				4E387B7117607C89005DA2EC /* TTTAttributedLabel.m in Sources */,
 				4E387B9D17607E6B005DA2EC /* GKBaseViewController.m in Sources */,
 				4E387BA117607E6B005DA2EC /* GKNavigationController.m in Sources */,
 				4E387C16176085FC005DA2EC /* GKActivity.m in Sources */,
@@ -3596,7 +3582,6 @@
 				4E387C83176093CD005DA2EC /* GKLoginViewController.m in Sources */,
 				4E07E15E176323700060AFCD /* GKDetailHeaderView.m in Sources */,
 				4E07E15F176323700060AFCD /* GKDetailNoteCellView.m in Sources */,
-				4E07E169176323B20060AFCD /* GKNoteLabel.m in Sources */,
 				4E07E16A176323B20060AFCD /* GKItemButton.m in Sources */,
 				4E07E16B176323B20060AFCD /* GKLikeButton.m in Sources */,
 				4E07E171176325FA0060AFCD /* GKUserButton.m in Sources */,

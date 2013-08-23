@@ -36,6 +36,7 @@
 @implementation GKAppDelegate
 {
 @private bool loadingEntity;
+    bool needShowMessage;
 }
 
 @synthesize window = _window;
@@ -54,6 +55,7 @@
 #pragma mark- 系统
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    needShowMessage = NO;
     [EGG launchWithAppToken:@"9c8aff14d2583954082d72e7e5175c92"];
     [MobClick startWithAppkey:@"51f215d556240b3094053a48"];
     [MobClick beginEvent:@"app_launch"];
@@ -292,9 +294,14 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    //NSString * type = [[userInfo objectForKey:@"aps"] objectForKey:@"type"];
     if ( application.applicationState == UIApplicationStateActive )
     {
-        
+     
+    }
+    else
+    {
+        needShowMessage = YES;
     }
 }
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -320,6 +327,12 @@
     sinaweibodata.expirationDate =[NSDate dateWithTimeIntervalSinceNow:[[kUserDefault objectForKey:@"sina_expires_in"] integerValue]];
     }
     [self.sinaweibo applicationDidBecomeActive];
+    if(needShowMessage)
+    {
+        needShowMessage = NO;
+        [self messageButtonAction];
+    }
+    
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     

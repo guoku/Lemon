@@ -71,7 +71,7 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
         [titleString drawInRect:rect
                        withFont:self.font
-                  lineBreakMode:UILineBreakModeClip
+                  lineBreakMode:NSLineBreakByClipping
                       alignment:NSTextAlignmentCenter];
 #else
         [titleString drawInRect:rect

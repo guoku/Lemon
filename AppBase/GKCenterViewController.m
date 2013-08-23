@@ -214,11 +214,11 @@
         [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
             if(!error)
             {
-                _dataArray = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-                _dataDic = [NSMutableArray arrayWithArray:array];
+                 _dataDic = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                 _dataArray= [NSMutableArray arrayWithArray:array];
                 
-                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
-                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
+                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
                 [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
                 [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
                 reload = YES;

@@ -93,13 +93,13 @@
         {
             if (block)
             {
-                block([NSArray array],[NSArray array], aError);
+                block([NSDictionary dictionary],[NSArray array], aError);
             }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (block) {
-                block([NSArray array], [NSArray array],error);
+                block([NSDictionary dictionary], [NSArray array],error);
             }
     }];
 }

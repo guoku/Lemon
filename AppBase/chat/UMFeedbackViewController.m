@@ -241,7 +241,7 @@ static UITapGestureRecognizer *tapRecognizer;
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     float animationDuration = [[[notification userInfo] valueForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardBoundsUserInfoKey] CGRectValue].size.height;
+    CGFloat keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
 
     [UIView animateWithDuration:animationDuration
                           delay:0
@@ -322,7 +322,7 @@ static UITapGestureRecognizer *tapRecognizer;
     NSString *content = [[feedbackClient.topicAndReplies objectAtIndex:(NSUInteger) indexPath.row] objectForKey:@"content"];
     CGSize labelSize = [content sizeWithFont:[UIFont systemFontOfSize:14.0f]
                            constrainedToSize:CGSizeMake(226.0f, MAXFLOAT)
-                               lineBreakMode:UILineBreakModeWordWrap];
+                               lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 40 + TOP_MARGIN;
 }
 

@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "398751430.44708"
+         timestampString = "398860600.950678"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "573"
-         endingLineNumber = "573"
+         startingLineNumber = "585"
+         endingLineNumber = "585"
          landmarkName = "-messageButtonAction"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "398751430.44708"
+         timestampString = "398860600.950678"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "603"
-         endingLineNumber = "603"
+         startingLineNumber = "615"
+         endingLineNumber = "615"
          landmarkName = "-messageButtonAction"
          landmarkType = "5">
       </FileBreakpoint>
@@ -105,19 +105,6 @@
          startingLineNumber = "476"
          endingLineNumber = "476"
          landmarkName = "-stageChange"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AppBase/TableViewCellForMessage.m"
-         timestampString = "398764091.013646"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-setMessage:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
