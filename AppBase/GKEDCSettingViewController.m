@@ -50,7 +50,7 @@
     _dataArray = [NSMutableArray arrayWithObjects:
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产与产后",@"name",@"0",@"count",@"5",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"0",@"count",@"6",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"9",@"pid",nil]
@@ -290,10 +290,15 @@
         unsigned int unitFlags = NSDayCalendarUnit;
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
         int days = [comps day];
-        //int week = days/7;
+        int week = days/7;
         int month = days/30;
         //int year = days/365;
-        if(month<6)
+        if(week<2)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"pid"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"userstage"];
+        }
+        else if(month<6)
         {
             [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"pid"];
             [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"userstage"];
@@ -305,12 +310,12 @@
         }
         else
         {
-            [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"pid"];
-            [[NSUserDefaults standardUserDefaults] setObject:@(10) forKey:@"userstage"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"pid"];
+            [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"userstage"];
         }
-        int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
-        NSUInteger stage = [self getIndexByPid:i];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%@啦\U0001F603",[[_dataArray objectAtIndex:stage-1] objectForKey:@"name"]] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
+        //int i = [[kUserDefault objectForKey:@"userstage"] integerValue];
+        //NSUInteger stage = [self getIndexByPid:i];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"您的宝宝已经%d天了啦\U0001F603",days] delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"进入妈妈清单", nil];
         [alertView show];
     }
 }

@@ -61,7 +61,7 @@
     _dataArray = [NSMutableArray arrayWithObjects:
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"0",@"count",@"1",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"0",@"count",@"2",@"pid",nil],
-                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产准备",@"name",@"0",@"count",@"5",@"pid",nil],
+                  [NSMutableDictionary dictionaryWithObjectsAndKeys:@"待产与产后",@"name",@"0",@"count",@"5",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"0-6个月",@"name",@"0",@"count",@"6",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"6-12个月",@"name",@"0",@"count",@"8",@"pid",nil],
                   [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1-3岁",@"name",@"0",@"count",@"9",@"pid",nil]
@@ -484,7 +484,7 @@
     }
     switch (user.stage) {
         case 1:
-            tip.text = @"今天要个宝宝吧!";
+            tip.text = @"宝宝即将到来。";
             break;
         case 2:
         {
@@ -505,7 +505,7 @@
             unsigned int unitFlags = NSDayCalendarUnit;
             NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
             int days = [comps day];
-            tip.text = [NSString stringWithFormat:@"宝宝已经出生%u周。",days/7];
+            tip.text = [NSString stringWithFormat:@"宝宝已经出生%d天。",days];
         }
             break;
             

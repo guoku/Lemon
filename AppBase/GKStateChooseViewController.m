@@ -95,7 +95,7 @@
     
     int i =1;
     
-    NSArray * dataArray = [NSArray arrayWithObjects:@"准备怀孕",@"好孕中",@"宝宝已降生",nil];
+    NSArray * dataArray = [NSArray arrayWithObjects:@"准备怀孕",@"已怀孕",@"宝宝已降生",nil];
     for (i= 1 ; i<=3; i++) {
     
         UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(30, tip.frame.origin.y+tip.frame.size.height+29-50+i*50, kScreenWidth-50, 44)];
@@ -135,13 +135,12 @@
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
             [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"pid"];
          
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了 准备怀孕 阶段。" delegate:self cancelButtonTitle:@"重新设定阶段" otherButtonTitles:@"进入妈妈清单", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您选择了 准备怀孕 。" delegate:self cancelButtonTitle:@"重新设定阶段" otherButtonTitles:@"进入妈妈清单", nil];
             [alertView show];
         }
             break;
         case 2:
         {
-
                 [userDefault setObject:@"pregnant" forKey:@"state"];
                 GKEDCSettingViewController *VC = [[GKEDCSettingViewController alloc]init];
                 [self.navigationController pushViewController:VC animated:YES];
