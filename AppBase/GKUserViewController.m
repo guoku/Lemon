@@ -377,6 +377,13 @@
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
                 NSLog(@"%@",_dataArray);
             
+                for (NSMutableDictionary * data  in _dataArray ) {
+                    for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                        
+                        [[data objectForKey:@"row"] sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"necessary" ascending:NO]]];
+                    }
+                }
+            
             NSUInteger tmp_pid = 0;
             NSUInteger tmp_k = 0;
             for (int i = 0;i< [_entityArray count];i++) {
@@ -810,6 +817,13 @@
         
         NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
         _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        for (NSMutableDictionary * data  in _dataArray ) {
+            for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                
+                [[data objectForKey:@"row"] sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"necessary" ascending:NO]]];
+            }
+        }
         NSUInteger tmp_pid = 0;
         NSUInteger tmp_k = 0;
         for (int i = 0;i< [_entityArray count];i++) {
@@ -1200,6 +1214,13 @@
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                
+                for (NSMutableDictionary * data  in _dataArray ) {
+                    for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                        
+                        [[data objectForKey:@"row"] sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"necessary" ascending:NO]]];
+                    }
+                }
             
             NSUInteger tmp_pid = 0;
             NSUInteger tmp_k = 0;

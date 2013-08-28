@@ -148,7 +148,7 @@
             [necessaryDic setObject:cate forKey:@"section"];
             NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
             [necessaryDic setObject:necessaryArray forKey:@"row"];
-            
+            /*
             NSMutableArray * removeArray = [[NSMutableArray alloc]init];
             for (NSMutableDictionary * data  in _dataArray ) {
                 for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
@@ -178,7 +178,13 @@
             {
                 [_dataArray insertObject:necessaryDic atIndex:0];
             }
-
+             */
+            for (NSMutableDictionary * data  in _dataArray ) {
+                for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+                    
+                    [[data objectForKey:@"row"] sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"necessary" ascending:NO]]];
+                }
+            }
             
             _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
             bool flag = NO;
@@ -489,6 +495,7 @@
     [necessaryDic setObject:cate forKey:@"section"];
     NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
     [necessaryDic setObject:necessaryArray forKey:@"row"];
+     /*
     NSMutableArray * removeArray = [[NSMutableArray alloc]init];
     for (NSMutableDictionary * data  in _dataArray ) {
         for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
@@ -517,7 +524,13 @@
     {
         [_dataArray insertObject:necessaryDic atIndex:0];
     }
-
+    */
+    for (NSMutableDictionary * data  in _dataArray ) {
+        for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+            
+            [[data objectForKey:@"row"] sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"necessary" ascending:NO]]];
+        }
+    }
     _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
     bool flag = NO;
     for (GKEntity * entity in _entityArray)
@@ -569,6 +582,7 @@
     [necessaryDic setObject:cate forKey:@"section"];
     NSMutableArray * necessaryArray = [[NSMutableArray alloc]init];
     [necessaryDic setObject:necessaryArray forKey:@"row"];
+    /*
     NSMutableArray * removeArray = [[NSMutableArray alloc]init];
     for (NSMutableDictionary * data  in _dataArray ) {
         for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
@@ -598,7 +612,13 @@
     {
         [_dataArray insertObject:necessaryDic atIndex:0];
     }
-
+    */
+    for (NSMutableDictionary * data  in _dataArray ) {
+        for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {
+            
+            [[data objectForKey:@"row"] sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"necessary" ascending:NO]]];
+        }
+    }
     _entityArray = [[NSMutableArray alloc]initWithArray:[GKEntity getEntityWithPid:pid]];
     bool flag = NO;
     for (GKEntity * entity in _entityArray)
