@@ -358,7 +358,7 @@
     }
     else
     {
-    score.text = @"木有评分";
+    score.text = @"暂无评分";
     }
     [f5f4f4bg addSubview:score];
     

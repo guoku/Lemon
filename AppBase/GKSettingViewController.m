@@ -355,8 +355,8 @@
 -(void)wxShare:(int)scene;
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = @"分享「妈妈清单」应用";
-    message.description= @"「妈妈清单」，养孩子必备。";
+    message.title = @"妈妈清单 - iPhone上最好用的妈妈购物APP";
+    message.description= @"从备孕开始，「妈妈清单」为你设想所有所需，待你自由选择。随时参考好友的经验，构建全面适合你的购物清单。";
     [message setThumbImage:[UIImage imageNamed:@"wxshare.png"]];
     
     WXAppExtendObject *ext = [WXAppExtendObject object];
@@ -423,7 +423,7 @@
 - (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error
 {
     [GKMessageBoard hideActivity];
-    if(error.code ==21315)
+    if((error.code ==21315)||(error.code == 10006))
     {
         SinaWeibo *sinaweibo = [self sinaweibo];
         [sinaweibo logIn];

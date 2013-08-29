@@ -153,7 +153,7 @@
 {
     [GKMessageBoard hideActivity];
     self.navigationItem.rightBarButtonItem.enabled = YES;
-    if(error.code ==21315)
+    if((error.code ==21315)||(error.code == 10006))
     {
         SinaWeibo *sinaweibo = [self sinaweibo];
         [sinaweibo logIn];

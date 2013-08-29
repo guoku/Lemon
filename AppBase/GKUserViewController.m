@@ -1051,7 +1051,7 @@
                                                     withAction:@"sina_share"
                                                      withLabel:nil
                                                      withValue:nil];
-    NSString *clickUrl = [NSString stringWithFormat:@"%@的妈妈清单 http://mamaqingdan.com/user/%d (分享自@妈妈清单) ",_user.nickname,_user_id];
+    NSString *clickUrl = [NSString stringWithFormat:@"%@的『妈妈清单』 http://mamaqingdan.com/user/%d (分享自@妈妈清单) ",_user.nickname,_user_id];
     NSString *postContent = [NSString stringWithFormat:@"%@%@",@"",clickUrl];
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
     SinaWeibo *sinaweibo = [self sinaweibo];

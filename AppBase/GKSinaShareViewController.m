@@ -253,7 +253,7 @@
 - (void)request:(SinaWeiboRequest *)request didFailWithError:(NSError *)error
 {
     [GKMessageBoard hideMB];
-    if(error.code ==21315)
+    if((error.code ==21315)||(error.code == 10006))
     {
         SinaWeibo *sinaweibo = [self sinaweibo];
         [sinaweibo logIn];

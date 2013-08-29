@@ -7,11 +7,11 @@
 //
 
 #ifndef kGKTaoBaoAppKey
-#define kGKTaoBaoAppKey @"12313170"
+#define kGKTaoBaoAppKey @"21563453"
 #endif
 
 #ifndef kGKTaoBaoAppSecret
-#define kGKTaoBaoAppSecret @"90797bd8d5859aac971f8cc9d4e51105"
+#define kGKTaoBaoAppSecret @"f48371b6d655a6654d7cdc839b2a36c4"
 #endif
 
 #ifndef kGKTaoBaoOAuthUrl
@@ -27,11 +27,11 @@
 //#endif
 
 #ifndef kTTID_IPAD
-#define kTTID_IPAD @"400000_12313170@guoku_ipad"
+#define kTTID_IPAD @"400000_21563453@mmqd_iPad_1.0"
 #endif
 
 #ifndef kTTID_IPHONE
-#define kTTID_IPHONE @"400000_12313170@guoku_iphone"
+#define kTTID_IPHONE @"400000_21563453@mmqd_iPhone_1.0"
 #endif
 
 
