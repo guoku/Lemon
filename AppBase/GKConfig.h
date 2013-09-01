@@ -16,7 +16,7 @@
 #endif
 
 #ifndef kGK_AppID_iPhone
-#define kGK_AppID_iPhone @"477652209"
+#define kGK_AppID_iPhone @"695659781"
 #endif
 // guoku api base url
 //#define kGKAppBaseURL @"http://api.guoku.com/mobile/v2/"
