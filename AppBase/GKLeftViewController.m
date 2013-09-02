@@ -268,10 +268,7 @@
         [cell addSubview:_seperatorLineImageView];
     }
     NSUInteger userstage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userstage"] integerValue];
-    if(userstage >2)
-    {
-        userstage = userstage - 2;
-    }
+    userstage = [self getIndexByPid:userstage];
     if(row == (userstage -1))
     {
         UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 18, 14)];
