@@ -45,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.trackedViewName = @"应用推荐页";
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"应用推荐"];
     //self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.view.backgroundColor = [UIColor blackColor];

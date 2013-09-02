@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UMUFPTableView.h"
 
-@interface UMTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UMUFPTableViewDataLoadDelegate> {
+@interface UMTableViewController : GKBaseViewController <UITableViewDelegate, UITableViewDataSource, UMUFPTableViewDataLoadDelegate> {
     
     UMUFPTableView *_mTableView;
     

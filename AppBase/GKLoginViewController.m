@@ -43,6 +43,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.trackedViewName = @"登录页";
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     

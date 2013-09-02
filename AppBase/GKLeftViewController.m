@@ -54,6 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.trackedViewName = @"左侧菜单页";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProfileChange) name:@"UserProfileChange" object:nil];
@@ -291,10 +292,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
     selectCell = YES;
     NSUInteger pid = [[[_dataArray objectAtIndex:indexPath.row]objectForKey:@"pid"]integerValue];
     [[NSUserDefaults standardUserDefaults] setObject:@(pid) forKey:@"pid"];
     _table.allowsSelection = NO;
+    NSString * title = [[_dataArray objectAtIndex:indexPath.row]objectForKey:@"name"];
+    [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"切换分类"
+                                                    withAction:title
+                                                     withLabel:nil
+                                                     withValue:nil];
     
     [self performSelector:@selector(close) withObject:self afterDelay:0.0];
     [self performSelector:@selector(PN) withObject:self afterDelay:0.05];

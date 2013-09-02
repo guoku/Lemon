@@ -11,7 +11,7 @@
 #import "UMEGORefreshTableHeaderView.h"
 
 
-@interface UMFeedbackViewController : UIViewController <UMFeedbackDataDelegate> {
+@interface UMFeedbackViewController : GKBaseViewController <UMFeedbackDataDelegate> {
     UMFeedback *feedbackClient;
     BOOL _reloading;
     UMEGORefreshTableHeaderView *_refreshHeaderView;

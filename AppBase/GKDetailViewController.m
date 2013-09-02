@@ -80,6 +80,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.trackedViewName = @"商品页";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePokeChange:) name:kGKN_NotePokeChange object:nil];
 

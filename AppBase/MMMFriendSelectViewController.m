@@ -60,6 +60,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.trackedViewName = @"好友精选页";
     _dataArray = [[NSMutableArray alloc]initWithCapacity:0];
     
 }

@@ -174,11 +174,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.trackedViewName = @"左侧菜单页";
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:YES  forKey:@"navigation_bar_button_enable"];
-    self.trackedViewName = @"关注页";
+
     self.dataArrayDic = [[NSMutableDictionary alloc]init];
     _pageForFans = 1;
     _pageForFollow = 1;

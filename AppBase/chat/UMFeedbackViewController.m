@@ -154,8 +154,8 @@ static UITapGestureRecognizer *tapRecognizer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    //self.navigationItem.title = NSLocalizedString(@"Feedback", @"用户反馈");
+    self.trackedViewName = @"意见反馈页";
+    
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"意见反馈"];
     [self setBackButton];
     [self setBackgroundColor];
@@ -293,6 +293,10 @@ static UITapGestureRecognizer *tapRecognizer;
 
 - (IBAction)sendFeedback:(id)sender {
     if ([self.mTextField.text length]) {
+        [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"反馈"
+                                                        withAction:@""
+                                                         withLabel:nil
+                                                         withValue:nil];
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         [dictionary setObject:self.mTextField.text forKey:@"content"];
 

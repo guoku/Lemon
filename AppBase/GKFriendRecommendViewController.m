@@ -50,7 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.trackedViewName = @"邀请好友";
+    self.trackedViewName = @"邀请好友页";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     
     //self.view.backgroundColor =UIColorFromRGB(0xf2f2f2);

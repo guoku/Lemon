@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.trackedViewName = @"状态选择页";
 	// Do any additional setup after loading the view.
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.navigationItem.titleView = [GKTitleView setTitleLabel:@"欢迎加入"];

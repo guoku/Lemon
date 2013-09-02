@@ -74,6 +74,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.trackedViewName = @"关键词页";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityLikeChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:kGKN_EntityChange object:nil];
     UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];

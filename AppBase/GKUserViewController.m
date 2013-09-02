@@ -95,7 +95,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.trackedViewName = @"用户清单页";
     _titleArray = [NSMutableArray arrayWithObjects:
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"准备怀孕",@"name",@"1",@"pid",nil],
                    [NSMutableDictionary dictionaryWithObjectsAndKeys:@"孕期",@"name",@"2",@"pid",nil],

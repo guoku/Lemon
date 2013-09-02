@@ -79,6 +79,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.trackedViewName = @"阶段清单页";
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogin) name: GKUserLoginNotification  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setOpenRight) name: @"OpenRightMenu"  object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(GKLogout) name: GKUserLogoutNotification  object:nil];

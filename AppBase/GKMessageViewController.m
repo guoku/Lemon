@@ -146,6 +146,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.trackedViewName = @"消息页";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userFollowChange:) name:kGKN_UserFollowChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardLikeChange:) name:@"EntityLikeChange" object:nil];
 }
