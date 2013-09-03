@@ -39,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "585"
          endingLineNumber = "585"
-         landmarkName = "-messageButtonAction"
+         landmarkName = "-application:didReceiveRemoteNotification:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "615"
          endingLineNumber = "615"
-         landmarkName = "-messageButtonAction"
+         landmarkName = "-application:didReceiveRemoteNotification:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -91,7 +91,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "462"
          endingLineNumber = "462"
-         landmarkName = "-ProfileChange"
+         landmarkName = "-GKLogout"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

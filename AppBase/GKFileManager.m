@@ -3,7 +3,7 @@
 //  GK_ICM
 //
 //  Created by 梁 玮殷 on 4/9/12.
-//  Copyright (c) 2012 果库. All rights reserved.
+//  Copyright (c) 2012 妈妈清单. All rights reserved.
 //
 
 #import "GKFileManager.h"

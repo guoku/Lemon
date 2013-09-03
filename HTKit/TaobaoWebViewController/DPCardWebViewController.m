@@ -3,7 +3,7 @@
 //  Deeppurple
 //
 //  Created by TingTing Du on 12-5-23.
-//  Copyright (c) 2012年 果库. All rights reserved.
+//  Copyright (c) 2012年 妈妈清单. All rights reserved.
 //
 
 #import "DPCardWebViewController.h"

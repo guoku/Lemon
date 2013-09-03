@@ -294,15 +294,28 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    //NSString * type = [[userInfo objectForKey:@"aps"] objectForKey:@"type"];
-    if ( application.applicationState == UIApplicationStateActive )
+    NSString * type = [userInfo objectForKey:@"type"];
+    if([type isEqualToString:@"message"])
     {
-     
+        if ( application.applicationState == UIApplicationStateActive )
+        {
+         
+        }
+        else
+        {
+            needShowMessage = YES;
+        }
     }
-    else
+    else if([type isEqualToString:@"broadcast"])
     {
-        needShowMessage = YES;
+    
     }
+    else if([type isEqualToString:@"app_update"])
+    {
+        NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    }
+    
 }
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {

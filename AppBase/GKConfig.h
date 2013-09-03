@@ -153,7 +153,7 @@
 
 
 #ifndef kGK_PopSucceedText
-#define kGK_PopSucceedText [NSString stringWithFormat:@"已返回顶端，继续刷果库吧 %@",smile]
+#define kGK_PopSucceedText [NSString stringWithFormat:@"已返回顶端，继续刷妈妈清单吧 %@",smile]
 #endif
 
 #ifndef kGK_PopFailText

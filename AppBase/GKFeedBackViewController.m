@@ -86,7 +86,7 @@
     [noteL setNumberOfLines:2];
     //[noteL setTextColor:[UIColor colorWithRed:100.0f/255.0f green:100.0f/255.0f blue:100.0f/255.0f alpha:1.0f]];
     [noteL setTextColor:UIColorFromRGB(0x999999)];
-    noteL.text = @"欢迎吐槽，不要忘了留下自己的联系方式。亦可在新浪微博上 @果库某工程师 进行投诉。";
+    noteL.text = @"欢迎吐槽，不要忘了留下自己的联系方式。亦可在新浪微博上 @妈妈清单某工程师 进行投诉。";
     [self.view addSubview:noteL];
 }
 

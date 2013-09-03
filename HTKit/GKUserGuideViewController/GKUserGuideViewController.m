@@ -1,9 +1,9 @@
 //
 //  GKUserGuideViewController.m
-//  果库2.0
+//  妈妈清单2.0
 //
 //  Created by huiter on 12-12-11.
-//  Copyright (c) 2012年 果库. All rights reserved.
+//  Copyright (c) 2012年 妈妈清单. All rights reserved.
 //
 
 #import "GKUserGuideViewController.h"
@@ -151,7 +151,7 @@
     [button setFrame:CGRectMake(92,imageview4.frame.size.height-85, 90, 36)];
     [button setCenter:CGPointMake(imageview4.frame.size.width/2, imageview4.frame.size.height-75+18)];
     [button addTarget:self action:@selector(beginInGuoku) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"进入果库" forState:UIControlStateNormal];
+    [button setTitle:@"进入妈妈清单" forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     [button setBackgroundImage:[[UIImage imageNamed:@"green_btn_bg.png"] resizableImageWithCapInsets:insets]forState:UIControlStateNormal];
     [button setHidden:NO];

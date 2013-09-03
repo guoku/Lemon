@@ -45,7 +45,7 @@
 
         if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hadTipShake"])
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"果库小提示：\n摇晃设备可迅速返回最上层" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道啦", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"妈妈清单小提示：\n摇晃设备可迅速返回最上层" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道啦", nil];
             alertView.tag = 25001;
             [alertView show];
         }

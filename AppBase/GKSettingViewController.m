@@ -441,7 +441,7 @@
 {
     GKLog(@"%@",result);
     [GKMessageBoard hideActivity];
-    [GKMessageBoard showMBWithText:@"成功关注果库\U0001F603" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    [GKMessageBoard showMBWithText:@"成功关注妈妈清单\U0001F603" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
    
 }
 - (void)switchButtonAction:(id)sender
