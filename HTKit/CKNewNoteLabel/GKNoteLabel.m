@@ -120,10 +120,10 @@ static inline NSRegularExpression * UrlRegularExpression() {
         [resultText insertString:b atIndex:j];
         
         i = i + b.length + a.length;
-        NSLog(@"%@",resultText);
+        GKLog(@"%@",resultText);
     }
     */
-        NSLog(@"%@",resultText);
+        GKLog(@"%@",resultText);
         [_content setText:resultText];
     }
     /*
@@ -144,7 +144,7 @@ static inline NSRegularExpression * UrlRegularExpression() {
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
 {
     /*
-	NSLog(@"did select url %@", url);
+	GKLog(@"did select url %@", url);
     
     NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
     if([array[0] isEqualToString:@"http"])

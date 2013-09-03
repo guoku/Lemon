@@ -126,7 +126,7 @@
             if(!error)
             {
                 _data = [dict valueForKeyPath:@"content"];
-                NSLog(@"%@",_data);
+                GKLog(@"%@",_data);
                 _friendarray = [[NSMutableArray alloc]initWithCapacity:0];
               
                 [_data.notes_list sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"poker_count" ascending:NO],
@@ -155,7 +155,7 @@
                 
                 if(entity.entitylike.status)
                 {
-                    NSLog(@"%@",entity.pid_list);
+                    GKLog(@"%@",entity.pid_list);
                     for(NSString  * pidString in entity.pid_list ) {
                         entity.pid = [pidString integerValue];
                         [entity save];
@@ -728,7 +728,7 @@
         }
     }completion:^(BOOL finished) {
         GKShop * shop = _detailHeaderView.detailData.purchase_list[shopIndex];
-        NSLog(@"%@",shop.url);
+        GKLog(@"%@",shop.url);
         [self showWebViewWithTaobaoUrl:shop.url];
         [store removeFromSuperview];
         [mask removeFromSuperview];
@@ -755,7 +755,7 @@
     {
         url = [NSString stringWithFormat:@"%@%u",url,user.user_id];
     }
-    NSLog(@"%@",url);
+    GKLog(@"%@",url);
     DPCardWebViewController * _webVC = [DPCardWebViewController linksWebViewControllerWithURL:[NSURL URLWithString:url]];
     
     _webVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;

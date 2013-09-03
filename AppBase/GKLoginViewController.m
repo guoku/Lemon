@@ -47,7 +47,7 @@
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     
-    NSLog(@"%f",kScreenHeight);
+    GKLog(@"%f",kScreenHeight);
     if(kScreenHeight == 548)
     {
         y1 = 67;
@@ -68,7 +68,7 @@
     }
     
     logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_logo.png"]];
-    NSLog(@"y1%f",y1);
+    GKLog(@"y1%f",y1);
     logo.frame = CGRectMake(0, y1, 140, 55);
     logo.center = CGPointMake(kScreenWidth/2-0.5,logo.center.y);
     logo.hidden = YES;

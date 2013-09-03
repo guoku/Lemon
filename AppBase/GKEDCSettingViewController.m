@@ -245,8 +245,8 @@
     {
         if([[datePicker.date earlierDate:[NSDate date]] isEqualToDate:datePicker.date])
         {
-            NSLog(@"%@",[NSDate date]);
-            NSLog(@"%@",datePicker.date);
+            GKLog(@"%@",[NSDate date]);
+            GKLog(@"%@",datePicker.date);
             [GKMessageBoard showMBWithText:@"预产期不能早于当前日期" customView:
              [[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
             return;

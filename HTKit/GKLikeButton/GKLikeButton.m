@@ -124,7 +124,7 @@
                  
                  if(entityLike.status)
                  {
-                 NSLog(@"%@",entity.pid_list);
+                 GKLog(@"%@",entity.pid_list);
                  for(NSString  * pidString in entity.pid_list ) {
                      entity.pid = [pidString integerValue];
                      [entity save];

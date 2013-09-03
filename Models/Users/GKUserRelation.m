@@ -18,7 +18,7 @@
     self = [super init];
     if (self)
     {
-        NSLog(@"%@",attributes);
+        GKLog(@"%@",attributes);
         _user_id = [[attributes valueForKeyPath:@"user_id"] integerValue];
         _status = [[attributes valueForKeyPath:@"status"] integerValue];
     }

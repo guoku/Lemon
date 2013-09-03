@@ -98,7 +98,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    NSLog(@"%f",self.frame.size.width);
+    GKLog(@"%f",self.frame.size.width);
     self.backgroundView.frame = CGRectMake(8, 0, self.frame.size.width, self.backgroundView.frame.size.height);
     [_nickname setFrame:CGRectMake(60, 15, 100, 20)];
     //[_followBTN setFrame:CGRectMake(self.frame.size.width-85,15, 70, 30)];

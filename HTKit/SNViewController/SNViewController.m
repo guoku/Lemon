@@ -73,7 +73,7 @@
     }
     else
     {
-        NSLog(@"%@",error);
+        GKLog(@"%@",error);
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
         [GKMessageBoard showMBWithText:@"网络错误" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
         SinaWeibo *sinaweibo = [self sinaweibo];
@@ -111,9 +111,9 @@
             if(!error)
             {
                
-                NSLog(@"%@",dict);
+                GKLog(@"%@",dict);
                 GKUser *user = [[GKUser alloc ]initFromNSU];
-                NSLog(@"%@",user);
+                GKLog(@"%@",user);
                 [[GAI sharedInstance].defaultTracker sendEventWithCategory:@"AcountAction"
                                                                 withAction:@"login_sina_success"
                                                                  withLabel:nil

@@ -260,7 +260,7 @@
 }
 - (void)TapButtonAction:(id)sender
 {
-    NSLog(@"%d",((UIButton *)sender).tag);
+    GKLog(@"%d",((UIButton *)sender).tag);
     switch (((UIButton *)sender).tag) {
         case 4001:
         {

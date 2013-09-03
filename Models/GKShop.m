@@ -22,7 +22,7 @@
     self = [super init];
     if (self)
     {
-        //NSLog(@"%@",attributes);
+        //GKLog(@"%@",attributes);
 
         if(![[attributes valueForKey:@"shop_title"] isEqual:[NSNull null]])
         {

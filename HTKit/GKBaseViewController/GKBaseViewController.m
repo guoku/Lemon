@@ -181,7 +181,7 @@
     {
         url = [NSString stringWithFormat:@"%@%u",url,user.user_id];
     }
-    NSLog(@"%@",url);
+    GKLog(@"%@",url);
     DPCardWebViewController * _webVC = [DPCardWebViewController linksWebViewControllerWithURL:[NSURL URLWithString:url]];
     
     _webVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;

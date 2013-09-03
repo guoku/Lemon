@@ -465,7 +465,7 @@
     [kUserDefault removeObjectForKey:@"sina_user_id"];
     [kUserDefault removeObjectForKey:@"sina_access_token"];
     [kUserDefault removeObjectForKey:@"sina_expires_in"];
-    NSLog(@"%u",[GKEntity deleteAllEntity]);
+    GKLog(@"%u",[GKEntity deleteAllEntity]);
     [[NSNotificationCenter defaultCenter] postNotificationName:GKUserLogoutNotification object:nil];
     [GKUser globalUserLogoutWithBlock:^(BOOL is_logout, NSError *error) {
 

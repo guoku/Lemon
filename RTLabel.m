@@ -912,7 +912,7 @@
 			// start of tag
 			NSArray *textComponents = [[text substringFromIndex:1] componentsSeparatedByString:@" "];
 			tag = [textComponents objectAtIndex:0];
-			//NSLog(@"start of tag: %@", tag);
+			//GKLog(@"start of tag: %@", tag);
 			NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 			for (NSUInteger i=1; i<[textComponents count]; i++)
 			{

@@ -125,7 +125,7 @@
     else
     {
         [_comment setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@: </font></a><font face='Helvetica' color='#777777' size=14>%@</font>",_data.creator.user_id,_data.creator.nickname,_data.comment]];
-        NSLog(@"%@",_data.comment);
+        GKLog(@"%@",_data.comment);
     }
     CGSize optimumSize = [self.comment optimumSize];
 	CGRect frame = [self.comment frame];
@@ -157,7 +157,7 @@
     
     if(data.reply_user.user_id)
     {
-        NSLog(@"%@",data.reply_user);
+        GKLog(@"%@",data.reply_user);
         [rtlabel setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#777777' size=14> 回复了 </font><a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@: </font></a><font face='Helvetica' color='#7777777' size=14>%@</font>",data.creator.user_id,data.creator.nickname,data.reply_user.user_id,data.reply_user.nickname,data.comment]];
     }
     else
@@ -180,7 +180,7 @@
 }
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
 {
-	NSLog(@"did select url %@", url);
+	GKLog(@"did select url %@", url);
     
     NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
     if([array[0] isEqualToString:@"user"])

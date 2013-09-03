@@ -116,7 +116,7 @@
     }
     [[GKAppDotNetAPIClient sharedClient] getPath:@"maria/read_message/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         
-       NSLog(@"%@", JSON);
+       GKLog(@"%@", JSON);
         NSUInteger  res_code = [[JSON valueForKeyPath:@"res_code"] integerValue];
         NSError * aError;
         switch (res_code) {
@@ -126,7 +126,7 @@
                 NSMutableArray * _mutablearray = [NSMutableArray arrayWithCapacity:[listResponse count]];
                 for (NSDictionary * attributes in listResponse)
                 {
-                    NSLog(@"%@",attributes);
+                    GKLog(@"%@",attributes);
                     GKMessages * _message = [[GKMessages alloc] initWithAttributes:attributes];
                     [_mutablearray addObject:_message];
                 }
@@ -164,7 +164,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        if (block)
        {
-           NSLog(@"%@", error);
+           GKLog(@"%@", error);
            block([NSArray array], error);
        }
     }];

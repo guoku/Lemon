@@ -161,14 +161,14 @@
                     {
                         if(((TMLKeyWord *)object).necessary)
                         {
-                            NSLog(@"必备%@",((TMLKeyWord *)object).name);
+                            GKLog(@"必备%@",((TMLKeyWord *)object).name);
                             [necessaryArray addObject:object];
                             [removeArray addObject:object];
                             
                         }
                         else
                         {
-                            NSLog(@"%@",((TMLKeyWord *)object).name);
+                            GKLog(@"%@",((TMLKeyWord *)object).name);
                         }
                     }
                     
@@ -508,14 +508,14 @@
             {
                 if(((TMLKeyWord *)object).necessary)
                 {
-                    NSLog(@"必备%@",((TMLKeyWord *)object).name);
+                    GKLog(@"必备%@",((TMLKeyWord *)object).name);
                     [necessaryArray addObject:object];
                     [removeArray addObject:object];
                    
                 }
                 else
                 {
-                    NSLog(@"%@",((TMLKeyWord *)object).name);
+                    GKLog(@"%@",((TMLKeyWord *)object).name);
                 }
             }
             
@@ -595,14 +595,14 @@
             {
                 if(((TMLKeyWord *)object).necessary)
                 {
-                    NSLog(@"必备%@",((TMLKeyWord *)object).name);
+                    GKLog(@"必备%@",((TMLKeyWord *)object).name);
                     [necessaryArray addObject:object];
                     [removeArray addObject:object];
                     
                 }
                 else
                 {
-                    NSLog(@"%@",((TMLKeyWord *)object).name);
+                    GKLog(@"%@",((TMLKeyWord *)object).name);
                 }
             }
             

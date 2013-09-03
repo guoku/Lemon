@@ -395,7 +395,7 @@
 }
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
 {
-	NSLog(@"did select url %@", url);
+	GKLog(@"did select url %@", url);
     
     NSArray  * array= [[url absoluteString] componentsSeparatedByString:@":"];
     if([array[0] isEqualToString:@"user"])

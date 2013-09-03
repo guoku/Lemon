@@ -30,7 +30,8 @@
     tableViewTitleL.shadowOffset = CGSizeMake(0.0f,-1.0f);
     tableViewTitleL.textAlignment = NSTextAlignmentCenter;
     tableViewTitleL.adjustsFontSizeToFitWidth = YES;
-    tableViewTitleL.font =  [UIFont fontWithName:@"STHeitiTC-Medium" size:22];
+    //tableViewTitleL.font =  [UIFont fontWithName:@"STHeitiTC-Medium" size:22];
+    tableViewTitleL.font =  [UIFont fontWithName:@"Helvetica-Bold" size:22];
     [titleV addSubview:tableViewTitleL];
 
     return titleV;

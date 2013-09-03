@@ -56,7 +56,7 @@
         // Custom initialization
         self.view.backgroundColor = [UIColor whiteColor];
         self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
-        
+        self.navigationItem.titleView = [GKTitleView setTitleLabel:@"TA的清单"];
         UIButton *backBTN = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 32)];
         [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateNormal];
         [backBTN setImage:[UIImage imageNamed:@"button_icon_back.png"] forState:UIControlStateHighlighted];
@@ -375,7 +375,7 @@
             
             NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"table2"];
             _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                NSLog(@"%@",_dataArray);
+                GKLog(@"%@",_dataArray);
             
                 for (NSMutableDictionary * data  in _dataArray ) {
                     for (int i = 0 ; i<[[data objectForKey:@"row"]count]; i++) {

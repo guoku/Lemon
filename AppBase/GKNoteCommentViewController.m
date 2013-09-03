@@ -393,7 +393,7 @@
  }
 - (void)replyButtonAction:(GKComment *)comment
 {
-    NSLog(@"%u",[_dataArray indexOfObjectIdenticalTo:comment]);
+    GKLog(@"%u",[_dataArray indexOfObjectIdenticalTo:comment]);
 
     textView.text =[NSString stringWithFormat:@"回复%@：",comment.creator.nickname];
     reply_id = comment.comment_id;

@@ -10,7 +10,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 //#import "FMDatabaseAdditions.h"
-#define FMDBQuickCheck(SomeBool) { if (!(SomeBool)) { NSLog(@"Failure on line %d", __LINE__); abort(); } }
+#define FMDBQuickCheck(SomeBool) { if (!(SomeBool)) { GKLog(@"Failure on line %d", __LINE__); abort(); } }
 
 @implementation GKDBCore
 {

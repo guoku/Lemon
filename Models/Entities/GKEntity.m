@@ -245,7 +245,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
 + (NSArray *)getNeedResquestEntity
 {
     FMResultSet * rs = [[GKDBCore sharedDB] queryDataWithSQL:GET_MOST_IMPORTANT_QUERY_SQL];
-    NSLog(@"%@",rs);
+    GKLog(@"%@",rs);
     NSMutableArray * _mutableArray = [NSMutableArray arrayWithCapacity:0];
     while ([rs next]) {
         [_mutableArray addObject:[NSString stringWithFormat:@"%u",[rs intForColumn:@"entity_id"]]];

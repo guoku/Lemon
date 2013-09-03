@@ -163,7 +163,7 @@
     if (_useSmallImg) {
 
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        NSLog(@"%@",[userDefault objectForKey:@"networkStatus"]);
+        GKLog(@"%@",[userDefault objectForKey:@"networkStatus"]);
         if([[userDefault objectForKey:@"networkStatus"]isEqualToString:@"WIFI"])
         {
             [[SDWebImagePrefetcher sharedImagePrefetcher]prefetchURLs:[NSArray arrayWithObject:_imgURL]];
@@ -246,7 +246,7 @@
 - (void)itemCardWithDataButtonAction:(id)sender
 {
    // if (_delegate && [_delegate respondsToSelector:@selector(showDetailWithData:)]) {
-    NSLog(@"%@",_delegate);
+    GKLog(@"%@",_delegate);
         [_delegate showDetailWithData:_entity];
     //}
 }

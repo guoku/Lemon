@@ -573,7 +573,7 @@
 
     if (notification.userInfo) {
         NSArray *newReplies = [notification.userInfo objectForKey:@"newReplies"];
-        NSLog(@"newReplies = %@", newReplies);
+        GKLog(@"newReplies = %@", newReplies);
         NSString *title = [NSString stringWithFormat:@"%d条新消息", [newReplies count]];
         NSMutableString *content = [NSMutableString string];
         for (NSUInteger i = 0; i < [newReplies count]; i++) {
