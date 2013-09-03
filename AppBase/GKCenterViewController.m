@@ -686,6 +686,7 @@
 - (void)GKLogin
 {
     _openLeftMenu = YES;
+    [self refresh];
 }
 - (void)GKLogout
 {
