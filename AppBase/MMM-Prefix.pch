@@ -76,7 +76,7 @@
 // Logging
 #define kGKLogEnabled
 #ifdef kGKLogEnabled
-#define GKLog(fmt, ...) GKLog((@"%s/%d " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define GKLog(fmt, ...) NSLog((@"%s/%d " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
 #define GKLog(...)
 #endif
