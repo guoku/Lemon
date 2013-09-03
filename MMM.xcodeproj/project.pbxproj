@@ -3677,8 +3677,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3693,8 +3693,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "0F48AFF6-59B7-4C33-9583-7666427625EA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0F48AFF6-59B7-4C33-9583-7666427625EA";
+				PROVISIONING_PROFILE = "B3377018-55B7-40C1-91E5-FCF326E51263";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3377018-55B7-40C1-91E5-FCF326E51263";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3730,8 +3730,8 @@
 		4E387A9417607A38005DA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3748,8 +3748,8 @@
 					"\"$(SRCROOT)/UM_UNION_SDK\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "0F48AFF6-59B7-4C33-9583-7666427625EA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0F48AFF6-59B7-4C33-9583-7666427625EA";
+				PROVISIONING_PROFILE = "B3377018-55B7-40C1-91E5-FCF326E51263";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3377018-55B7-40C1-91E5-FCF326E51263";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

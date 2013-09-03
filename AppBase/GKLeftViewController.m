@@ -463,8 +463,9 @@
 
 - (void)ProfileChange
 {
-    [self.table reloadData];
+   
     [self refresh];
+     [self.table reloadData];
     NSUInteger pid =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
     NSUInteger stage = [self getIndexByPid:pid];
     [_table selectRowAtIndexPath:[NSIndexPath indexPathForRow:stage-1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -486,6 +487,8 @@
     {
         calendar.date = [NSDate date];
     }
+    [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
+    
     switch (user.stage) {
         case 1:
             tip.text = @"宝宝即将到来。";
