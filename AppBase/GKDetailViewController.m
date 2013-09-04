@@ -117,10 +117,11 @@
 {
     [super viewDidAppear:animated];
      //   self.navigationItem.titleView = [GKTitleView  setTitleLabel:[NSString stringWithFormat:@"%d",_entity_id]];
-    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    gestureRecognizer.numberOfTouchesRequired = 1;
-    [self.navigationController.view addGestureRecognizer:gestureRecognizer];
+ 
+    if([self.navigationController isKindOfClass:[GKNavigationController class]])
+    {
+        [(GKNavigationController *)self.navigationController setGestureRecognizerEnable];
+    }
     if(_data == nil)
     {
         GKLog(@"entity --- id --------------- %u", self.entity_id);
@@ -1006,14 +1007,4 @@
     self.table.tableFooterView = footerview;
 }
 
-- (void)handleSwipeGesture:(id)sender
-{
-    if ([self.navigationController.viewControllers count]>1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
-        
-    }
-}
 @end

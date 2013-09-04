@@ -10,5 +10,5 @@
 
 
 @interface GKNavigationController : UINavigationController
-
+- (void)setGestureRecognizerEnable;
 @end

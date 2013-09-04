@@ -62,6 +62,13 @@
     }
 }
 
+- (void)setGestureRecognizerEnable
+{
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    gestureRecognizer.numberOfTouchesRequired = 1;
+    [self.view addGestureRecognizer:gestureRecognizer];
+}
 - (void)pop
 {
     if([self.viewControllers count]>1)
