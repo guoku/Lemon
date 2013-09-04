@@ -481,7 +481,8 @@
     description.text = [kUserDefault stringForKey:kSession];
     if((user.birth_date)&&(user.stage !=1))
     {
-        calendar.date = user.birth_date;
+        calendar.date = [NSDate date];
+        //calendar.date = user.birth_date;
     }
     else
     {

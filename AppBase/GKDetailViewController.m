@@ -487,6 +487,10 @@
         [self.table reloadData];
         }
     }
+    if([_data.notes_list count]>0)
+    {
+        self.table.tableFooterView = nil;
+    }
 }
 - (void)cardLikeChange:(NSNotification *)noti
 {
