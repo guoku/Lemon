@@ -202,6 +202,7 @@
                                                      userInfo:nil
                                                       repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    [self getEntity];
     
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:120.0f
@@ -222,6 +223,15 @@
     [self checkUM];
 
     [MobClick endEvent:@"app_launch"];
+    
+    UILabel * newMessage = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, 50, 10)];
+    newMessage.text = @"新消息";
+    newMessage.backgroundColor = [UIColor clearColor];
+    newMessage.textColor = UIColorFromRGB(0x999999);
+    [newMessage setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
+    newMessage.textAlignment = NSTextAlignmentCenter;
+
+    
     UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
     _messageRemind = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
     _messageRemind.center = CGPointMake(kScreenWidth+40, kScreenHeight-20);
@@ -234,9 +244,11 @@
     [_messageRemind.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:9.0f]];
     _messageRemind.titleLabel.textAlignment = UITextAlignmentCenter;
     _messageRemind.titleLabel.numberOfLines = 0;
+    [_messageRemind setTitleEdgeInsets:UIEdgeInsetsMake(10, 0, 0, 0)];
     [_messageRemind setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
     [_messageRemind addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
     //_messageRemind.hidden = YES;
+    [_messageRemind addSubview:newMessage];
     [self.window addSubview:_messageRemind];
     
     return YES;
@@ -251,8 +263,7 @@
      {
          if (!error) {
              if (count>0) {
-                [_messageRemind setTitle:[NSString stringWithFormat:@"新消息\
-                                          %d条",count] forState:UIControlStateNormal];
+                [_messageRemind setTitle:[NSString stringWithFormat:@"%d条",count] forState:UIControlStateNormal];
                  [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                      _messageRemind.center = CGPointMake(kScreenWidth-30, kScreenHeight-20);
                  } completion:^(BOOL finished) {

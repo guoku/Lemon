@@ -154,7 +154,7 @@
                                                          completion:^(BOOL finished) {
                                                              GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
                                                              [delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
-                                                                 
+                                                            [[NSNotificationCenter defaultCenter] postNotificationName:@"stageChange" object:nil userInfo:nil];  
                                                              }];
                                                          }];
                                         
