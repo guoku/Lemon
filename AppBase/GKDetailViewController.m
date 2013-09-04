@@ -327,7 +327,15 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = [GKDetailNoteCellView height:[_data.notes_list objectAtIndex:indexPath.row]];
+    CGFloat height = 0;
+    if(!friendonly)
+    {
+        height = [GKDetailNoteCellView height:[_data.notes_list objectAtIndex:indexPath.row]];
+    }
+    else
+    {
+        height = [GKDetailNoteCellView height:[_friendarray objectAtIndex:indexPath.row]];
+    }
     return height;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
