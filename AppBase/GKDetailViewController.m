@@ -14,7 +14,7 @@
 #import "RatingView.h"
 #import "DPCardWebViewController.h"
 #import "GKNotePostViewController.h"
-
+#import "GKMessageViewController.h"
 @interface GKDetailViewController ()
 
 @end
@@ -117,6 +117,10 @@
 {
     [super viewDidAppear:animated];
      //   self.navigationItem.titleView = [GKTitleView  setTitleLabel:[NSString stringWithFormat:@"%d",_entity_id]];
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    gestureRecognizer.numberOfTouchesRequired = 1;
+    [self.navigationController.view addGestureRecognizer:gestureRecognizer];
     if(_data == nil)
     {
         GKLog(@"entity --- id --------------- %u", self.entity_id);
@@ -880,12 +884,23 @@
     {
         return;
     }
-    GKNotePostViewController *VC = [[GKNotePostViewController alloc] initWithDetailData:_data];
-    VC.hidesBottomBarWhenPushed = YES;
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:VC];
-    [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
-    }];
+    GKNavigationController * nav = (GKNavigationController *)(kAppDelegate.window.rootViewController.presentedViewController);
+    if([nav.viewControllers[0] isKindOfClass:[GKMessageViewController class]])
+    {
+        GKNotePostViewController *VC = [[GKNotePostViewController alloc] initWithDetailData:_data];
+        VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+        return;
+    }
+    else
+    {
+        GKNotePostViewController *VC = [[GKNotePostViewController alloc] initWithDetailData:_data];
+        VC.hidesBottomBarWhenPushed = YES;
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:VC];
+        [((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            [((GKNavigationController *)((GKAppDelegate *)[UIApplication sharedApplication].delegate).drawerController.centerViewController) presentViewController:nav animated:YES completion:NULL];
+        }];
+    }
 }
 - (void)tapPokeRoHootButtonWithNote:(id)noteobj Poke:(id)poker;
 {
@@ -989,5 +1004,16 @@
     [footerview addSubview:tip];
 
     self.table.tableFooterView = footerview;
+}
+
+- (void)handleSwipeGesture:(id)sender
+{
+    if ([self.navigationController.viewControllers count]>1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        
+    }
 }
 @end

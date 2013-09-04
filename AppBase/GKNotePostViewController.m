@@ -26,16 +26,30 @@
 @synthesize ratingView = _ratingView;
 @synthesize seperatorLineImageView = _seperatorLineImageView;
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(donothing:)];
+    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    gestureRecognizer.numberOfTouchesRequired = 1;
+    [self.navigationController.view addGestureRecognizer:gestureRecognizer];
+    
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         _message = [[NSMutableDictionary alloc]init];
+
     }
     return self;
 }
 
+
+- (void)donothing:(id)sender
+{
+}
 - (id)initWithDetailData:(GKDetail *)data
 {
     self = [super init];
