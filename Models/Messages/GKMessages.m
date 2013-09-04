@@ -46,6 +46,10 @@
         {
             _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
         }
+        else if ([_type isEqualToString:@"reply_comment"])
+        {
+            _message_object = [[GKNoteMessage alloc] initWithAttributes:[attributes valueForKeyPath:@"data"]];
+        }
     }
     
     return self;

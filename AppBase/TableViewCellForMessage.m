@@ -294,6 +294,34 @@
         [self addSubview:_img];
         _img.entityBase = message .entity;
     }
+    if([_message.type isEqual:@"reply_comment"])
+    {
+        icon.image = [UIImage imageNamed:@"message_icon4.png"];
+        CGFloat y = 0;
+        
+        GKNoteMessage *message = ((GKNoteMessage*)_message.message_object);
+        
+        GKUserButton *_avatar = [[GKUserButton alloc] initWithFrame:CGRectMake(10,y+10,40,40) useBg:NO cornerRadius:2];
+        [self addSubview:_avatar];
+        _avatar.userBase = message.user;
+        
+        RTLabel * message_label = [[RTLabel alloc]initWithFrame:CGRectMake(60,y+10,165,100)];
+        [message_label setParagraphReplacement:@""];
+        
+        message_label.lineSpacing = 4.0;
+        message_label.delegate = self;
+        
+        [message_label setText:[NSString stringWithFormat:@"<a href='user:%u'><font face='Helvetica-Bold' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14><br>回复了你对 </font><a href='entity:%u'><font face='Helvetica' color='#555555' size=14>%@</font></a><font face='Helvetica' color='#999999' size=14> 的评论</font>",message.user.user_id,message.user.nickname,message.entity.entity_id,message.entity.title]];
+        
+        [self addSubview:message_label];
+        
+        GKItemButton *_img = [[GKItemButton alloc] init];
+        [_img setType:kItemButtonWithNumProgress];
+        [_img setPadding:4];
+        [_img setFrame:CGRectMake(230, y+10, 80, 80)];
+        [self addSubview:_img];
+        _img.entityBase = message .entity;
+    }
     icon.center = CGPointMake(46,46);
     [self addSubview:icon];
 
@@ -389,6 +417,10 @@
         y = (int)optimumSize.height+25;
          */
         
+    }
+    if([data.type isEqual:@"reply_comment"])
+    {
+        y = 100;
     }
 
     return y;

@@ -250,6 +250,13 @@
         return;
     
     }
+    if([data.type isEqual:@"reply_comment"])
+    {
+        GKNoteMessage *message = ((GKNoteMessage*)data.message_object);
+        [self showCommentWithNoteID:message.note.note_id EntityID:message.note.entity_id];
+        return;
+        
+    }
 }
 #pragma mark Delegate
 
