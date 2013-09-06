@@ -861,7 +861,7 @@
     }
     
     WXWebpageObject *webPage = [WXWebpageObject object];
-    webPage.webpageUrl = [NSString stringWithFormat:@"%@detail/%u",kGK_WeixinShareURL,_data.entity_id];
+    webPage.webpageUrl = [NSString stringWithFormat:@"%@d/%u",kGK_WeixinShareURL,_data.entity_id];
     GKLog(@"webpageUrl---%@",webPage.webpageUrl);
     message.mediaObject = webPage;
     message.title = @"妈妈清单 - iPhone上最好用的妈妈购物APP";

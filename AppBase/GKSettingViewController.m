@@ -184,7 +184,7 @@
         }
     }
     if (indexPath.section == 2) {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             UIView *accessoryV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, cell.frame.size.height)];
