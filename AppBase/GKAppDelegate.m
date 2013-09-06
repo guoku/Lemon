@@ -93,7 +93,7 @@
                 
                 if(hasNewVersion)
                 {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本啦\U0001F603" message:_versionmessage delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去升级", nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本\U0001F603" message:_versionmessage delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去升级", nil];
                     [alertView show];
                 }
             }
