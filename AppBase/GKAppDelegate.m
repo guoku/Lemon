@@ -292,7 +292,15 @@
         [GKNotification postNotificationInfoWithDeviceToken:devToken Block:^(BOOL is_success, NSError *error) {
             if (!error)
             {
-
+                /*
+                [GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@成功\U0001F603",devToken] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                 */
+            }
+            else
+            {
+                /*
+                [GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@失败\U0001F603",devToken] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                 */
             }
         }];
     }
@@ -305,12 +313,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSString * type = [userInfo objectForKey:@"type"];
+    [GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@",userInfo] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    NSString * type = [[[userInfo objectForKey:@"aps"]objectForKey:@"message"]objectForKey:@"type"];
     if([type isEqualToString:@"message"])
     {
         if ( application.applicationState == UIApplicationStateActive )
         {
-         
+
         }
         else
         {
@@ -351,12 +360,16 @@
     sinaweibodata.expirationDate =[NSDate dateWithTimeIntervalSinceNow:[[kUserDefault objectForKey:@"sina_expires_in"] integerValue]];
     }
     [self.sinaweibo applicationDidBecomeActive];
+
+    [self performSelector:@selector(checkIfShouldShowMessage)  withObject:nil afterDelay:0];
+}
+- (void)checkIfShouldShowMessage
+{
     if(needShowMessage)
     {
         needShowMessage = NO;
         [self messageButtonAction];
     }
-    
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     

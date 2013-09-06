@@ -50,7 +50,7 @@
     [paramters setValue:@"production" forKey:@"development"];
 #endif
 //    GKLog(@"%@", paramters);
-    [[GKAppDotNetAPIClient sharedClient] postPath:@"v2/apns/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[GKAppDotNetAPIClient sharedClient] postPath:@"maria/apns/" parameters:[paramters Paramters] success:^(AFHTTPRequestOperation *operation, id JSON) {
         GKLog(@"%@", JSON);
         if (block)
         {
