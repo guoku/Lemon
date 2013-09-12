@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "399360646.01492"
+         timestampString = "400666002.906013"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "179"
-         endingLineNumber = "179"
+         startingLineNumber = "180"
+         endingLineNumber = "180"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "400149790.877629"
+         timestampString = "400664004.309084"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "610"
-         endingLineNumber = "610"
+         startingLineNumber = "611"
+         endingLineNumber = "611"
          landmarkName = "-umCheck:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKAppDelegate.m"
-         timestampString = "400149790.877629"
+         timestampString = "400664004.309084"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "640"
-         endingLineNumber = "640"
+         startingLineNumber = "641"
+         endingLineNumber = "641"
          landmarkName = "-messageButtonAction"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "399361340.225624"
+         timestampString = "400666002.906013"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "489"
-         endingLineNumber = "489"
+         startingLineNumber = "490"
+         endingLineNumber = "490"
          landmarkName = "-stageChange"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AppBase/GKCenterViewController.m"
-         timestampString = "399361340.225624"
+         timestampString = "400666002.906013"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "490"
-         endingLineNumber = "490"
+         startingLineNumber = "491"
+         endingLineNumber = "491"
          landmarkName = "-stageChange"
          landmarkType = "5">
       </FileBreakpoint>
@@ -118,6 +118,71 @@
          startingLineNumber = "66"
          endingLineNumber = "66"
          landmarkName = "+getUserUnreadMessageCountWithBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKUserViewController.m"
+         timestampString = "400664171.584242"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "961"
+         endingLineNumber = "961"
+         landmarkName = "-entityChange:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKNotePostViewController.m"
+         timestampString = "400666023.103704"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "-submit"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKNotePostViewController.m"
+         timestampString = "400666023.103704"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "260"
+         endingLineNumber = "260"
+         landmarkName = "-submit"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKNotePostViewController.m"
+         timestampString = "400666023.103704"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "259"
+         endingLineNumber = "259"
+         landmarkName = "-submit"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AppBase/GKUserViewController.m"
+         timestampString = "400664415.047814"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1002"
+         endingLineNumber = "1002"
+         landmarkName = "-entityChange:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

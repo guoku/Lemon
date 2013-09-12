@@ -56,6 +56,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     needShowMessage = NO;
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sync"];
     [EGG launchWithAppToken:@"9c8aff14d2583954082d72e7e5175c92"];
     [MobClick startWithAppkey:@"51f215d556240b3094053a48"];
     [MobClick beginEvent:@"app_launch"];

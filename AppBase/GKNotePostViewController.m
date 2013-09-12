@@ -238,7 +238,12 @@
                     _data.entitylike = entityLike;
                     [entity save];
                 }
+                else if(status)
+                {
+                    [entity save];
+                }
             }
+
 
             if((entityLike.status)&&(!status))
             {
