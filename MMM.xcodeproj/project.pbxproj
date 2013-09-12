@@ -3730,35 +3730,7 @@
 		4E387A9417607A38005DA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AppBase/MMM-Prefix.pch";
-				INFOPLIST_FILE = "AppBase/MMM-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks/GA\"",
-					"\"$(SRCROOT)/Frameworks/WeiXin\"",
-					"\"$(SRCROOT)/Frameworks/UMeng\"",
-					"\"$(SRCROOT)/UM_UNION_SDK\"",
-				);
-				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = 1;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		4E387A9517607A38005DA2EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3776,8 +3748,36 @@
 					"\"$(SRCROOT)/UM_UNION_SDK\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "0F48AFF6-59B7-4C33-9583-7666427625EA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0F48AFF6-59B7-4C33-9583-7666427625EA";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4E387A9517607A38005DA2EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AppBase/MMM-Prefix.pch";
+				INFOPLIST_FILE = "AppBase/MMM-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks/GA\"",
+					"\"$(SRCROOT)/Frameworks/WeiXin\"",
+					"\"$(SRCROOT)/Frameworks/UMeng\"",
+					"\"$(SRCROOT)/UM_UNION_SDK\"",
+				);
+				PRODUCT_NAME = MMM;
+				PROVISIONING_PROFILE = "0F48AFF6-59B7-4C33-9583-7666427625EA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0F48AFF6-59B7-4C33-9583-7666427625EA";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
