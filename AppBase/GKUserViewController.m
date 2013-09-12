@@ -1358,7 +1358,7 @@
         tip.frame = CGRectMake(45, imageview1.frame.size.height+imageview1.frame.origin.y+15, kScreenWidth-45, 20.0f);
         [tip setBackgroundColor:[UIColor clearColor]];
         [tip setUserInteractionEnabled:YES];
-        [tip setTitle:@"啥都没收藏！" forState:UIControlStateNormal];
+        [tip setTitle:@"暂时还没有收藏" forState:UIControlStateNormal];
         [tip setTitleColor:UIColorFromRGB(0xe4ded7) forState:UIControlStateNormal];
         [tip setTitleColor:UIColorFromRGB(0xe4ded7) forState:UIControlStateHighlighted];
         tip.titleLabel.textAlignment = NSTextAlignmentCenter;
