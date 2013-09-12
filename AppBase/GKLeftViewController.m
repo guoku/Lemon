@@ -213,6 +213,7 @@
         NSUInteger stage = [self getIndexByPid:pid];
         [[_dataArray objectAtIndex:(stage-1)]setObject:[NSString stringWithFormat:@"%u",count] forKey:@"count"];
     }
+    [self refresh];
     [self.table reloadData];
     NSUInteger pid =[[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"pid"]]integerValue];
     NSUInteger stage = [self getIndexByPid:pid];
@@ -224,6 +225,7 @@
     {
         [self.table deselectRowAtIndexPath:self.table.indexPathForSelectedRow animated:YES];
     }
+
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
@@ -488,11 +490,28 @@
     {
         calendar.date = [NSDate date];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
-    
+    //[[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    unsigned int unitFlags = NSDayCalendarUnit;
+    NSDate *startDate = [NSDate date];
+    NSDate *endDate = user.birth_date;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
+    int days = [comps day];
+    switch (user.stage) {
+        case 2:
+        {
+            if (days<0) {
+                user.stage = 3;
+                [user save];
+            }
+        }
+    }
     switch (user.stage) {
         case 1:
+        {
             tip.text = @"宝宝即将到来。";
+            [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"userstage"];
+        }
             break;
         case 2:
         {
@@ -503,6 +522,17 @@
             NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
             int days = [comps day];
             tip.text = [NSString stringWithFormat:@"离宝宝出生还有%u天。",days];
+            
+            int week = days/7;
+            if(week<2)
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"userstage"];
+            }
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@(2) forKey:@"userstage"];
+            }
+
         }
             break;
         case 3:
@@ -514,6 +544,25 @@
             NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
             int days = [comps day];
             tip.text = [NSString stringWithFormat:@"宝宝已经出生%d天。",days];
+            
+            int week = days/7;
+            int month = days/30;
+            if(week<2)
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@(5) forKey:@"userstage"];
+            }
+            else if(month<6)
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@(6) forKey:@"userstage"];
+            }
+            else if(month<12)
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@(8) forKey:@"userstage"];
+            }
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@(9) forKey:@"userstage"];
+            }
         }
             break;
             
