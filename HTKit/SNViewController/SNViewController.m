@@ -122,11 +122,69 @@
                 
                     if(user.stage == 0)
                     {
-                        GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
-                        UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:VC];
-                        [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:NULL];
-                        [delegate.window.rootViewController presentViewController: nav animated:NO completion:NULL];
-                        [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                        [MMMTML globalTMLWithBlock:^(NSDictionary * dictionary, NSArray *array,NSError *error) {
+                            if(!error)
+                            {
+                                NSMutableDictionary *_dataDic = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                                NSMutableArray *_dataArray = [NSMutableArray arrayWithArray:array];
+                                
+                                NSData *Data1 = [NSKeyedArchiver archivedDataWithRootObject:_dataDic];
+                                NSData *Data2 = [NSKeyedArchiver archivedDataWithRootObject:_dataArray];
+                                [[NSUserDefaults standardUserDefaults] setObject:Data1 forKey:@"table"];
+                                [[NSUserDefaults standardUserDefaults] setObject:Data2 forKey:@"table2"];
+                                [GKUser getMyFolderBlock:^(NSArray *entitylist, NSError *error) {
+                                    if(!error)
+                                    {
+                                        [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                        [UIView animateWithDuration:1.2 animations:^{
+                                            
+                                        }
+                                                         completion:^(BOOL finished) {
+                                                             GKStateChooseViewController *VC = [[GKStateChooseViewController alloc]init];
+                                                             UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:VC];
+                                                             [delegate.window.rootViewController dismissViewControllerAnimated:NO completion:NULL];
+                                                             [delegate.window.rootViewController presentViewController: nav animated:NO completion:NULL];
+                                                             [GKMessageBoard showMBWithText:kGK_WeiboLoginSucceedText customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"stageChange" object:nil userInfo:nil];
+                                                         }];
+                                    
+                                    }
+                                    else
+                                    {
+                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
+                                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                        [delegate.sinaweibo logOut];
+                                        [kUserDefault removeObjectForKey:@"sina_user_id"];
+                                        [kUserDefault removeObjectForKey:@"sina_access_token"];
+                                        [kUserDefault removeObjectForKey:@"sina_expires_in"];
+                                        [GKMessageBoard showMBWithText:@"登录失败" customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+                                    }
+                                    
+                                }];
+                                
+                            }
+                            else
+                            {
+                                switch (error.code) {
+                                    case -999:
+                                        [GKMessageBoard hideMB];
+                                        break;
+                                    default:
+                                    {
+                                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSession];
+                                        GKAppDelegate *delegate = (GKAppDelegate *)[UIApplication sharedApplication].delegate;
+                                        [delegate.sinaweibo logOut];
+                                        [kUserDefault removeObjectForKey:@"sina_user_id"];
+                                        [kUserDefault removeObjectForKey:@"sina_access_token"];
+                                        [kUserDefault removeObjectForKey:@"sina_expires_in"];
+                                        NSString * errorMsg = [error localizedDescription];
+                                        
+                                        [GKMessageBoard showMBWithText:@"" detailText:errorMsg  lableFont:nil detailFont:nil customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2 atHigher:NO];
+                                    }
+                                        break;
+                                }
+                            }
+                        }];
                     }
                     else
                     {
