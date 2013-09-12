@@ -16,6 +16,7 @@ entity_id INTEGER NOT NULL, \
 pid INTEGER NOT NULL, \
 cid INTEGER NOT　NULL, \
 title VARCHAR(255), \
+entity_hash VARCHAR(255), \
 brand VARCHAR(255), \
 shop VARCHAR(255), \
 remark VARCHAR(255), \
@@ -33,7 +34,7 @@ weight INTEGER DEFAULT 0)";
 static NSString * CREATE_ENTITY_INDEX = @"CREATE UNIQUE INDEX IF NOT EXISTS entity_pid_index ON entity (entity_id, pid)";
 
 
-static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,title, brand, image_url, price, avg_score,score_user_num,liked_count, used_count, weight,shop,remark,my_score,pid_list) VALUES(:entity_id,:pid ,:cid ,:title, :brand, :image_url, :price, :avg_score,:score_user_num,:liked_count, :used_count, :weight,:shop,:remark,:my_score,:pid_list)";
+static NSString * INSERT_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid ,title, entity_hash,brand, image_url, price, avg_score,score_user_num,liked_count, used_count, weight,shop,remark,my_score,pid_list) VALUES(:entity_id,:pid ,:cid ,:title,:entity_hash,:brand, :image_url, :price, :avg_score,:score_user_num,:liked_count, :used_count, :weight,:shop,:remark,:my_score,:pid_list)";
 
 static NSString * INSERT_LITTLE_DATA_SQL = @"REPLACE INTO entity (entity_id,pid ,cid,weight) VALUES(:entity_id,:pid ,:cid ,:weight)";
 

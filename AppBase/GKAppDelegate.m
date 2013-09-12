@@ -314,7 +314,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@",userInfo] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    //[GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@",userInfo] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
     NSString * type = [[[userInfo objectForKey:@"aps"]objectForKey:@"message"]objectForKey:@"type"];
     if([type isEqualToString:@"message"])
     {
