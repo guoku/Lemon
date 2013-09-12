@@ -14,6 +14,7 @@
 
 @property (readonly) NSUInteger entity_id;
 @property (readwrite) NSUInteger pid;
+@property (readonly) NSString * entity_hash;
 @property (readonly) NSString * brand;
 @property (nonatomic,strong) NSMutableArray * remark_list;
 @property (readwrite) float avg_score;

@@ -52,6 +52,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
 @synthesize entity_id = _entity_id;
 @synthesize pid = _pid;
 @synthesize brand = _brand;
+@synthesize entity_hash = _entity_hash;
 @synthesize remark_list = _remark_list;
 @synthesize avg_score = _avg_score;
 @synthesize score_user_num = _score_user_num;
@@ -74,6 +75,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
     {
         _entity_id = [[attributes valueForKeyPath:@"entity_id"] integerValue];
         _pid = [[attributes valueForKeyPath:@"selected_phase_id"] intValue];
+        _entity_hash = [attributes valueForKeyPath:@"entity_hash"];
         _brand = [attributes valueForKeyPath:@"brand"];
         _remark_list = [NSMutableArray arrayWithArray:[attributes valueForKey:@"remark_list"]];
         _pid_list = [NSMutableArray arrayWithArray:[attributes valueForKey:@"phase_id_list"]];
@@ -170,6 +172,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         _avg_score = [rs doubleForColumn:@"avg_score"];
         _score_user_num = [rs intForColumn:@"score_user_num"];
         _title = [rs stringForColumn:@"title"];
+        _entity_hash = [rs stringForColumn:@"entity_hash"];
         _brand = [rs stringForColumn:@"brand"];
         _imgUrlString = [rs stringForColumn:@"image_url"];
         _price = [rs doubleForColumn:@"price"];
@@ -215,6 +218,7 @@ static NSString * GET_ENTITY_COUNT_GROUP_BY_PID_QUERY_SQL = @"SELECT count(*) AS
         [argsDict setValue:[NSString stringWithFormat:@"%u", _score_user_num] forKey:@"score_user_num"];
         [argsDict setValue:_title forKey:@"title"];
         [argsDict setValue:_brand forKey:@"brand"];
+        [argsDict setValue:_entity_hash forKey:@"entity_hash"];
         [argsDict setValue:_imgUrlString forKey:@"image_url"];
         [argsDict setValue:[NSString stringWithFormat:@"%.2f", _avg_score] forKey:@"avg_score"];
         [argsDict setValue:[NSString stringWithFormat:@"%.2f", _price] forKey:@"price"];

@@ -234,14 +234,14 @@
                                                      withLabel:nil
                                                      withValue:nil];
         [self resignTextView:nil];
-    NSString *clickUrl = [NSString stringWithFormat:@" 详情 http://mamaqingdan.com/e/%d/ (分享自@妈妈清单) ",_detailData.entity_id];
+    NSString *clickUrl = [NSString stringWithFormat:@" 详情 http://mamaqingdan.com/e/%@/ (分享自@妈妈清单) ",_detailData.entity_hash];
     NSString *postContent = [NSString stringWithFormat:@"%@%@",_textView.text,clickUrl];
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
             SinaWeibo *sinaweibo = [self sinaweibo];
-            [sinaweibo requestWithURL:@"statuses/upload_url_text.json"
+            [sinaweibo requestWithURL:@"statuses/upload.json"
                                params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        postContent, @"status",
-                                       [_detailData.imageURL absoluteString], @"url", nil]
+                                       self.entityImageView.image, @"pic", nil]
                            httpMethod:@"POST"
                              delegate:self];
 }
