@@ -123,7 +123,7 @@
     
     if(_userid !=0)
     {
-        if ([[_avatarURL absoluteString]hasPrefix:@"http://image.guoku.com/avatar/default"]) {
+        if ([[_avatarURL absoluteString]hasPrefix:@"http://imgcdn.guoku.com/avatar/default"]) {
             _avatarImage.image = [UIImage imageNamed:@"user_icon.png"];
         }
         else

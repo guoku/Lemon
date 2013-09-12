@@ -31,7 +31,7 @@
         _avatarImageURLString = [attributes valueForKeyPath:@"avatar_small"];
         if(!_avatarImageURLString)
         {
-            _avatarImageURLString = @"http://image.guoku.com/avatar/large_181259_c3ac1096db6cf045cc4c9ed3a62f1c7c.jpe";
+            //_avatarImageURLString = @"http://image.guoku.com/avatar/large_181259_c3ac1096db6cf045cc4c9ed3a62f1c7c.jpe";
         }
         _relation = [[GKUserRelation alloc] initWithAttributes:[attributes valueForKeyPath:@"relation"]];
     }
