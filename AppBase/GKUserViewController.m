@@ -985,15 +985,18 @@
         NSObject * object  =  [array objectAtIndex:k];
         if([object isKindOfClass:[GKEntity class]])
         {
-            i = k;
-            GKEntity * e =  (GKEntity * )object;
-            entity.pid = e.pid;
-            break;
+            if(((GKEntity*)object).entity_id == entity_id)
+            {
+                i = k;
+                GKEntity * e =  (GKEntity * )object;
+                entity.pid = e.pid;
+                break;
+            }
         }
     }
     if(i!=-1)
     {
-        [[[_dataArray objectAtIndex:entity.pid-1]objectForKey:@"row"] replaceObjectAtIndex:i withObject:entity];
+        [[[_dataArray objectAtIndex:[_dataArray indexOfObject:dic]]objectForKey:@"row"] replaceObjectAtIndex:i withObject:entity];
         break;
     }
 

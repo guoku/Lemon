@@ -491,18 +491,21 @@
         calendar.date = [NSDate date];
     }
     //[[NSUserDefaults standardUserDefaults] setObject:@(user.stage) forKey:@"userstage"];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    unsigned int unitFlags = NSDayCalendarUnit;
-    NSDate *startDate = [NSDate date];
-    NSDate *endDate = user.birth_date;
-    NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
-    int days = [comps day];
-    switch (user.stage) {
-        case 2:
-        {
-            if (days<0) {
-                user.stage = 3;
-                [user save];
+    if(user)
+    {
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        unsigned int unitFlags = NSDayCalendarUnit;
+        NSDate *startDate = [NSDate date];
+        NSDate *endDate = user.birth_date;
+        NSDateComponents *comps = [gregorian components:unitFlags fromDate:startDate  toDate:endDate  options:0];
+        int days = [comps day];
+        switch (user.stage) {
+            case 2:
+            {
+                if (days<0) {
+                    user.stage = 3;
+                    [user save];
+                }
             }
         }
     }
