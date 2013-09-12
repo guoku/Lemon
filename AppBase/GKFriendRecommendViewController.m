@@ -156,6 +156,15 @@
 
     
     self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44-42) style:UITableViewStylePlain];
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        view.hidden = NO;
+        self.table.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-44-42);
+    }
+    else
+    {
+        view.hidden = YES;
+        self.table.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-44);
+    }
     _table.backgroundColor =UIColorFromRGB(0xf9f9f9);
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.allowsSelection = NO;
