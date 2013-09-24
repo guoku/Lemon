@@ -251,6 +251,32 @@
     //_messageRemind.hidden = YES;
     [_messageRemind addSubview:newMessage];
     [self.window addSubview:_messageRemind];
+    NSDictionary * userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if(userInfo)
+    {
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        NSString * type = [[[userInfo objectForKey:@"aps"]objectForKey:@"message"]objectForKey:@"type"];
+        if([type isEqualToString:@"message"])
+        {
+            if ( application.applicationState == UIApplicationStateActive )
+            {
+                
+            }
+            else
+            {
+                needShowMessage = YES;
+            }
+        }
+        else if([type isEqualToString:@"broadcast"])
+        {
+            
+        }
+        else if([type isEqualToString:@"app_update"])
+        {
+            NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+        }
+    }
     
     return YES;
 }
@@ -315,6 +341,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     //[GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@",userInfo] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     NSString * type = [[[userInfo objectForKey:@"aps"]objectForKey:@"message"]objectForKey:@"type"];
     if([type isEqualToString:@"message"])
     {
@@ -336,6 +363,7 @@
         NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];
         [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
     }
+
     
 }
 - (void)applicationDidEnterBackground:(UIApplication *)application

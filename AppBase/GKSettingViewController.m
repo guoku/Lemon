@@ -324,7 +324,7 @@
     switch (path.row) {
         case 0:
         {
-            NSString* url = [NSString stringWithFormat: @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", kGK_AppID_iPhone];
+            NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/cn/app/id%@?mt=8", kGK_AppID_iPhone];
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
             
         }
