@@ -264,6 +264,7 @@
             }
             else
             {
+                
                 needShowMessage = YES;
             }
         }
@@ -341,7 +342,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     //[GKMessageBoard showMBWithText:[NSString stringWithFormat:@"%@",userInfo] customView:[[UIView alloc] initWithFrame:CGRectZero] delayTime:1.2];
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
     NSString * type = [[[userInfo objectForKey:@"aps"]objectForKey:@"message"]objectForKey:@"type"];
     if([type isEqualToString:@"message"])
     {
@@ -351,6 +352,7 @@
         }
         else
         {
+            [[UIApplication sharedApplication] cancelAllLocalNotifications];
             needShowMessage = YES;
         }
     }
