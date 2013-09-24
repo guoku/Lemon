@@ -108,7 +108,6 @@
 		4E387B6E17607C89005DA2EC /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2317607C89005DA2EC /* SVSegmentedControl.m */; };
 		4E387B6F17607C89005DA2EC /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2517607C89005DA2EC /* SVSegmentedThumb.m */; };
 		4E387B7017607C89005DA2EC /* GKTaobaoOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E387B2917607C89005DA2EC /* GKTaobaoOAuthViewController.m */; };
-		4E387B7217607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387B2E17607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a */; };
 		4E387B7317607C9A005DA2EC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387A9617607C29005DA2EC /* CoreData.framework */; };
 		4E387B7517607CA2005DA2EC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387B7417607CA2005DA2EC /* CoreText.framework */; };
 		4E387B7717607CAC005DA2EC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E387B7617607CAC005DA2EC /* AudioToolbox.framework */; };
@@ -571,6 +570,7 @@
 		4EDB15F31766411200B77684 /* GKLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB15F21766411200B77684 /* GKLeftViewController.m */; };
 		4EDB15FA176646DB00B77684 /* MMExampleDrawerVisualStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB15F9176646DB00B77684 /* MMExampleDrawerVisualStateManager.m */; };
 		4EDB2C881774084E0054DEFD /* TMLKeywordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB2C871774084E0054DEFD /* TMLKeywordViewController.m */; };
+		4EF8DA0D17F14DE10040CE01 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF8DA0A17F14DE10040CE01 /* libWeChatSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -763,9 +763,6 @@
 		4E387B2717607C89005DA2EC /* GKTaobaoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKTaobaoConfig.h; sourceTree = "<group>"; };
 		4E387B2817607C89005DA2EC /* GKTaobaoOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKTaobaoOAuthViewController.h; sourceTree = "<group>"; };
 		4E387B2917607C89005DA2EC /* GKTaobaoOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKTaobaoOAuthViewController.m; sourceTree = "<group>"; };
-		4E387B2E17607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK_armv7_armv7s.a; sourceTree = "<group>"; };
-		4E387B2F17607C89005DA2EC /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		4E387B3017607C89005DA2EC /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		4E387B7417607CA2005DA2EC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		4E387B7617607CAC005DA2EC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4E387B7817607CB8005DA2EC /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1342,6 +1339,9 @@
 		4EDB15F9176646DB00B77684 /* MMExampleDrawerVisualStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMExampleDrawerVisualStateManager.m; path = ../../AppBase/MMExampleDrawerVisualStateManager.m; sourceTree = "<group>"; };
 		4EDB2C861774084E0054DEFD /* TMLKeywordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLKeywordViewController.h; sourceTree = "<group>"; };
 		4EDB2C871774084E0054DEFD /* TMLKeywordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLKeywordViewController.m; sourceTree = "<group>"; };
+		4EF8DA0A17F14DE10040CE01 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		4EF8DA0B17F14DE10040CE01 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		4EF8DA0C17F14DE10040CE01 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1363,11 +1363,11 @@
 				4E387A7C17607A38005DA2EC /* Foundation.framework in Frameworks */,
 				4E387A7E17607A38005DA2EC /* CoreGraphics.framework in Frameworks */,
 				4E387B5117607C89005DA2EC /* libGoogleAnalytics.a in Frameworks */,
-				4E387B7217607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a in Frameworks */,
 				4E52A569179931AF000D4513 /* EGG.framework in Frameworks */,
 				4E58848D17A262020085FF3C /* libMobClickLibrary.a in Frameworks */,
 				4E58848E17A262020085FF3C /* libUMFeedback.a in Frameworks */,
 				4EAAAAA917C48C15000445B8 /* libUMAppNetwork_3.5.5.a in Frameworks */,
+				4EF8DA0D17F14DE10040CE01 /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1617,6 +1617,7 @@
 		4E387A7817607A38005DA2EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EF8DA0917F14DE10040CE01 /* WeiXin */,
 				4EAAAA9E17C48C15000445B8 /* UM_UNION_SDK */,
 				4E58848717A262020085FF3C /* UMeng */,
 				4E52A568179931AF000D4513 /* EGG.framework */,
@@ -1658,7 +1659,6 @@
 				4E387B1E17607C89005DA2EC /* SMPageControl */,
 				4E387B2117607C89005DA2EC /* SVSegmentedControl */,
 				4E387B2617607C89005DA2EC /* Taobao */,
-				4E387B2D17607C89005DA2EC /* WeiXin */,
 				4E387A7917607A38005DA2EC /* UIKit.framework */,
 				4E387A7B17607A38005DA2EC /* Foundation.framework */,
 				4E387A7D17607A38005DA2EC /* CoreGraphics.framework */,
@@ -1979,17 +1979,6 @@
 			);
 			name = Taobao;
 			path = Frameworks/Taobao;
-			sourceTree = "<group>";
-		};
-		4E387B2D17607C89005DA2EC /* WeiXin */ = {
-			isa = PBXGroup;
-			children = (
-				4E387B2E17607C89005DA2EC /* libWeChatSDK_armv7_armv7s.a */,
-				4E387B2F17607C89005DA2EC /* WXApi.h */,
-				4E387B3017607C89005DA2EC /* WXApiObject.h */,
-			);
-			name = WeiXin;
-			path = Frameworks/WeiXin;
 			sourceTree = "<group>";
 		};
 		4E387B8417607E6B005DA2EC /* HTKit */ = {
@@ -3024,6 +3013,16 @@
 			name = "关键字分类页";
 			sourceTree = "<group>";
 		};
+		4EF8DA0917F14DE10040CE01 /* WeiXin */ = {
+			isa = PBXGroup;
+			children = (
+				4EF8DA0A17F14DE10040CE01 /* libWeChatSDK.a */,
+				4EF8DA0B17F14DE10040CE01 /* WXApi.h */,
+				4EF8DA0C17F14DE10040CE01 /* WXApiObject.h */,
+			);
+			path = WeiXin;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3730,8 +3729,8 @@
 		4E387A9417607A38005DA2EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: zhou shijun (DF9H6UM9UC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: hui ter (PFQ3PE2779)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hui ter (PFQ3PE2779)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3746,10 +3745,11 @@
 					"\"$(SRCROOT)/Frameworks/WeiXin\"",
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
 					"\"$(SRCROOT)/UM_UNION_SDK\"",
+					"\"$(SRCROOT)/WeiXin\"",
 				);
 				PRODUCT_NAME = MMM;
-				PROVISIONING_PROFILE = "0F48AFF6-59B7-4C33-9583-7666427625EA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0F48AFF6-59B7-4C33-9583-7666427625EA";
+				PROVISIONING_PROFILE = "B3377018-55B7-40C1-91E5-FCF326E51263";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3377018-55B7-40C1-91E5-FCF326E51263";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3774,6 +3774,7 @@
 					"\"$(SRCROOT)/Frameworks/WeiXin\"",
 					"\"$(SRCROOT)/Frameworks/UMeng\"",
 					"\"$(SRCROOT)/UM_UNION_SDK\"",
+					"\"$(SRCROOT)/WeiXin\"",
 				);
 				PRODUCT_NAME = MMM;
 				PROVISIONING_PROFILE = "0F48AFF6-59B7-4C33-9583-7666427625EA";

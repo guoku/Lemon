@@ -95,7 +95,7 @@
     self.navigationController.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     [self.navigationController.toolbar setBackgroundImage:[[UIImage imageNamed:@"webview_toolbar.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIToolbarPositionAny];
+    //[self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIToolbarPositionAny];
     [self setToolbarItems:[NSArray arrayWithObjects:fixedSpaceBarButton1, closeWebview, fixedSpaceBarButton3, previousPage, fixedSpaceBarButton2, nextPage, fixedSpaceBarButton3, refreshWebview, fixedSpaceBarButton1, nil] animated:YES];
 
     self.navigationController.toolbar.frame = CGRectMake(self.navigationController.toolbar.frame.origin.x,self.navigationController.toolbar.frame.origin.y, kScreenWidth, 44);
