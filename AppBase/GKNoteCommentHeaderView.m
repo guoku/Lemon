@@ -71,6 +71,7 @@
         UIView * noteView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, self.frame.size.height - 125)];
         noteView.backgroundColor = UIColorFromRGB(0xf9f9f9);
         self.avatar = [[GKUserButton alloc]initWithFrame:CGRectZero useBg:NO cornerRadius:2];
+        //_avatar.delegate = self.delegate;
         [_avatar setFrame:CGRectMake(10, 13, 40, 40)];
         [noteView addSubview:_avatar];
         
@@ -283,6 +284,7 @@
 - (void)setDelegate:(id<GKDelegate>)delegate
 {
     _delegate = delegate;
+    self.avatar.delegate = self.delegate;
 }
 
 - (void)avatarButtonAction:(id)sender
@@ -317,6 +319,7 @@
 
     
     self.avatar.userBase = _noteData.creator;
+ 
     
     [self.nickname setText:[NSString stringWithFormat:@"%@ :",_noteData.creator.nickname]];
    
