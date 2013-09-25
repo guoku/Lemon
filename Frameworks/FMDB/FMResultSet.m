@@ -214,7 +214,7 @@
         return [n intValue];
     }
     
-    NSLog(@"Warning: I could not find the column named '%@'.", columnName);
+    //NSLog(@"Warning: I could not find the column named '%@'.", columnName);
     
     return -1;
 }

@@ -49,6 +49,7 @@
         self.detailHeaderView = [[GKDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 205)];
         self.detailHeaderView.delegate =self;
         self.navigationItem.titleView = [GKTitleView  setTitleLabel:@"商品"];
+        //self.navigationItem.titleView = [GKTitleView setTitleLabel:[NSString stringWithFormat:@"%u",_entity_id]];
         _message = [[NSMutableDictionary alloc]initWithCapacity:0];
         self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
     }
