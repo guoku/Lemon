@@ -151,7 +151,7 @@
         sid = [NSString stringWithFormat:@"%@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginTaobaoUserInfo"] objectForKey:@"sid"]];
     }
     
-    NSString *url = [NSString stringWithFormat:@"i%@.htm?ttid=%@&sid=%@", taobao_id, TTID,sid];
+    NSString *url = [NSString stringWithFormat:@"i%@.htm?ttid=%@&sid=%@&sche=tb21563453", taobao_id, TTID,sid];
     GKLog(@"%@",url);
     
     DPCardWebViewController * _webVC = [DPCardWebViewController linksWebViewControllerWithURL:[NSURL URLWithString:url relativeToURL:kTaoBaoBaseWapURL]];
@@ -175,7 +175,7 @@
         sid = [NSString stringWithFormat:@"%@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginTaobaoUserInfo"] objectForKey:@"sid"]];
     }
     taobao_url = [taobao_url stringByReplacingOccurrencesOfString:@"&type=mobile" withString:@""];
-    NSString *url = [NSString stringWithFormat:@"%@&ttid=%@&sid=%@&type=mobile&outer_code=IPE",taobao_url, TTID,sid];
+    NSString *url = [NSString stringWithFormat:@"%@&ttid=%@&sid=%@&type=mobile&outer_code=IPE&sche=tb21563453",taobao_url, TTID,sid];
     GKUser *user = [[GKUser alloc ]initFromNSU];
     if(user.user_id !=0)
     {

@@ -106,7 +106,7 @@
     
     self.view.frame = CGRectMake(0, 0, kScreenWidth,kScreenHeight);
     
-    UIImageView * BgImg = [[UIImageView alloc] initWithFrame:CGRectMake(8,8,kScreenWidth-16,kScreenHeight-320)];
+    UIImageView * BgImg = [[UIImageView alloc] initWithFrame:CGRectMake(8,8,kScreenWidth-16,kScreenHeight-260)];
     [BgImg setImage:[[UIImage imageNamed:@"cell_bg_all.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:2]];
     [BgImg setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:BgImg];
@@ -238,10 +238,10 @@
     NSString *postContent = [NSString stringWithFormat:@"%@%@",_textView.text,clickUrl];
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
             SinaWeibo *sinaweibo = [self sinaweibo];
-            [sinaweibo requestWithURL:@"statuses/upload.json"
-                               params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       postContent, @"status",
-                                       self.entityImageView.image, @"pic", nil]
+    [sinaweibo requestWithURL:@"statuses/upload_url_text.json"
+                       params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                               postContent, @"status",
+                               [_detailData.imageURL absoluteString], @"url", nil]
                            httpMethod:@"POST"
                              delegate:self];
 }

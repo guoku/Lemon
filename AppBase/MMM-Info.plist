@@ -56,6 +56,16 @@
 				<string>mamaqingdan</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.mamaqingdan.iphone</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tb21563453</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1000</string>
