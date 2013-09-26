@@ -1058,10 +1058,10 @@
     NSString *postContent = [NSString stringWithFormat:@"%@%@",@"",clickUrl];
     [GKMessageBoard showMBWithText:nil customView:nil delayTime:0.0];
     SinaWeibo *sinaweibo = [self sinaweibo];
-    [sinaweibo requestWithURL:@"statuses/upload.json"
+    [sinaweibo requestWithURL:@"statuses/upload_url_text.json"
                        params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                postContent, @"status",
-                               [UIImage imageNamed: @"wxshare.png"], @"pic", nil]
+                               @"http://static.guoku.com/static/images/mm-weibo-share.png", @"url", nil]
                    httpMethod:@"POST"
                      delegate:self];
 }

@@ -202,6 +202,16 @@
     }
     
 }
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    //NSLog(@"%@",request);
+    if(navigationType == UIWebViewNavigationTypeLinkClicked)
+    {
+        _previousPageBtn.enabled = YES;
+    }
+    
+    return YES;
+}
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
